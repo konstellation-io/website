@@ -1,0 +1,31 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Konstellation – Getting Started</title><link>https://konstellation-io.github.io/website/docs/getting-started/</link><description>Recent content in Getting Started on Konstellation</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><atom:link href="https://konstellation-io.github.io/website/docs/getting-started/index.xml" rel="self" type="application/rss+xml"/><item><title>Docs: Konstellation Overview</title><link>https://konstellation-io.github.io/website/docs/getting-started/overview/</link><pubDate>Wed, 05 Aug 2020 00:00:00 +0000</pubDate><guid>https://konstellation-io.github.io/website/docs/getting-started/overview/</guid><description>
+&lt;h2 id="why-konstellation">Why Konstellation?&lt;/h2>
+&lt;div class="card rounded p-2 td-post-card mb-4 mt-4" style="max-width: 1010px">
+&lt;img class="card-img-top" src="https://konstellation-io.github.io/website/website/docs/getting-started/overview/flow_hudaf05d05c5be07849fdac647f05abf56_324784_1000x0_resize_catmullrom_2.png" width="1000" height="334">
+&lt;div class="card-body px-0 pt-2 pb-0">
+&lt;p class="card-text">
+&lt;/p>
+&lt;/div>
+&lt;/div>
+&lt;div class="card rounded p-2 td-post-card mb-4 mt-4" style="max-width: 1010px">
+&lt;img class="card-img-top" src="https://konstellation-io.github.io/website/website/docs/getting-started/overview/build_hu12623ddcd1bcd28512f80f87d2baf775_607211_1000x0_resize_catmullrom_2.png" width="1000" height="471">
+&lt;div class="card-body px-0 pt-2 pb-0">
+&lt;p class="card-text">
+Build process
+&lt;/p>
+&lt;/div>
+&lt;/div>
+&lt;div class="card rounded p-2 td-post-card mb-4 mt-4" style="max-width: 1010px">
+&lt;img class="card-img-top" src="https://konstellation-io.github.io/website/website/docs/getting-started/overview/tech-stack_hu83b59ea4808e7f2e5983f2f2ff420682_486978_1000x0_resize_catmullrom_2.png" width="1000" height="365">
+&lt;div class="card-body px-0 pt-2 pb-0">
+&lt;p class="card-text">
+&lt;/p>
+&lt;/div>
+&lt;/div>
+&lt;div class="card rounded p-2 td-post-card mb-4 mt-4" style="max-width: 1010px">
+&lt;img class="card-img-top" src="https://konstellation-io.github.io/website/website/docs/getting-started/overview/scale_hu052b3892491c4e2f69976a713719153a_495793_1000x0_resize_catmullrom_2.png" width="1000" height="467">
+&lt;div class="card-body px-0 pt-2 pb-0">
+&lt;p class="card-text">
+&lt;/p>
+&lt;/div>
+&lt;/div></description></item></channel></rss>
