@@ -95,27 +95,44 @@ run and a YAML file called &lt;code>kre.yml&lt;/code> with the desired workflows
 &lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>&lt;span style="color:#204a87;font-weight:bold">entrypoint&lt;/span>&lt;span style="color:#000;font-weight:bold">:&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>SaveClientMetric&lt;span style="color:#f8f8f8;text-decoration:underline">
 &lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>&lt;span style="color:#204a87;font-weight:bold">sequential&lt;/span>&lt;span style="color:#000;font-weight:bold">:&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline">
 &lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>- client-metrics&lt;span style="color:#f8f8f8;text-decoration:underline">
-&lt;/span>&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>Docs: Installing KRE</title><link>https://konstellation-io.github.io/website/docs/kre/installing-kre/</link><pubDate>Tue, 04 Aug 2020 00:00:00 +0000</pubDate><guid>https://konstellation-io.github.io/website/docs/kre/installing-kre/</guid><description>
-&lt;p>KRE can be installed only on top of a Kubernetes cluster, and is packetized as a Helm Chart. In order to install it
-just need to download the desired Chart version, define your custom &lt;code>values.yaml&lt;/code> and run the following command.&lt;/p>
-&lt;div class="highlight">&lt;pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">helm repo add konstellation-ce https://charts.konstellation.io
-helm upgrade --install --namespace kre --values ./custom-values.yaml kre-v1.0.0
-&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="custom-installation">Custom Installation&lt;/h2>
-&lt;p>KRE allows a custom configuration to use parts that already exist in your infrastructure.&lt;/p>
-&lt;h3 id="prometheus">Prometheus&lt;/h3>
+&lt;/span>&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>Docs: Installing KRE</title><link>https://konstellation-io.github.io/website/docs/kre/installing-kre/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://konstellation-io.github.io/website/docs/kre/installing-kre/</guid><description>
+&lt;p>KRE can be installed on top of a Kubernetes cluster using the &lt;a href="https://helm.sh/">Helm&lt;/a> package manager.&lt;/p>
+&lt;h2 id="prerequisites">Prerequisites&lt;/h2>
 &lt;ul>
-&lt;li>Prometheus will be installed by default if you prefer use your own prometheus, use this helm parameter:&lt;/li>
+&lt;li>Helm v3 or later&lt;/li>
+&lt;li>Kubernetes v1.15+&lt;/li>
 &lt;/ul>
+&lt;h2 id="install-the-chart">Install the chart&lt;/h2>
+&lt;ol>
+&lt;li>Add the Konstellation Helm repository:&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">helm repo add konstellation-io https://charts.konstellation.io
+&lt;/code>&lt;/pre>&lt;/div>&lt;ol start="2">
+&lt;li>Optionally, create a namespace to deploy all KRE components or skip this step using a created one:&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">kubectl create namespace kre
+&lt;/code>&lt;/pre>&lt;/div>&lt;ol start="3">
+&lt;li>Run the following command, providing a name for your KRE release (in this case &lt;code>kre&lt;/code>) and specifying the namespace:&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">helm upgrade --install kre --namespace kre konstellation-io/kre
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="uninstall-the-chart">Uninstall the chart&lt;/h2>
+&lt;p>To uninstall the &lt;code>kre&lt;/code> deployment, use the following command:&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">helm uninstall kre
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>This command removes all the Kubernetes components associated with the chart and deletes the release.&lt;/p>
+&lt;h2 id="configure-the-chart">Configure the chart&lt;/h2>
+&lt;p>The following table lists configurable parameters, their descriptions, and their default values stored in values.yaml.&lt;/p>
 &lt;table>
 &lt;thead>
 &lt;tr>
 &lt;th>Param&lt;/th>
+&lt;th>Description&lt;/th>
 &lt;th>Value&lt;/th>
 &lt;/tr>
 &lt;/thead>
 &lt;tbody>
 &lt;tr>
 &lt;td>prometheusOperator.enabled&lt;/td>
+&lt;td>Prometheus will be installed by default if you prefer use your own prometheus&lt;/td>
 &lt;td>false&lt;/td>
 &lt;/tr>
 &lt;/tbody>
