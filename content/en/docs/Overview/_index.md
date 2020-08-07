@@ -1,10 +1,9 @@
 ---
-title: "Konstellation Overview"
-linkTitle: "Konstellation Overview"
-date: 2020-08-05
+title: "Overview"
+linkTitle: "Overview"
+weight: 1
 description: >
-  How Konstellation helps you to develop your AI solutions.
-weight: 10
+  How to get started using Konstellation.
 ---
 
 ## Why Konstellation?
