@@ -1,27 +1,52 @@
 ---
 title: "Installing KRE"
 linkTitle: "Installing KRE"
-date: 2020-08-04
 description: >
   Overview of installation choices for various environments
 weight: 20
 ---
 
-KRE can be installed only on top of a Kubernetes cluster, and is packetized as a Helm Chart. In order to install it 
-just need to download the desired Chart version, define your custom `values.yaml` and run the following command.
+KRE can be installed on top of a Kubernetes cluster using the [Helm](https://helm.sh/) package manager.
+
+## Prerequisites
+
+* Helm v3 or later
+* Kubernetes v1.15+
+
+## Install the chart
+
+1. Add the Konstellation Helm repository:
 
 ```bash
-helm repo add konstellation-ce https://charts.konstellation.io
-helm upgrade --install --namespace kre --values ./custom-values.yaml kre-v1.0.0
+helm repo add konstellation-io https://charts.konstellation.io
 ```
 
-## Custom Installation
-KRE allows a custom configuration to use parts that already exist in your infrastructure.
+2. Optionally, create a namespace to deploy all KRE components or skip this step using a created one:
 
-### Prometheus
+```bash
+kubectl create namespace kre
+```
 
-- Prometheus will be installed by default if you prefer use your own prometheus, use this helm parameter:
+3. Run the following command, providing a name for your KRE release (in this case `kre`) and specifying the namespace:
 
-|       Param                | Value |
-| -------------------------- | ----- |
-| prometheusOperator.enabled | false |
+```bash
+helm upgrade --install kre --namespace kre konstellation-io/kre
+```
+
+## Uninstall the chart
+
+To uninstall the `kre` deployment, use the following command:
+
+```bash
+helm uninstall kre
+```
+
+This command removes all the Kubernetes components associated with the chart and deletes the release.
+
+## Configure the chart
+
+The following table lists configurable parameters, their descriptions, and their default values stored in values.yaml.
+
+| Param | Description | Value |
+| --- | --- | --- |
+| prometheusOperator.enabled | Prometheus will be installed by default if you prefer use your own prometheus | false |
