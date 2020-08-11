@@ -48,7 +48,7 @@
 KRE Architecture.
 &lt;/p>
 &lt;/div>
-&lt;/div></description></item><item><title>Docs: Installing KRE</title><link>https://konstellation-io.github.io/website/docs/kre/installation/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://konstellation-io.github.io/website/docs/kre/installation/</guid><description/></item><item><title>Docs: KRT</title><link>https://konstellation-io.github.io/website/docs/kre/krt/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://konstellation-io.github.io/website/docs/kre/krt/</guid><description>
+&lt;/div></description></item><item><title>Docs: Installation</title><link>https://konstellation-io.github.io/website/docs/kre/installation/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://konstellation-io.github.io/website/docs/kre/installation/</guid><description/></item><item><title>Docs: KRT</title><link>https://konstellation-io.github.io/website/docs/kre/krt/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://konstellation-io.github.io/website/docs/kre/krt/</guid><description>
 &lt;p>Konstellation Runtime Transport is a compressed file with the definition of a runtime version, included the code to
 run and a YAML file called &lt;code>kre.yml&lt;/code> with the desired workflows definitions.&lt;/p>
 &lt;p>The base structure of a &lt;code>kre.yml&lt;/code> is as follows:&lt;/p>
