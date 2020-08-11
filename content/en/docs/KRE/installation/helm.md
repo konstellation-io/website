@@ -1,17 +1,17 @@
 ---
-title: "Installing KRE"
-linkTitle: "Installing KRE"
+title: "HELM"
+linkTitle: "HELM"
 description: >
-  Overview of installation choices for various environments
-weight: 20
+  HELM
+weight: 5
 ---
 
 KRE can be installed on top of a Kubernetes cluster using the [Helm](https://helm.sh/) package manager.
 
 ## Prerequisites
 
-* Helm v3 or later
-* Kubernetes v1.15+
+- Helm v3 or later
+- Kubernetes v1.15+
 
 ## Install the chart
 
@@ -47,6 +47,6 @@ This command removes all the Kubernetes components associated with the chart and
 
 The following table lists configurable parameters, their descriptions, and their default values stored in values.yaml.
 
-| Param | Description | Value |
-| --- | --- | --- |
+| Param                      | Description                                                                   | Value |
+| -------------------------- | ----------------------------------------------------------------------------- | ----- |
 | prometheusOperator.enabled | Prometheus will be installed by default if you prefer use your own prometheus | false |
