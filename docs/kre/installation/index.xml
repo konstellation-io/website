@@ -1,0 +1,42 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Konstellation – Installing KRE</title><link>https://konstellation-io.github.io/website/docs/kre/installation/</link><description>Recent content in Installing KRE on Konstellation</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><atom:link href="https://konstellation-io.github.io/website/docs/kre/installation/index.xml" rel="self" type="application/rss+xml"/><item><title>Docs: HELM</title><link>https://konstellation-io.github.io/website/docs/kre/installation/helm/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://konstellation-io.github.io/website/docs/kre/installation/helm/</guid><description>
+&lt;p>KRE can be installed on top of a Kubernetes cluster using the &lt;a href="https://helm.sh/">Helm&lt;/a> package manager.&lt;/p>
+&lt;h2 id="prerequisites">Prerequisites&lt;/h2>
+&lt;ul>
+&lt;li>Helm v3 or later&lt;/li>
+&lt;li>Kubernetes v1.15+&lt;/li>
+&lt;/ul>
+&lt;h2 id="install-the-chart">Install the chart&lt;/h2>
+&lt;ol>
+&lt;li>Add the Konstellation Helm repository:&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">helm repo add konstellation-io https://charts.konstellation.io
+&lt;/code>&lt;/pre>&lt;/div>&lt;ol start="2">
+&lt;li>Optionally, create a namespace to deploy all KRE components or skip this step using a created one:&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">kubectl create namespace kre
+&lt;/code>&lt;/pre>&lt;/div>&lt;ol start="3">
+&lt;li>Run the following command, providing a name for your KRE release (in this case &lt;code>kre&lt;/code>) and specifying the namespace:&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">helm upgrade --install kre --namespace kre konstellation-io/kre
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="uninstall-the-chart">Uninstall the chart&lt;/h2>
+&lt;p>To uninstall the &lt;code>kre&lt;/code> deployment, use the following command:&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">helm uninstall kre
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>This command removes all the Kubernetes components associated with the chart and deletes the release.&lt;/p>
+&lt;h2 id="configure-the-chart">Configure the chart&lt;/h2>
+&lt;p>The following table lists configurable parameters, their descriptions, and their default values stored in values.yaml.&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Param&lt;/th>
+&lt;th>Description&lt;/th>
+&lt;th>Value&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>prometheusOperator.enabled&lt;/td>
+&lt;td>Prometheus will be installed by default if you prefer use your own prometheus&lt;/td>
+&lt;td>false&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table></description></item><item><title>Docs: Minikube</title><link>https://konstellation-io.github.io/website/docs/kre/installation/minikube/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://konstellation-io.github.io/website/docs/kre/installation/minikube/</guid><description/></item><item><title>Docs: GKE</title><link>https://konstellation-io.github.io/website/docs/kre/installation/gke/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://konstellation-io.github.io/website/docs/kre/installation/gke/</guid><description/></item><item><title>Docs: EKS</title><link>https://konstellation-io.github.io/website/docs/kre/installation/eks/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://konstellation-io.github.io/website/docs/kre/installation/eks/</guid><description/></item></channel></rss>
