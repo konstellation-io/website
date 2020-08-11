@@ -1,7 +1,7 @@
 ---
 title: "GKE"
-linkTitle: "Installing on GKE"
+linkTitle: "GKE"
 description: >
-  Installing on GKE
+  Required configuration to installing KRE on GKE.
 weight: 20
 ---

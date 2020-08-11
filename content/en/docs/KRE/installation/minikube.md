@@ -1,7 +1,7 @@
 ---
 title: "Minikube"
-linkTitle: "Installing on Minikube"
+linkTitle: "Minikube"
 description: >
-  Installing on Minikube
+  Steps to deploy KRE on your local machine with Minikube.
 weight: 10
 ---

@@ -1,8 +1,8 @@
 ---
-title: "HELM"
-linkTitle: "HELM"
+title: "Helm basics"
+linkTitle: "Helm basics"
 description: >
-  HELM
+  Basic steps to deploy KRE with Helm on an already running Kubernetes cluster.
 weight: 5
 ---
 
@@ -43,10 +43,4 @@ helm uninstall kre
 
 This command removes all the Kubernetes components associated with the chart and deletes the release.
 
-## Configure the chart
 
-The following table lists configurable parameters, their descriptions, and their default values stored in values.yaml.
-
-| Param                      | Description                                                                   | Value |
-| -------------------------- | ----------------------------------------------------------------------------- | ----- |
-| prometheusOperator.enabled | Prometheus will be installed by default if you prefer use your own prometheus | false |
