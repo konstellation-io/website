@@ -71,7 +71,7 @@
 KRE Architecture.
 &lt;/p>
 &lt;/div>
-&lt;/div></description></item><item><title>Docs: Minikube</title><link>https://konstellation-io.github.io/website/docs/kre/installation/minikube/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://konstellation-io.github.io/website/docs/kre/installation/minikube/</guid><description/></item><item><title>Docs: Overview</title><link>https://konstellation-io.github.io/website/docs/kre/krt/overview/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://konstellation-io.github.io/website/docs/kre/krt/overview/</guid><description>
+&lt;/div></description></item><item><title>Docs: Minikube</title><link>https://konstellation-io.github.io/website/docs/kre/installation/minikube/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://konstellation-io.github.io/website/docs/kre/installation/minikube/</guid><description/></item><item><title>Docs: Overview</title><link>https://konstellation-io.github.io/website/docs/krt/overview/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://konstellation-io.github.io/website/docs/krt/overview/</guid><description>
 &lt;p>KRT stands for &lt;strong>Konstellation Runtime Transport&lt;/strong>.&lt;/p>
 &lt;p>Is the file format used in Konstellation as an easy way to move between Development (KDL) to Production (KRE) environments.&lt;/p>
 &lt;p>A KRT file is a single and self-contained file with everything needed for a solution to be deployed on KRE.&lt;/p>
@@ -83,7 +83,7 @@ of Runtime Version.&lt;/p>
 &lt;li>a definition YAML file named &lt;code>krt.yml&lt;/code>.&lt;/li>
 &lt;li>source code of all components.&lt;/li>
 &lt;li>assets needed by each component.&lt;/li>
-&lt;/ul></description></item><item><title>Docs: Folder structure</title><link>https://konstellation-io.github.io/website/docs/kre/krt/folder_structure/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://konstellation-io.github.io/website/docs/kre/krt/folder_structure/</guid><description>
+&lt;/ul></description></item><item><title>Docs: Folder structure</title><link>https://konstellation-io.github.io/website/docs/krt/folder_structure/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://konstellation-io.github.io/website/docs/krt/folder_structure/</guid><description>
 &lt;p>The KRT file contains all assets and source code needed for the given version to run.&lt;/p>
 &lt;p>The mandatory rules are these:&lt;/p>
 &lt;ul>
@@ -94,7 +94,7 @@ of Runtime Version.&lt;/p>
 &lt;h2 id="structure-guidelines">Structure guidelines&lt;/h2>
 &lt;p>This is how we structure or KRT files, and it&amp;rsquo;s probably the way it will be exported automatically from KDL.&lt;/p>
 &lt;h3 id="example-structure">Example structure&lt;/h3>
-&lt;p>&lt;em>&lt;strong>NOTE&lt;/strong>&lt;/em>: This example match with the &lt;code>krt.yml&lt;/code> file used in &lt;a href="https://konstellation-io.github.io/website/website/docs/kre/krt/krt_yaml_file/#example-file">krt.yml file example&lt;/a>&lt;/p>
+&lt;p>&lt;em>&lt;strong>NOTE&lt;/strong>&lt;/em>: This example match with the &lt;code>krt.yml&lt;/code> file used in &lt;a href="https://konstellation-io.github.io/website/website/docs/krt/krt_yaml_file/#example-file">krt.yml file example&lt;/a>&lt;/p>
 &lt;pre>&lt;code>&amp;lt;root_folder&amp;gt;
 - bin
 - client-metrics # Go compiled binary for client-metric node
@@ -177,7 +177,7 @@ helm upgrade --install &lt;span style="color:#4e9a06">\
 &lt;p>All the access to KRE services require of hostnames, due to the use of Ingress object and certificates. In order to get a
 deployment and management processes easier we recommend to delegate a subdomain to a &lt;code>Route53&lt;/code> DNS zone, and create a wildcard
 entry pointing to the Load Balancer of the Ingress Controller.&lt;/p>
-&lt;h1 id="helm-deployment">Helm deployment&lt;/h1></description></item><item><title>Docs: krt.yml</title><link>https://konstellation-io.github.io/website/docs/kre/krt/krt_yaml_file/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://konstellation-io.github.io/website/docs/kre/krt/krt_yaml_file/</guid><description>
+&lt;h1 id="helm-deployment">Helm deployment&lt;/h1></description></item><item><title>Docs: krt.yml</title><link>https://konstellation-io.github.io/website/docs/krt/krt_yaml_file/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://konstellation-io.github.io/website/docs/krt/krt_yaml_file/</guid><description>
 &lt;p>This is a declarative file describing the content of the KRT.&lt;/p>
 &lt;p>This file has general description of the Runtime Version, a GRPC entrypoint for the Runtime Version, nodes that are
 connected between each other to form workflows that will be access through GRPC services defined on the entrypoint.&lt;/p>
@@ -237,7 +237,7 @@ exist on the node list defined above.&lt;/li>
 &lt;/li>
 &lt;/ul>
 &lt;h2 id="example-file">Example file&lt;/h2>
-&lt;p>This is a complete &lt;code>krt.yml&lt;/code> example matching the folder structure shown &lt;a href="https://konstellation-io.github.io/website/website/docs/kre/krt/folder_structure/#example-structure">here&lt;/a>&lt;/p>
+&lt;p>This is a complete &lt;code>krt.yml&lt;/code> example matching the folder structure shown &lt;a href="https://konstellation-io.github.io/website/website/docs/krt/folder_structure/#example-structure">here&lt;/a>&lt;/p>
 &lt;div class="highlight">&lt;pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#204a87;font-weight:bold">version&lt;/span>&lt;span style="color:#000;font-weight:bold">:&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>example-project&lt;span style="color:#f8f8f8;text-decoration:underline">
 &lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline">&lt;/span>&lt;span style="color:#204a87;font-weight:bold">description&lt;/span>&lt;span style="color:#000;font-weight:bold">:&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>This&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>is&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>an&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>example&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>of&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>a&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>ML&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>project.&lt;span style="color:#f8f8f8;text-decoration:underline">
 &lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline">&lt;/span>&lt;span style="color:#204a87;font-weight:bold">entrypoint&lt;/span>&lt;span style="color:#000;font-weight:bold">:&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline">
@@ -501,7 +501,7 @@ Use this action when you want to delete all associated resources in kubernetes f
 The collected logs and metrics will be persisted after stopping.&lt;/p>
 &lt;h3 id="publish-a-version">Publish a version&lt;/h3>
 &lt;p>A started version with all nodes on green means that the version is ready to receive messages but it is not .
-You can use this state to be sure that all pieces of the workflow are working correctly before publishing.&lt;/p></description></item><item><title>Docs: Create a KRT file</title><link>https://konstellation-io.github.io/website/docs/kre/krt/create_a_krt/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://konstellation-io.github.io/website/docs/kre/krt/create_a_krt/</guid><description>
+You can use this state to be sure that all pieces of the workflow are working correctly before publishing.&lt;/p></description></item><item><title>Docs: Create a KRT file</title><link>https://konstellation-io.github.io/website/docs/krt/create_a_krt/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://konstellation-io.github.io/website/docs/krt/create_a_krt/</guid><description>
 &lt;p>The end goal of Konstellation is to automate the generation of KRT files directly from KDL. This is currently on the list
 of features to add on KDL but not developed yet.&lt;/p>
 &lt;p>So, in order to create a KRT file, you need to create your own custom scripts to generate KRT files. Basically you need
