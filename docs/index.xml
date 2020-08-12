@@ -71,7 +71,51 @@
 KRE Architecture.
 &lt;/p>
 &lt;/div>
-&lt;/div></description></item><item><title>Docs: Minikube</title><link>https://konstellation-io.github.io/website/docs/kre/installation/minikube/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://konstellation-io.github.io/website/docs/kre/installation/minikube/</guid><description/></item><item><title>Docs: GKE</title><link>https://konstellation-io.github.io/website/docs/kre/installation/gke/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://konstellation-io.github.io/website/docs/kre/installation/gke/</guid><description/></item><item><title>Docs: EKS</title><link>https://konstellation-io.github.io/website/docs/kre/installation/eks/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://konstellation-io.github.io/website/docs/kre/installation/eks/</guid><description>
+&lt;/div></description></item><item><title>Docs: Minikube</title><link>https://konstellation-io.github.io/website/docs/kre/installation/minikube/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://konstellation-io.github.io/website/docs/kre/installation/minikube/</guid><description/></item><item><title>Docs: Overview</title><link>https://konstellation-io.github.io/website/docs/kre/krt/overview/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://konstellation-io.github.io/website/docs/kre/krt/overview/</guid><description>
+&lt;p>KRT stands for &lt;strong>Konstellation Runtime Transport&lt;/strong>.&lt;/p>
+&lt;p>Is the file format used in Konstellation as an easy way to move between Development (KDL) to Production (KRE) environments.&lt;/p>
+&lt;p>A KRT file is a single and self-contained file with everything needed for a solution to be deployed on KRE.&lt;/p>
+&lt;p>A KRT file is compressed in &lt;code>.tar.gz&lt;/code> format and renamed to &lt;code>.krt&lt;/code> extension, it contains definition and all components
+of Runtime Version.&lt;/p>
+&lt;h2 id="krt-file-contents">KRT file contents&lt;/h2>
+&lt;p>A KRT file defines a Runtime Version, it includes the following:&lt;/p>
+&lt;ul>
+&lt;li>a definition YAML file named &lt;code>krt.yml&lt;/code>.&lt;/li>
+&lt;li>source code of all components.&lt;/li>
+&lt;li>assets needed by each component.&lt;/li>
+&lt;/ul></description></item><item><title>Docs: Folder structure</title><link>https://konstellation-io.github.io/website/docs/kre/krt/folder_structure/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://konstellation-io.github.io/website/docs/kre/krt/folder_structure/</guid><description>
+&lt;p>The KRT file contains all assets and source code needed for the given version to run.&lt;/p>
+&lt;p>The mandatory rules are these:&lt;/p>
+&lt;ul>
+&lt;li>a &lt;code>krt.yml&lt;/code> file on the root folder.&lt;/li>
+&lt;li>(optional) a README.md file inside a &lt;code>docs&lt;/code> folder.&lt;/li>
+&lt;/ul>
+&lt;p>Other than that you are free to structure the content as you see fit.&lt;/p>
+&lt;h2 id="structure-guidelines">Structure guidelines&lt;/h2>
+&lt;p>This is how we structure or KRT files, and it&amp;rsquo;s probably the way it will be exported automatically from KDL.&lt;/p>
+&lt;h3 id="example-structure">Example structure&lt;/h3>
+&lt;p>&lt;em>&lt;strong>NOTE&lt;/strong>&lt;/em>: This example match with the &lt;code>krt.yml&lt;/code> file used in &lt;a href="https://konstellation-io.github.io/website/website/docs/kre/krt/krt_yaml_file/#example-file">krt.yml file example&lt;/a>&lt;/p>
+&lt;pre>&lt;code>&amp;lt;root_folder&amp;gt;
+- bin
+- client-metrics # Go compiled binary for client-metric node
+- docs
+- README.md # Documentation showed as HTML on KRE
+- models # Model assets used on execute_model node
+model.joblib
+encoder.joblib
+- src # Source code of each node
+- etl
+- execute_etl.py
+- execute_model
+- execute_model.py
+- output
+- output.py
+- client-metrics
+- main.go
+- go.mod
+- kry.yml # KRT file definition
+- public_input.proto # Used to define entrypoint GRPC messages and services.
+&lt;/code>&lt;/pre></description></item><item><title>Docs: GKE</title><link>https://konstellation-io.github.io/website/docs/kre/installation/gke/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://konstellation-io.github.io/website/docs/kre/installation/gke/</guid><description/></item><item><title>Docs: EKS</title><link>https://konstellation-io.github.io/website/docs/kre/installation/eks/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://konstellation-io.github.io/website/docs/kre/installation/eks/</guid><description>
 &lt;h1 id="eks-deployment">EKS deployment&lt;/h1>
 &lt;p>The flavor of Kubernetes on AWS is called EKS (Elastic Kubernetes Service) which allow to deploy a cluster managed by Amazon. This means that Amazon will manage the lifecyle of the Master nodes of our cluster.&lt;/p>
 &lt;p>Currently there are two ways of run loads on top of EKS, using EC2 instances as compute nodes that are added to to the cluster or using the Fargate mode, where AWS also manage these compute nodes. In this guide is just described the first one, adding our own compute nodes with EC2 instances.&lt;/p>
@@ -133,10 +177,67 @@ helm upgrade --install &lt;span style="color:#4e9a06">\
 &lt;p>All the access to KRE services require of hostnames, due to the use of Ingress object and certificates. In order to get a
 deployment and management processes easier we recommend to delegate a subdomain to a &lt;code>Route53&lt;/code> DNS zone, and create a wildcard
 entry pointing to the Load Balancer of the Ingress Controller.&lt;/p>
-&lt;h1 id="helm-deployment">Helm deployment&lt;/h1></description></item><item><title>Docs: KRT</title><link>https://konstellation-io.github.io/website/docs/kre/krt/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://konstellation-io.github.io/website/docs/kre/krt/</guid><description>
-&lt;p>Konstellation Runtime Transport is a compressed file with the definition of a runtime version, included the code to
-run and a YAML file called &lt;code>kre.yml&lt;/code> with the desired workflows definitions.&lt;/p>
-&lt;p>The base structure of a &lt;code>kre.yml&lt;/code> is as follows:&lt;/p>
+&lt;h1 id="helm-deployment">Helm deployment&lt;/h1></description></item><item><title>Docs: krt.yml</title><link>https://konstellation-io.github.io/website/docs/kre/krt/krt_yaml_file/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://konstellation-io.github.io/website/docs/kre/krt/krt_yaml_file/</guid><description>
+&lt;p>This is a declarative file describing the content of the KRT.&lt;/p>
+&lt;p>This file has general description of the Runtime Version, a GRPC entrypoint for the Runtime Version, nodes that are
+connected between each other to form workflows that will be access through GRPC services defined on the entrypoint.&lt;/p>
+&lt;h2 id="definition">Definition&lt;/h2>
+&lt;p>Here is a description of each field divided in five main concepts that make a KRT file:&lt;/p>
+&lt;h3 id="metadata">Metadata&lt;/h3>
+&lt;p>Descriptive information of the Runtime Version.&lt;/p>
+&lt;ul>
+&lt;li>&lt;strong>version&lt;/strong>: the unique ID of this version.&lt;/li>
+&lt;li>&lt;strong>description&lt;/strong>: brief text describing the content or functionality of this version.&lt;/li>
+&lt;/ul>
+&lt;h3 id="entrypoint">Entrypoint&lt;/h3>
+&lt;p>This section describes how to access the Runtime Version.&lt;/p>
+&lt;ul>
+&lt;li>&lt;strong>entrypoint&lt;/strong>:
+&lt;ul>
+&lt;li>&lt;strong>proto&lt;/strong>: protobuffer file describing messages and services contained in this Runtime Version.&lt;/li>
+&lt;li>&lt;strong>image&lt;/strong>: base image adn tag used to run the entrypoint service. It&amp;rsquo;s provided by Konstellation registry.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;h3 id="configuration">Configuration&lt;/h3>
+&lt;p>This section describes all variables and files that are environment related and would be configured once the Runtime Version
+is uploaded to a KRE instance. This includes sensible data that should not be included on the KRT file, for example passwords.&lt;/p>
+&lt;p>All configuration defined here is mandatory, the Runtime Version won&amp;rsquo;t run if any of them is undefined.&lt;/p>
+&lt;ul>
+&lt;li>&lt;strong>config&lt;/strong>:
+&lt;ul>
+&lt;li>&lt;strong>variables&lt;/strong>: list of variable names that needs to be defined in KRE.&lt;/li>
+&lt;li>&lt;strong>files&lt;/strong>: list of file names that needs to be filled in KRE.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;h3 id="nodes">Nodes&lt;/h3>
+&lt;p>This section includes a list of all existing components in the KRT file. Each component of a Runtime Version is a node.
+To define each node in the krt file, you need to specify a name, a base image and its main source file.&lt;/p>
+&lt;ul>
+&lt;li>&lt;strong>nodes&lt;/strong> (a list of):
+&lt;ul>
+&lt;li>&lt;strong>name&lt;/strong>: an identifier text, must be unique in the node list.&lt;/li>
+&lt;li>&lt;strong>image&lt;/strong>: a base image provided by Konstellation used to run this node. It&amp;rsquo;s provided by Konstellation registry.&lt;/li>
+&lt;li>&lt;strong>src&lt;/strong>: a path relative to the root of the KRT file pointing to the source file used to run this component.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;h3 id="workflows">Workflows&lt;/h3>
+&lt;p>This section includes the list of workflows contained in the KRT file. Each workflow connects one or more nodes between
+each other and with a service defined in the entrypoint proto file.&lt;/p>
+&lt;ul>
+&lt;li>&lt;strong>workflows&lt;/strong> (a list of):
+&lt;ul>
+&lt;li>&lt;strong>name&lt;/strong>: an identifier text, must be unique in the workflow list.&lt;/li>
+&lt;li>&lt;strong>entrypoint&lt;/strong>: the name of a serviced defined in the proto buffer file of the entrypoint. See &lt;code>entrypoint.proto&lt;/code> above.&lt;/li>
+&lt;li>&lt;strong>sequential&lt;/strong>: a list of node names that are connected sequentially as part of this workflow. All names should
+exist on the node list defined above.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;h2 id="example-file">Example file&lt;/h2>
+&lt;p>This is a complete &lt;code>krt.yml&lt;/code> example matching the folder structure shown &lt;a href="https://konstellation-io.github.io/website/website/docs/kre/krt/folder_structure/#example-structure">here&lt;/a>&lt;/p>
 &lt;div class="highlight">&lt;pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#204a87;font-weight:bold">version&lt;/span>&lt;span style="color:#000;font-weight:bold">:&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>example-project&lt;span style="color:#f8f8f8;text-decoration:underline">
 &lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline">&lt;/span>&lt;span style="color:#204a87;font-weight:bold">description&lt;/span>&lt;span style="color:#000;font-weight:bold">:&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>This&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>is&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>an&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>example&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>of&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>a&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>ML&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>project.&lt;span style="color:#f8f8f8;text-decoration:underline">
 &lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline">&lt;/span>&lt;span style="color:#204a87;font-weight:bold">entrypoint&lt;/span>&lt;span style="color:#000;font-weight:bold">:&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline">
@@ -400,7 +501,16 @@ Use this action when you want to delete all associated resources in kubernetes f
 The collected logs and metrics will be persisted after stopping.&lt;/p>
 &lt;h3 id="publish-a-version">Publish a version&lt;/h3>
 &lt;p>A started version with all nodes on green means that the version is ready to receive messages but it is not .
-You can use this state to be sure that all pieces of the workflow are working correctly before publishing.&lt;/p></description></item><item><title>Docs: Customization</title><link>https://konstellation-io.github.io/website/docs/kre/installation/customization/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://konstellation-io.github.io/website/docs/kre/installation/customization/</guid><description>
+You can use this state to be sure that all pieces of the workflow are working correctly before publishing.&lt;/p></description></item><item><title>Docs: Create a KRT file</title><link>https://konstellation-io.github.io/website/docs/kre/krt/create_a_krt/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://konstellation-io.github.io/website/docs/kre/krt/create_a_krt/</guid><description>
+&lt;p>The end goal of Konstellation is to automate the generation of KRT files directly from KDL. This is currently on the list
+of features to add on KDL but not developed yet.&lt;/p>
+&lt;p>So, in order to create a KRT file, you need to create your own custom scripts to generate KRT files. Basically you need
+to create a &lt;code>.tar.gz&lt;/code> file with the content of your version and then change its extension to &lt;code>.krt&lt;/code>.&lt;/p>
+&lt;p>You can see a working example of this script on KRE repo: &lt;a href="https://github.com/konstellation-io/kre/blob/master/krt-template/build_krt.sh">build_krt.sh&lt;/a>&lt;/p>
+&lt;h2 id="using-golang">Using Golang&lt;/h2>
+&lt;p>KRE provides support for nodes running Golang code, but currently you need to compile the binary before generating the
+KRT file. This may be also automated in future releases.&lt;/p>
+&lt;p>Compile your binary for the architecture you need (amd/arm) and reference the resulting binary from your &lt;code>krt.yml&lt;/code>.&lt;/p></description></item><item><title>Docs: Customization</title><link>https://konstellation-io.github.io/website/docs/kre/installation/customization/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://konstellation-io.github.io/website/docs/kre/installation/customization/</guid><description>
 &lt;h2 id="values">Values&lt;/h2>
 &lt;p>The following table lists configurable parameters, their descriptions, and their default values stored in values.yaml.&lt;/p>
 &lt;table>
