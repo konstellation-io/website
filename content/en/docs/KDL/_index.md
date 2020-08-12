@@ -1,7 +1,7 @@
 ---
 title: "KDL"
-linkTitle: "Konstellation Development Lab"
-weight: 2
+linkTitle: "Development Lab (KDL)"
+weight: 10
 description: >
-  Konstellation Development Lab overview.
+  Konstellation Development Lab.
 ---

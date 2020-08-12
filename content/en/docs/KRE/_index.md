@@ -1,7 +1,7 @@
 ---
 title: "KRE"
-linkTitle: "Konstellation Runtime Engine"
-weight: 3
+linkTitle: "Runtime Engine (KRE)"
+weight: 30
 description: >
-  Konstellation Runtime Engine overview.
+  Konstellation Runtime Engine.
 ---

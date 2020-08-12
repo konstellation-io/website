@@ -21,7 +21,7 @@ This is how we structure or KRT files, and it's probably the way it will be expo
 
 ### Example structure
 
-_**NOTE**_: This example match with the `krt.yml` file used in [krt.yml file example]({{< relref "docs/kre/krt/krt_yaml_file.md#example-file" >}}) 
+_**NOTE**_: This example match with the `krt.yml` file used in [krt.yml file example]({{< relref "docs/krt/krt_yaml_file.md#example-file" >}}) 
 
 ```
 <root_folder>

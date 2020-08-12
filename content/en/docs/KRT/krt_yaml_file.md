@@ -67,7 +67,7 @@ each other and with a service defined in the entrypoint proto file.
 
 ## Example file
  
-This is a complete `krt.yml` example matching the folder structure shown [here]({{< relref "docs/kre/krt/folder_structure.md#example-structure" >}})
+This is a complete `krt.yml` example matching the folder structure shown [here]({{< relref "docs/krt/folder_structure.md#example-structure" >}})
 
 ```yaml
 version: example-project
