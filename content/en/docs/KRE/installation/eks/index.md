@@ -19,6 +19,8 @@ The final EKS deployment should be something like the below diagram.
 
 {{< /imgproc >}}
 
+After deploy your EKS cluster you are going to need the `kubeconfig` file. This file is the way to configure the `kubectl` and `helm` CLIs to access to your cluster. In the case of EKS use to be required an extra plugin called [AWS IAM authenticator](https://github.com/kubernetes-sigs/aws-iam-authenticator) to authenticate via the IAM account. Please follow the steps detailed in hte [AWS site](https://docs.aws.amazon.com/eks/latest/userguide/create-kubeconfig.html).
+
 # Storage
 
 An important amount of features of KRE are based on the use of shared storage with `ReadWriteMany` volumes. Therefore is required to add a storageClass to Kubernetes that support this kind of volumes. 
@@ -97,10 +99,185 @@ helm upgrade --install hostpath-provisioner --namespace kube-system rimusz/hostp
 
 # DNS
 
-All the access to KRE services require of hostnames, due to the use of Ingress object and certificates. In order to get a 
-deployment and management processes easier we recommend to delegate a subdomain to a `Route53` DNS zone, and create a wildcard 
-entry pointing to the Load Balancer of the Ingress Controller.
+All the access to KRE services require of a hostname due to the use of Ingress objects and certificates. In order to get a 
+deployment and management processes easier we recommend to delegate a subdomain `kre` of a domain owned by you to a `Route53` DNS hosted zone, and create a wildcard entry pointing to the Load Balancer of the Ingress Controller.
+
+## Get Ingress Controller hostname
+
+First of all you need to konw the name of the ELB where we have to point our DNS entry. With the below command you will get name of this Load Balancer.
+
+```bash
+kubectl -n kube-system get svc -l app=nginx-ingress,component=controller -o jsonpath="{.items[0].status.loadBalancer.ingress[0].hostname}"
+```
+
+The output of this command should be something like `xxxxxxxxxxxxxxxxxxxxx-00000000.us-east-1.elb.amazonaws.com`.
+
+## Create wildcard entry in your hosted zone
+
+With the name of the ELB go to your hosted zone in Route53 and create a new A entry of type Alias pointing to the ELB name. That's it.
+
+Depend of your environment you can use the `DNS01` challenge to validate that you are the owner of the DNS name, in that case with Cert Manager there are a plugin that allow to perform this validation with a Route53, so this is another interesting point to take in account. In the next section is detailed how to automate this in the KRE deployment.
+
+After a while the resolution of your domain should point to the ELB. KRE require of the following subdomains.
+
+| Subdomain    | Description                                            |
+| ------- | ----------------------------------------------------------- | 
+| `admin.kre.yourdomain.com` | Web admin console  | 
+| `api.kre.yourdomain.com` | API  |
+ 
+
+## Validate 
+
+To validate that the DNS configuration is working fine you can use the tool `dig` to query the DNS as follow.
+
+```bash
+dig admin.kre.yourdamin.com
+```
+The output should be something as below.
+
+```
+; <<>> DiG 9.16.1-Ubuntu <<>> admin.kre.yourdamin.com
+;; global options: +cmd
+;; Got answer:
+;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 901
+;; flags: qr rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 1
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 65494
+;; QUESTION SECTION:
+;admin.kre.yourdamin.com.	IN	A
+
+;; ANSWER SECTION:
+admin.kre.yourdamin.com.	1799 IN	A	1.2.3.4
+
+;; Query time: 64 msec
+;; SERVER: 127.0.0.53#53(127.0.0.53)
+;; WHEN: mié ago 12 16:18:49 CEST 2020
+;; MSG SIZE  rcvd: 75
+
+```
 
 # Helm deployment
 
+Once you have your EKS cluster ready with all the required extra components installed and all the credentials to access to your cluster is time to start the KRE deployment. The first step is to define a `values.yaml` file that fit all the requirements for our installation. So we are going to describe an example of this file to deploy KRE in your cluster. After that we can apply the Helm chart with this value to deploy KRE and afterward we are going to describe how to validate the installation.
 
+## Create values.yaml
+
+```yaml
+config:
+  smtp:
+    enabled: true
+    sender: "<YOUR_SMTP_EMAIL_ACCOUNT>"
+    senderName: "<SENDER_NAME>"
+    user: "<SMTP_USER>"
+    pass: "<SMTP_PASSWORD>"
+    host: "<SMTP_HOST>"
+    port: "<SMTP_PORT>"
+  baseDomainName: kre."<YOURDOAMIN>"
+  admin:
+    apiBaseURL: api.kre."<YOURDOAMIN>"
+    frontendBaseURL: https://admin.kre."<YOURDOAMIN>"
+  runtime:
+    sharedStorageClass: hostpath
+    sharedStorageSize: 10Gi
+    nats_streaming:
+      storage:
+        className: gp2
+        size: 2Gi
+    mongodb:
+      persistentVolume:
+        enabled: true
+        storageClass: gp2
+        size: 5Gi
+    chronograf:
+      persistentVolume:
+        enabled: true
+        storageClass: gp2
+        size: 1Gi
+    influxdb:
+      persistentVolume:
+        enabled: true
+        storageClass: gp2
+        size: 5Gi
+  acme:
+    server: https://acme-staging-v02.api.letsencrypt.org/directory
+    email: "<YOUR_EMAIL_ADDRESS>"
+  auth:
+    verificationCodeDurationInMinutes: 5
+    jwtSignSecret: int_jwt_secret
+    secureCookie: true
+    cookieDomain: kre."<YOURDOAMIN>"
+
+adminApi:
+  tls:
+    enabled: true
+  host: api.kre."<YOUR_DOAMIN>"
+  storage:
+    class: hostpath
+
+adminUI:
+  tls:
+    enabled: true
+  host: admin.kre."<YOURDOAMIN>"
+
+mongodb:
+  mongodbDatabase: "KRE"
+  rootCredentials:
+    username: "admin"
+    password: "<MONGODB_PASS>"
+  image:
+    repository: mongo
+    tag: 4.2.8
+  persistence:
+    mountPath: /data/db
+  storage:
+    className: gp2
+    size: 6Gi
+
+certManager:
+  enabled: true
+  acme:
+    server: https://acme-staging-v02.api.letsencrypt.org/directory
+    email: "<YOUR_EMAIN_ADDRESS>"
+  dns01:
+    route53:
+      region: "<AWS_REGION>"
+      hostedZoneID: "<AWS_ROUTE53_HOSTEDZONE_ID>"
+      accessKeyID: "<AWS_ACCESS_KEY_ID>"
+      secretAccessKey: "<AWS_ACCESS_SECRET>"
+```
+
+## Install Helm chart
+
+```bash
+kubectl create namespace kre
+helm repo add konstellation-io https://charts.konstellation.io
+helm repo update
+helm upgrade --install kre --namespace kre -values values.yaml konstellation-io/kre
+```
+
+# Validate the installation
+
+## Check pods on KRE namespace
+
+Command:
+
+```bash
+kubectl -n kre get pods
+```
+Expected output:
+
+```
+NAME                                                     READY   STATUS    RESTARTS   AGE
+alertmanager-kre-local-prometheus-opera-alertmanager-0   2/2     Running   0          28h
+kre-local-admin-api-75d8bdc6b9-n4qcv                     1/1     Running   5          27h
+kre-local-admin-ui-5d96987f95-9g59q                      1/1     Running   0          27h
+kre-local-grafana-67f89f8977-pqdmw                       2/2     Running   0          28h
+kre-local-k8s-manager-bddc586c4-kjhgf                    1/1     Running   0          27h
+kre-local-kube-state-metrics-78fbbcbfb8-64ds8            1/1     Running   0          28h
+kre-local-prometheus-node-exporter-sx9sb                 1/1     Running   0          28h
+kre-local-prometheus-opera-operator-5b6f794b67-8lrdj     2/2     Running   0          28h
+kre-mongo-0                                              1/1     Running   0          28h
+prometheus-kre-local-prometheus-opera-prometheus-0       3/3     Running   1          28h
+
+```
