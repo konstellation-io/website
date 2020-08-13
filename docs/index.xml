@@ -54,9 +54,27 @@ All versions share databases, storage and message system but it is isolated from
 &lt;/div>
 &lt;/div>
 &lt;h3 id="versions">Versions&lt;/h3>
-&lt;p>A version is a collection of all things needed for your AI solution to work like code, models, assets,&amp;hellip; This is a key concept in KRE because if you make changes at any level, model or code, you then have a new version that must be uploaded. This make versions immutable entities easier to track and debug over time.&lt;/p>
-&lt;p>To upload your versions into a runtime you will need a KRT file. To learn how to create a &lt;a href="https://konstellation-io.github.io/website/website/docs/krt/">KRT file&lt;/a> for more information.&lt;/p>
-&lt;h3 id="workflows">Workflows&lt;/h3></description></item><item><title>Docs: Login</title><link>https://konstellation-io.github.io/website/docs/kre/tasks/login/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://konstellation-io.github.io/website/docs/kre/tasks/login/</guid><description>
+&lt;p>A version is a collection of all things needed for your AI solution to work like code, models, assets,&amp;hellip; This is a key concept in KRE because if you make changes at any level, model or code, you then have a new version that must be uploaded. This make versions immutable entities easier to track and debug over time. To upload your versions into a runtime you will need a KRT file. Learn more about how to create a KRT file &lt;a href="https://konstellation-io.github.io/website/website/docs/krt/">here&lt;/a>.&lt;/p>
+&lt;p>The initial state of a version is stopped. A stopped version doesn&amp;rsquo;t consume any resource in the cluster. When you start a version, all needed resources are created but it is not accessible from the outside. You have to publish a version if you want to call it from the outside.&lt;/p>
+&lt;p>Usually, your AI solution must perform multiple actions, for example: to use a model to get a prediction or to receive information to calculate some metrics,&amp;hellip; so a version can define multiple workflows to accomplish that actions.&lt;/p>
+&lt;div class="card rounded p-2 td-post-card mb-4 mt-4" style="max-width: 810px">
+&lt;img class="card-img-top" src="https://konstellation-io.github.io/website/website/docs/kre/concepts/version_overview_hu7a5b5d5cc96d9ada230aeb87ed5b9159_78448_800x0_resize_q75_catmullrom.jpg" width="800" height="392">
+&lt;div class="card-body px-0 pt-2 pb-0">
+&lt;p class="card-text">
+&lt;/p>
+&lt;/div>
+&lt;/div>
+&lt;h3 id="workflows">Workflows&lt;/h3>
+&lt;p>A Workflow is a sequence of tasks that processes an incoming message from the external world and returns a response. Each task is a node of a graph that takes an input message and generates an output. You can add as many nodes as you need to your workflow. The following image shows a basic workflow that makes a prediction using three nodes:&lt;/p>
+&lt;div class="card rounded p-2 td-post-card mb-4 mt-4" style="max-width: 910px">
+&lt;img class="card-img-top" src="https://konstellation-io.github.io/website/website/docs/kre/concepts/basic_workflow_example_hu7a5b5d5cc96d9ada230aeb87ed5b9159_72389_900x0_resize_q75_catmullrom.jpg" width="900" height="261">
+&lt;div class="card-body px-0 pt-2 pb-0">
+&lt;p class="card-text">
+Example of a basic workflow
+&lt;/p>
+&lt;/div>
+&lt;/div>
+&lt;p>In KRE the external messages comes from a gRPC client. A special component called Entrypoint (gRPC server) dispatch the messages to a determinated workflow and returns the response of the last node to the client. The workflow nodes becomes a PODs in your k8s cluster when the version is started.&lt;/p></description></item><item><title>Docs: Login</title><link>https://konstellation-io.github.io/website/docs/kre/tasks/login/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://konstellation-io.github.io/website/docs/kre/tasks/login/</guid><description>
 &lt;p>KRE login is a passwordless process so you only need to provide your email:&lt;/p>
 &lt;div class="card rounded p-2 td-post-card mb-4 mt-4" style="max-width: 610px">
 &lt;img class="card-img-top" src="https://konstellation-io.github.io/website/website/docs/kre/tasks/login/login_screen_hu6b4d4c4402f13ef6689bedcf64656ae8_12794_600x0_resize_catmullrom_2.png" width="600" height="368">
