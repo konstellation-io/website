@@ -125,7 +125,6 @@ After a while the resolution of your domain should point to the ELB. KRE require
 | `admin.kre.yourdomain.com` | Web admin console  | 
 | `api.kre.yourdomain.com` | API  |
  
-
 ## Validate 
 
 To validate that the DNS configuration is working fine you can use the tool `dig` to query the DNS as follow.
@@ -162,6 +161,10 @@ admin.kre.yourdamin.com.	1799 IN	A	1.2.3.4
 Once you have your EKS cluster ready with all the required extra components installed and all the credentials to access to your cluster is time to start the KRE deployment. The first step is to define a `values.yaml` file that fit all the requirements for our installation. So we are going to describe an example of this file to deploy KRE in your cluster. After that we can apply the Helm chart with this value to deploy KRE and afterward we are going to describe how to validate the installation.
 
 ## Create values.yaml
+
+Here is an example of a `values.yaml` to deploy in your clustes, just fill the parameters that required of your own information of credentials or domains, and save the file as `values.yaml` in order to apply it as is explained in the next section.
+
+All the parameters are ditailed in the section [Customization](../customization).
 
 ```yaml
 config:
@@ -256,28 +259,6 @@ helm repo update
 helm upgrade --install kre --namespace kre -values values.yaml konstellation-io/kre
 ```
 
-# Validate the installation
+## Validate the installation
 
-## Check pods on KRE namespace
-
-Command:
-
-```bash
-kubectl -n kre get pods
-```
-Expected output:
-
-```
-NAME                                                     READY   STATUS    RESTARTS   AGE
-alertmanager-kre-local-prometheus-opera-alertmanager-0   2/2     Running   0          28h
-kre-local-admin-api-75d8bdc6b9-n4qcv                     1/1     Running   5          27h
-kre-local-admin-ui-5d96987f95-9g59q                      1/1     Running   0          27h
-kre-local-grafana-67f89f8977-pqdmw                       2/2     Running   0          28h
-kre-local-k8s-manager-bddc586c4-kjhgf                    1/1     Running   0          27h
-kre-local-kube-state-metrics-78fbbcbfb8-64ds8            1/1     Running   0          28h
-kre-local-prometheus-node-exporter-sx9sb                 1/1     Running   0          28h
-kre-local-prometheus-opera-operator-5b6f794b67-8lrdj     2/2     Running   0          28h
-kre-mongo-0                                              1/1     Running   0          28h
-prometheus-kre-local-prometheus-opera-prometheus-0       3/3     Running   1          28h
-
-```
+To check if everything is working fine follow the [Validate](../validate) section.
