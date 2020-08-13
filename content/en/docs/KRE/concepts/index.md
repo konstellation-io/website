@@ -39,8 +39,22 @@ All versions share databases, storage and message system but it is isolated from
 
 ### Versions
 
-A version is a collection of all things needed for your AI solution to work like code, models, assets,... This is a key concept in KRE because if you make changes at any level, model or code, you then have a new version that must be uploaded. This make versions immutable entities easier to track and debug over time.
+A version is a collection of all things needed for your AI solution to work like code, models, assets,... This is a key concept in KRE because if you make changes at any level, model or code, you then have a new version that must be uploaded. This make versions immutable entities easier to track and debug over time. To upload your versions into a runtime you will need a KRT file. Learn more about how to create a KRT file [here]({{< relref "docs/krt" >}}).
 
-To upload your versions into a runtime you will need a KRT file. To learn how to create a [KRT file]({{< relref "docs/krt" >}}) for more information.
+The initial state of a version is stopped. A stopped version doesn't consume any resource in the cluster. When you start a version, all needed resources are created but it is not accessible from the outside. You have to publish a version if you want to call it from the outside.
+
+Usually, your AI solution must perform multiple actions, for example: to use a model to get a prediction or to receive information to calculate some metrics,... so a version can define multiple workflows to accomplish that actions.
+
+{{< imgproc version_overview Resize "800x" >}}
+
+{{< /imgproc >}}
 
 ### Workflows
+
+A Workflow is a sequence of tasks that processes an incoming message from the external world and returns a response. Each task is a node of a graph that takes an input message and generates an output. You can add as many nodes as you need to your workflow. The following image shows a basic workflow that makes a prediction using three nodes:
+
+{{< imgproc basic_workflow_example Resize "900x" >}}
+Example of a basic workflow
+{{< /imgproc >}}
+
+In KRE the external messages comes from a gRPC client. A special component called Entrypoint (gRPC server) dispatch the messages to a determinated workflow and returns the response of the last node to the client. The workflow nodes becomes a PODs in your k8s cluster when the version is started.
