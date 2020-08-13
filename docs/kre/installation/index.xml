@@ -131,6 +131,8 @@ admin.kre.yourdamin.com. 1799 IN A 1.2.3.4
 &lt;/code>&lt;/pre>&lt;h1 id="helm-deployment">Helm deployment&lt;/h1>
 &lt;p>Once you have your EKS cluster ready with all the required extra components installed and all the credentials to access to your cluster is time to start the KRE deployment. The first step is to define a &lt;code>values.yaml&lt;/code> file that fit all the requirements for our installation. So we are going to describe an example of this file to deploy KRE in your cluster. After that we can apply the Helm chart with this value to deploy KRE and afterward we are going to describe how to validate the installation.&lt;/p>
 &lt;h2 id="create-valuesyaml">Create values.yaml&lt;/h2>
+&lt;p>Here is an example of a &lt;code>values.yaml&lt;/code> to deploy in your clustes, just fill the parameters that required of your own information of credentials or domains, and save the file as &lt;code>values.yaml&lt;/code> in order to apply it as is explained in the next section.&lt;/p>
+&lt;p>All the parameters are ditailed in the section &lt;a href="../customization">Customization&lt;/a>.&lt;/p>
 &lt;div class="highlight">&lt;pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#204a87;font-weight:bold">config&lt;/span>&lt;span style="color:#000;font-weight:bold">:&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline">
 &lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>&lt;span style="color:#204a87;font-weight:bold">smtp&lt;/span>&lt;span style="color:#000;font-weight:bold">:&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline">
 &lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>&lt;span style="color:#204a87;font-weight:bold">enabled&lt;/span>&lt;span style="color:#000;font-weight:bold">:&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>&lt;span style="color:#204a87;font-weight:bold">true&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline">
@@ -217,7 +219,8 @@ admin.kre.yourdamin.com. 1799 IN A 1.2.3.4
 helm repo add konstellation-io https://charts.konstellation.io
 helm repo update
 helm upgrade --install kre --namespace kre -values values.yaml konstellation-io/kre
-&lt;/code>&lt;/pre>&lt;/div>&lt;h1 id="validate-the-installation">Validate the installation&lt;/h1>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="validate-the-installation">Validate the installation&lt;/h2>
+&lt;p>To check if everything is working fine follow the &lt;a href="../validate">Validate&lt;/a> section.&lt;/p></description></item><item><title>Docs: Validate</title><link>https://konstellation-io.github.io/website/docs/kre/installation/validate/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://konstellation-io.github.io/website/docs/kre/installation/validate/</guid><description>
 &lt;h2 id="check-pods-on-kre-namespace">Check pods on KRE namespace&lt;/h2>
 &lt;p>Command:&lt;/p>
 &lt;div class="highlight">&lt;pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">kubectl -n kre get pods
@@ -233,22 +236,501 @@ kre-local-prometheus-node-exporter-sx9sb 1/1 Running 0 28h
 kre-local-prometheus-opera-operator-5b6f794b67-8lrdj 2/2 Running 0 28h
 kre-mongo-0 1/1 Running 0 28h
 prometheus-kre-local-prometheus-opera-prometheus-0 3/3 Running 1 28h
-&lt;/code>&lt;/pre></description></item><item><title>Docs: Customization</title><link>https://konstellation-io.github.io/website/docs/kre/installation/customization/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://konstellation-io.github.io/website/docs/kre/installation/customization/</guid><description>
-&lt;h2 id="values">Values&lt;/h2>
-&lt;p>The following table lists configurable parameters, their descriptions, and their default values stored in values.yaml.&lt;/p>
+&lt;/code>&lt;/pre>&lt;h2 id="open-admin-web-console">Open Admin web console&lt;/h2>
+&lt;p>If everything works fine we should open the URL &lt;a href="https://admin.kre.yourdomain.com">https://admin.kre.yourdomain.com&lt;/a> in a browser and the admin interface should open like the figure below.&lt;/p>
+&lt;div class="card rounded p-2 td-post-card mb-4 mt-4" style="max-width: 610px">
+&lt;img class="card-img-top" src="https://konstellation-io.github.io/website/website/docs/kre/installation/validate/admin_web_hu51f4e7b3b1b2ceed12d523513c1d3459_36023_600x0_resize_q75_catmullrom.jpeg" width="600" height="463">
+&lt;div class="card-body px-0 pt-2 pb-0">
+&lt;p class="card-text">
+&lt;/p>
+&lt;/div>
+&lt;/div>
+&lt;h2 id="check-api-is-up">Check API is up&lt;/h2>
+&lt;p>Command:&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">curl -v https://api.kre.yourdomain.com
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>Expected output:&lt;/p>
+&lt;pre>&lt;code>* Trying 1.2.3.4:443...
+* TCP_NODELAY set
+* Connected to api.kre.yourdomain.com (1.2.3.4) port 443 (#0)
+* ALPN, offering h2
+* ALPN, offering http/1.1
+* successfully set certificate verify locations:
+* CAfile: /etc/ssl/certs/ca-certificates.crt
+CApath: /etc/ssl/certs
+* TLSv1.3 (OUT), TLS handshake, Client hello (1):
+* TLSv1.3 (IN), TLS handshake, Server hello (2):
+* TLSv1.2 (IN), TLS handshake, Certificate (11):
+* TLSv1.2 (IN), TLS handshake, Server key exchange (12):
+* TLSv1.2 (IN), TLS handshake, Server finished (14):
+* TLSv1.2 (OUT), TLS handshake, Client key exchange (16):
+* TLSv1.2 (OUT), TLS change cipher, Change cipher spec (1):
+* TLSv1.2 (OUT), TLS handshake, Finished (20):
+* TLSv1.2 (IN), TLS handshake, Finished (20):
+* SSL connection using TLSv1.2 / ECDHE-RSA-AES128-GCM-SHA256
+* ALPN, server accepted to use h2
+* Server certificate:
+* subject: CN=api.kre.yourdomain.com
+* start date: Aug 5 14:18:15 2020 GMT
+* expire date: Nov 3 14:18:15 2020 GMT
+* subjectAltName: host &amp;quot;api.kre.yourdomain.com&amp;quot; matched cert's &amp;quot;api.kre.yourdomain.com&amp;quot;
+* issuer: C=US; O=Let's Encrypt; CN=Let's Encrypt Authority X3
+* SSL certificate verify ok.
+* Using HTTP2, server supports multi-use
+* Connection state changed (HTTP/2 confirmed)
+* Copying HTTP/2 data in stream buffer to connection buffer after upgrade: len=0
+* Using Stream ID: 1 (easy handle 0x555789f5ddb0)
+&amp;gt; GET / HTTP/2
+&amp;gt; Host: api.kre.yourdomain.com
+&amp;gt; user-agent: curl/7.68.0
+&amp;gt; accept: */*
+&amp;gt;
+* Connection state changed (MAX_CONCURRENT_STREAMS == 128)!
+&amp;lt; HTTP/2 404
+&amp;lt; server: nginx/1.17.10
+&amp;lt; date: Thu, 13 Aug 2020 08:53:16 GMT
+&amp;lt; content-type: application/json; charset=UTF-8
+&amp;lt; content-length: 24
+&amp;lt; access-control-allow-credentials: true
+&amp;lt; access-control-allow-origin:
+&amp;lt; vary: Origin
+&amp;lt; x-request-id: 74e620a75d284453082aabe95ca13958
+&amp;lt; strict-transport-security: max-age=15724800; includeSubDomains
+&amp;lt;
+{&amp;quot;message&amp;quot;:&amp;quot;Not Found&amp;quot;}
+* Connection #0 to host api.kre.yourdomain.com left intact
+&lt;/code>&lt;/pre>&lt;p>With this command we are validating that the API is up and running properly, because the expected answer is &lt;code>{&amp;quot;message&amp;quot;:&amp;quot;Not Found&amp;quot;}&lt;/code>. Also we can see that the certificate is issued correctly by Cert Manager.&lt;/p>
+&lt;h2 id="check-the-api-logs">Check the API logs&lt;/h2>
+&lt;p>Command:&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">kubectl -n kre logs kre-local-admin-api-75d8bdc6b9-n4qcv
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>Expected output:&lt;/p>
+&lt;pre>&lt;code>2020-08-11T12:35:25.356756843Z INFO MongoDB connecting...
+2020-08-11T12:35:25.356831185Z INFO MongoDB ping...
+2020-08-11T12:35:25.371577437Z INFO MongoDB connected
+2020-08-11T12:35:25.372054104Z INFO [RBAC] Reloading user roles
+2020-08-11T12:35:25.372382218Z INFO [RBAC] Removing roles for user kre_admin_user (dev@local.local)
+2020-08-11T12:35:25.372396432Z INFO [RBAC] Adding role ADMIN to user kre_admin_user (dev@local.local)
+2020-08-11T12:35:25.372769609Z INFO HTTP server started on :80
+2020-08-11T12:35:29.48550533Z INFO Request from user kre_admin_user
+2020-08-11T12:35:29.501522116Z INFO Request from user kre_admin_user
+2020-08-11T12:35:30.479367476Z INFO Request from user kre_admin_user
+&lt;/code>&lt;/pre>&lt;p>We should see at the very beginning of the API logs that the connection to MongoDB is fine and the service have started.&lt;/p></description></item><item><title>Docs: Customization</title><link>https://konstellation-io.github.io/website/docs/kre/installation/customization/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://konstellation-io.github.io/website/docs/kre/installation/customization/</guid><description>
+&lt;p>It is posible to configure a lot of aspects of a KRE deployment, depending on your environment and your usecase the default values are not enough.
+Below are described all the parameters suceptible to be changed to adapt KRE Helm Chart to your environment. You can create your own &lt;code>values.yaml&lt;/code> with these
+parameters customized to be applied when run Helm. In order to get a more clear idea where can find
+the parameter that you need to modify we have split the parameters in some sections by configuration goals.&lt;/p>
+&lt;ul>
+&lt;li>&lt;a href="#config">Config&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#runtime">Runtime&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#admin-api">Admin API&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#admin-ui">Admin UI&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#mongodb">MongoDB&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#cert-manager">Cert Manager&lt;/a>
+&lt;ul>
+&lt;li>&lt;a href="#dns01">DNS01&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#http01">HTTP01&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;a href="#prometheus">Prometheus&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h2 id="config">Config&lt;/h2>
+&lt;p>Under this section are all the parameters that are used by multiple components in order to not repeat, also general
+configuration related with the behaviour of KRE and not just specific components requirements like Docker images, services ports,
+storage size, etc.&lt;/p>
 &lt;table>
 &lt;thead>
 &lt;tr>
-&lt;th>Param&lt;/th>
+&lt;th>Parameter&lt;/th>
 &lt;th>Description&lt;/th>
-&lt;th>Value&lt;/th>
+&lt;th>Default&lt;/th>
 &lt;/tr>
 &lt;/thead>
 &lt;tbody>
 &lt;tr>
-&lt;td>prometheusOperator.enabled&lt;/td>
-&lt;td>Prometheus will be installed by default if you prefer use your own prometheus&lt;/td>
-&lt;td>false&lt;/td>
+&lt;td>&lt;code>config.baseDomainName&lt;/code>&lt;/td>
+&lt;td>Domain name used to access KRE&lt;/td>
+&lt;td>&lt;code>local&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>config.admin.apiAddress&lt;/code>&lt;/td>
+&lt;td>Base internal URL for Api Server&lt;/td>
+&lt;td>&lt;code>:3000&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>config.admin.apiBaseURL&lt;/code>&lt;/td>
+&lt;td>Base public URL for Api Server&lt;/td>
+&lt;td>&lt;code>api.kre.local&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>config.admin.frontendBaseURL&lt;/code>&lt;/td>
+&lt;td>Base URL to connect from frontent&lt;/td>
+&lt;td>&lt;code>http://localhost:3000&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>config.admin.corsEnabled&lt;/code>&lt;/td>
+&lt;td>Activate CORS in Admin API&lt;/td>
+&lt;td>&lt;code>true&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>config.admin.userEmail&lt;/code>&lt;/td>
+&lt;td>Emain for default Admin user&lt;/td>
+&lt;td>&lt;code>dev@local.local&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>config.smtp.enabled&lt;/code>&lt;/td>
+&lt;td>Activate SMTP&lt;/td>
+&lt;td>&lt;code>false&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>config.smtp.sender&lt;/code>&lt;/td>
+&lt;td>SMTP Sender Email&lt;/td>
+&lt;td>&amp;lt;not_defined&amp;gt;&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>config.smtp.senderName&lt;/code>&lt;/td>
+&lt;td>SMTP Sender Name&lt;/td>
+&lt;td>&amp;lt;not_defined&amp;gt;&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>config.smtp.user&lt;/code>&lt;/td>
+&lt;td>SMTP User to connect&lt;/td>
+&lt;td>&amp;lt;not_defined&amp;gt;&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>config.smtp.pass&lt;/code>&lt;/td>
+&lt;td>SMTP Password to connect&lt;/td>
+&lt;td>&amp;lt;not_defined&amp;gt;&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>config.smtp.host&lt;/code>&lt;/td>
+&lt;td>SMTP Host to connect&lt;/td>
+&lt;td>&amp;lt;not_defined&amp;gt;&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>config.smtp.port&lt;/code>&lt;/td>
+&lt;td>SMTP Port to connect&lt;/td>
+&lt;td>&amp;lt;not_defined&amp;gt;&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>config.auth.verificationCodeDurationInMinutes&lt;/code>&lt;/td>
+&lt;td>User Verification Code Duration In Minutes&lt;/td>
+&lt;td>&lt;code>1&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>config.auth.jwtSignSecret&lt;/code>&lt;/td>
+&lt;td>JWT Sign Secret Key&lt;/td>
+&lt;td>&lt;code>jwt_secret&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>config.auth.secureCookie&lt;/code>&lt;/td>
+&lt;td>Activate secure cookie&lt;/td>
+&lt;td>&lt;code>false&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h2 id="runtime">Runtime&lt;/h2>
+&lt;p>Within &lt;code>config.runtime&lt;/code> you can setup some parameters that will affect when a new Runtime is created, for example the storageClass
+to create the volumes of the base service of a runtime.&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Parameter&lt;/th>
+&lt;th>Description&lt;/th>
+&lt;th>Default&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>&lt;code>config.runtime.sharedStorageClass&lt;/code>&lt;/td>
+&lt;td>StorageClass to use RWX volume for Minio and Runners on Runtimes&lt;/td>
+&lt;td>&lt;code>standard&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>config.runtime.sharedStorageSize&lt;/code>&lt;/td>
+&lt;td>Volume size for Minio and Runners on Runtimes&lt;/td>
+&lt;td>&lt;code>2Gi&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>config.runtime.nats_streaming.storage.className&lt;/code>&lt;/td>
+&lt;td>StorageClass to create volumes for NATS pods&lt;/td>
+&lt;td>&lt;code>standard&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>config.runtime.nats_streaming.storage.size&lt;/code>&lt;/td>
+&lt;td>Size of volume attached to NATS Pod&lt;/td>
+&lt;td>&lt;code>1Gi&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>config.runtime.mongodb.persistentVolume.enabled&lt;/code>&lt;/td>
+&lt;td>This parameter enable the persistence of MongoDB&lt;/td>
+&lt;td>&lt;code>true&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>config.runtime.mongodb.persistentVolume.storageClass&lt;/code>&lt;/td>
+&lt;td>StorageClass to create volumes for MongoDB&lt;/td>
+&lt;td>&lt;code>standard&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>config.runtime.mongodb.persistentVolume.size&lt;/code>&lt;/td>
+&lt;td>Size of volume attached to MongoDB Pod&lt;/td>
+&lt;td>&lt;code>5Gi&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>config.runtime.chronograf.persistentVolume.enabled&lt;/code>&lt;/td>
+&lt;td>This parameter enable the persistence of Chronograf&lt;/td>
+&lt;td>&lt;code>true&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>config.runtime.chronograf.persistentVolume.storageClass&lt;/code>&lt;/td>
+&lt;td>StorageClass to create volumes for Chronograf&lt;/td>
+&lt;td>&lt;code>standard&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>config.runtime.chronograf.persistentVolume.size&lt;/code>&lt;/td>
+&lt;td>Size of volume attached to Chronograf Pod&lt;/td>
+&lt;td>&lt;code>1Gi&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>config.runtime.influxdb.persistentVolume.enabled&lt;/code>&lt;/td>
+&lt;td>This parameter enable the persistence of InfluxDB&lt;/td>
+&lt;td>&lt;code>true&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>config.runtime.influxdb.persistentVolume.storageClass&lt;/code>&lt;/td>
+&lt;td>StorageClass to create volumes for InfluxDB&lt;/td>
+&lt;td>&lt;code>standard&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>config.runtime.influxdb.persistentVolume.size&lt;/code>&lt;/td>
+&lt;td>Size of volume attached to InfluxDB Pod&lt;/td>
+&lt;td>&lt;code>5Gi&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h2 id="admin-api">Admin API&lt;/h2>
+&lt;p>Specific configuration for Admin API&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Parameter&lt;/th>
+&lt;th>Description&lt;/th>
+&lt;th>Default&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>&lt;code>admin-api.image.repository&lt;/code>&lt;/td>
+&lt;td>Docker registry to download the admin-api image&lt;/td>
+&lt;td>&lt;code>konstellation/kre-admin-api&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>admin-api.image.tag&lt;/code>&lt;/td>
+&lt;td>Version of the admin-api Docker image to deploy&lt;/td>
+&lt;td>&lt;code>latest&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>admin-api.image.pullPolicy&lt;/code>&lt;/td>
+&lt;td>Define when Kubernetes has to pull a Docker image&lt;/td>
+&lt;td>&lt;code>IfNotPresent&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>admin-api.service.port&lt;/code>&lt;/td>
+&lt;td>TCP port where is going to listen the internal service&lt;/td>
+&lt;td>&lt;code>4000&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>admin-api.tls.enabled&lt;/code>&lt;/td>
+&lt;td>If we want to enable HTTPS access to the API. For this Cert Manager is required in the Kuberentes cluster&lt;/td>
+&lt;td>&lt;code>false&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>admin-api.host&lt;/code>&lt;/td>
+&lt;td>Public hostname to generate SSL certificate with Cert Manager&lt;/td>
+&lt;td>&lt;code>false&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h2 id="admin-ui">Admin UI&lt;/h2>
+&lt;p>Specific configuration for Admin UI&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Parameter&lt;/th>
+&lt;th>Description&lt;/th>
+&lt;th>Default&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>&lt;code>admin-ui.image.repository&lt;/code>&lt;/td>
+&lt;td>Docker registry to download the admin-ui image&lt;/td>
+&lt;td>&lt;code>konstellation/kre-admin-ui&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>admin-ui.image.tag&lt;/code>&lt;/td>
+&lt;td>Version of the admin-ui Docker image to deploy&lt;/td>
+&lt;td>&lt;code>latest&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>admin-ui.image.pullPolicy&lt;/code>&lt;/td>
+&lt;td>Define when Kubernetes has to pull a Docker image&lt;/td>
+&lt;td>&lt;code>IfNotPresent&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>admin-ui.service.port&lt;/code>&lt;/td>
+&lt;td>TCP port where is going to listen the internal service&lt;/td>
+&lt;td>&lt;code>5000&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>admin-ui.tls.enabled&lt;/code>&lt;/td>
+&lt;td>If we want to enable HTTPS access to the UI. For this Cert Manager is required in the Kuberentes cluster&lt;/td>
+&lt;td>&lt;code>false&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>admin-ui.host&lt;/code>&lt;/td>
+&lt;td>Public hostname to generate SSL certificate with Cert Manager&lt;/td>
+&lt;td>&lt;code>false&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h2 id="mongodb">MongoDB&lt;/h2>
+&lt;p>Specific configuration for the MongoDB on the Engine.&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Parameter&lt;/th>
+&lt;th>Description&lt;/th>
+&lt;th>Default&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>&lt;code>mongodb.mongodbDatabase&lt;/code>&lt;/td>
+&lt;td>Database to create&lt;/td>
+&lt;td>&lt;code>localKRE&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>mongodb.mongodbUsername&lt;/code>&lt;/td>
+&lt;td>MongoDB custom user (mandatory if &lt;code>mongodbDatabase&lt;/code> is set)&lt;/td>
+&lt;td>&lt;code>admin&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>mongodb.mongodbPassword&lt;/code>&lt;/td>
+&lt;td>MongoDB custom user password&lt;/td>
+&lt;td>&lt;code>123456&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>mongodb.image.tag&lt;/code>&lt;/td>
+&lt;td>MongoDB version 4.2&lt;/td>
+&lt;td>&lt;code>3.6&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h2 id="cert-manager">Cert Manager&lt;/h2>
+&lt;p>As described on previous sections of this guide KRE use Cert Manager to manage the lifecycle of the certificates to
+add a security layer on the comunication from outside.&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Parameter&lt;/th>
+&lt;th>Description&lt;/th>
+&lt;th>Default&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>&lt;code>certManager.enabled&lt;/code>&lt;/td>
+&lt;td>Enable Cert Manager to validate certificates&lt;/td>
+&lt;td>&lt;code>false&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>certManager.acme.server&lt;/code>&lt;/td>
+&lt;td>Default certificate authority server to validate certificates, more instructions below&lt;/td>
+&lt;td>&lt;code>acme-v02.api.letsencrypt.org/directory&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>certManager.acme.email&lt;/code>&lt;/td>
+&lt;td>Default email for the certificate owner&lt;/td>
+&lt;td>&lt;code>user@email.com&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;p>You can fill in the field &lt;code>certManager.acme.server&lt;/code> with one of the following values depend of your environment:&lt;/p>
+&lt;p>&lt;strong>Production environment&lt;/strong>&lt;/p>
+&lt;pre>&lt;code> certManager:
+acme:
+server: https://acme-v02.api.letsencrypt.org/directory
+&lt;/code>&lt;/pre>&lt;p>Rate limit of 50 per day on certificates request with a week block if the limit is passed.&lt;a href="https://letsencrypt.org/docs/rate-limits/">+ info&lt;/a>&lt;/p>
+&lt;p>No web-browser action required.&lt;/p>
+&lt;p>&lt;strong>Staging environment&lt;/strong>&lt;/p>
+&lt;pre>&lt;code> certManager:
+acme:
+server: https://acme-staging-v02.api.letsencrypt.org/directory
+&lt;/code>&lt;/pre>&lt;p>Rate limit of 1500 each three hours on certificates request.&lt;a href="https://letsencrypt.org/docs/staging-environment/">+ Info&lt;/a>&lt;/p>
+&lt;p>This option needs the following action from user to set-up the staging certification authority.&lt;/p>
+&lt;p>&lt;strong>How add the fake certificate on chrome&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>Download the certificate &lt;a href="https://letsencrypt.org/certs/fakeleintermediatex1.pem">Fake Certificate&lt;/a>&lt;/li>
+&lt;li>Go to settings -&amp;gt; Search Certificates -&amp;gt; Manage Certificates -&amp;gt; Issuers Entities&lt;/li>
+&lt;li>Import the previous certificate.&lt;/li>
+&lt;li>Enable the first option.&lt;/li>
+&lt;li>Reload the https://admin.&lt;your-domain> page&lt;/li>
+&lt;li>You have a certificate for any kre domain.&lt;/li>
+&lt;/ul>
+&lt;p>Regarding the challenge method used for validation of the CSR we are going to describe two kinds supported by Cert Manager, but
+may be there are another methods that fits better for your environment, please refer to the &lt;a href="https://cert-manager.io/docs/configuration/">Cert Manager documentation&lt;/a> in order to
+create a more accurate configuration.&lt;/p>
+&lt;h3 id="dns01">DNS01&lt;/h3>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Parameter&lt;/th>
+&lt;th>Description&lt;/th>
+&lt;th>Default&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>&lt;code>certManager.dns01.route53.region&lt;/code>&lt;/td>
+&lt;td>AWS Region where the hosted zome is created&lt;/td>
+&lt;td>&lt;code>&amp;lt;not_defined&amp;gt;&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>certManager.dns01.route53.hostedZoneID&lt;/code>&lt;/td>
+&lt;td>Database to create&lt;/td>
+&lt;td>&lt;code>&amp;lt;not_defined&amp;gt;&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>certManager.dns01.route53.accessKeyID&lt;/code>&lt;/td>
+&lt;td>Database to create&lt;/td>
+&lt;td>&lt;code>&amp;lt;not_defined&amp;gt;&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>certManager.dns01.route53.secretAccessKey&lt;/code>&lt;/td>
+&lt;td>Database to create&lt;/td>
+&lt;td>&lt;code>&amp;lt;not_defined&amp;gt;&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h3 id="http01">HTTP01&lt;/h3>
+&lt;h2 id="prometheus">Prometheus&lt;/h2>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Parameter&lt;/th>
+&lt;th>Description&lt;/th>
+&lt;th>Default&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>&lt;code>prometheusOperator.enabled&lt;/code>&lt;/td>
+&lt;td>This parameter indicate if you want that when KRE is deployed also deploy Prometheus Operator, may be you have already deployed this on your cluster and is not required to be installed.&lt;/td>
+&lt;td>&lt;code>true&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>prometheusOperator.grafana.enabled&lt;/code>&lt;/td>
+&lt;td>Disable the installation of Grafana with the Prometheus Operator&lt;/td>
+&lt;td>&lt;code>true&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;/tbody>
 &lt;/table></description></item></channel></rss>
