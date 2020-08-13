@@ -680,6 +680,9 @@ server: https://acme-staging-v02.api.letsencrypt.org/directory
 may be there are another methods that fits better for your environment, please refer to the &lt;a href="https://cert-manager.io/docs/configuration/">Cert Manager documentation&lt;/a> in order to
 create a more accurate configuration.&lt;/p>
 &lt;h3 id="dns01">DNS01&lt;/h3>
+&lt;p>If you hosted the subdomain &lt;code>kre.yourdomain.com&lt;/code> in Route53 is posible to configure the validation of the CSR with DNS via a
+Route53 plugin. Below there is a snippet of config to add to your &lt;code>values.yaml&lt;/code> to configure this challenge. This is very
+usefull in deployments that are behind a firewall with restricted access from Internet or just in a private network.&lt;/p>
 &lt;table>
 &lt;thead>
 &lt;tr>
@@ -696,22 +699,40 @@ create a more accurate configuration.&lt;/p>
 &lt;/tr>
 &lt;tr>
 &lt;td>&lt;code>certManager.dns01.route53.hostedZoneID&lt;/code>&lt;/td>
-&lt;td>Database to create&lt;/td>
+&lt;td>AWS Hosted Zone ID&lt;/td>
 &lt;td>&lt;code>&amp;lt;not_defined&amp;gt;&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>&lt;code>certManager.dns01.route53.accessKeyID&lt;/code>&lt;/td>
-&lt;td>Database to create&lt;/td>
+&lt;td>AWS Access Key ID&lt;/td>
 &lt;td>&lt;code>&amp;lt;not_defined&amp;gt;&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>&lt;code>certManager.dns01.route53.secretAccessKey&lt;/code>&lt;/td>
-&lt;td>Database to create&lt;/td>
+&lt;td>AWS Access Secret Key&lt;/td>
 &lt;td>&lt;code>&amp;lt;not_defined&amp;gt;&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;/tbody>
 &lt;/table>
 &lt;h3 id="http01">HTTP01&lt;/h3>
+&lt;p>When KRE is open to Internet and you can not configure your subdomain to be hosted in Route53 you can use this challenge.
+The validation is done just with a HTTP request from the Let&amp;rsquo;s Encrypt servers. Just need to set as enable.&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Parameter&lt;/th>
+&lt;th>Description&lt;/th>
+&lt;th>Default&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>&lt;code>certManager.http01.enabled&lt;/code>&lt;/td>
+&lt;td>Enable the HTTP01 challenge&lt;/td>
+&lt;td>&lt;code>&amp;lt;not_defined&amp;gt;&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
 &lt;h2 id="prometheus">Prometheus&lt;/h2>
 &lt;table>
 &lt;thead>
