@@ -157,14 +157,25 @@ create a more accurate configuration.
 
 ### DNS01
 
+If you hosted the subdomain `kre.yourdomain.com` in Route53 is posible to configure the validation of the CSR with DNS via a 
+Route53 plugin. Below there is a snippet of config to add to your `values.yaml` to configure this challenge. This is very
+usefull in deployments that are behind a firewall with restricted access from Internet or just in a private network.
+
 | Parameter                 | Description                                                 | Default    |
 | ------------------------- | ----------------------------------------------------------- | ---------- |
 | `certManager.dns01.route53.region` | AWS Region where the hosted zome is created        | `<not_defined>` |
-| `certManager.dns01.route53.hostedZoneID` | Database to create                           | `<not_defined>` |
-| `certManager.dns01.route53.accessKeyID` | Database to create                            | `<not_defined>` |
-| `certManager.dns01.route53.secretAccessKey` | Database to create                        | `<not_defined>` |
+| `certManager.dns01.route53.hostedZoneID` | AWS Hosted Zone ID                           | `<not_defined>` |
+| `certManager.dns01.route53.accessKeyID` | AWS Access Key ID                             | `<not_defined>` |
+| `certManager.dns01.route53.secretAccessKey` | AWS Access Secret Key                     | `<not_defined>` |
 
 ### HTTP01
+
+When KRE is open to Internet and you can not configure your subdomain to be hosted in Route53 you can use this challenge.
+The validation is done just with a HTTP request from the Let's Encrypt servers. Just need to set as enable.
+
+| Parameter                 | Description                                                 | Default    |
+| ------------------------- | ----------------------------------------------------------- | ---------- |
+| `certManager.http01.enabled` | Enable the HTTP01 challenge        | `<not_defined>` |
 
 ## Prometheus
 
