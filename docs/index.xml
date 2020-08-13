@@ -21,57 +21,135 @@
 &lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="uninstall-the-chart">Uninstall the chart&lt;/h2>
 &lt;p>To uninstall the &lt;code>kre&lt;/code> deployment, use the following command:&lt;/p>
 &lt;div class="highlight">&lt;pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">helm uninstall kre --namespace kre
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>This command removes all the Kubernetes components associated with the chart and deletes the release. It only removes main KRE components, you may need to remove other resources created by KRE.&lt;/p></description></item><item><title>Docs: KRE Overview</title><link>https://konstellation-io.github.io/website/docs/kre/overview/</link><pubDate>Tue, 04 Aug 2020 00:00:00 +0000</pubDate><guid>https://konstellation-io.github.io/website/docs/kre/overview/</guid><description>
-&lt;p>Konstellation Runtime Engine is an application that allow to run AI/ML models for inference based on the content of a &lt;code>.krt&lt;/code> file.&lt;/p>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>This command removes all the Kubernetes components associated with the chart and deletes the release. It only removes main KRE components, you may need to remove other resources created by KRE.&lt;/p></description></item><item><title>Docs: Concepts</title><link>https://konstellation-io.github.io/website/docs/kre/concepts/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://konstellation-io.github.io/website/docs/kre/concepts/</guid><description>
+&lt;h2 id="what-is-kre">What is KRE?&lt;/h2>
+&lt;p>It is an engine capable of deploy, manage and monitor a full AI solution in production in seconds using &lt;a href="https://konstellation-io.github.io/website/website/docs/krt/">KRT files&lt;/a>.&lt;/p>
+&lt;p>KRE has the following main concepts:&lt;/p>
+&lt;ul>
+&lt;li>&lt;a href="#engine">Engine&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#runtimes">Runtimes&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#versions">Versions&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#workflow">Workflows&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h3 id="engine">Engine&lt;/h3>
+&lt;p>Engine component is the central component that works as the &lt;strong>operation tool&lt;/strong> to create, manage and monitor all the resources associated with each solution that you would put in production. It includes an admin web app, an API and some other components.&lt;/p>
+&lt;div class="card rounded p-2 td-post-card mb-4 mt-4" style="max-width: 1010px">
+&lt;img class="card-img-top" src="https://konstellation-io.github.io/website/website/docs/kre/concepts/kre_overview_hu7a5b5d5cc96d9ada230aeb87ed5b9159_76309_1000x0_resize_q75_catmullrom.jpg" width="1000" height="347">
+&lt;div class="card-body px-0 pt-2 pb-0">
+&lt;p class="card-text">
+Engine components are deployed in a specific k8s namespace. The runtimes are deployed in other namespaces.
+&lt;/p>
+&lt;/div>
+&lt;/div>
+&lt;p>Using the admin web app you will able to manage users, permissions and runtimes. You can see the &lt;a href="https://konstellation-io.github.io/website/website/docs/kre/tasks/">tasks&lt;/a> if you want more information about what things you can do.&lt;/p>
+&lt;h3 id="runtimes">Runtimes&lt;/h3>
+&lt;p>Inside a KRE you can create as many runtimes as you need. A runtime is identified by a name and a description and it is where you can upload one or more solutions that we call versions. For example, you can deploy a KRE for the ClientX and create a runtime for each ClientX project. Inside each ClientX project you will upload the versions of your AI solution.&lt;/p>
+&lt;p>Going into greater detail, a runtime is an environment that is &lt;strong>isolated&lt;/strong> from all other runtimes and other resources. Inside a runtime we will find the resources associated to your solution versions, a messaging system used to dispatch messages between components, databases to store metrics or generic data, a s3 store and internal components like an API to process incoming messages received from the KRE admin.&lt;/p>
+&lt;div class="card rounded p-2 td-post-card mb-4 mt-4" style="max-width: 710px">
+&lt;img class="card-img-top" src="https://konstellation-io.github.io/website/website/docs/kre/concepts/runtime_overview_hu7a5b5d5cc96d9ada230aeb87ed5b9159_96017_700x0_resize_q75_catmullrom.jpg" width="700" height="522">
+&lt;div class="card-body px-0 pt-2 pb-0">
+&lt;p class="card-text">
+All versions share databases, storage and message system but it is isolated from other runtimes.
+&lt;/p>
+&lt;/div>
+&lt;/div>
+&lt;h3 id="versions">Versions&lt;/h3>
+&lt;p>A version is a collection of all things needed for your AI solution to work like code, models, assets,&amp;hellip; This is a key concept in KRE because if you make changes at any level, model or code, you then have a new version that must be uploaded. This make versions immutable entities easier to track and debug over time.&lt;/p>
+&lt;p>To upload your versions into a runtime you will need a KRT file. To learn how to create a &lt;a href="https://konstellation-io.github.io/website/website/docs/krt/">KRT file&lt;/a> for more information.&lt;/p>
+&lt;h3 id="workflows">Workflows&lt;/h3></description></item><item><title>Docs: Login</title><link>https://konstellation-io.github.io/website/docs/kre/tasks/login/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://konstellation-io.github.io/website/docs/kre/tasks/login/</guid><description>
+&lt;p>KRE login is a passwordless process so you only need to provide your email:&lt;/p>
+&lt;div class="card rounded p-2 td-post-card mb-4 mt-4" style="max-width: 610px">
+&lt;img class="card-img-top" src="https://konstellation-io.github.io/website/website/docs/kre/tasks/login/login_screen_hu6b4d4c4402f13ef6689bedcf64656ae8_12794_600x0_resize_catmullrom_2.png" width="600" height="368">
+&lt;div class="card-body px-0 pt-2 pb-0">
+&lt;p class="card-text">
+&lt;/p>
+&lt;/div>
+&lt;/div>
+&lt;p>After submitting your email address you will see the following screen:&lt;/p>
+&lt;div class="card rounded p-2 td-post-card mb-4 mt-4" style="max-width: 610px">
+&lt;img class="card-img-top" src="https://konstellation-io.github.io/website/website/docs/kre/tasks/login/login_passwordless_hu5fb6fdf09b0ac3b587961740a3982e57_31821_600x0_resize_catmullrom_2.png" width="600" height="432">
+&lt;div class="card-body px-0 pt-2 pb-0">
+&lt;p class="card-text">
+&lt;/p>
+&lt;/div>
+&lt;/div>
+&lt;p>You will receive an email with a login link:&lt;/p>
+&lt;div class="card rounded p-2 td-post-card mb-4 mt-4" style="max-width: 610px">
+&lt;img class="card-img-top" src="https://konstellation-io.github.io/website/website/docs/kre/tasks/login/login_link_hu71fe54fbd1d880b0ebaac09911343df0_21486_600x0_resize_catmullrom_2.png" width="600" height="183">
+&lt;div class="card-body px-0 pt-2 pb-0">
+&lt;p class="card-text">
+&lt;/p>
+&lt;/div>
+&lt;/div>
+&lt;p>Clicking the login link you will navigate to the runtime list screen.&lt;/p>
+&lt;div class="card rounded p-2 td-post-card mb-4 mt-4" style="max-width: 1010px">
+&lt;img class="card-img-top" src="https://konstellation-io.github.io/website/website/docs/kre/tasks/login/user_viewer_huf43b978f320152200ba1f5efbcf7e93a_20229_1000x0_resize_catmullrom_2.png" width="1000" height="368">
+&lt;div class="card-body px-0 pt-2 pb-0">
+&lt;p class="card-text">
+&lt;/p>
+&lt;/div>
+&lt;/div>
+&lt;p>If you are a new user, your role will be &lt;code>viewer&lt;/code> so you should ask to the admin user for privileges for edition and creation (&lt;code>manager&lt;/code> role).
+An &lt;code>admin&lt;/code> user can change the user role using the user administration interface (&lt;code>/settings/users&lt;/code>):&lt;/p>
+&lt;div class="card rounded p-2 td-post-card mb-4 mt-4" style="max-width: 1010px">
+&lt;img class="card-img-top" src="https://konstellation-io.github.io/website/website/docs/kre/tasks/login/user_admin_hub9a3e132459504b3edb2f6bdc567690f_49810_1000x0_resize_catmullrom_2.png" width="1000" height="396">
+&lt;div class="card-body px-0 pt-2 pb-0">
+&lt;p class="card-text">
+&lt;/p>
+&lt;/div>
+&lt;/div>
+&lt;h3 id="user-roles">User roles&lt;/h3>
+&lt;p>There are three roles for users in KRE. The following table shows the available actions for each role/resource:&lt;/p>
 &lt;table>
 &lt;thead>
 &lt;tr>
-&lt;th>Component&lt;/th>
+&lt;th>Role&lt;/th>
 &lt;th>Description&lt;/th>
+&lt;th>Metrics&lt;/th>
+&lt;th>Runtimes&lt;/th>
+&lt;th>Versions&lt;/th>
+&lt;th>Audits&lt;/th>
+&lt;th>Logs&lt;/th>
+&lt;th>Settings&lt;/th>
+&lt;th>Users&lt;/th>
 &lt;/tr>
 &lt;/thead>
 &lt;tbody>
 &lt;tr>
-&lt;td>Admin UI&lt;/td>
-&lt;td>&lt;/td>
+&lt;td>admin&lt;/td>
+&lt;td>Full control&lt;/td>
+&lt;td>view&lt;/td>
+&lt;td>view/edit&lt;/td>
+&lt;td>view/edit&lt;/td>
+&lt;td>view&lt;/td>
+&lt;td>view&lt;/td>
+&lt;td>view/edit&lt;/td>
+&lt;td>view/edit&lt;/td>
 &lt;/tr>
 &lt;tr>
-&lt;td>Admin API&lt;/td>
-&lt;td>&lt;/td>
+&lt;td>manager&lt;/td>
+&lt;td>Can do anything but management of settings and users&lt;/td>
+&lt;td>view&lt;/td>
+&lt;td>view/edit&lt;/td>
+&lt;td>view/edit&lt;/td>
+&lt;td>view&lt;/td>
+&lt;td>view&lt;/td>
+&lt;td>-&lt;/td>
+&lt;td>-&lt;/td>
 &lt;/tr>
 &lt;tr>
-&lt;td>K8s Manager&lt;/td>
-&lt;td>&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td>Runtime API&lt;/td>
-&lt;td>&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td>K8s Runtime Operator&lt;/td>
-&lt;td>&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td>Runner Python&lt;/td>
-&lt;td>&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td>Runner Go&lt;/td>
-&lt;td>&lt;/td>
+&lt;td>viewer&lt;/td>
+&lt;td>Only can see the metrics, created runtimes and its versions&lt;/td>
+&lt;td>view&lt;/td>
+&lt;td>view&lt;/td>
+&lt;td>view&lt;/td>
+&lt;td>-&lt;/td>
+&lt;td>-&lt;/td>
+&lt;td>-&lt;/td>
+&lt;td>-&lt;/td>
 &lt;/tr>
 &lt;/tbody>
-&lt;/table>
-&lt;h2 id="architecture">Architecture&lt;/h2>
-&lt;p>KRE is designed based on a microservice pattern to be run on top of a Kubernetes cluster.&lt;/p>
-&lt;p>The following diagram describes the main components and the relationship each other:&lt;/p>
-&lt;div class="card rounded p-2 td-post-card mb-4 mt-4" style="max-width: 1010px">
-&lt;img class="card-img-top" src="https://konstellation-io.github.io/website/website/docs/kre/overview/kre-architecture_hub0d560802a8967b3a1f0d5221789fbcb_211258_1000x0_resize_catmullrom_2.png" width="1000" height="545">
-&lt;div class="card-body px-0 pt-2 pb-0">
-&lt;p class="card-text">
-KRE Architecture.
-&lt;/p>
-&lt;/div>
-&lt;/div></description></item><item><title>Docs: Minikube</title><link>https://konstellation-io.github.io/website/docs/kre/installation/minikube/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://konstellation-io.github.io/website/docs/kre/installation/minikube/</guid><description/></item><item><title>Docs: Overview</title><link>https://konstellation-io.github.io/website/docs/krt/overview/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://konstellation-io.github.io/website/docs/krt/overview/</guid><description>
+&lt;/table></description></item><item><title>Docs: Minikube</title><link>https://konstellation-io.github.io/website/docs/kre/installation/minikube/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://konstellation-io.github.io/website/docs/kre/installation/minikube/</guid><description/></item><item><title>Docs: Overview</title><link>https://konstellation-io.github.io/website/docs/krt/overview/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://konstellation-io.github.io/website/docs/krt/overview/</guid><description>
 &lt;p>KRT stands for &lt;strong>Konstellation Runtime Transport&lt;/strong>.&lt;/p>
 &lt;p>Is the file format used in Konstellation as an easy way to move between Development (KDL) to Production (KRE) environments.&lt;/p>
 &lt;p>A KRT file is a single and self-contained file with everything needed for a solution to be deployed on KRE.&lt;/p>
@@ -83,7 +161,40 @@ of Runtime Version.&lt;/p>
 &lt;li>a definition YAML file named &lt;code>krt.yml&lt;/code>.&lt;/li>
 &lt;li>source code of all components.&lt;/li>
 &lt;li>assets needed by each component.&lt;/li>
-&lt;/ul></description></item><item><title>Docs: Folder structure</title><link>https://konstellation-io.github.io/website/docs/krt/folder_structure/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://konstellation-io.github.io/website/docs/krt/folder_structure/</guid><description>
+&lt;/ul></description></item><item><title>Docs: Create runtime</title><link>https://konstellation-io.github.io/website/docs/kre/tasks/create_runtime/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://konstellation-io.github.io/website/docs/kre/tasks/create_runtime/</guid><description>
+&lt;p>If you have &lt;code>manager&lt;/code> role, you will see the &amp;ldquo;ADD RUNTIME&amp;rdquo; button in the runtimes screen:&lt;/p>
+&lt;div class="card rounded p-2 td-post-card mb-4 mt-4" style="max-width: 1010px">
+&lt;img class="card-img-top" src="https://konstellation-io.github.io/website/website/docs/kre/tasks/create_runtime/runtimes_screen_hue4fd0a54479c3496d3bc183a61aaaea8_20361_1000x0_resize_catmullrom_2.png" width="1000" height="490">
+&lt;div class="card-body px-0 pt-2 pb-0">
+&lt;p class="card-text">
+&lt;/p>
+&lt;/div>
+&lt;/div>
+&lt;p>We are going to create a new runtime called &lt;code>test&lt;/code>:&lt;/p>
+&lt;div class="card rounded p-2 td-post-card mb-4 mt-4" style="max-width: 610px">
+&lt;img class="card-img-top" src="https://konstellation-io.github.io/website/website/docs/kre/tasks/create_runtime/add_runtime_hu92d41c6992718aa3a74d49f59445185b_15287_600x0_resize_catmullrom_2.png" width="600" height="501">
+&lt;div class="card-body px-0 pt-2 pb-0">
+&lt;p class="card-text">
+&lt;/p>
+&lt;/div>
+&lt;/div>
+&lt;p>After clicking the &lt;code>save&lt;/code> button, we will see the &lt;code>test&lt;/code> runtime in the runtimes screen with status &lt;code>creating&lt;/code>.
+At this moment KRE is creating all necessary resources inside Kubernetes and it can take a time.&lt;/p>
+&lt;div class="card rounded p-2 td-post-card mb-4 mt-4" style="max-width: 1010px">
+&lt;img class="card-img-top" src="https://konstellation-io.github.io/website/website/docs/kre/tasks/create_runtime/runtime_creating_hue45359b6cad59e1ee9c276af8929a8d3_33548_1000x0_resize_catmullrom_2.png" width="1000" height="394">
+&lt;div class="card-body px-0 pt-2 pb-0">
+&lt;p class="card-text">
+&lt;/p>
+&lt;/div>
+&lt;/div>
+&lt;p>After a while, the runtime status should be &lt;code>started&lt;/code> or if there was a problem with the initialization the status should be &lt;code>error&lt;/code>.&lt;/p>
+&lt;div class="card rounded p-2 td-post-card mb-4 mt-4" style="max-width: 410px">
+&lt;img class="card-img-top" src="https://konstellation-io.github.io/website/website/docs/kre/tasks/create_runtime/runtime_started_hu0e5f734b8fed8551e4eb33c3c0dffe27_19158_400x0_resize_catmullrom_2.png" width="400" height="330">
+&lt;div class="card-body px-0 pt-2 pb-0">
+&lt;p class="card-text">
+&lt;/p>
+&lt;/div>
+&lt;/div></description></item><item><title>Docs: Folder structure</title><link>https://konstellation-io.github.io/website/docs/krt/folder_structure/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://konstellation-io.github.io/website/docs/krt/folder_structure/</guid><description>
 &lt;p>The KRT file contains all assets and source code needed for the given version to run.&lt;/p>
 &lt;p>The mandatory rules are these:&lt;/p>
 &lt;ul>
@@ -115,7 +226,39 @@ encoder.joblib
 - go.mod
 - kry.yml # KRT file definition
 - public_input.proto # Used to define entrypoint GRPC messages and services.
-&lt;/code>&lt;/pre></description></item><item><title>Docs: GKE</title><link>https://konstellation-io.github.io/website/docs/kre/installation/gke/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://konstellation-io.github.io/website/docs/kre/installation/gke/</guid><description/></item><item><title>Docs: EKS</title><link>https://konstellation-io.github.io/website/docs/kre/installation/eks/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://konstellation-io.github.io/website/docs/kre/installation/eks/</guid><description>
+&lt;/code>&lt;/pre></description></item><item><title>Docs: GKE</title><link>https://konstellation-io.github.io/website/docs/kre/installation/gke/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://konstellation-io.github.io/website/docs/kre/installation/gke/</guid><description/></item><item><title>Docs: Create version</title><link>https://konstellation-io.github.io/website/docs/kre/tasks/create_version/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://konstellation-io.github.io/website/docs/kre/tasks/create_version/</guid><description>
+&lt;p>When all runtime resources are ready, you can click the created runtime in order to see the list of versions:&lt;/p>
+&lt;div class="card rounded p-2 td-post-card mb-4 mt-4" style="max-width: 1010px">
+&lt;img class="card-img-top" src="https://konstellation-io.github.io/website/website/docs/kre/tasks/create_version/versions_screen_hu0d45c690b63171258cd8b378095e3e48_40429_1000x0_resize_catmullrom_2.png" width="1000" height="382">
+&lt;div class="card-body px-0 pt-2 pb-0">
+&lt;p class="card-text">
+&lt;/p>
+&lt;/div>
+&lt;/div>
+&lt;p>We are going to upload a version of the &lt;a href="https://github.com/konstellation-io/kre/tree/master/krt-template/greeter">greeting example&lt;/a>. You can download the krt file &lt;a href="./greeter-v1.krt">here&lt;/a>.&lt;/p>
+&lt;div class="card rounded p-2 td-post-card mb-4 mt-4" style="max-width: 610px">
+&lt;img class="card-img-top" src="https://konstellation-io.github.io/website/website/docs/kre/tasks/create_version/add_version_hua3bbf1bfa17fdaedecdab412e92334e6_14685_600x0_resize_catmullrom_2.png" width="600" height="354">
+&lt;div class="card-body px-0 pt-2 pb-0">
+&lt;p class="card-text">
+&lt;/p>
+&lt;/div>
+&lt;/div>
+&lt;p>After creating the greeting version, you will see the version status screen:&lt;/p>
+&lt;div class="card rounded p-2 td-post-card mb-4 mt-4" style="max-width: 1010px">
+&lt;img class="card-img-top" src="https://konstellation-io.github.io/website/website/docs/kre/tasks/create_version/greeting_version_screen_huf340600169102cc7f0f117e79759b2e8_63501_1000x0_resize_catmullrom_2.png" width="1000" height="658">
+&lt;div class="card-body px-0 pt-2 pb-0">
+&lt;p class="card-text">
+&lt;/p>
+&lt;/div>
+&lt;/div>
+&lt;p>As you can see, the &lt;a href="https://github.com/konstellation-io/kre/tree/master/krt-template/greeter">greeting example&lt;/a> has two workflows called &lt;code>greeting&lt;/code> and &lt;code>saluting&lt;/code>. Both workflows have only one process called &lt;code>greeter&lt;/code>. The version status at this moment is &lt;code>stopped&lt;/code> so the &lt;code>greeter&lt;/code> processes color are grey. A workflow is a sequence of connected nodes, the first and the last node are called &lt;code>entrypoint&lt;/code>.&lt;/p>
+&lt;div class="card rounded p-2 td-post-card mb-4 mt-4" style="max-width: 1010px">
+&lt;img class="card-img-top" src="https://konstellation-io.github.io/website/website/docs/kre/tasks/create_version/greeting_version_screen_explained_hu618855afb64b2a97c4762ec269c4726e_194378_1000x0_resize_catmullrom_2.png" width="1000" height="657">
+&lt;div class="card-body px-0 pt-2 pb-0">
+&lt;p class="card-text">
+&lt;/p>
+&lt;/div>
+&lt;/div></description></item><item><title>Docs: EKS</title><link>https://konstellation-io.github.io/website/docs/kre/installation/eks/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://konstellation-io.github.io/website/docs/kre/installation/eks/</guid><description>
 &lt;h1 id="eks-deployment">EKS deployment&lt;/h1>
 &lt;p>The flavor of Kubernetes on AWS is called EKS (Elastic Kubernetes Service) which allow to deploy a cluster managed by Amazon. This means that Amazon will manage the lifecyle of the Master nodes of our cluster.&lt;/p>
 &lt;p>Currently there are two ways of run loads on top of EKS, using EC2 instances as compute nodes that are added to to the cluster or using the Fargate mode, where AWS also manage these compute nodes. In this guide is just described the first one, adding our own compute nodes with EC2 instances.&lt;/p>
@@ -429,174 +572,11 @@ exist on the node list defined above.&lt;/li>
 &lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>&lt;span style="color:#204a87;font-weight:bold">entrypoint&lt;/span>&lt;span style="color:#000;font-weight:bold">:&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>SaveClientMetric&lt;span style="color:#f8f8f8;text-decoration:underline">
 &lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>&lt;span style="color:#204a87;font-weight:bold">sequential&lt;/span>&lt;span style="color:#000;font-weight:bold">:&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline">
 &lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>- client-metrics&lt;span style="color:#f8f8f8;text-decoration:underline">
-&lt;/span>&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>Docs: Getting started</title><link>https://konstellation-io.github.io/website/docs/kre/getting_started/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://konstellation-io.github.io/website/docs/kre/getting_started/</guid><description>
-&lt;h2 id="prerequisites">Prerequisites&lt;/h2>
-&lt;p>First of all, you will need a KRE environment installed. Read more info about the installation &lt;a href="../installing-kre">here&lt;/a>.&lt;/p>
-&lt;h2 id="login">Login&lt;/h2>
-&lt;p>KRE login is a passwordless process so you only need to provide your email:&lt;/p>
-&lt;div class="card rounded p-2 td-post-card mb-4 mt-4" style="max-width: 610px">
-&lt;img class="card-img-top" src="https://konstellation-io.github.io/website/website/docs/kre/getting_started/login_screen_hu6b4d4c4402f13ef6689bedcf64656ae8_12794_600x0_resize_catmullrom_2.png" width="600" height="368">
-&lt;div class="card-body px-0 pt-2 pb-0">
-&lt;p class="card-text">
-&lt;/p>
-&lt;/div>
-&lt;/div>
-&lt;p>After submitting your email address you will see the following screen:&lt;/p>
-&lt;div class="card rounded p-2 td-post-card mb-4 mt-4" style="max-width: 610px">
-&lt;img class="card-img-top" src="https://konstellation-io.github.io/website/website/docs/kre/getting_started/login_passwordless_hu5fb6fdf09b0ac3b587961740a3982e57_31821_600x0_resize_catmullrom_2.png" width="600" height="432">
-&lt;div class="card-body px-0 pt-2 pb-0">
-&lt;p class="card-text">
-&lt;/p>
-&lt;/div>
-&lt;/div>
-&lt;p>You will receive an email with a login link:&lt;/p>
-&lt;div class="card rounded p-2 td-post-card mb-4 mt-4" style="max-width: 610px">
-&lt;img class="card-img-top" src="https://konstellation-io.github.io/website/website/docs/kre/getting_started/login_link_hu71fe54fbd1d880b0ebaac09911343df0_21486_600x0_resize_catmullrom_2.png" width="600" height="183">
-&lt;div class="card-body px-0 pt-2 pb-0">
-&lt;p class="card-text">
-&lt;/p>
-&lt;/div>
-&lt;/div>
-&lt;p>Clicking the login link you will navigate to the runtime list screen.&lt;/p>
-&lt;div class="card rounded p-2 td-post-card mb-4 mt-4" style="max-width: 1010px">
-&lt;img class="card-img-top" src="https://konstellation-io.github.io/website/website/docs/kre/getting_started/user_viewer_huf43b978f320152200ba1f5efbcf7e93a_20229_1000x0_resize_catmullrom_2.png" width="1000" height="368">
-&lt;div class="card-body px-0 pt-2 pb-0">
-&lt;p class="card-text">
-&lt;/p>
-&lt;/div>
-&lt;/div>
-&lt;p>If you are a new user, your role will be &lt;code>viewer&lt;/code> so you should ask to the admin user for privileges for edition and creation (&lt;code>manager&lt;/code> role).
-An &lt;code>admin&lt;/code> user can change the user role using the user administration interface (&lt;code>/settings/users&lt;/code>):&lt;/p>
-&lt;div class="card rounded p-2 td-post-card mb-4 mt-4" style="max-width: 1010px">
-&lt;img class="card-img-top" src="https://konstellation-io.github.io/website/website/docs/kre/getting_started/user_admin_hub9a3e132459504b3edb2f6bdc567690f_49810_1000x0_resize_catmullrom_2.png" width="1000" height="396">
-&lt;div class="card-body px-0 pt-2 pb-0">
-&lt;p class="card-text">
-&lt;/p>
-&lt;/div>
-&lt;/div>
-&lt;h3 id="user-roles">User roles&lt;/h3>
-&lt;p>There are three roles for users in KRE. The following table shows the available actions for each role/resource:&lt;/p>
-&lt;table>
-&lt;thead>
-&lt;tr>
-&lt;th>Role&lt;/th>
-&lt;th>Description&lt;/th>
-&lt;th>Metrics&lt;/th>
-&lt;th>Runtimes&lt;/th>
-&lt;th>Versions&lt;/th>
-&lt;th>Audits&lt;/th>
-&lt;th>Logs&lt;/th>
-&lt;th>Settings&lt;/th>
-&lt;th>Users&lt;/th>
-&lt;/tr>
-&lt;/thead>
-&lt;tbody>
-&lt;tr>
-&lt;td>admin&lt;/td>
-&lt;td>Full control&lt;/td>
-&lt;td>view&lt;/td>
-&lt;td>view/edit&lt;/td>
-&lt;td>view/edit&lt;/td>
-&lt;td>view&lt;/td>
-&lt;td>view&lt;/td>
-&lt;td>view/edit&lt;/td>
-&lt;td>view/edit&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td>manager&lt;/td>
-&lt;td>Can do anything but management of settings and users&lt;/td>
-&lt;td>view&lt;/td>
-&lt;td>view/edit&lt;/td>
-&lt;td>view/edit&lt;/td>
-&lt;td>view&lt;/td>
-&lt;td>view&lt;/td>
-&lt;td>-&lt;/td>
-&lt;td>-&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td>viewer&lt;/td>
-&lt;td>Only can see the metrics, created runtimes and its versions&lt;/td>
-&lt;td>view&lt;/td>
-&lt;td>view&lt;/td>
-&lt;td>view&lt;/td>
-&lt;td>-&lt;/td>
-&lt;td>-&lt;/td>
-&lt;td>-&lt;/td>
-&lt;td>-&lt;/td>
-&lt;/tr>
-&lt;/tbody>
-&lt;/table>
-&lt;h2 id="create-a-new-runtime">Create a new Runtime&lt;/h2>
-&lt;p>If you have &lt;code>manager&lt;/code> role, you will see the &amp;ldquo;ADD RUNTIME&amp;rdquo; button in the runtimes screen:&lt;/p>
-&lt;div class="card rounded p-2 td-post-card mb-4 mt-4" style="max-width: 1010px">
-&lt;img class="card-img-top" src="https://konstellation-io.github.io/website/website/docs/kre/getting_started/runtimes_screen_hue4fd0a54479c3496d3bc183a61aaaea8_20361_1000x0_resize_catmullrom_2.png" width="1000" height="490">
-&lt;div class="card-body px-0 pt-2 pb-0">
-&lt;p class="card-text">
-&lt;/p>
-&lt;/div>
-&lt;/div>
-&lt;p>We are going to create a new runtime called &lt;code>test&lt;/code>:&lt;/p>
-&lt;div class="card rounded p-2 td-post-card mb-4 mt-4" style="max-width: 610px">
-&lt;img class="card-img-top" src="https://konstellation-io.github.io/website/website/docs/kre/getting_started/add_runtime_hu92d41c6992718aa3a74d49f59445185b_15287_600x0_resize_catmullrom_2.png" width="600" height="501">
-&lt;div class="card-body px-0 pt-2 pb-0">
-&lt;p class="card-text">
-&lt;/p>
-&lt;/div>
-&lt;/div>
-&lt;p>After clicking the &lt;code>save&lt;/code> button, we will see the &lt;code>test&lt;/code> runtime in the runtimes screen with status &lt;code>creating&lt;/code>.
-At this moment KRE is creating all necessary resources inside Kubernetes and it can take a time.&lt;/p>
-&lt;div class="card rounded p-2 td-post-card mb-4 mt-4" style="max-width: 1010px">
-&lt;img class="card-img-top" src="https://konstellation-io.github.io/website/website/docs/kre/getting_started/runtime_creating_hue45359b6cad59e1ee9c276af8929a8d3_33548_1000x0_resize_catmullrom_2.png" width="1000" height="394">
-&lt;div class="card-body px-0 pt-2 pb-0">
-&lt;p class="card-text">
-&lt;/p>
-&lt;/div>
-&lt;/div>
-&lt;p>After a while, the runtime status should be &lt;code>started&lt;/code> or if there was a problem with the initialization the status should be &lt;code>error&lt;/code>.&lt;/p>
-&lt;div class="card rounded p-2 td-post-card mb-4 mt-4" style="max-width: 410px">
-&lt;img class="card-img-top" src="https://konstellation-io.github.io/website/website/docs/kre/getting_started/runtime_started_hu0e5f734b8fed8551e4eb33c3c0dffe27_19158_400x0_resize_catmullrom_2.png" width="400" height="330">
-&lt;div class="card-body px-0 pt-2 pb-0">
-&lt;p class="card-text">
-&lt;/p>
-&lt;/div>
-&lt;/div>
-&lt;h2 id="upload-a-new-version">Upload a new Version&lt;/h2>
-&lt;p>When all runtime resources are ready, you can click the created runtime in order to see the list of versions:&lt;/p>
-&lt;div class="card rounded p-2 td-post-card mb-4 mt-4" style="max-width: 1010px">
-&lt;img class="card-img-top" src="https://konstellation-io.github.io/website/website/docs/kre/getting_started/versions_screen_hu0d45c690b63171258cd8b378095e3e48_40429_1000x0_resize_catmullrom_2.png" width="1000" height="382">
-&lt;div class="card-body px-0 pt-2 pb-0">
-&lt;p class="card-text">
-&lt;/p>
-&lt;/div>
-&lt;/div>
-&lt;p>We are going to upload a version of the &lt;a href="https://github.com/konstellation-io/kre/tree/master/krt-template/greeter">greeting example&lt;/a>. You can download the krt file &lt;a href="./greeter-v1.krt">here&lt;/a>.&lt;/p>
-&lt;div class="card rounded p-2 td-post-card mb-4 mt-4" style="max-width: 610px">
-&lt;img class="card-img-top" src="https://konstellation-io.github.io/website/website/docs/kre/getting_started/add_version_hua3bbf1bfa17fdaedecdab412e92334e6_14685_600x0_resize_catmullrom_2.png" width="600" height="354">
-&lt;div class="card-body px-0 pt-2 pb-0">
-&lt;p class="card-text">
-&lt;/p>
-&lt;/div>
-&lt;/div>
-&lt;p>After creating the greeting version, you will see the version status screen:&lt;/p>
-&lt;div class="card rounded p-2 td-post-card mb-4 mt-4" style="max-width: 1010px">
-&lt;img class="card-img-top" src="https://konstellation-io.github.io/website/website/docs/kre/getting_started/greeting_version_screen_huf340600169102cc7f0f117e79759b2e8_63501_1000x0_resize_catmullrom_2.png" width="1000" height="658">
-&lt;div class="card-body px-0 pt-2 pb-0">
-&lt;p class="card-text">
-&lt;/p>
-&lt;/div>
-&lt;/div>
-&lt;p>As you can see, the &lt;a href="https://github.com/konstellation-io/kre/tree/master/krt-template/greeter">greeting example&lt;/a> has two workflows called &lt;code>greeting&lt;/code> and &lt;code>saluting&lt;/code>. Both workflows have only one process called &lt;code>greeter&lt;/code>. The version status at this moment is &lt;code>stopped&lt;/code> so the &lt;code>greeter&lt;/code> processes color are grey. A workflow is a sequence of connected nodes, the first and the last node are called &lt;code>entrypoint&lt;/code>.&lt;/p>
-&lt;div class="card rounded p-2 td-post-card mb-4 mt-4" style="max-width: 1010px">
-&lt;img class="card-img-top" src="https://konstellation-io.github.io/website/website/docs/kre/getting_started/greeting_version_screen_explained_hu618855afb64b2a97c4762ec269c4726e_194378_1000x0_resize_catmullrom_2.png" width="1000" height="657">
-&lt;div class="card-body px-0 pt-2 pb-0">
-&lt;p class="card-text">
-&lt;/p>
-&lt;/div>
-&lt;/div>
+&lt;/span>&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>Docs: Version Management</title><link>https://konstellation-io.github.io/website/docs/kre/tasks/version_management/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://konstellation-io.github.io/website/docs/kre/tasks/version_management/</guid><description>
 &lt;h3 id="version-lifecycle">Version lifecycle&lt;/h3>
 &lt;p>In the following grahp you can see all posible statuses and actions for a runtime version. The blue boxes are actions and the green ones are statuses:&lt;/p>
 &lt;div class="card rounded p-2 td-post-card mb-4 mt-4" style="max-width: 1010px">
-&lt;img class="card-img-top" src="https://konstellation-io.github.io/website/website/docs/kre/getting_started/version_lifecycle_hu3d0103200f92e22fba46921b44813a51_104333_1000x0_resize_q75_catmullrom.jpg" width="1000" height="349">
+&lt;img class="card-img-top" src="https://konstellation-io.github.io/website/website/docs/kre/tasks/version_management/version_lifecycle_hu3d0103200f92e22fba46921b44813a51_104333_1000x0_resize_q75_catmullrom.jpg" width="1000" height="349">
 &lt;div class="card-body px-0 pt-2 pb-0">
 &lt;p class="card-text">
 &lt;/p>
@@ -638,7 +618,7 @@ At this moment KRE is creating all necessary resources inside Kubernetes and it 
 &lt;h3 id="start-a-version">Start a version&lt;/h3>
 &lt;p>Clicking the &lt;code>Start&lt;/code> button and providing the reason text we will see that the version goes to the &lt;code>starting&lt;/code> status and after a time changes to &lt;code>started&lt;/code>.&lt;/p>
 &lt;div class="card rounded p-2 td-post-card mb-4 mt-4" style="max-width: 1010px">
-&lt;img class="card-img-top" src="https://konstellation-io.github.io/website/website/docs/kre/getting_started/version_started_hu7848eb828a18e41987a0e2d9b524ab45_53884_1000x0_resize_catmullrom_2.png" width="1000" height="910">
+&lt;img class="card-img-top" src="https://konstellation-io.github.io/website/website/docs/kre/tasks/version_management/version_started_hu7848eb828a18e41987a0e2d9b524ab45_53884_1000x0_resize_catmullrom_2.png" width="1000" height="910">
 &lt;div class="card-body px-0 pt-2 pb-0">
 &lt;p class="card-text">
 &lt;/p>
