@@ -38,9 +38,8 @@ helm upgrade --install kre --namespace kre konstellation-io/kre
 To uninstall the `kre` deployment, use the following command:
 
 ```bash
-helm uninstall kre
+helm uninstall kre --namespace kre
 ```
 
-This command removes all the Kubernetes components associated with the chart and deletes the release.
-
+This command removes all the Kubernetes components associated with the chart and deletes the release. It only removes main KRE components, you may need to remove other resources created by KRE. 
 

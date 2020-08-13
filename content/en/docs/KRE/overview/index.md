@@ -1,6 +1,6 @@
 ---
 title: "KRE Overview"
-linkTitle: "KRE Overview"
+linkTitle: "Overview"
 date: 2020-08-04
 description: >
   How KRE helps you to deploy your ML solutions

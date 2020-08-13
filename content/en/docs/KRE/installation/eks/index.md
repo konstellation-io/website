@@ -11,7 +11,7 @@ The flavor of Kubernetes on AWS is called EKS (Elastic Kubernetes Service) which
 
 Currently there are two ways of run loads on top of EKS, using EC2 instances as compute nodes that are added to to the cluster or using the Fargate mode, where AWS also manage these compute nodes. In this guide is just described the first one, adding our own compute nodes with EC2 instances.
 
-Deploy an EKS cluster is not the goal of this guide, only the detail some specific configuration needed to run KRE on top of it. It is recomend to use IaC (Infrastructure As Code) approach using Terraform to automate the creation of your cluster, [here](https://learn.hashicorp.com/tutorials/terraform/eks) you can find usefull resources about that. Also you can follow the instructions from the official [AWS site](https://docs.aws.amazon.com/eks/latest/userguide/create-cluster.html). 
+Deploy an EKS cluster is not the goal of this guide, only the detail some specific configuration needed to run KRE on top of it. It is recommend to use IaC (Infrastructure As Code) approach using Terraform to automate the creation of your cluster, [here](https://learn.hashicorp.com/tutorials/terraform/eks) you can find usefull resources about that. Also you can follow the instructions from the official [AWS site](https://docs.aws.amazon.com/eks/latest/userguide/create-cluster.html). 
 
 The final EKS deployment should be something like the below diagram.
 
@@ -19,13 +19,13 @@ The final EKS deployment should be something like the below diagram.
 
 {{< /imgproc >}}
 
-After deploy your EKS cluster you are going to need the `kubeconfig` file. This file is the way to configure the `kubectl` and `helm` CLIs to access to your cluster. In the case of EKS use to be required an extra plugin called [AWS IAM authenticator](https://github.com/kubernetes-sigs/aws-iam-authenticator) to authenticate via the IAM account. Please follow the steps detailed in hte [AWS site](https://docs.aws.amazon.com/eks/latest/userguide/create-kubeconfig.html).
+After deploy your EKS cluster you are going to need the `kubeconfig` file. This file is the way to configure the `kubectl` and `helm` CLIs to access to your cluster. In the case of EKS used to be required an extra plugin called [AWS IAM authenticator](https://github.com/kubernetes-sigs/aws-iam-authenticator) to authenticate via the IAM account. Please follow the steps detailed in hte [AWS site](https://docs.aws.amazon.com/eks/latest/userguide/create-kubeconfig.html).
 
 # Storage
 
-An important amount of features of KRE are based on the use of shared storage with `ReadWriteMany` volumes. Therefore is required to add a storageClass to Kubernetes that support this kind of volumes. 
+An important amount of features of KRE are based on the use of shared storage with `ReadWriteMany` volumes. Therefore, is required to add a storageClass to Kubernetes that support this kind of volumes. 
 
-In AWS there are a service called EFS (Elastic File System) that bring to us a network shared storage. As was mentioned before, the recomended way to create resources is using the approach of IaC, for EFS you can find examples of Terraform code [here](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/efs_mount_target), or follow the manual steps from the [AWS site](https://docs.aws.amazon.com/efs/latest/ug/whatisefs.html). 
+In AWS there are a service called EFS (Elastic File System) that bring to us a network shared storage. As was mentioned before, the recommended way to create resources is using the approach of IaC, for EFS you can find examples of Terraform code [here](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/efs_mount_target), or follow the manual steps from the [AWS site](https://docs.aws.amazon.com/efs/latest/ug/whatisefs.html). 
 
 The common way to use this from Kubernetes is deploying what is called `efs-provisioner` that create the interface between Kubernetes `PersistentVolumeClaim` and EFS. 
 
@@ -42,7 +42,7 @@ mount -a -t efs defaults
 ```
 In the next section is described how to install the `hostPath` provisioner.
 
-Network shared storage can be a bottle neck of performance, so depend of your usecase you should use only for the pieces that require 
+Network shared storage can be a bottleneck of performance, so depends on your usecase you should use only for the pieces that require 
 `ReadWriteMany` volume, for the rest of the components you can use the default storageClass that will create an EBS resource on AWS. In the [Helm deployment](#helm-deployment) section is detailed the best option for your usecase and which pieces can use which storageClass.
 
 # Kubernetes required components
@@ -55,7 +55,7 @@ The use of Ingress Controller in Kubernetes that are deployed on cloud providers
 load balancers, also the ingress objects help with the automation of some task when publish service to outside of our cluster, and many more.
 
 There are multiple choices of Ingress Controller (NGINX, Traefik, HAProxy, Kong, ...), you can find a full list of those 
-in the [Kubernetes site](https://kubernetes.io/docs/concepts/services-networking/ingress-controllers/), and all of them have pros and cons, in this guide we are going to explain how to deploy NGINX Ingress Controller. It is posible to use KRE with other Ingress Controller than NGINX, but this is matained by the CNCF and the maturity of NGINX itself is quite important.
+in the [Kubernetes site](https://kubernetes.io/docs/concepts/services-networking/ingress-controllers/), and all of them have pros and cons, in this guide we are going to explain how to deploy NGINX Ingress Controller. It is possible to use KRE with other Ingress Controller than NGINX, but this is maintained by the CNCF, and the maturity of NGINX itself is quite important.
 
 
 
@@ -69,13 +69,13 @@ helm upgrade --install \
 
 ## Cert manager
 
-The access to the web admin interface of KRE and all the endpoints that are exposed to the end users required of a minimun level of security,
+The access to the web admin interface of KRE and all the endpoints that are exposed to the end users required of a minimum level of security,
 this is the reason why add a piece to automate the management of the lifecycle of all required certificates.
 
-Cert Manager allow to create certificates just with some configuration on the deployment process, and manage the lifecycle of those, updating those when expired without any human interaction. Moreover, with
+Cert Manager allow creating certificates just with some configuration on the deployment process, and manage the lifecycle of those, updating those when expired without any human interaction. Moreover, with
 the use of `DNS01` challenge method can be created certificates for environment that are not exposed to Internet behind a firewall in a private network.
 
-In order to install Cert Manager we are going to use the official Helm chart. Below are the commands to deploy it within the Kubernetes namespace `cert-manager`, be aware that this is just a convention, you can deploy it in the namespace where you feel more confortable.
+In order to install Cert Manager we are going to use the official Helm chart. Below are the commands to deploy it within the Kubernetes namespace `cert-manager`, be aware this is just a convention, you can deploy it in the namespace where you feel more comfortable.
 
 ```bash
 kubectl create namespace cert-manager --dry-run -o yaml | kubectl apply -f -
@@ -100,7 +100,7 @@ helm upgrade --install hostpath-provisioner --namespace kube-system rimusz/hostp
 # DNS
 
 All the access to KRE services require of a hostname due to the use of Ingress objects and certificates. In order to get a 
-deployment and management processes easier we recommend to delegate a subdomain `kre` of a domain owned by you to a `Route53` DNS hosted zone, and create a wildcard entry pointing to the Load Balancer of the Ingress Controller.
+deployment and management processes easier we recommend delegating a subdomain `kre` of a domain owned by you to a `Route53` DNS hosted zone, and create a wildcard entry pointing to the Load Balancer of the Ingress Controller.
 
 ## Get Ingress Controller hostname
 
