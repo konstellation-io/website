@@ -348,7 +348,45 @@ At this moment KRE is creating all necessary resources inside Kubernetes and it 
 &lt;p class="card-text">
 &lt;/p>
 &lt;/div>
-&lt;/div></description></item><item><title>Docs: GKE</title><link>https://konstellation-io.github.io/website/docs/kre/installation/gke/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://konstellation-io.github.io/website/docs/kre/installation/gke/</guid><description/></item><item><title>Docs: KRT YAML specs</title><link>https://konstellation-io.github.io/website/docs/krt/specs/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://konstellation-io.github.io/website/docs/krt/specs/</guid><description>
+&lt;/div></description></item><item><title>Docs: GKE</title><link>https://konstellation-io.github.io/website/docs/kre/installation/gke/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://konstellation-io.github.io/website/docs/kre/installation/gke/</guid><description>
+&lt;h1 id="gke-deployment">GKE deployment&lt;/h1>
+&lt;p>The flavor of Kubernetes on Google is called GKE (Google Kubernetes Engine) which allow to deploy a cluster managed by Google. This means that Goolge will manage the lifecyle of the Master nodes of our cluster.&lt;/p>
+&lt;p>When you create a GKE cluster by default is created an Instance Group, which is resposible to start the GCE (Goolge Compute Engine) instances and scale up and down depending of your configuration. In these instances of GCE is where the loads that we deploy on GKE will run. Therefore is needed to ajust the type of instances on this instance group, to support the load of your deployment. For a PoC of KRE you can setup an Instance Group with min instances 1 up to 3 of type &lt;code>n1-standard-2&lt;/code> and everything will works fine. Be aware about the autoscaling configuration of the Instances Group, because if you only have one Instance Group added to your GKE cluster, at least is required one instance up in order to run some Kubernetes componentes that run as PODS.&lt;/p>
+&lt;p>Deploy an GKE cluster is not the goal of this guide, only the detail some specific configuration needed to run KRE on top of it. It is recommend to use IaC (Infrastructure As Code) approach using Terraform to automate the creation of your cluster, &lt;a href="https://learn.hashicorp.com/tutorials/terraform/gke">here&lt;/a> you can find usefull resources about that. Also you can follow the instructions from the official &lt;a href="https://cloud.google.com/cloud-build/docs/deploying-builds/deploy-gke">Google site&lt;/a>.&lt;/p>
+&lt;h1 id="storage">Storage&lt;/h1>
+&lt;h1 id="kubernetes-required-components">Kubernetes required components&lt;/h1>
+&lt;h2 id="ingress-controller">Ingress controller&lt;/h2>
+&lt;h2 id="cert-manager">Cert manager&lt;/h2>
+&lt;h2 id="storage-provisioner">Storage provisioner&lt;/h2>
+&lt;h1 id="dns">DNS&lt;/h1>
+&lt;h2 id="get-ingress-controller-hostname">Get Ingress Controller hostname&lt;/h2>
+&lt;p>First of all you need to konw the name of the ELB where we have to point our DNS entry. With the below command you will get name of this Load Balancer.&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">kubectl -n kube-system get svc -l &lt;span style="color:#000">app&lt;/span>&lt;span style="color:#ce5c00;font-weight:bold">=&lt;/span>nginx-ingress,component&lt;span style="color:#ce5c00;font-weight:bold">=&lt;/span>controller -o &lt;span style="color:#000">jsonpath&lt;/span>&lt;span style="color:#ce5c00;font-weight:bold">=&lt;/span>&lt;span style="color:#4e9a06">&amp;#34;{.items[0].status.loadBalancer.ingress[0].hostname}&amp;#34;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>The output of this command should be something like &lt;code>-&lt;/code>.&lt;/p>
+&lt;h2 id="create-wildcard-entry-in-your-hosted-zone">Create wildcard entry in your hosted zone&lt;/h2>
+&lt;h2 id="validate">Validate&lt;/h2>
+&lt;p>To validate that the DNS configuration is working fine you can use the tool &lt;code>dig&lt;/code> to query the DNS as follow.&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">dig admin.kre.yourdamin.com
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>The output should be something as below.&lt;/p>
+&lt;pre>&lt;code>; &amp;lt;&amp;lt;&amp;gt;&amp;gt; DiG 9.16.1-Ubuntu &amp;lt;&amp;lt;&amp;gt;&amp;gt; admin.kre.yourdamin.com
+;; global options: +cmd
+;; Got answer:
+;; -&amp;gt;&amp;gt;HEADER&amp;lt;&amp;lt;- opcode: QUERY, status: NOERROR, id: 901
+;; flags: qr rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 1
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 65494
+;; QUESTION SECTION:
+;admin.kre.yourdamin.com. IN A
+;; ANSWER SECTION:
+admin.kre.yourdamin.com. 1799 IN A 1.2.3.4
+;; Query time: 64 msec
+;; SERVER: 127.0.0.53#53(127.0.0.53)
+;; WHEN: mié ago 12 16:18:49 CEST 2020
+;; MSG SIZE rcvd: 75
+&lt;/code>&lt;/pre>&lt;h1 id="helm-deployment">Helm deployment&lt;/h1>
+&lt;h2 id="create-valuesyaml">Create values.yaml&lt;/h2>
+&lt;h2 id="install-helm-chart">Install Helm chart&lt;/h2>
+&lt;h2 id="validate-the-installation">Validate the installation&lt;/h2></description></item><item><title>Docs: KRT YAML specs</title><link>https://konstellation-io.github.io/website/docs/krt/specs/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://konstellation-io.github.io/website/docs/krt/specs/</guid><description>
 &lt;p>A KRT yaml file is a declarative file describing the content of the KRT. It has general description of the Version, a
 GRPC entrypoint for the Runtime Version, nodes that are
 connected between each other to form workflows that will be access through GRPC services defined on the entrypoint.&lt;/p>
