@@ -6,7 +6,7 @@
 &lt;li>&lt;a href="#engine">Engine&lt;/a>&lt;/li>
 &lt;li>&lt;a href="#runtimes">Runtimes&lt;/a>&lt;/li>
 &lt;li>&lt;a href="#versions">Versions&lt;/a>&lt;/li>
-&lt;li>&lt;a href="#workflow">Workflows&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#workflows">Workflows&lt;/a>&lt;/li>
 &lt;/ul>
 &lt;h3 id="engine">Engine&lt;/h3>
 &lt;p>Engine component is the central component that works as the &lt;strong>operation tool&lt;/strong> to create, manage and monitor all the resources associated with each solution that you would put in production. It includes an admin web app, an API and some other components.&lt;/p>
@@ -51,5 +51,5 @@ Example of a basic workflow
 &lt;/p>
 &lt;/div>
 &lt;/div>
-&lt;p>In KRE the external messages comes from a gRPC client. A special component called Entrypoint (gRPC server) dispatch the messages to a determinated workflow and returns the response of the last node to the client. The workflow nodes becomes a PODs in your k8s cluster when the version is started.&lt;/p></description></item><item><title>Docs: Installation</title><link>https://konstellation-io.github.io/website/docs/kre/installation/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://konstellation-io.github.io/website/docs/kre/installation/</guid><description>
+&lt;p>In KRE, external messages comes from a gRPC client. A special component called Entrypoint (gRPC server) dispatch the messages to a determinated workflow and returns the response of the last node to the client. The workflow nodes becomes a PODs in your k8s cluster when the version is started.&lt;/p></description></item><item><title>Docs: Installation</title><link>https://konstellation-io.github.io/website/docs/kre/installation/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://konstellation-io.github.io/website/docs/kre/installation/</guid><description>
 &lt;p>KRE is ready to be deployed in a Kubernetes cluster or single node. This section contains guidelines for common scenarios for setup, deployment, cluster preparation and Helm values configuration.&lt;/p></description></item><item><title>Docs: Tasks</title><link>https://konstellation-io.github.io/website/docs/kre/tasks/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://konstellation-io.github.io/website/docs/kre/tasks/</guid><description/></item></channel></rss>

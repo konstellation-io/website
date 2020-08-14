@@ -1,52 +1,77 @@
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Konstellation – KRT</title><link>https://konstellation-io.github.io/website/docs/krt/</link><description>Recent content in KRT on Konstellation</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><atom:link href="https://konstellation-io.github.io/website/docs/krt/index.xml" rel="self" type="application/rss+xml"/><item><title>Docs: Overview</title><link>https://konstellation-io.github.io/website/docs/krt/overview/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://konstellation-io.github.io/website/docs/krt/overview/</guid><description>
-&lt;p>KRT stands for &lt;strong>Konstellation Runtime Transport&lt;/strong>.&lt;/p>
-&lt;p>Is the file format used in Konstellation as an easy way to move between Development (KDL) to Production (KRE) environments.&lt;/p>
-&lt;p>A KRT file is a single and self-contained file with everything needed for a solution to be deployed on KRE.&lt;/p>
-&lt;p>A KRT file is compressed in &lt;code>.tar.gz&lt;/code> format and renamed to &lt;code>.krt&lt;/code> extension, it contains definition and all components
-of Runtime Version.&lt;/p>
-&lt;h2 id="krt-file-contents">KRT file contents&lt;/h2>
-&lt;p>A KRT file defines a Runtime Version, it includes the following:&lt;/p>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Konstellation – KRT</title><link>https://konstellation-io.github.io/website/docs/krt/</link><description>Recent content in KRT on Konstellation</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><atom:link href="https://konstellation-io.github.io/website/docs/krt/index.xml" rel="self" type="application/rss+xml"/><item><title>Docs: Concepts</title><link>https://konstellation-io.github.io/website/docs/krt/concepts/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://konstellation-io.github.io/website/docs/krt/concepts/</guid><description>
+&lt;h2 id="what-is-krt">What is KRT?&lt;/h2>
+&lt;p>It stands for &lt;strong>Konstellation Runtime Transport&lt;/strong>. Is the file format used in Konstellation as an easy way to move
+between Development (KDL) to Production (KRE) environments.&lt;/p>
+&lt;p>A KRT file is a &lt;strong>single and self-contained file&lt;/strong> with everything needed for a solution to be deployed on KRE. Is compressed
+in &lt;code>.tar.gz&lt;/code> format and renamed to &lt;code>.krt&lt;/code> extension, it contains definition and all components of Runtime Version.&lt;/p>
+&lt;p>A KRT file defines and pack a complete Runtime Version, including:&lt;/p>
 &lt;ul>
 &lt;li>a definition YAML file named &lt;code>krt.yml&lt;/code>.&lt;/li>
 &lt;li>source code of all components.&lt;/li>
 &lt;li>assets needed by each component.&lt;/li>
-&lt;/ul></description></item><item><title>Docs: Folder structure</title><link>https://konstellation-io.github.io/website/docs/krt/folder_structure/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://konstellation-io.github.io/website/docs/krt/folder_structure/</guid><description>
-&lt;p>The KRT file contains all assets and source code needed for the given version to run.&lt;/p>
-&lt;p>The mandatory rules are these:&lt;/p>
-&lt;ul>
-&lt;li>a &lt;code>krt.yml&lt;/code> file on the root folder.&lt;/li>
-&lt;li>(optional) a README.md file inside a &lt;code>docs&lt;/code> folder.&lt;/li>
 &lt;/ul>
-&lt;p>Other than that you are free to structure the content as you see fit.&lt;/p>
-&lt;h2 id="structure-guidelines">Structure guidelines&lt;/h2>
-&lt;p>This is how we structure or KRT files, and it&amp;rsquo;s probably the way it will be exported automatically from KDL.&lt;/p>
-&lt;h3 id="example-structure">Example structure&lt;/h3>
-&lt;p>&lt;em>&lt;strong>NOTE&lt;/strong>&lt;/em>: This example match with the &lt;code>krt.yml&lt;/code> file used in &lt;a href="https://konstellation-io.github.io/website/website/docs/krt/krt_yaml_file/#example-file">krt.yml file example&lt;/a>&lt;/p>
-&lt;pre>&lt;code>&amp;lt;root_folder&amp;gt;
-- bin
-- client-metrics # Go compiled binary for client-metric node
-- docs
-- README.md # Documentation showed as HTML on KRE
-- models # Model assets used on execute_model node
-model.joblib
-encoder.joblib
-- src # Source code of each node
-- etl
-- execute_etl.py
-- execute_model
-- execute_model.py
-- output
-- output.py
-- client-metrics
-- main.go
-- go.mod
-- kry.yml # KRT file definition
-- public_input.proto # Used to define entrypoint GRPC messages and services.
-&lt;/code>&lt;/pre></description></item><item><title>Docs: krt.yml</title><link>https://konstellation-io.github.io/website/docs/krt/krt_yaml_file/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://konstellation-io.github.io/website/docs/krt/krt_yaml_file/</guid><description>
-&lt;p>This is a declarative file describing the content of the KRT.&lt;/p>
-&lt;p>This file has general description of the Runtime Version, a GRPC entrypoint for the Runtime Version, nodes that are
+&lt;h2 id="entities">Entities&lt;/h2>
+&lt;p>These entities are used to in a KRT file to define how Version&amp;rsquo;s components interoperate:&lt;/p>
+&lt;ul>
+&lt;li>&lt;a href="#krt-yaml-file">KRT YAML file&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#entrypoint">Entrypoint&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#workflows">Workflows&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#nodes">Nodes&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#runners">Runners&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h2 id="krt-yaml-file">KRT YAML file&lt;/h2>
+&lt;p>It is a declarative file describing the content of the KRT. It has general description of the Runtime Version,
+a gRPC entrypoint for the Version, a list of nodes that are connected between each other in different workflows.&lt;/p>
+&lt;p>The yaml file connects all these entities together, Entrypoint, Workflow, Nodes and Runners in order to define a Version
+and the way it works.&lt;/p>
+&lt;p>Learn about the fields in the &lt;a href="https://konstellation-io.github.io/website/website/docs/krt/specs/">KRT YAML specs&lt;/a> and see a working
+&lt;a href="https://konstellation-io.github.io/website/website/docs/krt/tasks/define_krt_yml/">krt.yml example&lt;/a>&lt;/p>
+&lt;h2 id="entrypoint">Entrypoint&lt;/h2>
+&lt;p>A Version defines its communication with the outside world through its entrypoint. This is a gRPC server
+defined in proto buffer format containing messages and services to interact with workflows inside the Version.&lt;/p>
+&lt;div class="card rounded p-2 td-post-card mb-4 mt-4" style="max-width: 910px">
+&lt;img class="card-img-top" src="https://konstellation-io.github.io/website/website/docs/krt/concepts/entrypoint_example_hu8701a1e7995c95d39a92b454faad3e38_63313_900x0_resize_q75_catmullrom.jpg" width="900" height="328">
+&lt;div class="card-body px-0 pt-2 pb-0">
+&lt;p class="card-text">
+Entrypoint example
+&lt;/p>
+&lt;/div>
+&lt;/div>
+&lt;p>Each service defined in the proto file is connected to a workflow in the &lt;code>krt.yml&lt;/code> file definition.&lt;/p>
+&lt;h2 id="workflows">Workflows&lt;/h2>
+&lt;p>A Workflow is a sequence of tasks used to process incoming messages from the outside world and returns a response.
+Each task is a node of a graph that takes an input message and generates an output for the next node. The last node&amp;rsquo;s
+output is used as response to the incoming message.&lt;/p>
+&lt;div class="card rounded p-2 td-post-card mb-4 mt-4" style="max-width: 910px">
+&lt;img class="card-img-top" src="https://konstellation-io.github.io/website/website/docs/krt/concepts/basic_workflow_example_hu7a5b5d5cc96d9ada230aeb87ed5b9159_72389_900x0_resize_q75_catmullrom.jpg" width="900" height="261">
+&lt;div class="card-body px-0 pt-2 pb-0">
+&lt;p class="card-text">
+Example of a basic workflow that makes a prediction using three nodes
+&lt;/p>
+&lt;/div>
+&lt;/div>
+&lt;p>Each workflow can have one or more nodes, depending on how many steps are needed to process a given input message.&lt;/p>
+&lt;p>A workflow is connected to the outside world through a service defined in KRT entrypoint. This entrypoint is a gRPC
+server that handle incoming calls from third parties gRPC clients and deliver them as input messages to the first
+node in the workflow and wait for the last node output to send a response to it corresponding gRPC client call.&lt;/p>
+&lt;p>Once a Version is started, all nodes from all workflow are created as a POD in kubernetes.&lt;/p>
+&lt;h2 id="nodes">Nodes&lt;/h2>
+&lt;p>A Node is a task inside a workflow. It has two main parts, a runner image, and the source code files specific to perform
+its task.&lt;/p>
+&lt;p>Nodes have a single responsibility consisting on receive an input message, perform a task and return an output message.
+This is achieved with handler functions defined in source code files specified in the KRT file.&lt;/p>
+&lt;p>Once the node is running it will look for two handler functions, one at starting time for initialization, and a second
+one to process incoming messages, these functions are called init handler and message handler respectively. Init handler
+is optional and will be executed only once upon node starting to run. Message handler is mandatory and will
+be executed each time the node receives a message.&lt;/p>
+&lt;h2 id="runners">Runners&lt;/h2>
+&lt;p>Runners are base docker images, provided by Konstellation team, that can be used for nodes to run code on different
+programming languages. Each image includes language specific tools to integrate itself as part of a workflow.&lt;/p></description></item><item><title>Docs: KRT YAML specs</title><link>https://konstellation-io.github.io/website/docs/krt/specs/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://konstellation-io.github.io/website/docs/krt/specs/</guid><description>
+&lt;p>A KRT yaml file is a declarative file describing the content of the KRT. It has general description of the Version, a
+GRPC entrypoint for the Runtime Version, nodes that are
 connected between each other to form workflows that will be access through GRPC services defined on the entrypoint.&lt;/p>
-&lt;h2 id="definition">Definition&lt;/h2>
+&lt;p>You can see an &lt;a href="https://konstellation-io.github.io/website/website/docs/krt/tasks/define_krt_yml/#example-file">example &lt;code>krt.yml&lt;/code> file&lt;/a>&lt;/p>
+&lt;h2 id="fields-specs">Fields Specs&lt;/h2>
 &lt;p>Here is a description of each field divided in five main concepts that make a KRT file:&lt;/p>
 &lt;h3 id="metadata">Metadata&lt;/h3>
 &lt;p>Descriptive information of the Runtime Version.&lt;/p>
@@ -100,57 +125,12 @@ each other and with a service defined in the entrypoint proto file.&lt;/p>
 exist on the node list defined above.&lt;/li>
 &lt;/ul>
 &lt;/li>
-&lt;/ul>
-&lt;h2 id="example-file">Example file&lt;/h2>
-&lt;p>This is a complete &lt;code>krt.yml&lt;/code> example matching the folder structure shown &lt;a href="https://konstellation-io.github.io/website/website/docs/krt/folder_structure/#example-structure">here&lt;/a>&lt;/p>
-&lt;div class="highlight">&lt;pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#204a87;font-weight:bold">version&lt;/span>&lt;span style="color:#000;font-weight:bold">:&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>example-project&lt;span style="color:#f8f8f8;text-decoration:underline">
-&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline">&lt;/span>&lt;span style="color:#204a87;font-weight:bold">description&lt;/span>&lt;span style="color:#000;font-weight:bold">:&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>This&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>is&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>an&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>example&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>of&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>a&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>ML&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>project.&lt;span style="color:#f8f8f8;text-decoration:underline">
-&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline">&lt;/span>&lt;span style="color:#204a87;font-weight:bold">entrypoint&lt;/span>&lt;span style="color:#000;font-weight:bold">:&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline">
-&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>&lt;span style="color:#204a87;font-weight:bold">proto&lt;/span>&lt;span style="color:#000;font-weight:bold">:&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>public_input.proto&lt;span style="color:#f8f8f8;text-decoration:underline">
-&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>&lt;span style="color:#204a87;font-weight:bold">image&lt;/span>&lt;span style="color:#000;font-weight:bold">:&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>konstellation/kre-runtime-entrypoint&lt;span style="color:#000;font-weight:bold">:&lt;/span>latest&lt;span style="color:#f8f8f8;text-decoration:underline">
-&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline">
-&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline">&lt;/span>&lt;span style="color:#204a87;font-weight:bold">config&lt;/span>&lt;span style="color:#000;font-weight:bold">:&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline">
-&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>&lt;span style="color:#204a87;font-weight:bold">variables&lt;/span>&lt;span style="color:#000;font-weight:bold">:&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline">
-&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>- API_KEY&lt;span style="color:#f8f8f8;text-decoration:underline">
-&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>- API_SECRET&lt;span style="color:#f8f8f8;text-decoration:underline">
-&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>&lt;span style="color:#204a87;font-weight:bold">files&lt;/span>&lt;span style="color:#000;font-weight:bold">:&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline">
-&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>- HTTPS_CERT&lt;span style="color:#f8f8f8;text-decoration:underline">
-&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline">
-&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline">&lt;/span>&lt;span style="color:#204a87;font-weight:bold">nodes&lt;/span>&lt;span style="color:#000;font-weight:bold">:&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline">
-&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>- &lt;span style="color:#204a87;font-weight:bold">name&lt;/span>&lt;span style="color:#000;font-weight:bold">:&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>etl&lt;span style="color:#f8f8f8;text-decoration:underline">
-&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>&lt;span style="color:#204a87;font-weight:bold">image&lt;/span>&lt;span style="color:#000;font-weight:bold">:&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>konstellation/kre-py&lt;span style="color:#000;font-weight:bold">:&lt;/span>latest&lt;span style="color:#f8f8f8;text-decoration:underline">
-&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>&lt;span style="color:#204a87;font-weight:bold">src&lt;/span>&lt;span style="color:#000;font-weight:bold">:&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>src/etl/execute_etl.py&lt;span style="color:#f8f8f8;text-decoration:underline">
-&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline">
-&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>- &lt;span style="color:#204a87;font-weight:bold">name&lt;/span>&lt;span style="color:#000;font-weight:bold">:&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>execute-dl-model&lt;span style="color:#f8f8f8;text-decoration:underline">
-&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>&lt;span style="color:#204a87;font-weight:bold">image&lt;/span>&lt;span style="color:#000;font-weight:bold">:&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>konstellation/kre-py&lt;span style="color:#000;font-weight:bold">:&lt;/span>latest&lt;span style="color:#f8f8f8;text-decoration:underline">
-&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>&lt;span style="color:#204a87;font-weight:bold">src&lt;/span>&lt;span style="color:#000;font-weight:bold">:&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>src/execute_model/execute_model.py&lt;span style="color:#f8f8f8;text-decoration:underline">
-&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline">
-&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>- &lt;span style="color:#204a87;font-weight:bold">name&lt;/span>&lt;span style="color:#000;font-weight:bold">:&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>create-output&lt;span style="color:#f8f8f8;text-decoration:underline">
-&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>&lt;span style="color:#204a87;font-weight:bold">image&lt;/span>&lt;span style="color:#000;font-weight:bold">:&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>konstellation/kre-py&lt;span style="color:#000;font-weight:bold">:&lt;/span>latest&lt;span style="color:#f8f8f8;text-decoration:underline">
-&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>&lt;span style="color:#204a87;font-weight:bold">src&lt;/span>&lt;span style="color:#000;font-weight:bold">:&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>src/output/output.py&lt;span style="color:#f8f8f8;text-decoration:underline">
-&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline">
-&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>- &lt;span style="color:#204a87;font-weight:bold">name&lt;/span>&lt;span style="color:#000;font-weight:bold">:&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>client-metrics&lt;span style="color:#f8f8f8;text-decoration:underline">
-&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>&lt;span style="color:#204a87;font-weight:bold">image&lt;/span>&lt;span style="color:#000;font-weight:bold">:&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>konstellation/kre-go&lt;span style="color:#000;font-weight:bold">:&lt;/span>latest&lt;span style="color:#f8f8f8;text-decoration:underline">
-&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>&lt;span style="color:#204a87;font-weight:bold">src&lt;/span>&lt;span style="color:#000;font-weight:bold">:&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>bin/client-metrics&lt;span style="color:#f8f8f8;text-decoration:underline">
-&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline">
-&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline">&lt;/span>&lt;span style="color:#204a87;font-weight:bold">workflows&lt;/span>&lt;span style="color:#000;font-weight:bold">:&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline">
-&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>- &lt;span style="color:#204a87;font-weight:bold">name&lt;/span>&lt;span style="color:#000;font-weight:bold">:&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>prediction&lt;span style="color:#f8f8f8;text-decoration:underline">
-&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>&lt;span style="color:#204a87;font-weight:bold">entrypoint&lt;/span>&lt;span style="color:#000;font-weight:bold">:&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>MakePrediction&lt;span style="color:#f8f8f8;text-decoration:underline">
-&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>&lt;span style="color:#204a87;font-weight:bold">sequential&lt;/span>&lt;span style="color:#000;font-weight:bold">:&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline">
-&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>- etl&lt;span style="color:#f8f8f8;text-decoration:underline">
-&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>- execute-dl-model&lt;span style="color:#f8f8f8;text-decoration:underline">
-&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>- create-output&lt;span style="color:#f8f8f8;text-decoration:underline">
-&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>- &lt;span style="color:#204a87;font-weight:bold">name&lt;/span>&lt;span style="color:#000;font-weight:bold">:&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>save-client-metrics&lt;span style="color:#f8f8f8;text-decoration:underline">
-&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>&lt;span style="color:#204a87;font-weight:bold">entrypoint&lt;/span>&lt;span style="color:#000;font-weight:bold">:&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>SaveClientMetric&lt;span style="color:#f8f8f8;text-decoration:underline">
-&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>&lt;span style="color:#204a87;font-weight:bold">sequential&lt;/span>&lt;span style="color:#000;font-weight:bold">:&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline">
-&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>- client-metrics&lt;span style="color:#f8f8f8;text-decoration:underline">
-&lt;/span>&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>Docs: Create a KRT file</title><link>https://konstellation-io.github.io/website/docs/krt/create_a_krt/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://konstellation-io.github.io/website/docs/krt/create_a_krt/</guid><description>
-&lt;p>The end goal of Konstellation is to automate the generation of KRT files directly from KDL. This is currently on the list
-of features to add on KDL but not developed yet.&lt;/p>
-&lt;p>So, in order to create a KRT file, you need to create your own custom scripts to generate KRT files. Basically you need
-to create a &lt;code>.tar.gz&lt;/code> file with the content of your version and then change its extension to &lt;code>.krt&lt;/code>.&lt;/p>
-&lt;p>You can see a working example of this script on KRE repo: &lt;a href="https://github.com/konstellation-io/kre/blob/master/krt-template/build_krt.sh">build_krt.sh&lt;/a>&lt;/p>
-&lt;h2 id="using-golang">Using Golang&lt;/h2>
-&lt;p>KRE provides support for nodes running Golang code, but currently you need to compile the binary before generating the
-KRT file. This may be also automated in future releases.&lt;/p>
-&lt;p>Compile your binary for the architecture you need (amd/arm) and reference the resulting binary from your &lt;code>krt.yml&lt;/code>.&lt;/p></description></item></channel></rss>
+&lt;/ul></description></item><item><title>Docs: Tasks</title><link>https://konstellation-io.github.io/website/docs/krt/tasks/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://konstellation-io.github.io/website/docs/krt/tasks/</guid><description>
+&lt;p>All this task will refer to the same example project.&lt;/p>
+&lt;p>This project is divided in two process, first is a prediction process one to make predictions and one to collect metrics.
+This two process are called workflows.&lt;/p>
+&lt;p>The prediction workflow is divided into three nodes, first the input message is formatted, then an AI model performs a
+prediction, and finally the prediction is formatted to a desired output.&lt;/p>
+&lt;p>The second workflow is used to match real world data with past predictions to be used in data analysis to monitor model
+performance.&lt;/p>
+&lt;p>Now you know the example project, these are the task you need to do in order to create a KRT file.&lt;/p></description></item></channel></rss>
