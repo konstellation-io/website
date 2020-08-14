@@ -1,17 +1,18 @@
 ---
-title: "krt.yml"
+title: "KRT YAML specs"
 description: >
   YAML Definition of a KRT file.
-weight: 30
+weight: 20
 ---
 
-This is a declarative file describing the content of the KRT. 
+A KRT yaml file is a declarative file describing the content of the KRT. It has general description of the Version, a
+GRPC entrypoint for the Runtime Version, nodes that are
+connected between each other to form workflows that will be access through GRPC services defined on the entrypoint.  
+ 
+You can see an [example `krt.yml` file]({{< relref "docs/krt/tasks/define_krt_yml#example-file" >}})
 
-This file has general description of the Runtime Version, a GRPC entrypoint for the Runtime Version, nodes that are
- connected between each other to form workflows that will be access through GRPC services defined on the entrypoint.  
 
-
-## Definition
+## Fields Specs
 
 Here is a description of each field divided in five main concepts that make a KRT file:
  
@@ -64,51 +65,3 @@ each other and with a service defined in the entrypoint proto file.
    - **sequential**: a list of node names that are connected sequentially as part of this workflow. All names should 
    exist on the node list defined above.
 
-
-## Example file
- 
-This is a complete `krt.yml` example matching the folder structure shown [here]({{< relref "docs/krt/folder_structure.md#example-structure" >}})
-
-```yaml
-version: example-project
-description: This is an example of a ML project.
-entrypoint:
-  proto: public_input.proto
-  image: konstellation/kre-runtime-entrypoint:latest
-
-config:
-  variables:
-    - API_KEY
-    - API_SECRET
-  files:
-    - HTTPS_CERT
-
-nodes:
-  - name: etl
-    image: konstellation/kre-py:latest
-    src: src/etl/execute_etl.py
-
-  - name: execute-dl-model
-    image: konstellation/kre-py:latest
-    src: src/execute_model/execute_model.py
-
-  - name: create-output
-    image: konstellation/kre-py:latest
-    src: src/output/output.py
-
-  - name: client-metrics
-    image: konstellation/kre-go:latest
-    src: bin/client-metrics
-
-workflows:
-  - name: prediction
-    entrypoint: MakePrediction
-    sequential:
-      - etl
-      - execute-dl-model
-      - create-output
-  - name: save-client-metrics
-    entrypoint: SaveClientMetric
-    sequential:
-      - client-metrics
-```

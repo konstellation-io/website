@@ -15,7 +15,7 @@ KRE has the following main concepts:
 - [Engine](#engine)
 - [Runtimes](#runtimes)
 - [Versions](#versions)
-- [Workflows](#workflow)
+- [Workflows](#workflows)
 
 ### Engine
 
@@ -57,4 +57,4 @@ A Workflow is a sequence of tasks that processes an incoming message from the ex
 Example of a basic workflow
 {{< /imgproc >}}
 
-In KRE the external messages comes from a gRPC client. A special component called Entrypoint (gRPC server) dispatch the messages to a determinated workflow and returns the response of the last node to the client. The workflow nodes becomes a PODs in your k8s cluster when the version is started.
+In KRE, external messages comes from a gRPC client. A special component called Entrypoint (gRPC server) dispatch the messages to a determinated workflow and returns the response of the last node to the client. The workflow nodes becomes a PODs in your k8s cluster when the version is started.
