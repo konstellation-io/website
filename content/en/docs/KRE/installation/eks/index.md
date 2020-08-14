@@ -5,6 +5,7 @@ description: >
   Installation instructions to deploy KRE on EKS.
 weight: 30
 ---
+
 # EKS deployment
 
 The flavor of Kubernetes on AWS is called EKS (Elastic Kubernetes Service) which allow to deploy a cluster managed by Amazon. This means that Amazon will manage the lifecyle of the Master nodes of our cluster. 
