@@ -166,9 +166,6 @@ config:
       persistentVolume:
         enabled: true
         size: 5Gi
-  acme:
-    server: https://acme-v02.api.letsencrypt.org/directory
-    email: "<YOUR_EMAIL_ADDRESS>"
   auth:
     verificationCodeDurationInMinutes: 5
     jwtSignSecret: int_jwt_secret
@@ -178,7 +175,7 @@ config:
 adminApi:
   tls:
     enabled: true
-  host: api.kre."<YOUR_DOAMIN>"
+  host: api.kre."<YOUR_DOMAIN>"
   storage:
     class: nfs-client
 
