@@ -131,12 +131,12 @@ After a while the resolution of your domain should point to the ELB. KRE require
 To validate that the DNS configuration is working fine you can use the tool `dig` to query the DNS as follow.
 
 ```bash
-dig admin.kre.yourdamin.com
+dig admin.kre.yourdomain.com
 ```
 The output should be something as below.
 
 ```
-; <<>> DiG 9.16.1-Ubuntu <<>> admin.kre.yourdamin.com
+; <<>> DiG 9.16.1-Ubuntu <<>> admin.kre.yourdomain.com
 ;; global options: +cmd
 ;; Got answer:
 ;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 901
@@ -145,10 +145,10 @@ The output should be something as below.
 ;; OPT PSEUDOSECTION:
 ; EDNS: version: 0, flags:; udp: 65494
 ;; QUESTION SECTION:
-;admin.kre.yourdamin.com.	IN	A
+;admin.kre.yourdomain.com.	IN	A
 
 ;; ANSWER SECTION:
-admin.kre.yourdamin.com.	1799 IN	A	1.2.3.4
+admin.kre.yourdomain.com.	1799 IN	A	1.2.3.4
 
 ;; Query time: 64 msec
 ;; SERVER: 127.0.0.53#53(127.0.0.53)
@@ -177,10 +177,10 @@ config:
     pass: "<SMTP_PASSWORD>"
     host: "<SMTP_HOST>"
     port: "<SMTP_PORT>"
-  baseDomainName: kre."<YOURDOAMIN>"
+  baseDomainName: kre."<YOUR_DOMAIN>"
   admin:
-    apiBaseURL: api.kre."<YOURDOAMIN>"
-    frontendBaseURL: https://admin.kre."<YOURDOAMIN>"
+    apiBaseURL: api.kre."<YOUR_DOMAIN>"
+    frontendBaseURL: https://admin.kre."<YOUR_DOMAIN>"
   runtime:
     sharedStorageClass: hostpath
     sharedStorageSize: 10Gi
@@ -204,13 +204,13 @@ config:
         storageClass: gp2
         size: 5Gi
   acme:
-    server: https://acme-staging-v02.api.letsencrypt.org/directory
+    server: https://acme-v02.api.letsencrypt.org/directory
     email: "<YOUR_EMAIL_ADDRESS>"
   auth:
     verificationCodeDurationInMinutes: 5
     jwtSignSecret: int_jwt_secret
     secureCookie: true
-    cookieDomain: kre."<YOURDOAMIN>"
+    cookieDomain: kre."<YOUR_DOMAIN>"
 
 adminApi:
   tls:
@@ -222,7 +222,7 @@ adminApi:
 adminUI:
   tls:
     enabled: true
-  host: admin.kre."<YOURDOAMIN>"
+  host: admin.kre."<YOUR_DOMAIN>"
 
 mongodb:
   mongodbDatabase: "KRE"
@@ -241,8 +241,8 @@ mongodb:
 certManager:
   enabled: true
   acme:
-    server: https://acme-staging-v02.api.letsencrypt.org/directory
-    email: "<YOUR_EMAIN_ADDRESS>"
+    server: https://acme-v02.api.letsencrypt.org/directory
+    email: "<YOUR_EMAIL_ADDRESS>"
   dns01:
     route53:
       region: "<AWS_REGION>"
@@ -257,7 +257,7 @@ certManager:
 kubectl create namespace kre
 helm repo add konstellation-io https://charts.konstellation.io
 helm repo update
-helm upgrade --install kre --namespace kre -values values.yaml konstellation-io/kre
+helm upgrade --install kre --namespace kre --values values.yaml konstellation-io/kre
 ```
 
 ## Validate the installation
