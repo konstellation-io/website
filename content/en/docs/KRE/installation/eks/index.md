@@ -10,9 +10,9 @@ weight: 30
 
 The flavor of Kubernetes on AWS is called EKS (Elastic Kubernetes Service) which allow to deploy a cluster managed by Amazon. This means that Amazon will manage the lifecyle of the Master nodes of our cluster. 
 
-Currently there are two ways of run loads on top of EKS, using EC2 instances as compute nodes that are added to to the cluster or using the Fargate mode, where AWS also manage these compute nodes. In this guide is just described the first one, adding our own compute nodes with EC2 instances.
+Currently, there are two ways of run loads on top of EKS, using EC2 instances as compute nodes that are added to the cluster or using the Fargate mode, where AWS also manage these compute nodes. In this guide is just described the first one, adding our own compute nodes with EC2 instances.
 
-Deploy an EKS cluster is not the goal of this guide, only the detail some specific configuration needed to run KRE on top of it. It is recommend to use IaC (Infrastructure As Code) approach using Terraform to automate the creation of your cluster, [here](https://learn.hashicorp.com/tutorials/terraform/eks) you can find usefull resources about that. Also you can follow the instructions from the official [AWS site](https://docs.aws.amazon.com/eks/latest/userguide/create-cluster.html). 
+Deploy an EKS cluster is not the goal of this guide, only the detail some specific configuration needed to run KRE on top of it. It is recommend to use IaC (Infrastructure As Code) approach using Terraform to automate the creation of your cluster, [here](https://learn.hashicorp.com/tutorials/terraform/eks) you can find useful resources about that. Also you can follow the instructions from the official [AWS site](https://docs.aws.amazon.com/eks/latest/userguide/create-cluster.html). 
 
 The final EKS deployment should be something like the below diagram.
 
@@ -165,7 +165,7 @@ Once you have your EKS cluster ready with all the required extra components inst
 
 Here is an example of a `values.yaml` to deploy in your clustes, just fill the parameters that required of your own information of credentials or domains, and save the file as `values.yaml` in order to apply it as is explained in the next section.
 
-All the parameters are ditailed in the section [Customization](../customization).
+All the parameters are ditailed in the section [Customization]({{< relref "docs/KRE/installation/customization.md" >}}).
 
 ```yaml
 config:
@@ -262,4 +262,4 @@ helm upgrade --install kre --namespace kre --values values.yaml konstellation-io
 
 ## Validate the installation
 
-To check if everything is working fine follow the [Validate](../validate) section.
+To check if everything is working fine follow the [Validate]({{< relref "docs/KRE/installation/validate" >}}) section.

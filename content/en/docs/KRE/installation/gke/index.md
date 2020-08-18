@@ -14,14 +14,18 @@ When you create a GKE cluster by default is created an Instance Group, which is 
 
 Deploy an GKE cluster is not the goal of this guide, only the detail some specific configuration needed to run KRE on top of it. It is recommend to use IaC (Infrastructure As Code) approach using Terraform to automate the creation of your cluster, [here](https://learn.hashicorp.com/tutorials/terraform/gke) you can find usefull resources about that. Also you can follow the instructions from the official [Google site](https://cloud.google.com/cloud-build/docs/deploying-builds/deploy-gke). 
 
+
 # Storage
-KRE uses a shared storage with `ReadWriteMany` volumes, for this reason is necessary to have a NFS storage(aka Filestore on Google) and get the `filestore_ip` value. If you are going to create a new one you must fill the `file share name` value with `kre_shared`.
+
+KRE uses a shared storage with `ReadWriteMany` volumes, for this reason is necessary to have a NFS storage(aka Filestore on Google) and get `filestore_ip` and `File share name` values to use later on.
 
 
 # Kubernetes required components
+
 KRE uses some additional components required for the tool, The basic configuration is documented below:
 
 ## Ingress controller
+
 Ingress Controller is component create a load balancer on our cloud provider and links the load balancer with the ingress controller service, saving costs on extra network components, and allows to publish services outside our cluster.
 
 ```
@@ -31,8 +35,10 @@ helm upgrade --install \
      nginx-ingress \
      stable/nginx-ingress
 ```
+
 ## Cert manager
-Cert Manager automatize the creation and maintenance of certificates, allowing the use of TLS in the ingress controller. [+ Info](../customization/#cert-manager)
+
+Cert Manager automatize the creation and maintenance of certificates, allowing the use of TLS in the ingress controller. [+ Info]({{< relref "docs/KRE/installation/customization.md#cert-manager" >}})
 
 ```bash
 kubectl create namespace cert-manager --dry-run -o yaml | kubectl apply -f -
@@ -45,30 +51,36 @@ helm upgrade --install \
      cert-manager \
      jetstack/cert-manager
 ```
+
+
 ## Storage provisioner
+
 In order to connect our [Filestore](#storage) with the cluster storage needs install a nfs-provisioner.
 
 ```bash
 helm upgrade --install \
     --namespace kube-system \
-    --set nfs.server=<FILESTORE_IP> \
-    --set nfs.path=/kre_shared \
+    --set nfs.server=<FILESTORE_IP_ADDRESS> \
+    --set nfs.path=/<FILESTORE_FILE_SHARE_NAME> \
     nfs-provisioner \
     stable/nfs-client-provisioner
 ```
+
+Replace values `FILESTORE_IP_ADDRESS` and `FILESTORE_FILE_SHARE_NAME` with the `Filestore` you created earlier or with a pre-existing one.
+
+
 # DNS
 
+
 ## Get Ingress Controller hostname
+
 First of all you need to know the name of the ELB where we have to point our DNS entry. With the below command you will get name of this Load Balancer.
 
 ```bash
-kubectl -n kube-system get svc -l app=nginx-ingress,component=controller -o jsonpath="{.items[0].status.loadBalancer.ingress[0].hostname}"
+kubectl -n kube-system get svc -l app=nginx-ingress,component=controller -o jsonpath="{.items[0].status.loadBalancer.ingress[0].ip}"
 ```
 
-The output of this command should be something like `-`.
-
-## Create wildcard entry in your hosted zone
-
+The output of this command should show a load balancer IP address.
 
  
 ## Validate 
@@ -189,4 +201,4 @@ helm upgrade --install kre --namespace kre --values values.yaml konstellation-io
 ```
 
 ## Validate the installation
-To check if everything is working fine follow the [Validate](../validate) section.
+To check if everything is working fine follow the [Validate]({{< relref "docs/KRE/installation/validate" >}}) section.
