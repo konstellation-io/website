@@ -354,7 +354,7 @@ At this moment KRE is creating all necessary resources inside Kubernetes and it 
 &lt;p>When you create a GKE cluster by default is created an Instance Group, which is responsible to start the GCE (Google Compute Engine) instances and scale up and down depending of your configuration. In these instances of GCE is where the loads that we deploy on GKE will run. Therefore is needed to ajust the type of instances on this instance group, to support the load of your deployment. For a PoC of KRE you can setup an Instance Group with min instances 1 up to 3 of type &lt;code>n1-standard-2&lt;/code> and everything will works fine. Be aware about the autoscaling configuration of the Instances Group, because if you only have one Instance Group added to your GKE cluster, at least is required one instance up in order to run some Kubernetes componentes that run as PODS.&lt;/p>
 &lt;p>Deploy an GKE cluster is not the goal of this guide, only the detail some specific configuration needed to run KRE on top of it. It is recommend to use IaC (Infrastructure As Code) approach using Terraform to automate the creation of your cluster, &lt;a href="https://learn.hashicorp.com/tutorials/terraform/gke">here&lt;/a> you can find usefull resources about that. Also you can follow the instructions from the official &lt;a href="https://cloud.google.com/cloud-build/docs/deploying-builds/deploy-gke">Google site&lt;/a>.&lt;/p>
 &lt;h1 id="storage">Storage&lt;/h1>
-&lt;p>KRE uses a shared storage with &lt;code>ReadWriteMany&lt;/code> volumes, for this reason is necessary to have a NFS storage(aka Filestore on Google) and get the &lt;code>filestore_ip&lt;/code> value. If you are going to create a new one you must fill the &lt;code>file share name&lt;/code> value with &lt;code>kre_shared&lt;/code>.&lt;/p>
+&lt;p>KRE uses a shared storage with &lt;code>ReadWriteMany&lt;/code> volumes, for this reason is necessary to have a NFS storage(aka Filestore on Google) and get &lt;code>filestore_ip&lt;/code> and &lt;code>File share name&lt;/code> values to use later on.&lt;/p>
 &lt;h1 id="kubernetes-required-components">Kubernetes required components&lt;/h1>
 &lt;p>KRE uses some additional components required for the tool, The basic configuration is documented below:&lt;/p>
 &lt;h2 id="ingress-controller">Ingress controller&lt;/h2>
@@ -365,7 +365,7 @@ At this moment KRE is creating all necessary resources inside Kubernetes and it 
 nginx-ingress \
 stable/nginx-ingress
 &lt;/code>&lt;/pre>&lt;h2 id="cert-manager">Cert manager&lt;/h2>
-&lt;p>Cert Manager automatize the creation and maintenance of certificates, allowing the use of TLS in the ingress controller. &lt;a href="../customization/#cert-manager">+ Info&lt;/a>&lt;/p>
+&lt;p>Cert Manager automatize the creation and maintenance of certificates, allowing the use of TLS in the ingress controller. &lt;a href="https://konstellation-io.github.io/website/website/docs/kre/installation/customization/#cert-manager">+ Info&lt;/a>&lt;/p>
 &lt;div class="highlight">&lt;pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">kubectl create namespace cert-manager --dry-run -o yaml &lt;span style="color:#000;font-weight:bold">|&lt;/span> kubectl apply -f -
 helm repo add jetstack https://charts.jetstack.io
 helm repo update
@@ -379,16 +379,16 @@ helm upgrade --install &lt;span style="color:#4e9a06">\
 &lt;p>In order to connect our &lt;a href="#storage">Filestore&lt;/a> with the cluster storage needs install a nfs-provisioner.&lt;/p>
 &lt;div class="highlight">&lt;pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">helm upgrade --install &lt;span style="color:#4e9a06">\
 &lt;/span>&lt;span style="color:#4e9a06">&lt;/span> --namespace kube-system &lt;span style="color:#4e9a06">\
-&lt;/span>&lt;span style="color:#4e9a06">&lt;/span> --set nfs.server&lt;span style="color:#ce5c00;font-weight:bold">=&lt;/span>&amp;lt;FILESTORE_IP&amp;gt; &lt;span style="color:#4e9a06">\
-&lt;/span>&lt;span style="color:#4e9a06">&lt;/span> --set nfs.path&lt;span style="color:#ce5c00;font-weight:bold">=&lt;/span>/kre_shared &lt;span style="color:#4e9a06">\
+&lt;/span>&lt;span style="color:#4e9a06">&lt;/span> --set nfs.server&lt;span style="color:#ce5c00;font-weight:bold">=&lt;/span>&amp;lt;FILESTORE_IP_ADDRESS&amp;gt; &lt;span style="color:#4e9a06">\
+&lt;/span>&lt;span style="color:#4e9a06">&lt;/span> --set nfs.path&lt;span style="color:#ce5c00;font-weight:bold">=&lt;/span>/&amp;lt;FILESTORE_FILE_SHARE_NAME&amp;gt; &lt;span style="color:#4e9a06">\
 &lt;/span>&lt;span style="color:#4e9a06">&lt;/span> nfs-provisioner &lt;span style="color:#4e9a06">\
 &lt;/span>&lt;span style="color:#4e9a06">&lt;/span> stable/nfs-client-provisioner
-&lt;/code>&lt;/pre>&lt;/div>&lt;h1 id="dns">DNS&lt;/h1>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>Replace values &lt;code>FILESTORE_IP_ADDRESS&lt;/code> and &lt;code>FILESTORE_FILE_SHARE_NAME&lt;/code> with the &lt;code>Filestore&lt;/code> you created earlier or with a pre-existing one.&lt;/p>
+&lt;h1 id="dns">DNS&lt;/h1>
 &lt;h2 id="get-ingress-controller-hostname">Get Ingress Controller hostname&lt;/h2>
 &lt;p>First of all you need to know the name of the ELB where we have to point our DNS entry. With the below command you will get name of this Load Balancer.&lt;/p>
-&lt;div class="highlight">&lt;pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">kubectl -n kube-system get svc -l &lt;span style="color:#000">app&lt;/span>&lt;span style="color:#ce5c00;font-weight:bold">=&lt;/span>nginx-ingress,component&lt;span style="color:#ce5c00;font-weight:bold">=&lt;/span>controller -o &lt;span style="color:#000">jsonpath&lt;/span>&lt;span style="color:#ce5c00;font-weight:bold">=&lt;/span>&lt;span style="color:#4e9a06">&amp;#34;{.items[0].status.loadBalancer.ingress[0].hostname}&amp;#34;&lt;/span>
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>The output of this command should be something like &lt;code>-&lt;/code>.&lt;/p>
-&lt;h2 id="create-wildcard-entry-in-your-hosted-zone">Create wildcard entry in your hosted zone&lt;/h2>
+&lt;div class="highlight">&lt;pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">kubectl -n kube-system get svc -l &lt;span style="color:#000">app&lt;/span>&lt;span style="color:#ce5c00;font-weight:bold">=&lt;/span>nginx-ingress,component&lt;span style="color:#ce5c00;font-weight:bold">=&lt;/span>controller -o &lt;span style="color:#000">jsonpath&lt;/span>&lt;span style="color:#ce5c00;font-weight:bold">=&lt;/span>&lt;span style="color:#4e9a06">&amp;#34;{.items[0].status.loadBalancer.ingress[0].ip}&amp;#34;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>The output of this command should show a load balancer IP address.&lt;/p>
 &lt;h2 id="validate">Validate&lt;/h2>
 &lt;p>To validate that the DNS configuration is working fine you can use the tool &lt;code>dig&lt;/code> to query the DNS as follows.&lt;/p>
 &lt;div class="highlight">&lt;pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">dig admin.kre.yourdomain.com
@@ -486,7 +486,7 @@ helm repo add konstellation-io https://charts.konstellation.io
 helm repo update
 helm upgrade --install kre --namespace kre --values values.yaml konstellation-io/kre
 &lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="validate-the-installation">Validate the installation&lt;/h2>
-&lt;p>To check if everything is working fine follow the &lt;a href="../validate">Validate&lt;/a> section.&lt;/p></description></item><item><title>Docs: KRT YAML specs</title><link>https://konstellation-io.github.io/website/docs/krt/specs/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://konstellation-io.github.io/website/docs/krt/specs/</guid><description>
+&lt;p>To check if everything is working fine follow the &lt;a href="https://konstellation-io.github.io/website/website/docs/kre/installation/validate/">Validate&lt;/a> section.&lt;/p></description></item><item><title>Docs: KRT YAML specs</title><link>https://konstellation-io.github.io/website/docs/krt/specs/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://konstellation-io.github.io/website/docs/krt/specs/</guid><description>
 &lt;p>A KRT yaml file is a declarative file describing the content of the KRT. It has general description of the Version, a
 GRPC entrypoint for the Runtime Version, nodes that are
 connected between each other to form workflows that will be access through GRPC services defined on the entrypoint.&lt;/p>
@@ -580,8 +580,8 @@ exist on the node list defined above.&lt;/li>
 &lt;/div></description></item><item><title>Docs: EKS</title><link>https://konstellation-io.github.io/website/docs/kre/installation/eks/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://konstellation-io.github.io/website/docs/kre/installation/eks/</guid><description>
 &lt;h1 id="eks-deployment">EKS deployment&lt;/h1>
 &lt;p>The flavor of Kubernetes on AWS is called EKS (Elastic Kubernetes Service) which allow to deploy a cluster managed by Amazon. This means that Amazon will manage the lifecyle of the Master nodes of our cluster.&lt;/p>
-&lt;p>Currently there are two ways of run loads on top of EKS, using EC2 instances as compute nodes that are added to to the cluster or using the Fargate mode, where AWS also manage these compute nodes. In this guide is just described the first one, adding our own compute nodes with EC2 instances.&lt;/p>
-&lt;p>Deploy an EKS cluster is not the goal of this guide, only the detail some specific configuration needed to run KRE on top of it. It is recommend to use IaC (Infrastructure As Code) approach using Terraform to automate the creation of your cluster, &lt;a href="https://learn.hashicorp.com/tutorials/terraform/eks">here&lt;/a> you can find usefull resources about that. Also you can follow the instructions from the official &lt;a href="https://docs.aws.amazon.com/eks/latest/userguide/create-cluster.html">AWS site&lt;/a>.&lt;/p>
+&lt;p>Currently, there are two ways of run loads on top of EKS, using EC2 instances as compute nodes that are added to the cluster or using the Fargate mode, where AWS also manage these compute nodes. In this guide is just described the first one, adding our own compute nodes with EC2 instances.&lt;/p>
+&lt;p>Deploy an EKS cluster is not the goal of this guide, only the detail some specific configuration needed to run KRE on top of it. It is recommend to use IaC (Infrastructure As Code) approach using Terraform to automate the creation of your cluster, &lt;a href="https://learn.hashicorp.com/tutorials/terraform/eks">here&lt;/a> you can find useful resources about that. Also you can follow the instructions from the official &lt;a href="https://docs.aws.amazon.com/eks/latest/userguide/create-cluster.html">AWS site&lt;/a>.&lt;/p>
 &lt;p>The final EKS deployment should be something like the below diagram.&lt;/p>
 &lt;div class="card rounded p-2 td-post-card mb-4 mt-4" style="max-width: 610px">
 &lt;img class="card-img-top" src="https://konstellation-io.github.io/website/website/docs/kre/installation/eks/eks_diagram_hu810904b9cb0bf96ab0f9422ba192b8fc_30553_600x0_resize_catmullrom_2.png" width="600" height="512">
@@ -688,7 +688,7 @@ admin.kre.yourdomain.com. 1799 IN A 1.2.3.4
 &lt;p>Once you have your EKS cluster ready with all the required extra components installed and all the credentials to access to your cluster is time to start the KRE deployment. The first step is to define a &lt;code>values.yaml&lt;/code> file that fit all the requirements for our installation. So we are going to describe an example of this file to deploy KRE in your cluster. After that we can apply the Helm chart with this value to deploy KRE and afterward we are going to describe how to validate the installation.&lt;/p>
 &lt;h2 id="create-valuesyaml">Create values.yaml&lt;/h2>
 &lt;p>Here is an example of a &lt;code>values.yaml&lt;/code> to deploy in your clustes, just fill the parameters that required of your own information of credentials or domains, and save the file as &lt;code>values.yaml&lt;/code> in order to apply it as is explained in the next section.&lt;/p>
-&lt;p>All the parameters are ditailed in the section &lt;a href="../customization">Customization&lt;/a>.&lt;/p>
+&lt;p>All the parameters are ditailed in the section &lt;a href="https://konstellation-io.github.io/website/website/docs/kre/installation/customization/">Customization&lt;/a>.&lt;/p>
 &lt;div class="highlight">&lt;pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#204a87;font-weight:bold">config&lt;/span>&lt;span style="color:#000;font-weight:bold">:&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline">
 &lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>&lt;span style="color:#204a87;font-weight:bold">smtp&lt;/span>&lt;span style="color:#000;font-weight:bold">:&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline">
 &lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>&lt;span style="color:#204a87;font-weight:bold">enabled&lt;/span>&lt;span style="color:#000;font-weight:bold">:&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>&lt;span style="color:#204a87;font-weight:bold">true&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline">
@@ -776,7 +776,7 @@ helm repo add konstellation-io https://charts.konstellation.io
 helm repo update
 helm upgrade --install kre --namespace kre --values values.yaml konstellation-io/kre
 &lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="validate-the-installation">Validate the installation&lt;/h2>
-&lt;p>To check if everything is working fine follow the &lt;a href="../validate">Validate&lt;/a> section.&lt;/p></description></item><item><title>Docs: Validate</title><link>https://konstellation-io.github.io/website/docs/kre/installation/validate/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://konstellation-io.github.io/website/docs/kre/installation/validate/</guid><description>
+&lt;p>To check if everything is working fine follow the &lt;a href="https://konstellation-io.github.io/website/website/docs/kre/installation/validate/">Validate&lt;/a> section.&lt;/p></description></item><item><title>Docs: Validate</title><link>https://konstellation-io.github.io/website/docs/kre/installation/validate/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://konstellation-io.github.io/website/docs/kre/installation/validate/</guid><description>
 &lt;h2 id="check-pods-on-kre-namespace">Check pods on KRE namespace&lt;/h2>
 &lt;p>Command:&lt;/p>
 &lt;div class="highlight">&lt;pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">kubectl -n kre get pods
