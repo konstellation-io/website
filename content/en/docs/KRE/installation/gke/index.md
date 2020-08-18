@@ -80,8 +80,23 @@ First of all you need to know the name of the ELB where we have to point our DNS
 kubectl -n kube-system get svc -l app=nginx-ingress,component=controller -o jsonpath="{.items[0].status.loadBalancer.ingress[0].ip}"
 ```
 
-The output of this command should show a load balancer IP address.
+The output of this command should show a `load balancer IP address`.
 
+## Create wildcard entry in your DNS provider
+Once obtained a `load balancer IP address` add in our DNS provider a new A Record, with the following values:
+
+| Subdomain              | Load Balancer IP           |
+| -----------------------| -------------------------- | 
+| `*.kre.yourdomain.com` | `<load balancer IP address>` | 
+
+After a while the resolution of your domain should point to the load balancer. KRE require of the following subdomains.
+
+| Subdomain    | Description                                            |
+| ------- | ----------------------------------------------------------- | 
+| `admin.kre.yourdomain.com` | Web admin console  | 
+| `api.kre.yourdomain.com` | API  |
+ 
+If you `dns provider doesn't have wildcard entries` you can use an approach based on hosted zones.
  
 ## Validate 
 
