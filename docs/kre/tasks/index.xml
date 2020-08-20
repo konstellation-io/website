@@ -158,7 +158,7 @@ At this moment KRE is creating all necessary resources inside Kubernetes and it 
 &lt;/div>
 &lt;/div></description></item><item><title>Docs: Version Management</title><link>https://konstellation-io.github.io/website/docs/kre/tasks/version_management/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://konstellation-io.github.io/website/docs/kre/tasks/version_management/</guid><description>
 &lt;h3 id="version-lifecycle">Version lifecycle&lt;/h3>
-&lt;p>In the following grahp you can see all posible statuses and actions for a runtime version. The blue boxes are actions and the green ones are statuses:&lt;/p>
+&lt;p>In the following graph you can see all possible statuses and actions for a runtime version. The blue boxes are actions, and the green ones are statuses:&lt;/p>
 &lt;div class="card rounded p-2 td-post-card mb-4 mt-4" style="max-width: 1010px">
 &lt;img class="card-img-top" src="https://konstellation-io.github.io/website/website/docs/kre/tasks/version_management/version_lifecycle_hu3d0103200f92e22fba46921b44813a51_104333_1000x0_resize_q75_catmullrom.jpg" width="1000" height="349">
 &lt;div class="card-body px-0 pt-2 pb-0">
@@ -167,7 +167,7 @@ At this moment KRE is creating all necessary resources inside Kubernetes and it 
 &lt;/div>
 &lt;/div>
 &lt;h2 id="version-management">Version management&lt;/h2>
-&lt;p>In the version details screen we can manage the opened version. There are four actions that we can perform using the left-bottom buttons: start, stop, publish and unpublish. When we perform some of these actions the version status change. The following table shows all possible version status:&lt;/p>
+&lt;p>In the version details screen we can manage the opened version. There are four actions that we can perform using the left-bottom buttons: start, stop, publish and un-publish. When we perform some of these actions the version status change. The following table shows all possible version status:&lt;/p>
 &lt;table>
 &lt;thead>
 &lt;tr>
@@ -194,11 +194,11 @@ At this moment KRE is creating all necessary resources inside Kubernetes and it 
 &lt;/tr>
 &lt;tr>
 &lt;td>&lt;code>published&lt;/code>&lt;/td>
-&lt;td>The entrypoint is accesible from outside and the incoming request can be managed by the processes.&lt;/td>
+&lt;td>The entrypoint is accessible from outside and the incoming request can be managed by the processes.&lt;/td>
 &lt;/tr>
 &lt;/tbody>
 &lt;/table>
-&lt;p>All of these actions are important so you must provide a reason text and they are registered in the user audit list (&lt;code>/audit&lt;/code>). Only &lt;code>manager&lt;/code> or &lt;code>admin&lt;/code> users can view the user audit list.&lt;/p>
+&lt;p>All of these actions ask the user to input a reason that is registered as an audit log. An &lt;code>admin&lt;/code> or &lt;code>manager&lt;/code> user can see all users activity on the audit list (&lt;code>/audit&lt;/code>).&lt;/p>
 &lt;h3 id="start-a-version">Start a version&lt;/h3>
 &lt;p>Clicking the &lt;code>Start&lt;/code> button and providing the reason text we will see that the version goes to the &lt;code>starting&lt;/code> status and after a time changes to &lt;code>started&lt;/code>.&lt;/p>
 &lt;div class="card rounded p-2 td-post-card mb-4 mt-4" style="max-width: 1010px">
@@ -210,9 +210,80 @@ At this moment KRE is creating all necessary resources inside Kubernetes and it 
 &lt;/div>
 &lt;p>The processes color should be green, this means that the processes are ready and listening for incoming messages.&lt;/p>
 &lt;h3 id="stop-a-version">Stop a version&lt;/h3>
-&lt;p>Using the actions buttons you can press the &lt;code>Stop&lt;/code> button when the version is &lt;code>started&lt;/code> or &lt;code>starting&lt;/code>.
+&lt;p>Using the action buttons you can press the &lt;code>Stop&lt;/code> button when the version is &lt;code>started&lt;/code> or &lt;code>starting&lt;/code>.
 Use this action when you want to delete all associated resources in kubernetes for this version.
 The collected logs and metrics will be persisted after stopping.&lt;/p>
 &lt;h3 id="publish-a-version">Publish a version&lt;/h3>
-&lt;p>A started version with all nodes on green means that the version is ready to receive messages but it is not .
-You can use this state to be sure that all pieces of the workflow are working correctly before publishing.&lt;/p></description></item></channel></rss>
+&lt;p>A started version with all nodes on green means that the version is ready to receive messages, but it is not exposed to the outside world until you decide to publish it.
+You can use this state to be sure all pieces of the workflow are working correctly before publishing.&lt;/p></description></item><item><title>Docs: Call Version Services</title><link>https://konstellation-io.github.io/website/docs/kre/tasks/consume_version_services/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://konstellation-io.github.io/website/docs/kre/tasks/consume_version_services/</guid><description>
+&lt;p>Once you have a published version you can call it from outside through the entrypoint gRPC services.&lt;/p>
+&lt;p>For this example the pre requisites are:&lt;/p>
+&lt;ul>
+&lt;li>An existing Runtime called &lt;code>Test&lt;/code>.&lt;/li>
+&lt;li>A &lt;strong>published version&lt;/strong> containing a workflow pointing to a &lt;code>Greeting&lt;/code> service in the entrypoint.&lt;/li>
+&lt;/ul>
+&lt;p>To learn how to get this requisites you can check &lt;a href="https://konstellation-io.github.io/website/website/docs/krt/tasks/">KRT tasks&lt;/a> and &lt;a href="https://konstellation-io.github.io/website/website/docs/kre/tasks/version_management/">KRE version management&lt;/a>.&lt;/p>
+&lt;h2 id="call-from-cli">Call from CLI&lt;/h2>
+&lt;p>The fastest way to interact with the gRPC server is with &lt;a href="https://github.com/fullstorydev/grpcurl">grpcurl&lt;/a>. This tool is similar to &lt;code>curl&lt;/code> but for gRPC servers.&lt;/p>
+&lt;p>Just run this:&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">grpcurl -insecure -d &lt;span style="color:#4e9a06">&amp;#39;{&amp;#34;name&amp;#34;: &amp;#34;John&amp;#34;}&amp;#39;&lt;/span> entrypoint.kre-test.local:443 entrypoint.Entrypoint/Greet
+&lt;span style="color:#8f5902;font-style:italic"># Outputs&lt;/span>
+&lt;span style="color:#ce5c00;font-weight:bold">{&lt;/span>
+&lt;span style="color:#4e9a06">&amp;#34;greeting&amp;#34;&lt;/span>: &lt;span style="color:#4e9a06">&amp;#34;Hello John!&amp;#34;&lt;/span>
+&lt;span style="color:#ce5c00;font-weight:bold">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="call-from-grpc-client-on-golang">Call from gRPC client on Golang&lt;/h2>
+&lt;h3 id="get-proto-file-from-the-entrypoint">Get proto file from the Entrypoint&lt;/h3>
+&lt;p>To create a gRPC client you need the proto file to generate code with &lt;code>protoc&lt;/code> tool. Each entrypoint has its proto file published in KRE, for this example you can access it at &lt;code>http://proto.kre-test.local/&lt;/code> (assuming your Runtime is called &amp;ldquo;Test&amp;rdquo;). You will see a file named &lt;code>public_input.proto&lt;/code> that you have to download.&lt;/p>
+&lt;h3 id="generate-code-with-protoc">Generate code with protoc&lt;/h3>
+&lt;p>Inside the folder you are creating the client add a folder named &lt;code>entrypoint&lt;/code> and put &lt;code>public_input.proto&lt;/code> file inside.&lt;/p>
+&lt;p>Now you can run &lt;code>protoc&lt;/code> to generate the gRPC client code:&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">protoc --go_out&lt;span style="color:#ce5c00;font-weight:bold">=&lt;/span>&lt;span style="color:#000">plugins&lt;/span>&lt;span style="color:#ce5c00;font-weight:bold">=&lt;/span>grpc:. public_input.proto
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>After running this command you will see a new file called &lt;code>public_input.pb.go&lt;/code> in the same folder.&lt;/p>
+&lt;h3 id="code-the-grpc-client">Code the gRPC client&lt;/h3>
+&lt;p>Create two files, one called &lt;code>go.mod&lt;/code> for Go to manage dependencies, and another file named &lt;code>main.go&lt;/code>.&lt;/p>
+&lt;h4 id="gomod-file">go.mod file&lt;/h4>
+&lt;pre>&lt;code>module greeter-client
+go 1.15
+require (
+github.com/golang/protobuf v1.4.2
+google.golang.org/grpc v1.31.0
+)
+&lt;/code>&lt;/pre>&lt;h4 id="maingo-file">main.go file&lt;/h4>
+&lt;div class="highlight">&lt;pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-go" data-lang="go">
+&lt;span style="color:#204a87;font-weight:bold">package&lt;/span> &lt;span style="color:#000">main&lt;/span>
+&lt;span style="color:#204a87;font-weight:bold">import&lt;/span> &lt;span style="color:#000;font-weight:bold">(&lt;/span>
+&lt;span style="color:#4e9a06">&amp;#34;context&amp;#34;&lt;/span>
+&lt;span style="color:#4e9a06">&amp;#34;crypto/tls&amp;#34;&lt;/span>
+&lt;span style="color:#4e9a06">&amp;#34;log&amp;#34;&lt;/span>
+&lt;span style="color:#4e9a06">&amp;#34;google.golang.org/grpc&amp;#34;&lt;/span>
+&lt;span style="color:#4e9a06">&amp;#34;google.golang.org/grpc/credentials&amp;#34;&lt;/span>
+&lt;span style="color:#4e9a06">&amp;#34;greeter-client/entrypoint&amp;#34;&lt;/span>
+&lt;span style="color:#000;font-weight:bold">)&lt;/span>
+&lt;span style="color:#204a87;font-weight:bold">func&lt;/span> &lt;span style="color:#000">main&lt;/span>&lt;span style="color:#000;font-weight:bold">()&lt;/span> &lt;span style="color:#000;font-weight:bold">{&lt;/span>
+&lt;span style="color:#000">log&lt;/span>&lt;span style="color:#000;font-weight:bold">.&lt;/span>&lt;span style="color:#000">Println&lt;/span>&lt;span style="color:#000;font-weight:bold">(&lt;/span>&lt;span style="color:#4e9a06">&amp;#34;Client started&amp;#34;&lt;/span>&lt;span style="color:#000;font-weight:bold">)&lt;/span>
+&lt;span style="color:#000">address&lt;/span> &lt;span style="color:#ce5c00;font-weight:bold">:=&lt;/span> &lt;span style="color:#4e9a06">&amp;#34;entrypoint.kre-test.local:443&amp;#34;&lt;/span>
+&lt;span style="color:#204a87;font-weight:bold">var&lt;/span> &lt;span style="color:#000">tlsConf&lt;/span> &lt;span style="color:#000">tls&lt;/span>&lt;span style="color:#000;font-weight:bold">.&lt;/span>&lt;span style="color:#000">Config&lt;/span>
+&lt;span style="color:#000">tlsConf&lt;/span>&lt;span style="color:#000;font-weight:bold">.&lt;/span>&lt;span style="color:#000">InsecureSkipVerify&lt;/span> &lt;span style="color:#000;font-weight:bold">=&lt;/span> &lt;span style="color:#204a87;font-weight:bold">true&lt;/span>
+&lt;span style="color:#000">grpcOptions&lt;/span> &lt;span style="color:#ce5c00;font-weight:bold">:=&lt;/span> &lt;span style="color:#000">grpc&lt;/span>&lt;span style="color:#000;font-weight:bold">.&lt;/span>&lt;span style="color:#000">WithTransportCredentials&lt;/span>&lt;span style="color:#000;font-weight:bold">(&lt;/span>&lt;span style="color:#000">credentials&lt;/span>&lt;span style="color:#000;font-weight:bold">.&lt;/span>&lt;span style="color:#000">NewTLS&lt;/span>&lt;span style="color:#000;font-weight:bold">(&lt;/span>&lt;span style="color:#ce5c00;font-weight:bold">&amp;amp;&lt;/span>&lt;span style="color:#000">tlsConf&lt;/span>&lt;span style="color:#000;font-weight:bold">))&lt;/span>
+&lt;span style="color:#000">cc&lt;/span>&lt;span style="color:#000;font-weight:bold">,&lt;/span> &lt;span style="color:#000">err&lt;/span> &lt;span style="color:#ce5c00;font-weight:bold">:=&lt;/span> &lt;span style="color:#000">grpc&lt;/span>&lt;span style="color:#000;font-weight:bold">.&lt;/span>&lt;span style="color:#000">Dial&lt;/span>&lt;span style="color:#000;font-weight:bold">(&lt;/span>&lt;span style="color:#000">address&lt;/span>&lt;span style="color:#000;font-weight:bold">,&lt;/span> &lt;span style="color:#000">grpcOptions&lt;/span>&lt;span style="color:#000;font-weight:bold">)&lt;/span>
+&lt;span style="color:#204a87;font-weight:bold">if&lt;/span> &lt;span style="color:#000">err&lt;/span> &lt;span style="color:#ce5c00;font-weight:bold">!=&lt;/span> &lt;span style="color:#204a87;font-weight:bold">nil&lt;/span> &lt;span style="color:#000;font-weight:bold">{&lt;/span>
+&lt;span style="color:#000">log&lt;/span>&lt;span style="color:#000;font-weight:bold">.&lt;/span>&lt;span style="color:#000">Fatalf&lt;/span>&lt;span style="color:#000;font-weight:bold">(&lt;/span>&lt;span style="color:#4e9a06">&amp;#34;Could not connect: %v&amp;#34;&lt;/span>&lt;span style="color:#000;font-weight:bold">,&lt;/span> &lt;span style="color:#000">err&lt;/span>&lt;span style="color:#000;font-weight:bold">)&lt;/span>
+&lt;span style="color:#000;font-weight:bold">}&lt;/span>
+&lt;span style="color:#204a87;font-weight:bold">defer&lt;/span> &lt;span style="color:#000">cc&lt;/span>&lt;span style="color:#000;font-weight:bold">.&lt;/span>&lt;span style="color:#000">Close&lt;/span>&lt;span style="color:#000;font-weight:bold">()&lt;/span>
+&lt;span style="color:#000">c&lt;/span> &lt;span style="color:#ce5c00;font-weight:bold">:=&lt;/span> &lt;span style="color:#000">entrypoint&lt;/span>&lt;span style="color:#000;font-weight:bold">.&lt;/span>&lt;span style="color:#000">NewEntrypointClient&lt;/span>&lt;span style="color:#000;font-weight:bold">(&lt;/span>&lt;span style="color:#000">cc&lt;/span>&lt;span style="color:#000;font-weight:bold">)&lt;/span>
+&lt;span style="color:#000">req&lt;/span> &lt;span style="color:#ce5c00;font-weight:bold">:=&lt;/span> &lt;span style="color:#000">entrypoint&lt;/span>&lt;span style="color:#000;font-weight:bold">.&lt;/span>&lt;span style="color:#000">Request&lt;/span>&lt;span style="color:#000;font-weight:bold">{&lt;/span>
+&lt;span style="color:#000">Name&lt;/span>&lt;span style="color:#000;font-weight:bold">:&lt;/span> &lt;span style="color:#4e9a06">&amp;#34;Go GRPC Client&amp;#34;&lt;/span>&lt;span style="color:#000;font-weight:bold">,&lt;/span>
+&lt;span style="color:#000;font-weight:bold">}&lt;/span>
+&lt;span style="color:#000">res&lt;/span>&lt;span style="color:#000;font-weight:bold">,&lt;/span> &lt;span style="color:#000">err&lt;/span> &lt;span style="color:#ce5c00;font-weight:bold">:=&lt;/span> &lt;span style="color:#000">c&lt;/span>&lt;span style="color:#000;font-weight:bold">.&lt;/span>&lt;span style="color:#000">Greet&lt;/span>&lt;span style="color:#000;font-weight:bold">(&lt;/span>&lt;span style="color:#000">context&lt;/span>&lt;span style="color:#000;font-weight:bold">.&lt;/span>&lt;span style="color:#000">Background&lt;/span>&lt;span style="color:#000;font-weight:bold">(),&lt;/span> &lt;span style="color:#ce5c00;font-weight:bold">&amp;amp;&lt;/span>&lt;span style="color:#000">req&lt;/span>&lt;span style="color:#000;font-weight:bold">)&lt;/span>
+&lt;span style="color:#204a87;font-weight:bold">if&lt;/span> &lt;span style="color:#000">err&lt;/span> &lt;span style="color:#ce5c00;font-weight:bold">!=&lt;/span> &lt;span style="color:#204a87;font-weight:bold">nil&lt;/span> &lt;span style="color:#000;font-weight:bold">{&lt;/span>
+&lt;span style="color:#000">log&lt;/span>&lt;span style="color:#000;font-weight:bold">.&lt;/span>&lt;span style="color:#000">Fatalf&lt;/span>&lt;span style="color:#000;font-weight:bold">(&lt;/span>&lt;span style="color:#4e9a06">&amp;#34;Error calling RuntimeRPC: %v&amp;#34;&lt;/span>&lt;span style="color:#000;font-weight:bold">,&lt;/span> &lt;span style="color:#000">err&lt;/span>&lt;span style="color:#000;font-weight:bold">)&lt;/span>
+&lt;span style="color:#000;font-weight:bold">}&lt;/span>
+&lt;span style="color:#000">log&lt;/span>&lt;span style="color:#000;font-weight:bold">.&lt;/span>&lt;span style="color:#000">Printf&lt;/span>&lt;span style="color:#000;font-weight:bold">(&lt;/span>&lt;span style="color:#4e9a06">&amp;#34;Response from server: %v \n %#v&amp;#34;&lt;/span>&lt;span style="color:#000;font-weight:bold">,&lt;/span> &lt;span style="color:#000">res&lt;/span>&lt;span style="color:#000;font-weight:bold">.&lt;/span>&lt;span style="color:#000">GetGreeting&lt;/span>&lt;span style="color:#000;font-weight:bold">(),&lt;/span> &lt;span style="color:#000">res&lt;/span>&lt;span style="color:#000;font-weight:bold">.&lt;/span>&lt;span style="color:#000">String&lt;/span>&lt;span style="color:#000;font-weight:bold">())&lt;/span>
+&lt;span style="color:#000;font-weight:bold">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="run-your-client">Run your client&lt;/h3>
+&lt;p>Now you can run your Go client with this command:&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">go run .
+&lt;span style="color:#8f5902;font-style:italic"># Outputs&lt;/span>
+...
+Response from server: Hello Go GRPC Client!
+&lt;/code>&lt;/pre>&lt;/div></description></item></channel></rss>

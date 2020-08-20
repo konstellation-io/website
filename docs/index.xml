@@ -74,7 +74,7 @@ Example of a basic workflow
 &lt;/p>
 &lt;/div>
 &lt;/div>
-&lt;p>In KRE, external messages comes from a gRPC client. A special component called Entrypoint (gRPC server) dispatch the messages to a determinated workflow and returns the response of the last node to the client. The workflow nodes becomes a PODs in your k8s cluster when the version is started.&lt;/p></description></item><item><title>Docs: Concepts</title><link>https://konstellation-io.github.io/website/docs/krt/concepts/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://konstellation-io.github.io/website/docs/krt/concepts/</guid><description>
+&lt;p>In KRE, external messages comes from a gRPC client. A special component called Entrypoint (gRPC server) dispatch the messages to an specific workflow and returns the response of the last node to the client. The workflow nodes becomes a PODs in your k8s cluster when the version is started.&lt;/p></description></item><item><title>Docs: Concepts</title><link>https://konstellation-io.github.io/website/docs/krt/concepts/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://konstellation-io.github.io/website/docs/krt/concepts/</guid><description>
 &lt;h2 id="what-is-krt">What is KRT?&lt;/h2>
 &lt;p>It stands for &lt;strong>Konstellation Runtime Transport&lt;/strong>. Is the file format used in Konstellation as an easy way to move
 between Development (KDL) to Production (KRE) environments.&lt;/p>
@@ -350,15 +350,15 @@ At this moment KRE is creating all necessary resources inside Kubernetes and it 
 &lt;/div>
 &lt;/div></description></item><item><title>Docs: GKE</title><link>https://konstellation-io.github.io/website/docs/kre/installation/gke/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://konstellation-io.github.io/website/docs/kre/installation/gke/</guid><description>
 &lt;h1 id="gke-deployment">GKE deployment&lt;/h1>
-&lt;p>The flavor of Kubernetes on Google is called GKE (Google Kubernetes Engine) which allow to deploy a cluster managed by Google. This means that Google will manage the lifecyle of the Master nodes of our cluster.&lt;/p>
-&lt;p>When you create a GKE cluster by default is created an Instance Group, which is responsible to start the GCE (Google Compute Engine) instances and scale up and down depending of your configuration. In these instances of GCE is where the loads that we deploy on GKE will run. Therefore is needed to ajust the type of instances on this instance group, to support the load of your deployment. For a PoC of KRE you can setup an Instance Group with min instances 1 up to 3 of type &lt;code>n1-standard-2&lt;/code> and everything will works fine. Be aware about the autoscaling configuration of the Instances Group, because if you only have one Instance Group added to your GKE cluster, at least is required one instance up in order to run some Kubernetes componentes that run as PODS.&lt;/p>
-&lt;p>Deploy an GKE cluster is not the goal of this guide, only the detail some specific configuration needed to run KRE on top of it. It is recommend to use IaC (Infrastructure As Code) approach using Terraform to automate the creation of your cluster, &lt;a href="https://learn.hashicorp.com/tutorials/terraform/gke">here&lt;/a> you can find usefull resources about that. Also you can follow the instructions from the official &lt;a href="https://cloud.google.com/cloud-build/docs/deploying-builds/deploy-gke">Google site&lt;/a>.&lt;/p>
+&lt;p>The flavor of Kubernetes on Google is called GKE (Google Kubernetes Engine) which allow to deploy a cluster managed by Google. This means that Google will manage the lifecycle of the Master nodes of your cluster.&lt;/p>
+&lt;p>When you create a GKE cluster by default is created an Instance Group, which is responsible to start the GCE (Google Compute Engine) instances and scale up and down depending on your configuration. In these instances of GCE is where the loads that we deploy on GKE will run. Therefore, is needed to adjust the type of instances on this instance group, to support the load of your deployment. For a PoC of KRE you can set up an Instance Group with min instances 1 up to 3 of type &lt;code>n1-standard-2&lt;/code> and everything will works fine. Be aware about the autoscaling configuration of the Instances Group, because if you only have one Instance Group added to your GKE cluster, at least is required one instance up in order to run some Kubernetes components that run as PODS.&lt;/p>
+&lt;p>Deploy an GKE cluster is not the goal of this guide, only the detail some specific configuration needed to run KRE on top of it. It is recommend to use IaC (Infrastructure As Code) approach using Terraform to automate the creation of your cluster, &lt;a href="https://learn.hashicorp.com/tutorials/terraform/gke">here&lt;/a> you can find useful resources about that. Also, you can follow the instructions from the official &lt;a href="https://cloud.google.com/cloud-build/docs/deploying-builds/deploy-gke">Google site&lt;/a>.&lt;/p>
 &lt;h1 id="storage">Storage&lt;/h1>
 &lt;p>KRE uses a shared storage with &lt;code>ReadWriteMany&lt;/code> volumes, for this reason is necessary to have a NFS storage(aka Filestore on Google) and get &lt;code>filestore_ip&lt;/code> and &lt;code>File share name&lt;/code> values to use later on.&lt;/p>
 &lt;h1 id="kubernetes-required-components">Kubernetes required components&lt;/h1>
 &lt;p>KRE uses some additional components required for the tool, The basic configuration is documented below:&lt;/p>
 &lt;h2 id="ingress-controller">Ingress controller&lt;/h2>
-&lt;p>Ingress Controller is component create a load balancer on our cloud provider and links the load balancer with the ingress controller service, saving costs on extra network components, and allows to publish services outside our cluster.&lt;/p>
+&lt;p>Ingress Controller is a component to create a load balancer on your cloud provider and links the load balancer with the ingress controller service, allowing publishing services outside your cluster.&lt;/p>
 &lt;pre>&lt;code>helm upgrade --install \
 --namespace kube-system \
 --version 1.40.2 \
@@ -376,7 +376,7 @@ helm upgrade --install &lt;span style="color:#4e9a06">\
 &lt;/span>&lt;span style="color:#4e9a06">&lt;/span> cert-manager &lt;span style="color:#4e9a06">\
 &lt;/span>&lt;span style="color:#4e9a06">&lt;/span> jetstack/cert-manager
 &lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="storage-provisioner">Storage provisioner&lt;/h2>
-&lt;p>In order to connect our &lt;a href="#storage">Filestore&lt;/a> with the cluster storage needs install a nfs-provisioner.&lt;/p>
+&lt;p>In order to connect your &lt;a href="#storage">Filestore&lt;/a> with the cluster storage needs install a nfs-provisioner.&lt;/p>
 &lt;div class="highlight">&lt;pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">helm upgrade --install &lt;span style="color:#4e9a06">\
 &lt;/span>&lt;span style="color:#4e9a06">&lt;/span> --namespace kube-system &lt;span style="color:#4e9a06">\
 &lt;/span>&lt;span style="color:#4e9a06">&lt;/span> --set nfs.server&lt;span style="color:#ce5c00;font-weight:bold">=&lt;/span>&amp;lt;FILESTORE_IP_ADDRESS&amp;gt; &lt;span style="color:#4e9a06">\
@@ -386,11 +386,11 @@ helm upgrade --install &lt;span style="color:#4e9a06">\
 &lt;/code>&lt;/pre>&lt;/div>&lt;p>Replace values &lt;code>FILESTORE_IP_ADDRESS&lt;/code> and &lt;code>FILESTORE_FILE_SHARE_NAME&lt;/code> with the &lt;code>Filestore&lt;/code> you created earlier or with a pre-existing one.&lt;/p>
 &lt;h1 id="dns">DNS&lt;/h1>
 &lt;h2 id="get-ingress-controller-hostname">Get Ingress Controller hostname&lt;/h2>
-&lt;p>First of all you need to know the name of the ELB where we have to point our DNS entry. With the below command you will get name of this Load Balancer.&lt;/p>
+&lt;p>First of all you need to know the name of the ELB where we have to point your DNS entry. With the below command you will get name of this Load Balancer.&lt;/p>
 &lt;div class="highlight">&lt;pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">kubectl -n kube-system get svc -l &lt;span style="color:#000">app&lt;/span>&lt;span style="color:#ce5c00;font-weight:bold">=&lt;/span>nginx-ingress,component&lt;span style="color:#ce5c00;font-weight:bold">=&lt;/span>controller -o &lt;span style="color:#000">jsonpath&lt;/span>&lt;span style="color:#ce5c00;font-weight:bold">=&lt;/span>&lt;span style="color:#4e9a06">&amp;#34;{.items[0].status.loadBalancer.ingress[0].ip}&amp;#34;&lt;/span>
 &lt;/code>&lt;/pre>&lt;/div>&lt;p>The output of this command should show a &lt;code>load balancer IP address&lt;/code>.&lt;/p>
 &lt;h2 id="create-wildcard-entry-in-your-dns-provider">Create wildcard entry in your DNS provider&lt;/h2>
-&lt;p>Once obtained a &lt;code>load balancer IP address&lt;/code> add in our DNS provider a new A Record, with the following values:&lt;/p>
+&lt;p>Once obtained a &lt;code>load balancer IP address&lt;/code> add in your DNS provider a new A Record, with the following values:&lt;/p>
 &lt;table>
 &lt;thead>
 &lt;tr>
@@ -449,7 +449,8 @@ admin.kre.yourdomain.com. 1799 IN A 1.2.3.4
 &lt;div class="highlight">&lt;pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#204a87;font-weight:bold">config&lt;/span>&lt;span style="color:#000;font-weight:bold">:&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline">
 &lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>&lt;span style="color:#204a87;font-weight:bold">smtp&lt;/span>&lt;span style="color:#000;font-weight:bold">:&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline">
 &lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>&lt;span style="color:#204a87;font-weight:bold">enabled&lt;/span>&lt;span style="color:#000;font-weight:bold">:&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>&lt;span style="color:#204a87;font-weight:bold">true&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline">
-&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>&lt;span style="color:#204a87;font-weight:bold">sender&lt;/span>&lt;span style="color:#000;font-weight:bold">:&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>&lt;span style="color:#4e9a06">&amp;#34;&amp;lt;YOUR_SMTP_EMAIL_ACCOUNT&amp;gt;&amp;#34;&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>&lt;span style="color:#8f5902;font-style:italic"># If you use a smtp provider on cloud and your email is not verified, is possible that you can&amp;#39;t login because the smtp authentication fail.&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline">
+&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>&lt;span style="color:#8f5902;font-style:italic"># If you are using a cloud smtp provider and this sender email is not verified, is possible that emails won&amp;#39;t be sent and you can&amp;#39;t login.&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline">
+&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>&lt;span style="color:#204a87;font-weight:bold">sender&lt;/span>&lt;span style="color:#000;font-weight:bold">:&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>&lt;span style="color:#4e9a06">&amp;#34;&amp;lt;YOUR_SMTP_EMAIL_ACCOUNT&amp;gt;&amp;#34;&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline">
 &lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>&lt;span style="color:#204a87;font-weight:bold">senderName&lt;/span>&lt;span style="color:#000;font-weight:bold">:&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>&lt;span style="color:#4e9a06">&amp;#34;&amp;lt;SENDER_NAME&amp;gt;&amp;#34;&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline">
 &lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>&lt;span style="color:#204a87;font-weight:bold">user&lt;/span>&lt;span style="color:#000;font-weight:bold">:&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>&lt;span style="color:#4e9a06">&amp;#34;&amp;lt;SMTP_USER&amp;gt;&amp;#34;&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline">
 &lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>&lt;span style="color:#204a87;font-weight:bold">pass&lt;/span>&lt;span style="color:#000;font-weight:bold">:&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>&lt;span style="color:#4e9a06">&amp;#34;&amp;lt;SMTP_PASSWORD&amp;gt;&amp;#34;&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline">
@@ -459,7 +460,8 @@ admin.kre.yourdomain.com. 1799 IN A 1.2.3.4
 &lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>&lt;span style="color:#204a87;font-weight:bold">admin&lt;/span>&lt;span style="color:#000;font-weight:bold">:&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline">
 &lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>&lt;span style="color:#204a87;font-weight:bold">apiBaseURL&lt;/span>&lt;span style="color:#000;font-weight:bold">:&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>api.kre.&lt;span style="color:#4e9a06">&amp;#34;&amp;lt;YOUR_DOMAIN&amp;gt;&amp;#34;&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline">
 &lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>&lt;span style="color:#204a87;font-weight:bold">frontendBaseURL&lt;/span>&lt;span style="color:#000;font-weight:bold">:&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>https&lt;span style="color:#000;font-weight:bold">:&lt;/span>//admin.kre.&lt;span style="color:#4e9a06">&amp;#34;&amp;lt;YOUR_DOMAIN&amp;gt;&amp;#34;&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline">
-&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>&lt;span style="color:#204a87;font-weight:bold">userEmail&lt;/span>&lt;span style="color:#000;font-weight:bold">:&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>&lt;span style="color:#4e9a06">&amp;#34;&amp;lt;ADMIN_EMAIL_ADDRESS&amp;gt;&amp;#34;&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>&lt;span style="color:#8f5902;font-style:italic">#Required, initial admin user, must match with the first user to log in.&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline">
+&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>&lt;span style="color:#8f5902;font-style:italic"># IMPORTANT: userEmail is used as the system admin user. Use this for first login and create new users.&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline">
+&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>&lt;span style="color:#204a87;font-weight:bold">userEmail&lt;/span>&lt;span style="color:#000;font-weight:bold">:&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>&lt;span style="color:#4e9a06">&amp;#34;&amp;lt;ADMIN_EMAIL_ADDRESS&amp;gt;&amp;#34;&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline">
 &lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>&lt;span style="color:#204a87;font-weight:bold">runtime&lt;/span>&lt;span style="color:#000;font-weight:bold">:&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline">
 &lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>&lt;span style="color:#204a87;font-weight:bold">sharedStorageClass&lt;/span>&lt;span style="color:#000;font-weight:bold">:&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>nfs-client&lt;span style="color:#f8f8f8;text-decoration:underline">
 &lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>&lt;span style="color:#204a87;font-weight:bold">sharedStorageSize&lt;/span>&lt;span style="color:#000;font-weight:bold">:&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>10Gi&lt;span style="color:#f8f8f8;text-decoration:underline">
@@ -581,11 +583,15 @@ exist on the node list defined above.&lt;/li>
 &lt;/li>
 &lt;/ul></description></item><item><title>Docs: Minikube</title><link>https://konstellation-io.github.io/website/docs/kre/installation/minikube/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://konstellation-io.github.io/website/docs/kre/installation/minikube/</guid><description>
 &lt;h1 id="minikube-deployment">Minikube deployment&lt;/h1>
-&lt;p>Minikube implements a local Kubernetes cluster on macOS, Linux, and Windows. Minikube runs the latest stable release of Kubernetes, with support for standard Kubernetes features.&lt;/p>
-&lt;h2 id="installation-with-kre_ctl-script">Installation with kre_ctl script&lt;/h2>
-&lt;p>The local installation is complex, therefore there is a script called kre_ctl.sh at the root of our &lt;a href="https://github.com/konstellation-io/kre">repository&lt;/a> to help us throughout the process.&lt;/p>
+&lt;p>Minikube implements a local Kubernetes cluster on your OS. It runs the latest stable release of Kubernetes, with support for all standard Kubernetes features.&lt;/p>
+&lt;h2 id="installation-with-krectl-script">Installation with krectl script&lt;/h2>
+&lt;p>To hide all the complexity of installing and setting a local cluster, we&amp;rsquo;ve created a script called &lt;code>krectl.sh&lt;/code> in the &lt;a href="https://github.com/konstellation-io/kre">project repository&lt;/a> that do all the needed steps.&lt;/p>
+&lt;p>This script is a development tool used for several tasks. From an end user point of view, you can run this command:&lt;/p>
 &lt;div class="highlight">&lt;pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">./krectl.sh dev --skip-build
-&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="set-etchosts">Set /etc/hosts&lt;/h2>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>NOTE: the &lt;code>--skip-build&lt;/code> option means that the script won&amp;rsquo;t run a docker build for each component&amp;rsquo;s image. This is the default
+behaviour but is only needed if you are going to develop any KRE component.&lt;/p>
+&lt;p>After a couple of minutes you will have a running Minikube profile with a KRE installed and running. The script will also try an automatic login into the local admin section &lt;code>http://admin.kre.local&lt;/code> (see #validate-the-installation).&lt;/p>
+&lt;h2 id="edit-your-hosts-file">Edit your hosts file&lt;/h2>
 &lt;p>Get the cluster ip with the command:&lt;/p>
 &lt;div class="highlight">&lt;pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">minikube -p kre-local ip
 &lt;span style="color:#8f5902;font-style:italic"># Output example&lt;/span>
@@ -594,7 +600,9 @@ exist on the node list defined above.&lt;/li>
 &lt;pre>&lt;code>192.168.99.100 admin.kre.local
 192.168.99.100 api.kre.local
 &lt;/code>&lt;/pre>&lt;h2 id="validate-the-installation">Validate the installation&lt;/h2>
-&lt;p>To check if everything is working fine follow the &lt;a href="https://konstellation-io.github.io/website/website/docs/kre/installation/validate/">Validate&lt;/a> section.&lt;/p></description></item><item><title>Docs: Create version</title><link>https://konstellation-io.github.io/website/docs/kre/tasks/create_version/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://konstellation-io.github.io/website/docs/kre/tasks/create_version/</guid><description>
+&lt;p>If every run correctly and you edited your hosts file, you should be able to login into KRE admin section. In a local environment there are no outgoing emails, but you can login with this command:&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">./krectl.sh login
+&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>Docs: Create version</title><link>https://konstellation-io.github.io/website/docs/kre/tasks/create_version/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://konstellation-io.github.io/website/docs/kre/tasks/create_version/</guid><description>
 &lt;p>When all runtime resources are ready, you can click the created runtime in order to see the list of versions:&lt;/p>
 &lt;div class="card rounded p-2 td-post-card mb-4 mt-4" style="max-width: 1010px">
 &lt;img class="card-img-top" src="https://konstellation-io.github.io/website/website/docs/kre/tasks/create_version/versions_screen_hu0d45c690b63171258cd8b378095e3e48_40429_1000x0_resize_catmullrom_2.png" width="1000" height="382">
@@ -628,8 +636,8 @@ exist on the node list defined above.&lt;/li>
 &lt;/div>
 &lt;/div></description></item><item><title>Docs: EKS</title><link>https://konstellation-io.github.io/website/docs/kre/installation/eks/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://konstellation-io.github.io/website/docs/kre/installation/eks/</guid><description>
 &lt;h1 id="eks-deployment">EKS deployment&lt;/h1>
-&lt;p>The flavor of Kubernetes on AWS is called EKS (Elastic Kubernetes Service) which allow to deploy a cluster managed by Amazon. This means that Amazon will manage the lifecyle of the Master nodes of our cluster.&lt;/p>
-&lt;p>Currently, there are two ways of run loads on top of EKS, using EC2 instances as compute nodes that are added to the cluster or using the Fargate mode, where AWS also manage these compute nodes. In this guide is just described the first one, adding our own compute nodes with EC2 instances.&lt;/p>
+&lt;p>The flavor of Kubernetes on AWS is called EKS (Elastic Kubernetes Service) which allow to deploy a cluster managed by Amazon. This means that Amazon will manage the lifecycle of the Master nodes of your cluster.&lt;/p>
+&lt;p>Currently, there are two ways of run loads on top of EKS, using EC2 instances as compute nodes that are added to the cluster or using the Fargate mode, where AWS also manage these compute nodes. In this guide is just described the first one, adding your own compute nodes with EC2 instances.&lt;/p>
 &lt;p>Deploy an EKS cluster is not the goal of this guide, only the detail some specific configuration needed to run KRE on top of it. It is recommend to use IaC (Infrastructure As Code) approach using Terraform to automate the creation of your cluster, &lt;a href="https://learn.hashicorp.com/tutorials/terraform/eks">here&lt;/a> you can find useful resources about that. Also you can follow the instructions from the official &lt;a href="https://docs.aws.amazon.com/eks/latest/userguide/create-cluster.html">AWS site&lt;/a>.&lt;/p>
 &lt;p>The final EKS deployment should be something like the below diagram.&lt;/p>
 &lt;div class="card rounded p-2 td-post-card mb-4 mt-4" style="max-width: 610px">
@@ -644,7 +652,7 @@ exist on the node list defined above.&lt;/li>
 &lt;p>An important amount of features of KRE are based on the use of shared storage with &lt;code>ReadWriteMany&lt;/code> volumes. Therefore, is required to add a storageClass to Kubernetes that support this kind of volumes.&lt;/p>
 &lt;p>In AWS there are a service called EFS (Elastic File System) that bring to us a network shared storage. As was mentioned before, the recommended way to create resources is using the approach of IaC, for EFS you can find examples of Terraform code &lt;a href="https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/efs_mount_target">here&lt;/a>, or follow the manual steps from the &lt;a href="https://docs.aws.amazon.com/efs/latest/ug/whatisefs.html">AWS site&lt;/a>.&lt;/p>
 &lt;p>The common way to use this from Kubernetes is deploying what is called &lt;code>efs-provisioner&lt;/code> that create the interface between Kubernetes &lt;code>PersistentVolumeClaim&lt;/code> and EFS.&lt;/p>
-&lt;p>In our experience we have had some issues with the &lt;code>efs-provisioner&lt;/code>, therefore instead of deploy an &lt;code>efs-provisioner&lt;/code> to support the creation of volumes on EFS we prefer to add a script to the &lt;code>UserData&lt;/code> of each EC2 instance to mount the shared EFS on a local mount point, for example on &lt;code>/mnt/efs/kre&lt;/code>, and create a &lt;code>HostPath&lt;/code> storageClass that will create all the volumes within this path. This way we can create &lt;code>ReadWriteMany&lt;/code> volumes that are accesible from all the nodes of our cluster. The &lt;code>UserData&lt;/code> script example is below, and is good practice to set it in the &lt;code>Launch Configuration&lt;/code> that manage the EC2 instance which are the compute nodes of our cluster.&lt;/p>
+&lt;p>In our experience we have had some issues with the &lt;code>efs-provisioner&lt;/code>, therefore instead of deploy an &lt;code>efs-provisioner&lt;/code> to support the creation of volumes on EFS we prefer to add a script to the &lt;code>UserData&lt;/code> of each EC2 instance to mount the shared EFS on a local mount point, for example on &lt;code>/mnt/efs/kre&lt;/code>, and create a &lt;code>HostPath&lt;/code> storageClass that will create all the volumes within this path. This way we can create &lt;code>ReadWriteMany&lt;/code> volumes that are accessible from all the nodes of your cluster. The &lt;code>UserData&lt;/code> script example is below, and is good practice setting it in the &lt;code>Launch Configuration&lt;/code> that manage the EC2 instance which are compute nodes of your cluster.&lt;/p>
 &lt;div class="highlight">&lt;pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">&lt;span style="color:#8f5902;font-style:italic">#!/bin/bash
 &lt;/span>&lt;span style="color:#8f5902;font-style:italic">&lt;/span>&lt;span style="color:#204a87">set&lt;/span> -o xtrace
 /etc/eks/bootstrap.sh --apiserver-endpoint &lt;span style="color:#4e9a06">&amp;#39;https://xxxxxxxxxxx.gr7.us-east-1.eks.amazonaws.com&amp;#39;&lt;/span> --b64-cluster-ca &lt;span style="color:#4e9a06">&amp;#39;xxxxxxxxxxxxx&amp;#39;&lt;/span> &lt;span style="color:#4e9a06">&amp;#39;kre&amp;#39;&lt;/span>
@@ -659,7 +667,7 @@ mount -a -t efs defaults
 &lt;p>Some additional components are required on Kubernetes to get a full featured KRE deployment running. We are going to describe how to install those.&lt;/p>
 &lt;h2 id="ingress-controller">Ingress controller&lt;/h2>
 &lt;p>The use of Ingress Controller in Kubernetes that are deployed on cloud providers is very common, due to the reduction of costs on
-load balancers, also the ingress objects help with the automation of some task when publish service to outside of our cluster, and many more.&lt;/p>
+load balancers, also the ingress objects help with the automation of some task when publish service to outside of your cluster, and many more.&lt;/p>
 &lt;p>There are multiple choices of Ingress Controller (NGINX, Traefik, HAProxy, Kong, &amp;hellip;), you can find a full list of those
 in the &lt;a href="https://kubernetes.io/docs/concepts/services-networking/ingress-controllers/">Kubernetes site&lt;/a>, and all of them have pros and cons, in this guide we are going to explain how to deploy NGINX Ingress Controller. It is possible to use KRE with other Ingress Controller than NGINX, but this is maintained by the CNCF, and the maturity of NGINX itself is quite important.&lt;/p>
 &lt;div class="highlight">&lt;pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">helm upgrade --install &lt;span style="color:#4e9a06">\
@@ -689,12 +697,12 @@ helm upgrade --install &lt;span style="color:#4e9a06">\
 &lt;p>All the access to KRE services require of a hostname due to the use of Ingress objects and certificates. In order to get a
 deployment and management processes easier we recommend delegating a subdomain &lt;code>kre&lt;/code> of a domain owned by you to a &lt;code>Route53&lt;/code> DNS hosted zone, and create a wildcard entry pointing to the Load Balancer of the Ingress Controller.&lt;/p>
 &lt;h2 id="get-ingress-controller-hostname">Get Ingress Controller hostname&lt;/h2>
-&lt;p>First of all you need to konw the name of the ELB where we have to point our DNS entry. With the below command you will get name of this Load Balancer.&lt;/p>
+&lt;p>First of all you need to konw the name of the ELB where we have to point your DNS entry. With the below command you will get name of this Load Balancer.&lt;/p>
 &lt;div class="highlight">&lt;pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">kubectl -n kube-system get svc -l &lt;span style="color:#000">app&lt;/span>&lt;span style="color:#ce5c00;font-weight:bold">=&lt;/span>nginx-ingress,component&lt;span style="color:#ce5c00;font-weight:bold">=&lt;/span>controller -o &lt;span style="color:#000">jsonpath&lt;/span>&lt;span style="color:#ce5c00;font-weight:bold">=&lt;/span>&lt;span style="color:#4e9a06">&amp;#34;{.items[0].status.loadBalancer.ingress[0].hostname}&amp;#34;&lt;/span>
 &lt;/code>&lt;/pre>&lt;/div>&lt;p>The output of this command should be something like &lt;code>xxxxxxxxxxxxxxxxxxxxx-00000000.us-east-1.elb.amazonaws.com&lt;/code>.&lt;/p>
 &lt;h2 id="create-wildcard-entry-in-your-hosted-zone">Create wildcard entry in your hosted zone&lt;/h2>
 &lt;p>With the name of the ELB go to your hosted zone in Route53 and create a new A entry of type Alias pointing to the ELB name. That&amp;rsquo;s it.&lt;/p>
-&lt;p>Depend of your environment you can use the &lt;code>DNS01&lt;/code> challenge to validate that you are the owner of the DNS name, in that case with Cert Manager there are a plugin that allow to perform this validation with a Route53, so this is another interesting point to take in account. In the next section is detailed how to automate this in the KRE deployment.&lt;/p>
+&lt;p>Depending on your environment you can use the &lt;code>DNS01&lt;/code> challenge to validate that you are the owner of the DNS name, in that case with Cert Manager there are a plugin that allow to perform this validation with a Route53, so this is another interesting point to take in account. In the next section is detailed how to automate this in the KRE deployment.&lt;/p>
 &lt;p>After a while the resolution of your domain should point to the ELB. KRE require of the following subdomains.&lt;/p>
 &lt;table>
 &lt;thead>
@@ -734,7 +742,7 @@ admin.kre.yourdomain.com. 1799 IN A 1.2.3.4
 ;; WHEN: mié ago 12 16:18:49 CEST 2020
 ;; MSG SIZE rcvd: 75
 &lt;/code>&lt;/pre>&lt;h1 id="helm-deployment">Helm deployment&lt;/h1>
-&lt;p>Once you have your EKS cluster ready with all the required extra components installed and all the credentials to access to your cluster is time to start the KRE deployment. The first step is to define a &lt;code>values.yaml&lt;/code> file that fit all the requirements for our installation. So we are going to describe an example of this file to deploy KRE in your cluster. After that we can apply the Helm chart with this value to deploy KRE and afterward we are going to describe how to validate the installation.&lt;/p>
+&lt;p>Once you have your EKS cluster ready with all the required extra components installed and all the credentials to access to your cluster is time to start the KRE deployment. The first step is to define a &lt;code>values.yaml&lt;/code> file that fit all the requirements for your installation. So we are going to describe an example of this file to deploy KRE in your cluster. After that we can apply the Helm chart with this value to deploy KRE and afterward we are going to describe how to validate the installation.&lt;/p>
 &lt;h2 id="create-valuesyaml">Create values.yaml&lt;/h2>
 &lt;p>Here is an example of a &lt;code>values.yaml&lt;/code> to deploy in your clustes, just fill the parameters that required of your own information of credentials or domains, and save the file as &lt;code>values.yaml&lt;/code> in order to apply it as is explained in the next section.&lt;/p>
 &lt;p>All the parameters are ditailed in the section &lt;a href="https://konstellation-io.github.io/website/website/docs/kre/installation/customization/">Customization&lt;/a>.&lt;/p>
@@ -751,7 +759,8 @@ admin.kre.yourdomain.com. 1799 IN A 1.2.3.4
 &lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>&lt;span style="color:#204a87;font-weight:bold">admin&lt;/span>&lt;span style="color:#000;font-weight:bold">:&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline">
 &lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>&lt;span style="color:#204a87;font-weight:bold">apiBaseURL&lt;/span>&lt;span style="color:#000;font-weight:bold">:&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>api.kre.&lt;span style="color:#4e9a06">&amp;#34;&amp;lt;YOUR_DOMAIN&amp;gt;&amp;#34;&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline">
 &lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>&lt;span style="color:#204a87;font-weight:bold">frontendBaseURL&lt;/span>&lt;span style="color:#000;font-weight:bold">:&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>https&lt;span style="color:#000;font-weight:bold">:&lt;/span>//admin.kre.&lt;span style="color:#4e9a06">&amp;#34;&amp;lt;YOUR_DOMAIN&amp;gt;&amp;#34;&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline">
-&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>&lt;span style="color:#204a87;font-weight:bold">userEmail&lt;/span>&lt;span style="color:#000;font-weight:bold">:&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>&lt;span style="color:#4e9a06">&amp;#34;&amp;lt;ADMIN_EMAIL_ADDRESS&amp;gt;&amp;#34;&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>&lt;span style="color:#8f5902;font-style:italic">#Required, initial admin user, must match with the first user to log in.&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline">
+&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>&lt;span style="color:#8f5902;font-style:italic"># IMPORTANT: userEmail is used as the system admin user. Use this for first login and create new users.&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline">
+&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>&lt;span style="color:#204a87;font-weight:bold">userEmail&lt;/span>&lt;span style="color:#000;font-weight:bold">:&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>&lt;span style="color:#4e9a06">&amp;#34;&amp;lt;ADMIN_EMAIL_ADDRESS&amp;gt;&amp;#34;&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline">
 &lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>&lt;span style="color:#204a87;font-weight:bold">runtime&lt;/span>&lt;span style="color:#000;font-weight:bold">:&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline">
 &lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>&lt;span style="color:#204a87;font-weight:bold">sharedStorageClass&lt;/span>&lt;span style="color:#000;font-weight:bold">:&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>hostpath&lt;span style="color:#f8f8f8;text-decoration:underline">
 &lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>&lt;span style="color:#204a87;font-weight:bold">sharedStorageSize&lt;/span>&lt;span style="color:#000;font-weight:bold">:&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>10Gi&lt;span style="color:#f8f8f8;text-decoration:underline">
@@ -840,7 +849,7 @@ kre-local-prometheus-opera-operator-5b6f794b67-8lrdj 2/2 Running 0 28h
 kre-mongo-0 1/1 Running 0 28h
 prometheus-kre-local-prometheus-opera-prometheus-0 3/3 Running 1 28h
 &lt;/code>&lt;/pre>&lt;h2 id="open-admin-web-console">Open Admin web console&lt;/h2>
-&lt;p>If everything works fine we should open the URL &lt;a href="https://admin.kre.yourdomain.com">https://admin.kre.yourdomain.com&lt;/a> in a browser and the admin interface should open like the figure below.&lt;/p>
+&lt;p>If everything works fine you can go to &lt;a href="https://admin.kre.yourdomain.com">https://admin.kre.yourdomain.com&lt;/a> and see the admin UI as shown in the image bellow.&lt;/p>
 &lt;div class="card rounded p-2 td-post-card mb-4 mt-4" style="max-width: 610px">
 &lt;img class="card-img-top" src="https://konstellation-io.github.io/website/website/docs/kre/installation/validate/admin_web_hu51f4e7b3b1b2ceed12d523513c1d3459_36023_600x0_resize_q75_catmullrom.jpeg" width="600" height="463">
 &lt;div class="card-body px-0 pt-2 pb-0">
@@ -901,7 +910,7 @@ CApath: /etc/ssl/certs
 &amp;lt;
 {&amp;quot;message&amp;quot;:&amp;quot;Not Found&amp;quot;}
 * Connection #0 to host api.kre.yourdomain.com left intact
-&lt;/code>&lt;/pre>&lt;p>With this command we are validating that the API is up and running properly, because the expected answer is &lt;code>{&amp;quot;message&amp;quot;:&amp;quot;Not Found&amp;quot;}&lt;/code>. Also we can see that the certificate is issued correctly by Cert Manager.&lt;/p>
+&lt;/code>&lt;/pre>&lt;p>With this command we are validating that the API is up and running properly, because the expected answer is &lt;code>{&amp;quot;message&amp;quot;:&amp;quot;Not Found&amp;quot;}&lt;/code>. Also, we can see that the certificate is issued correctly by Cert Manager.&lt;/p>
 &lt;h2 id="check-the-api-logs">Check the API logs&lt;/h2>
 &lt;p>Command:&lt;/p>
 &lt;div class="highlight">&lt;pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">kubectl -n kre logs kre-local-admin-api-75d8bdc6b9-n4qcv
@@ -1018,7 +1027,7 @@ used to unmarshal input messages and used as response.&lt;/p>
 &lt;span style="color:#000;font-weight:bold">}&lt;/span>
 &lt;/code>&lt;/pre>&lt;/div></description></item><item><title>Docs: Version Management</title><link>https://konstellation-io.github.io/website/docs/kre/tasks/version_management/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://konstellation-io.github.io/website/docs/kre/tasks/version_management/</guid><description>
 &lt;h3 id="version-lifecycle">Version lifecycle&lt;/h3>
-&lt;p>In the following grahp you can see all posible statuses and actions for a runtime version. The blue boxes are actions and the green ones are statuses:&lt;/p>
+&lt;p>In the following graph you can see all possible statuses and actions for a runtime version. The blue boxes are actions, and the green ones are statuses:&lt;/p>
 &lt;div class="card rounded p-2 td-post-card mb-4 mt-4" style="max-width: 1010px">
 &lt;img class="card-img-top" src="https://konstellation-io.github.io/website/website/docs/kre/tasks/version_management/version_lifecycle_hu3d0103200f92e22fba46921b44813a51_104333_1000x0_resize_q75_catmullrom.jpg" width="1000" height="349">
 &lt;div class="card-body px-0 pt-2 pb-0">
@@ -1027,7 +1036,7 @@ used to unmarshal input messages and used as response.&lt;/p>
 &lt;/div>
 &lt;/div>
 &lt;h2 id="version-management">Version management&lt;/h2>
-&lt;p>In the version details screen we can manage the opened version. There are four actions that we can perform using the left-bottom buttons: start, stop, publish and unpublish. When we perform some of these actions the version status change. The following table shows all possible version status:&lt;/p>
+&lt;p>In the version details screen we can manage the opened version. There are four actions that we can perform using the left-bottom buttons: start, stop, publish and un-publish. When we perform some of these actions the version status change. The following table shows all possible version status:&lt;/p>
 &lt;table>
 &lt;thead>
 &lt;tr>
@@ -1054,11 +1063,11 @@ used to unmarshal input messages and used as response.&lt;/p>
 &lt;/tr>
 &lt;tr>
 &lt;td>&lt;code>published&lt;/code>&lt;/td>
-&lt;td>The entrypoint is accesible from outside and the incoming request can be managed by the processes.&lt;/td>
+&lt;td>The entrypoint is accessible from outside and the incoming request can be managed by the processes.&lt;/td>
 &lt;/tr>
 &lt;/tbody>
 &lt;/table>
-&lt;p>All of these actions are important so you must provide a reason text and they are registered in the user audit list (&lt;code>/audit&lt;/code>). Only &lt;code>manager&lt;/code> or &lt;code>admin&lt;/code> users can view the user audit list.&lt;/p>
+&lt;p>All of these actions ask the user to input a reason that is registered as an audit log. An &lt;code>admin&lt;/code> or &lt;code>manager&lt;/code> user can see all users activity on the audit list (&lt;code>/audit&lt;/code>).&lt;/p>
 &lt;h3 id="start-a-version">Start a version&lt;/h3>
 &lt;p>Clicking the &lt;code>Start&lt;/code> button and providing the reason text we will see that the version goes to the &lt;code>starting&lt;/code> status and after a time changes to &lt;code>started&lt;/code>.&lt;/p>
 &lt;div class="card rounded p-2 td-post-card mb-4 mt-4" style="max-width: 1010px">
@@ -1070,12 +1079,83 @@ used to unmarshal input messages and used as response.&lt;/p>
 &lt;/div>
 &lt;p>The processes color should be green, this means that the processes are ready and listening for incoming messages.&lt;/p>
 &lt;h3 id="stop-a-version">Stop a version&lt;/h3>
-&lt;p>Using the actions buttons you can press the &lt;code>Stop&lt;/code> button when the version is &lt;code>started&lt;/code> or &lt;code>starting&lt;/code>.
+&lt;p>Using the action buttons you can press the &lt;code>Stop&lt;/code> button when the version is &lt;code>started&lt;/code> or &lt;code>starting&lt;/code>.
 Use this action when you want to delete all associated resources in kubernetes for this version.
 The collected logs and metrics will be persisted after stopping.&lt;/p>
 &lt;h3 id="publish-a-version">Publish a version&lt;/h3>
-&lt;p>A started version with all nodes on green means that the version is ready to receive messages but it is not .
-You can use this state to be sure that all pieces of the workflow are working correctly before publishing.&lt;/p></description></item><item><title>Docs: Create a KRT</title><link>https://konstellation-io.github.io/website/docs/krt/tasks/create_krt_file/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://konstellation-io.github.io/website/docs/krt/tasks/create_krt_file/</guid><description>
+&lt;p>A started version with all nodes on green means that the version is ready to receive messages, but it is not exposed to the outside world until you decide to publish it.
+You can use this state to be sure all pieces of the workflow are working correctly before publishing.&lt;/p></description></item><item><title>Docs: Call Version Services</title><link>https://konstellation-io.github.io/website/docs/kre/tasks/consume_version_services/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://konstellation-io.github.io/website/docs/kre/tasks/consume_version_services/</guid><description>
+&lt;p>Once you have a published version you can call it from outside through the entrypoint gRPC services.&lt;/p>
+&lt;p>For this example the pre requisites are:&lt;/p>
+&lt;ul>
+&lt;li>An existing Runtime called &lt;code>Test&lt;/code>.&lt;/li>
+&lt;li>A &lt;strong>published version&lt;/strong> containing a workflow pointing to a &lt;code>Greeting&lt;/code> service in the entrypoint.&lt;/li>
+&lt;/ul>
+&lt;p>To learn how to get this requisites you can check &lt;a href="https://konstellation-io.github.io/website/website/docs/krt/tasks/">KRT tasks&lt;/a> and &lt;a href="https://konstellation-io.github.io/website/website/docs/kre/tasks/version_management/">KRE version management&lt;/a>.&lt;/p>
+&lt;h2 id="call-from-cli">Call from CLI&lt;/h2>
+&lt;p>The fastest way to interact with the gRPC server is with &lt;a href="https://github.com/fullstorydev/grpcurl">grpcurl&lt;/a>. This tool is similar to &lt;code>curl&lt;/code> but for gRPC servers.&lt;/p>
+&lt;p>Just run this:&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">grpcurl -insecure -d &lt;span style="color:#4e9a06">&amp;#39;{&amp;#34;name&amp;#34;: &amp;#34;John&amp;#34;}&amp;#39;&lt;/span> entrypoint.kre-test.local:443 entrypoint.Entrypoint/Greet
+&lt;span style="color:#8f5902;font-style:italic"># Outputs&lt;/span>
+&lt;span style="color:#ce5c00;font-weight:bold">{&lt;/span>
+&lt;span style="color:#4e9a06">&amp;#34;greeting&amp;#34;&lt;/span>: &lt;span style="color:#4e9a06">&amp;#34;Hello John!&amp;#34;&lt;/span>
+&lt;span style="color:#ce5c00;font-weight:bold">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="call-from-grpc-client-on-golang">Call from gRPC client on Golang&lt;/h2>
+&lt;h3 id="get-proto-file-from-the-entrypoint">Get proto file from the Entrypoint&lt;/h3>
+&lt;p>To create a gRPC client you need the proto file to generate code with &lt;code>protoc&lt;/code> tool. Each entrypoint has its proto file published in KRE, for this example you can access it at &lt;code>http://proto.kre-test.local/&lt;/code> (assuming your Runtime is called &amp;ldquo;Test&amp;rdquo;). You will see a file named &lt;code>public_input.proto&lt;/code> that you have to download.&lt;/p>
+&lt;h3 id="generate-code-with-protoc">Generate code with protoc&lt;/h3>
+&lt;p>Inside the folder you are creating the client add a folder named &lt;code>entrypoint&lt;/code> and put &lt;code>public_input.proto&lt;/code> file inside.&lt;/p>
+&lt;p>Now you can run &lt;code>protoc&lt;/code> to generate the gRPC client code:&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">protoc --go_out&lt;span style="color:#ce5c00;font-weight:bold">=&lt;/span>&lt;span style="color:#000">plugins&lt;/span>&lt;span style="color:#ce5c00;font-weight:bold">=&lt;/span>grpc:. public_input.proto
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>After running this command you will see a new file called &lt;code>public_input.pb.go&lt;/code> in the same folder.&lt;/p>
+&lt;h3 id="code-the-grpc-client">Code the gRPC client&lt;/h3>
+&lt;p>Create two files, one called &lt;code>go.mod&lt;/code> for Go to manage dependencies, and another file named &lt;code>main.go&lt;/code>.&lt;/p>
+&lt;h4 id="gomod-file">go.mod file&lt;/h4>
+&lt;pre>&lt;code>module greeter-client
+go 1.15
+require (
+github.com/golang/protobuf v1.4.2
+google.golang.org/grpc v1.31.0
+)
+&lt;/code>&lt;/pre>&lt;h4 id="maingo-file">main.go file&lt;/h4>
+&lt;div class="highlight">&lt;pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-go" data-lang="go">
+&lt;span style="color:#204a87;font-weight:bold">package&lt;/span> &lt;span style="color:#000">main&lt;/span>
+&lt;span style="color:#204a87;font-weight:bold">import&lt;/span> &lt;span style="color:#000;font-weight:bold">(&lt;/span>
+&lt;span style="color:#4e9a06">&amp;#34;context&amp;#34;&lt;/span>
+&lt;span style="color:#4e9a06">&amp;#34;crypto/tls&amp;#34;&lt;/span>
+&lt;span style="color:#4e9a06">&amp;#34;log&amp;#34;&lt;/span>
+&lt;span style="color:#4e9a06">&amp;#34;google.golang.org/grpc&amp;#34;&lt;/span>
+&lt;span style="color:#4e9a06">&amp;#34;google.golang.org/grpc/credentials&amp;#34;&lt;/span>
+&lt;span style="color:#4e9a06">&amp;#34;greeter-client/entrypoint&amp;#34;&lt;/span>
+&lt;span style="color:#000;font-weight:bold">)&lt;/span>
+&lt;span style="color:#204a87;font-weight:bold">func&lt;/span> &lt;span style="color:#000">main&lt;/span>&lt;span style="color:#000;font-weight:bold">()&lt;/span> &lt;span style="color:#000;font-weight:bold">{&lt;/span>
+&lt;span style="color:#000">log&lt;/span>&lt;span style="color:#000;font-weight:bold">.&lt;/span>&lt;span style="color:#000">Println&lt;/span>&lt;span style="color:#000;font-weight:bold">(&lt;/span>&lt;span style="color:#4e9a06">&amp;#34;Client started&amp;#34;&lt;/span>&lt;span style="color:#000;font-weight:bold">)&lt;/span>
+&lt;span style="color:#000">address&lt;/span> &lt;span style="color:#ce5c00;font-weight:bold">:=&lt;/span> &lt;span style="color:#4e9a06">&amp;#34;entrypoint.kre-test.local:443&amp;#34;&lt;/span>
+&lt;span style="color:#204a87;font-weight:bold">var&lt;/span> &lt;span style="color:#000">tlsConf&lt;/span> &lt;span style="color:#000">tls&lt;/span>&lt;span style="color:#000;font-weight:bold">.&lt;/span>&lt;span style="color:#000">Config&lt;/span>
+&lt;span style="color:#000">tlsConf&lt;/span>&lt;span style="color:#000;font-weight:bold">.&lt;/span>&lt;span style="color:#000">InsecureSkipVerify&lt;/span> &lt;span style="color:#000;font-weight:bold">=&lt;/span> &lt;span style="color:#204a87;font-weight:bold">true&lt;/span>
+&lt;span style="color:#000">grpcOptions&lt;/span> &lt;span style="color:#ce5c00;font-weight:bold">:=&lt;/span> &lt;span style="color:#000">grpc&lt;/span>&lt;span style="color:#000;font-weight:bold">.&lt;/span>&lt;span style="color:#000">WithTransportCredentials&lt;/span>&lt;span style="color:#000;font-weight:bold">(&lt;/span>&lt;span style="color:#000">credentials&lt;/span>&lt;span style="color:#000;font-weight:bold">.&lt;/span>&lt;span style="color:#000">NewTLS&lt;/span>&lt;span style="color:#000;font-weight:bold">(&lt;/span>&lt;span style="color:#ce5c00;font-weight:bold">&amp;amp;&lt;/span>&lt;span style="color:#000">tlsConf&lt;/span>&lt;span style="color:#000;font-weight:bold">))&lt;/span>
+&lt;span style="color:#000">cc&lt;/span>&lt;span style="color:#000;font-weight:bold">,&lt;/span> &lt;span style="color:#000">err&lt;/span> &lt;span style="color:#ce5c00;font-weight:bold">:=&lt;/span> &lt;span style="color:#000">grpc&lt;/span>&lt;span style="color:#000;font-weight:bold">.&lt;/span>&lt;span style="color:#000">Dial&lt;/span>&lt;span style="color:#000;font-weight:bold">(&lt;/span>&lt;span style="color:#000">address&lt;/span>&lt;span style="color:#000;font-weight:bold">,&lt;/span> &lt;span style="color:#000">grpcOptions&lt;/span>&lt;span style="color:#000;font-weight:bold">)&lt;/span>
+&lt;span style="color:#204a87;font-weight:bold">if&lt;/span> &lt;span style="color:#000">err&lt;/span> &lt;span style="color:#ce5c00;font-weight:bold">!=&lt;/span> &lt;span style="color:#204a87;font-weight:bold">nil&lt;/span> &lt;span style="color:#000;font-weight:bold">{&lt;/span>
+&lt;span style="color:#000">log&lt;/span>&lt;span style="color:#000;font-weight:bold">.&lt;/span>&lt;span style="color:#000">Fatalf&lt;/span>&lt;span style="color:#000;font-weight:bold">(&lt;/span>&lt;span style="color:#4e9a06">&amp;#34;Could not connect: %v&amp;#34;&lt;/span>&lt;span style="color:#000;font-weight:bold">,&lt;/span> &lt;span style="color:#000">err&lt;/span>&lt;span style="color:#000;font-weight:bold">)&lt;/span>
+&lt;span style="color:#000;font-weight:bold">}&lt;/span>
+&lt;span style="color:#204a87;font-weight:bold">defer&lt;/span> &lt;span style="color:#000">cc&lt;/span>&lt;span style="color:#000;font-weight:bold">.&lt;/span>&lt;span style="color:#000">Close&lt;/span>&lt;span style="color:#000;font-weight:bold">()&lt;/span>
+&lt;span style="color:#000">c&lt;/span> &lt;span style="color:#ce5c00;font-weight:bold">:=&lt;/span> &lt;span style="color:#000">entrypoint&lt;/span>&lt;span style="color:#000;font-weight:bold">.&lt;/span>&lt;span style="color:#000">NewEntrypointClient&lt;/span>&lt;span style="color:#000;font-weight:bold">(&lt;/span>&lt;span style="color:#000">cc&lt;/span>&lt;span style="color:#000;font-weight:bold">)&lt;/span>
+&lt;span style="color:#000">req&lt;/span> &lt;span style="color:#ce5c00;font-weight:bold">:=&lt;/span> &lt;span style="color:#000">entrypoint&lt;/span>&lt;span style="color:#000;font-weight:bold">.&lt;/span>&lt;span style="color:#000">Request&lt;/span>&lt;span style="color:#000;font-weight:bold">{&lt;/span>
+&lt;span style="color:#000">Name&lt;/span>&lt;span style="color:#000;font-weight:bold">:&lt;/span> &lt;span style="color:#4e9a06">&amp;#34;Go GRPC Client&amp;#34;&lt;/span>&lt;span style="color:#000;font-weight:bold">,&lt;/span>
+&lt;span style="color:#000;font-weight:bold">}&lt;/span>
+&lt;span style="color:#000">res&lt;/span>&lt;span style="color:#000;font-weight:bold">,&lt;/span> &lt;span style="color:#000">err&lt;/span> &lt;span style="color:#ce5c00;font-weight:bold">:=&lt;/span> &lt;span style="color:#000">c&lt;/span>&lt;span style="color:#000;font-weight:bold">.&lt;/span>&lt;span style="color:#000">Greet&lt;/span>&lt;span style="color:#000;font-weight:bold">(&lt;/span>&lt;span style="color:#000">context&lt;/span>&lt;span style="color:#000;font-weight:bold">.&lt;/span>&lt;span style="color:#000">Background&lt;/span>&lt;span style="color:#000;font-weight:bold">(),&lt;/span> &lt;span style="color:#ce5c00;font-weight:bold">&amp;amp;&lt;/span>&lt;span style="color:#000">req&lt;/span>&lt;span style="color:#000;font-weight:bold">)&lt;/span>
+&lt;span style="color:#204a87;font-weight:bold">if&lt;/span> &lt;span style="color:#000">err&lt;/span> &lt;span style="color:#ce5c00;font-weight:bold">!=&lt;/span> &lt;span style="color:#204a87;font-weight:bold">nil&lt;/span> &lt;span style="color:#000;font-weight:bold">{&lt;/span>
+&lt;span style="color:#000">log&lt;/span>&lt;span style="color:#000;font-weight:bold">.&lt;/span>&lt;span style="color:#000">Fatalf&lt;/span>&lt;span style="color:#000;font-weight:bold">(&lt;/span>&lt;span style="color:#4e9a06">&amp;#34;Error calling RuntimeRPC: %v&amp;#34;&lt;/span>&lt;span style="color:#000;font-weight:bold">,&lt;/span> &lt;span style="color:#000">err&lt;/span>&lt;span style="color:#000;font-weight:bold">)&lt;/span>
+&lt;span style="color:#000;font-weight:bold">}&lt;/span>
+&lt;span style="color:#000">log&lt;/span>&lt;span style="color:#000;font-weight:bold">.&lt;/span>&lt;span style="color:#000">Printf&lt;/span>&lt;span style="color:#000;font-weight:bold">(&lt;/span>&lt;span style="color:#4e9a06">&amp;#34;Response from server: %v \n %#v&amp;#34;&lt;/span>&lt;span style="color:#000;font-weight:bold">,&lt;/span> &lt;span style="color:#000">res&lt;/span>&lt;span style="color:#000;font-weight:bold">.&lt;/span>&lt;span style="color:#000">GetGreeting&lt;/span>&lt;span style="color:#000;font-weight:bold">(),&lt;/span> &lt;span style="color:#000">res&lt;/span>&lt;span style="color:#000;font-weight:bold">.&lt;/span>&lt;span style="color:#000">String&lt;/span>&lt;span style="color:#000;font-weight:bold">())&lt;/span>
+&lt;span style="color:#000;font-weight:bold">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="run-your-client">Run your client&lt;/h3>
+&lt;p>Now you can run your Go client with this command:&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">go run .
+&lt;span style="color:#8f5902;font-style:italic"># Outputs&lt;/span>
+...
+Response from server: Hello Go GRPC Client!
+&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>Docs: Create a KRT</title><link>https://konstellation-io.github.io/website/docs/krt/tasks/create_krt_file/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://konstellation-io.github.io/website/docs/krt/tasks/create_krt_file/</guid><description>
 &lt;p>The end goal of Konstellation is to automate the generation of KRT files directly from KDL. This is currently on the list
 of features to add on KDL but not developed yet.&lt;/p>
 &lt;p>So, in order to create a KRT file, you need to create your own custom scripts to generate KRT files. Basically you need
