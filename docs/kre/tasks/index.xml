@@ -133,7 +133,7 @@ At this moment KRE is creating all necessary resources inside Kubernetes and it 
 &lt;/p>
 &lt;/div>
 &lt;/div>
-&lt;p>We are going to upload a version of the &lt;a href="https://github.com/konstellation-io/kre/tree/master/krt-template/greeter">greeting example&lt;/a>. You can download the krt file &lt;a href="./greeter-v1.krt">here&lt;/a>.&lt;/p>
+&lt;p>We are going to upload a version of the &lt;a href="https://github.com/konstellation-io/kre/tree/master/krt-template/greeter">greeting example&lt;/a>. You can download the krt file &lt;a href="https://konstellation-io.github.io/website/website/krts/greeter-v1.krt">here&lt;/a>.&lt;/p>
 &lt;div class="card rounded p-2 td-post-card mb-4 mt-4" style="max-width: 610px">
 &lt;img class="card-img-top" src="https://konstellation-io.github.io/website/website/docs/kre/tasks/create_version/add_version_hua3bbf1bfa17fdaedecdab412e92334e6_14685_600x0_resize_catmullrom_2.png" width="600" height="354">
 &lt;div class="card-body px-0 pt-2 pb-0">
