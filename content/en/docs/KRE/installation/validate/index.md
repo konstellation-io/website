@@ -29,13 +29,15 @@ kre-mongo-0                                              1/1     Running   0    
 prometheus-kre-local-prometheus-opera-prometheus-0       3/3     Running   1          28h
 ```
 
+
 ## Open Admin web console
 
-If everything works fine we should open the URL https://admin.kre.yourdomain.com in a browser and the admin interface should open like the figure below.
+If everything works fine you can go to https://admin.kre.yourdomain.com and see the admin UI as shown in the image bellow.
 
 {{< imgproc admin_web Resize "600x" >}}
 
 {{< /imgproc >}}
+
 
 ## Check API is up
 
@@ -98,7 +100,8 @@ Expected output:
 * Connection #0 to host api.kre.yourdomain.com left intact
 ```
 
-With this command we are validating that the API is up and running properly, because the expected answer is `{"message":"Not Found"}`. Also we can see that the certificate is issued correctly by Cert Manager.
+With this command we are validating that the API is up and running properly, because the expected answer is `{"message":"Not Found"}`. Also, we can see that the certificate is issued correctly by Cert Manager.
+
 
 ## Check the API logs
 
@@ -122,4 +125,5 @@ Expected output:
 2020-08-11T12:35:29.501522116Z INFO Request from user kre_admin_user
 2020-08-11T12:35:30.479367476Z INFO Request from user kre_admin_user
 ```
+
 We should see at the very beginning of the API logs that the connection to MongoDB is fine and the service have started.

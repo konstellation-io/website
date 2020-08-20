@@ -8,9 +8,9 @@ weight: 30
 
 # EKS deployment
 
-The flavor of Kubernetes on AWS is called EKS (Elastic Kubernetes Service) which allow to deploy a cluster managed by Amazon. This means that Amazon will manage the lifecyle of the Master nodes of our cluster. 
+The flavor of Kubernetes on AWS is called EKS (Elastic Kubernetes Service) which allow to deploy a cluster managed by Amazon. This means that Amazon will manage the lifecycle of the Master nodes of your cluster. 
 
-Currently, there are two ways of run loads on top of EKS, using EC2 instances as compute nodes that are added to the cluster or using the Fargate mode, where AWS also manage these compute nodes. In this guide is just described the first one, adding our own compute nodes with EC2 instances.
+Currently, there are two ways of run loads on top of EKS, using EC2 instances as compute nodes that are added to the cluster or using the Fargate mode, where AWS also manage these compute nodes. In this guide is just described the first one, adding your own compute nodes with EC2 instances.
 
 Deploy an EKS cluster is not the goal of this guide, only the detail some specific configuration needed to run KRE on top of it. It is recommend to use IaC (Infrastructure As Code) approach using Terraform to automate the creation of your cluster, [here](https://learn.hashicorp.com/tutorials/terraform/eks) you can find useful resources about that. Also you can follow the instructions from the official [AWS site](https://docs.aws.amazon.com/eks/latest/userguide/create-cluster.html). 
 
@@ -22,6 +22,7 @@ The final EKS deployment should be something like the below diagram.
 
 After deploy your EKS cluster you are going to need the `kubeconfig` file. This file is the way to configure the `kubectl` and `helm` CLIs to access to your cluster. In the case of EKS used to be required an extra plugin called [AWS IAM authenticator](https://github.com/kubernetes-sigs/aws-iam-authenticator) to authenticate via the IAM account. Please follow the steps detailed in hte [AWS site](https://docs.aws.amazon.com/eks/latest/userguide/create-kubeconfig.html).
 
+
 # Storage
 
 An important amount of features of KRE are based on the use of shared storage with `ReadWriteMany` volumes. Therefore, is required to add a storageClass to Kubernetes that support this kind of volumes. 
@@ -30,7 +31,7 @@ In AWS there are a service called EFS (Elastic File System) that bring to us a n
 
 The common way to use this from Kubernetes is deploying what is called `efs-provisioner` that create the interface between Kubernetes `PersistentVolumeClaim` and EFS. 
 
-In our experience we have had some issues with the `efs-provisioner`, therefore instead of deploy an `efs-provisioner` to support the creation of volumes on EFS we prefer to add a script to the `UserData` of each EC2 instance to mount the shared EFS on a local mount point, for example on `/mnt/efs/kre`, and create a `HostPath` storageClass that will create all the volumes within this path. This way we can create `ReadWriteMany` volumes that are accesible from all the nodes of our cluster. The `UserData` script example is below, and is good practice to set it in the `Launch Configuration` that manage the EC2 instance which are the compute nodes of our cluster.
+In our experience we have had some issues with the `efs-provisioner`, therefore instead of deploy an `efs-provisioner` to support the creation of volumes on EFS we prefer to add a script to the `UserData` of each EC2 instance to mount the shared EFS on a local mount point, for example on `/mnt/efs/kre`, and create a `HostPath` storageClass that will create all the volumes within this path. This way we can create `ReadWriteMany` volumes that are accessible from all the nodes of your cluster. The `UserData` script example is below, and is good practice setting it in the `Launch Configuration` that manage the EC2 instance which are compute nodes of your cluster.
 
 ```bash
 #!/bin/bash
@@ -46,14 +47,16 @@ In the next section is described how to install the `hostPath` provisioner.
 Network shared storage can be a bottleneck of performance, so depends on your usecase you should use only for the pieces that require 
 `ReadWriteMany` volume, for the rest of the components you can use the default storageClass that will create an EBS resource on AWS. In the [Helm deployment](#helm-deployment) section is detailed the best option for your usecase and which pieces can use which storageClass.
 
+
 # Kubernetes required components
 
 Some additional components are required on Kubernetes to get a full featured KRE deployment running. We are going to describe how to install those.
 
+
 ## Ingress controller
 
 The use of Ingress Controller in Kubernetes that are deployed on cloud providers is very common, due to the reduction of costs on
-load balancers, also the ingress objects help with the automation of some task when publish service to outside of our cluster, and many more.
+load balancers, also the ingress objects help with the automation of some task when publish service to outside of your cluster, and many more.
 
 There are multiple choices of Ingress Controller (NGINX, Traefik, HAProxy, Kong, ...), you can find a full list of those 
 in the [Kubernetes site](https://kubernetes.io/docs/concepts/services-networking/ingress-controllers/), and all of them have pros and cons, in this guide we are going to explain how to deploy NGINX Ingress Controller. It is possible to use KRE with other Ingress Controller than NGINX, but this is maintained by the CNCF, and the maturity of NGINX itself is quite important.
@@ -103,9 +106,10 @@ helm upgrade --install hostpath-provisioner --namespace kube-system rimusz/hostp
 All the access to KRE services require of a hostname due to the use of Ingress objects and certificates. In order to get a 
 deployment and management processes easier we recommend delegating a subdomain `kre` of a domain owned by you to a `Route53` DNS hosted zone, and create a wildcard entry pointing to the Load Balancer of the Ingress Controller.
 
+
 ## Get Ingress Controller hostname
 
-First of all you need to konw the name of the ELB where we have to point our DNS entry. With the below command you will get name of this Load Balancer.
+First of all you need to konw the name of the ELB where we have to point your DNS entry. With the below command you will get name of this Load Balancer.
 
 ```bash
 kubectl -n kube-system get svc -l app=nginx-ingress,component=controller -o jsonpath="{.items[0].status.loadBalancer.ingress[0].hostname}"
@@ -113,11 +117,12 @@ kubectl -n kube-system get svc -l app=nginx-ingress,component=controller -o json
 
 The output of this command should be something like `xxxxxxxxxxxxxxxxxxxxx-00000000.us-east-1.elb.amazonaws.com`.
 
+
 ## Create wildcard entry in your hosted zone
 
 With the name of the ELB go to your hosted zone in Route53 and create a new A entry of type Alias pointing to the ELB name. That's it.
 
-Depend of your environment you can use the `DNS01` challenge to validate that you are the owner of the DNS name, in that case with Cert Manager there are a plugin that allow to perform this validation with a Route53, so this is another interesting point to take in account. In the next section is detailed how to automate this in the KRE deployment.
+Depending on your environment you can use the `DNS01` challenge to validate that you are the owner of the DNS name, in that case with Cert Manager there are a plugin that allow to perform this validation with a Route53, so this is another interesting point to take in account. In the next section is detailed how to automate this in the KRE deployment.
 
 After a while the resolution of your domain should point to the ELB. KRE require of the following subdomains.
 
@@ -159,7 +164,8 @@ admin.kre.yourdomain.com.	1799 IN	A	1.2.3.4
 
 # Helm deployment
 
-Once you have your EKS cluster ready with all the required extra components installed and all the credentials to access to your cluster is time to start the KRE deployment. The first step is to define a `values.yaml` file that fit all the requirements for our installation. So we are going to describe an example of this file to deploy KRE in your cluster. After that we can apply the Helm chart with this value to deploy KRE and afterward we are going to describe how to validate the installation.
+Once you have your EKS cluster ready with all the required extra components installed and all the credentials to access to your cluster is time to start the KRE deployment. The first step is to define a `values.yaml` file that fit all the requirements for your installation. So we are going to describe an example of this file to deploy KRE in your cluster. After that we can apply the Helm chart with this value to deploy KRE and afterward we are going to describe how to validate the installation.
+
 
 ## Create values.yaml
 
@@ -181,7 +187,8 @@ config:
   admin:
     apiBaseURL: api.kre."<YOUR_DOMAIN>"
     frontendBaseURL: https://admin.kre."<YOUR_DOMAIN>"
-    userEmail: "<ADMIN_EMAIL_ADDRESS>" #Required, initial admin user, must match with the first user to log in.
+    # IMPORTANT: userEmail is used as the system admin user. Use this for first login and create new users.
+    userEmail: "<ADMIN_EMAIL_ADDRESS>" 
   runtime:
     sharedStorageClass: hostpath
     sharedStorageSize: 10Gi

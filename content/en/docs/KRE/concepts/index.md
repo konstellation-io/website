@@ -17,6 +17,7 @@ KRE has the following main concepts:
 - [Versions](#versions)
 - [Workflows](#workflows)
 
+
 ### Engine
 
 Engine component is the central component that works as the **operation tool** to create, manage and monitor all the resources associated with each solution that you would put in production. It includes an admin web app, an API and some other components.
@@ -27,6 +28,7 @@ Engine components are deployed in a specific k8s namespace. The runtimes are dep
 
 Using the admin web app you will able to manage users, permissions and runtimes. You can see the [tasks]({{< relref "docs/KRE/tasks" >}}) if you want more information about what things you can do.
 
+
 ### Runtimes
 
 Inside a KRE you can create as many runtimes as you need. A runtime is identified by a name and a description and it is where you can upload one or more solutions that we call versions. For example, you can deploy a KRE for the ClientX and create a runtime for each ClientX project. Inside each ClientX project you will upload the versions of your AI solution.
@@ -36,6 +38,7 @@ Going into greater detail, a runtime is an environment that is **isolated** from
 {{< imgproc runtime_overview Resize "700x" >}}
 All versions share databases, storage and message system but it is isolated from other runtimes.
 {{< /imgproc >}}
+
 
 ### Versions
 
@@ -49,6 +52,7 @@ Usually, your AI solution must perform multiple actions, for example: to use a m
 
 {{< /imgproc >}}
 
+
 ### Workflows
 
 A Workflow is a sequence of tasks that processes an incoming message from the external world and returns a response. Each task is a node of a graph that takes an input message and generates an output. You can add as many nodes as you need to your workflow. The following image shows a basic workflow that makes a prediction using three nodes:
@@ -57,4 +61,4 @@ A Workflow is a sequence of tasks that processes an incoming message from the ex
 Example of a basic workflow
 {{< /imgproc >}}
 
-In KRE, external messages comes from a gRPC client. A special component called Entrypoint (gRPC server) dispatch the messages to a determinated workflow and returns the response of the last node to the client. The workflow nodes becomes a PODs in your k8s cluster when the version is started.
+In KRE, external messages comes from a gRPC client. A special component called Entrypoint (gRPC server) dispatch the messages to an specific workflow and returns the response of the last node to the client. The workflow nodes becomes a PODs in your k8s cluster when the version is started.

@@ -8,11 +8,11 @@ weight: 20
 
 # GKE deployment
 
-The flavor of Kubernetes on Google is called GKE (Google Kubernetes Engine) which allow to deploy a cluster managed by Google. This means that Google will manage the lifecyle of the Master nodes of our cluster. 
+The flavor of Kubernetes on Google is called GKE (Google Kubernetes Engine) which allow to deploy a cluster managed by Google. This means that Google will manage the lifecycle of the Master nodes of your cluster. 
 
-When you create a GKE cluster by default is created an Instance Group, which is responsible to start the GCE (Google Compute Engine) instances and scale up and down depending of your configuration. In these instances of GCE is where the loads that we deploy on GKE will run. Therefore is needed to ajust the type of instances on this instance group, to support the load of your deployment.  For a PoC of KRE you can setup an Instance Group with min instances 1 up to 3 of type `n1-standard-2` and everything will works fine. Be aware about the autoscaling configuration of the Instances Group, because if you only have one Instance Group added to your GKE cluster, at least is required one instance up in order to run some Kubernetes componentes that run as PODS.
+When you create a GKE cluster by default is created an Instance Group, which is responsible to start the GCE (Google Compute Engine) instances and scale up and down depending on your configuration. In these instances of GCE is where the loads that we deploy on GKE will run. Therefore, is needed to adjust the type of instances on this instance group, to support the load of your deployment.  For a PoC of KRE you can set up an Instance Group with min instances 1 up to 3 of type `n1-standard-2` and everything will works fine. Be aware about the autoscaling configuration of the Instances Group, because if you only have one Instance Group added to your GKE cluster, at least is required one instance up in order to run some Kubernetes components that run as PODS.
 
-Deploy an GKE cluster is not the goal of this guide, only the detail some specific configuration needed to run KRE on top of it. It is recommend to use IaC (Infrastructure As Code) approach using Terraform to automate the creation of your cluster, [here](https://learn.hashicorp.com/tutorials/terraform/gke) you can find usefull resources about that. Also you can follow the instructions from the official [Google site](https://cloud.google.com/cloud-build/docs/deploying-builds/deploy-gke). 
+Deploy an GKE cluster is not the goal of this guide, only the detail some specific configuration needed to run KRE on top of it. It is recommend to use IaC (Infrastructure As Code) approach using Terraform to automate the creation of your cluster, [here](https://learn.hashicorp.com/tutorials/terraform/gke) you can find useful resources about that. Also, you can follow the instructions from the official [Google site](https://cloud.google.com/cloud-build/docs/deploying-builds/deploy-gke). 
 
 
 # Storage
@@ -24,9 +24,10 @@ KRE uses a shared storage with `ReadWriteMany` volumes, for this reason is neces
 
 KRE uses some additional components required for the tool, The basic configuration is documented below:
 
+
 ## Ingress controller
 
-Ingress Controller is component create a load balancer on our cloud provider and links the load balancer with the ingress controller service, saving costs on extra network components, and allows to publish services outside our cluster.
+Ingress Controller is a component to create a load balancer on your cloud provider and links the load balancer with the ingress controller service, allowing publishing services outside your cluster.
 
 ```
 helm upgrade --install \
@@ -55,7 +56,7 @@ helm upgrade --install \
 
 ## Storage provisioner
 
-In order to connect our [Filestore](#storage) with the cluster storage needs install a nfs-provisioner.
+In order to connect your [Filestore](#storage) with the cluster storage needs install a nfs-provisioner.
 
 ```bash
 helm upgrade --install \
@@ -74,7 +75,7 @@ Replace values `FILESTORE_IP_ADDRESS` and `FILESTORE_FILE_SHARE_NAME` with the `
 
 ## Get Ingress Controller hostname
 
-First of all you need to know the name of the ELB where we have to point our DNS entry. With the below command you will get name of this Load Balancer.
+First of all you need to know the name of the ELB where we have to point your DNS entry. With the below command you will get name of this Load Balancer.
 
 ```bash
 kubectl -n kube-system get svc -l app=nginx-ingress,component=controller -o jsonpath="{.items[0].status.loadBalancer.ingress[0].ip}"
@@ -82,8 +83,10 @@ kubectl -n kube-system get svc -l app=nginx-ingress,component=controller -o json
 
 The output of this command should show a `load balancer IP address`.
 
+
 ## Create wildcard entry in your DNS provider
-Once obtained a `load balancer IP address` add in our DNS provider a new A Record, with the following values:
+
+Once obtained a `load balancer IP address` add in your DNS provider a new A Record, with the following values:
 
 | Subdomain              | Load Balancer IP           |
 | -----------------------| -------------------------- | 
@@ -98,6 +101,7 @@ After a while the resolution of your domain should point to the load balancer. K
  
 If you `dns provider doesn't have wildcard entries` you can use an approach based on hosted zones.
  
+
 ## Validate 
 
 To validate that the DNS configuration is working fine you can use the tool `dig` to query the DNS as follows.
@@ -105,6 +109,7 @@ To validate that the DNS configuration is working fine you can use the tool `dig
 ```bash
 dig admin.kre.yourdomain.com
 ```
+
 The output should be something as below.
 
 ```
@@ -131,14 +136,15 @@ admin.kre.yourdomain.com.	1799 IN	A	1.2.3.4
 
 # Helm deployment
 
-## Create values.yaml
 
+## Create values.yaml
 
 ```yaml
 config:
   smtp:
     enabled: true
-    sender: "<YOUR_SMTP_EMAIL_ACCOUNT>" # If you use a smtp provider on cloud and your email is not verified, is possible that you can't login because the smtp authentication fail.
+     # If you are using a cloud smtp provider and this sender email is not verified, is possible that emails won't be sent and you can't login.
+    sender: "<YOUR_SMTP_EMAIL_ACCOUNT>"
     senderName: "<SENDER_NAME>"
     user: "<SMTP_USER>"
     pass: "<SMTP_PASSWORD>"
@@ -148,7 +154,8 @@ config:
   admin:
     apiBaseURL: api.kre."<YOUR_DOMAIN>"
     frontendBaseURL: https://admin.kre."<YOUR_DOMAIN>"
-    userEmail: "<ADMIN_EMAIL_ADDRESS>" #Required, initial admin user, must match with the first user to log in.
+    # IMPORTANT: userEmail is used as the system admin user. Use this for first login and create new users.
+    userEmail: "<ADMIN_EMAIL_ADDRESS>"
   runtime:
     sharedStorageClass: nfs-client
     sharedStorageSize: 10Gi
@@ -205,7 +212,9 @@ certManager:
     email: "<YOUR_EMAIL_ADDRESS>"
 ```
 
+
 ## Install Helm chart
+
 ```bash
 kubectl create namespace kre
 helm repo add konstellation-io https://charts.konstellation.io
@@ -213,5 +222,7 @@ helm repo update
 helm upgrade --install kre --namespace kre --values values.yaml konstellation-io/kre
 ```
 
+
 ## Validate the installation
+
 To check if everything is working fine follow the [Validate]({{< relref "docs/KRE/installation/validate" >}}) section.
