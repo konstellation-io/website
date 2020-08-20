@@ -181,6 +181,7 @@ config:
   admin:
     apiBaseURL: api.kre."<YOUR_DOMAIN>"
     frontendBaseURL: https://admin.kre."<YOUR_DOMAIN>"
+    userEmail: "<ADMIN_EMAIL_ADDRESS>" #Required, initial admin user, must match with the first user to log in.
   runtime:
     sharedStorageClass: hostpath
     sharedStorageSize: 10Gi

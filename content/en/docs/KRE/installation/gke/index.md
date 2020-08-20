@@ -138,7 +138,7 @@ admin.kre.yourdomain.com.	1799 IN	A	1.2.3.4
 config:
   smtp:
     enabled: true
-    sender: "<YOUR_SMTP_EMAIL_ACCOUNT>"
+    sender: "<YOUR_SMTP_EMAIL_ACCOUNT>" # If you use a smtp provider on cloud and your email is not verified, is possible that you can't login because the smtp authentication fail.
     senderName: "<SENDER_NAME>"
     user: "<SMTP_USER>"
     pass: "<SMTP_PASSWORD>"
@@ -148,6 +148,7 @@ config:
   admin:
     apiBaseURL: api.kre."<YOUR_DOMAIN>"
     frontendBaseURL: https://admin.kre."<YOUR_DOMAIN>"
+    userEmail: "<ADMIN_EMAIL_ADDRESS>" #Required, initial admin user, must match with the first user to log in.
   runtime:
     sharedStorageClass: nfs-client
     sharedStorageSize: 10Gi
