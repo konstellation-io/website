@@ -12,7 +12,7 @@ When all runtime resources are ready, you can click the created runtime in order
 
 {{< /imgproc >}}
 
-We are going to upload a version of the [greeting example](https://github.com/konstellation-io/kre/tree/master/krt-template/greeter). You can download the krt file [here](./greeter-v1.krt).
+We are going to upload a version of the [greeting example](https://github.com/konstellation-io/kre/tree/master/krt-template/greeter). You can download the krt file [here](/website/krts/greeter-v1.krt).
 
 {{< imgproc add_version Resize "600x" >}}
 

@@ -1,8 +1,7 @@
 ---
 title: "Concepts"
 linkTitle: "Concepts"
-description: >
-  Get introduced to basic concepts of KRE.
+description: An introduction to KRE basic concepts.
 weight: 10
 ---
 
