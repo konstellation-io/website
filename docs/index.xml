@@ -588,6 +588,7 @@ To define each node in the krt file, you need to specify a name, a base image an
 &lt;li>&lt;strong>name&lt;/strong>: an identifier text, must be unique in the node list.&lt;/li>
 &lt;li>&lt;strong>image&lt;/strong>: a base image provided by Konstellation used to run this node. It&amp;rsquo;s provided by Konstellation registry.&lt;/li>
 &lt;li>&lt;strong>src&lt;/strong>: a path relative to the root of the KRT file pointing to the source file used to run this component.&lt;/li>
+&lt;li>&lt;strong>gpu&lt;/strong>(optional): defaults to false, if true the node will use gpu, only available for Nvidia GPU.&lt;/li>
 &lt;/ul>
 &lt;/li>
 &lt;/ul>
