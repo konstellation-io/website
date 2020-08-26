@@ -52,6 +52,7 @@ To define each node in the krt file, you need to specify a name, a base image an
    - **name**: an identifier text, must be unique in the node list.
    - **image**: a base image provided by Konstellation used to run this node. It's provided by Konstellation registry.
    - **src**: a path relative to the root of the KRT file pointing to the source file used to run this component. 
+   - **gpu**(optional): defaults to false, if true the node will use gpu, only available for Nvidia GPU. 
  
 
 ### Workflows
