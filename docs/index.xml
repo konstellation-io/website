@@ -544,7 +544,16 @@ helm repo add konstellation-io https://charts.konstellation.io
 helm repo update
 helm upgrade --install kre --namespace kre --values values.yaml konstellation-io/kre
 &lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="validate-the-installation">Validate the installation&lt;/h2>
-&lt;p>To check if everything is working fine follow the &lt;a href="https://konstellation-io.github.io/website/website/docs/kre/installation/validate/">Validate&lt;/a> section.&lt;/p></description></item><item><title>Docs: KRT YAML specs</title><link>https://konstellation-io.github.io/website/docs/krt/specs/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://konstellation-io.github.io/website/docs/krt/specs/</guid><description>
+&lt;p>To check if everything is working fine follow the &lt;a href="https://konstellation-io.github.io/website/website/docs/kre/installation/validate/">Validate&lt;/a> section.&lt;/p>
+&lt;h1 id="gpu-support-optional">GPU support (optional)&lt;/h1>
+&lt;p>Create a gpu node pool with the following &lt;a href="https://cloud.google.com/kubernetes-engine/docs/how-to/gpus">the official GKE guide&lt;/a>. When you get to section &lt;a href="https://cloud.google.com/kubernetes-engine/docs/how-to/gpus#installing_drivers">Installing NVIDIA GPU device drivers&lt;/a>, instead of applying the yaml directly, &lt;strong>download it&lt;/strong> and add the following lines on daemonset env container section for nvidia-driver-installer:&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-diff" data-lang="diff"> env:
+&lt;span style="color:#00a000">+ - name: NVIDIA_DRIVER_VERSION
+&lt;/span>&lt;span style="color:#00a000">+ value: &amp;#34;440.33.01&amp;#34;
+&lt;/span>&lt;span style="color:#00a000">&lt;/span> - name: NVIDIA_INSTALL_DIR_HOST
+value: /home/kubernetes/bin/nvidia
+...
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>And then apply it with &lt;code>kubectl -f daemonset-preloaded.yaml&lt;/code>, continue with the rest of the guide, noting that &lt;strong>this driver supports CUDA 10.2&lt;/strong>, matching with the cuda version supported by KRE python image.&lt;/p></description></item><item><title>Docs: KRT YAML specs</title><link>https://konstellation-io.github.io/website/docs/krt/specs/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://konstellation-io.github.io/website/docs/krt/specs/</guid><description>
 &lt;p>A KRT yaml file is a declarative file describing the content of the KRT. It has general description of the Version, a
 GRPC entrypoint for the Runtime Version, nodes that are
 connected between each other to form workflows that will be access through GRPC services defined on the entrypoint.&lt;/p>
