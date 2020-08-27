@@ -226,3 +226,19 @@ helm upgrade --install kre --namespace kre --values values.yaml konstellation-io
 ## Validate the installation
 
 To check if everything is working fine follow the [Validate]({{< relref "docs/KRE/installation/validate" >}}) section.
+
+
+# GPU support (optional)
+
+Create a gpu node pool with the following [the official GKE guide](https://cloud.google.com/kubernetes-engine/docs/how-to/gpus). When you get to section [Installing NVIDIA GPU device drivers](https://cloud.google.com/kubernetes-engine/docs/how-to/gpus#installing_drivers), instead of applying the yaml directly, **download it** and add the following lines on daemonset env container section for nvidia-driver-installer:
+
+```diff
+        env:
++         - name: NVIDIA_DRIVER_VERSION
++           value: "440.33.01"
+          - name: NVIDIA_INSTALL_DIR_HOST
+            value: /home/kubernetes/bin/nvidia
+          ...
+```
+
+And then apply it with `kubectl -f daemonset-preloaded.yaml`, continue with the rest of the guide, noting that **this driver supports CUDA 10.2**, matching with the cuda version supported by KRE python image.
