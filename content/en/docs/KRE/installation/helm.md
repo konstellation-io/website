@@ -3,7 +3,7 @@ title: "Helm basics"
 linkTitle: "Helm basics"
 description: >
   Basic steps to deploy KRE with Helm on an already running Kubernetes cluster.
-weight: 5
+weight: 20
 ---
 
 KRE can be installed on top of a Kubernetes cluster using the [Helm](https://helm.sh/) package manager.
