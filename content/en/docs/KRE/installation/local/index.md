@@ -1,14 +1,26 @@
 ---
-title: "Minikube"
-linkTitle: "Minikube"
+title: "Local"
+linkTitle: "Local"
 description: >
-  How install KRE on MiniKube.
-weight: 20
+  How to install KRE on your local machine for testing or development purpose.
+weight: 10
 ---
 
-# Minikube deployment
+# Requirements
 
-Minikube implements a local Kubernetes cluster on your OS. It runs the latest stable release of Kubernetes, with support for all standard Kubernetes features.
+The recomended way to test KRE is deploy it on top of Minikube with VirtualBox driver. Deploying this way you can check a full featured installation of KRE.
+
+Install the below required software following the steps in their respective sites, depend of your OS you will need one method or other described on each one.
+
+[Docker](https://docs.docker.com/engine/install/)
+
+[kubectl](https://kubernetes.io/es/docs/tasks/tools/install-kubectl/)
+
+[Minikube](https://kubernetes.io/docs/tasks/tools/install-minikube/) 
+
+[VirtualBox](https://www.virtualbox.org/wiki/Downloads)
+
+[Helm](https://helm.sh/docs/intro/install/)
 
 
 

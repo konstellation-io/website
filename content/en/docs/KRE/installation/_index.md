@@ -1,6 +1,7 @@
 ---
 title: "Installation"
 linkTitle: "Installation"
-weight: 20
+description: How to deploy KRE don ifferent flavors of Kubernetes.
+weight: 30
 ---
 KRE is ready to be deployed in a Kubernetes cluster or single node. This section contains guidelines for common scenarios for setup, deployment, cluster preparation and Helm values configuration.

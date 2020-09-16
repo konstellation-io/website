@@ -4,24 +4,20 @@ description: A quick guide to start working with KRE.
 weight: 5
 ---
 
-## Pre requisites
-
-In order to work with KRE you will need these requisites. This is not completely mandatory but if you read all docs before starting, it would help to understand better what you are doing on each step.
-
-- [Basic helm knowledge]({{< relref "docs/KRE/installation/helm" >}})
-- [KRE basic concepts]({{< relref "docs/KRE/concepts" >}})
-
-
 ## Installation
 
-To start working with KRE you first need to get it installed in some Kubernetes cluster. You can choose different installation targets like [local Minikube]({{< relref "docs/KRE/installation/minikube" >}}), [EKS]({{< relref "docs/KRE/installation/EKS" >}}) or [GKE]({{< relref "docs/KRE/installation/GKE" >}}). 
+The best way to start working with KRE, to test it and understand how it works, is deploy it on your local machine and follow a basic instructions to create an example project.
+
+Follow the instrcutions of install KRE on your [local environment]({{< relref "docs/KRE/installation/local" >}})
 
 
 ## Logging into KRE
 
-Once you have KRE installed you can access the Admin UI with the user email you set during installation and then follow the detailed [login guide]({{< relref "docs/KRE/tasks/login" >}}).
+As mention in the Install local environment section, to login to KRE just run the following script that you can find in the KRE repository.
 
-
+```bash
+./krectl.sh login 
+```
 
 ## Create your first Version
 
@@ -33,9 +29,9 @@ You need to follow these steps in order to create a version and get it ready to 
 Once you are logged in as an administrator, you can create a new Runtime by simply following the [create Runtime guide]({{< relref "docs/KRE/tasks/create_runtime" >}}).
 
 
-### 2. Create a KRT file
+### 2. Download an sample KRT file
 
-Inside a Runtime you can upload one or more versions that can later be ran and publish. You can use a pre-generated [sample greeter krt](/website/krts/greeter-v1.krt), or learn [how to create your own KRT file]({{< relref "docs/KRT/tasks" >}}).
+Inside a Runtime you can upload one or more versions that can later be ran and publish. You can use a pre-generated [sample greeter krt](/website/krts/greeter-v1.krt). You can find a more detailed explaination of how to create your own KRT file [here]({{< relref "docs/KRT/tasks" >}}).
 
 
 ### 3. Upload the KRT file
