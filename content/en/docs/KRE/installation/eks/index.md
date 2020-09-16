@@ -10,7 +10,7 @@ weight: 30
 
 The flavor of Kubernetes on AWS is called EKS (Elastic Kubernetes Service) which allow to deploy a cluster managed by Amazon. This means that Amazon will manage the lifecycle of the Master nodes of your cluster. 
 
-Currently, there are two ways of run loads on top of EKS, using EC2 instances as compute nodes that are added to the cluster or using the Fargate mode, where AWS also manage these compute nodes. In this guide is just described the first one, adding your own compute nodes with EC2 instances.
+Currently, there are two ways of run loads on top of EKS, using EC2 instances as compute nodes that are added to the cluster or using the Fargate mode, where AWS also manage these compute nodes. In this guide is just described the first one, adding your own compute nodes with [EC2 instances](https://docs.aws.amazon.com/eks/latest/userguide/eks-optimized-ami.html).
 
 Deploy an EKS cluster is not the goal of this guide, only the detail some specific configuration needed to run KRE on top of it. It is recommend to use IaC (Infrastructure As Code) approach using Terraform to automate the creation of your cluster, [here](https://learn.hashicorp.com/tutorials/terraform/eks) you can find useful resources about that. Also you can follow the instructions from the official [AWS site](https://docs.aws.amazon.com/eks/latest/userguide/create-cluster.html). 
 
@@ -27,19 +27,27 @@ After deploy your EKS cluster you are going to need the `kubeconfig` file. This 
 
 An important amount of features of KRE are based on the use of shared storage with `ReadWriteMany` volumes. Therefore, is required to add a storageClass to Kubernetes that support this kind of volumes. 
 
-In AWS there are a service called EFS (Elastic File System) that bring to us a network shared storage. As was mentioned before, the recommended way to create resources is using the approach of IaC, for EFS you can find examples of Terraform code [here](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/efs_mount_target), or follow the manual steps from the [AWS site](https://docs.aws.amazon.com/efs/latest/ug/whatisefs.html). 
+In AWS there are a service called EFS (Elastic File System) that bring to us a network shared storage. As mention before, the recommended way to create resources is using the approach of IaC, for EFS you can find examples of Terraform code [here](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/efs_mount_target), or follow the manual steps from the [AWS site](https://docs.aws.amazon.com/efs/latest/ug/whatisefs.html). 
 
 The common way to use this from Kubernetes is deploying what is called `efs-provisioner` that create the interface between Kubernetes `PersistentVolumeClaim` and EFS. 
 
 In our experience we have had some issues with the `efs-provisioner`, therefore instead of deploy an `efs-provisioner` to support the creation of volumes on EFS we prefer to add a script to the `UserData` of each EC2 instance to mount the shared EFS on a local mount point, for example on `/mnt/efs/kre`, and create a `HostPath` storageClass that will create all the volumes within this path. This way we can create `ReadWriteMany` volumes that are accessible from all the nodes of your cluster. The `UserData` script example is below, and is good practice setting it in the `Launch Configuration` that manage the EC2 instance which are compute nodes of your cluster.
 
+Replace the following values on the script:
+|Param                        |Example                                           |
+|-----------------------------|--------------------------------------------------|
+|API_SERVER_ENDPOINT          | https://ABCD1234.gr7.us-east-1.eks.amazonaws.com |
+|CLUSTER_CERTIFICATE_AUTHORITY| LS0tLS1CRUdJTiBDRVJUSUZJQ0F...                   |
+|CLUSTER_NAME                 | kre                                              |
+|EFS_ENDPOINT                 | fs-123XYZ.efs.us-east-1.amazonaws.com            |
+
 ```bash
 #!/bin/bash
 set -o xtrace
-/etc/eks/bootstrap.sh --apiserver-endpoint 'https://xxxxxxxxxxx.gr7.us-east-1.eks.amazonaws.com' --b64-cluster-ca 'xxxxxxxxxxxxx' 'kre'
+/etc/eks/bootstrap.sh --apiserver-endpoint '<API_SERVER_ENDPOINT>' --b64-cluster-ca '<CLUSTER_CERTIFICATE_AUTHORITY>' '<CLUSTER_NAME>'
 mkdir -p /mnt/efs/kre
 yum install amazon-efs-utils -y
-echo "fs-xxxxxxxx.efs.us-east-1.amazonaws.com:/ /mnt/efs/kre efs tls,_netdev" >> /etc/fstab
+echo "<EFS_ENDPOINT>:/ /mnt/efs/kre efs tls,_netdev" >> /etc/fstab
 mount -a -t efs defaults
 ```
 In the next section is described how to install the `hostPath` provisioner.
@@ -59,7 +67,7 @@ The use of Ingress Controller in Kubernetes that are deployed on cloud providers
 load balancers, also the ingress objects help with the automation of some task when publish service to outside of your cluster, and many more.
 
 There are multiple choices of Ingress Controller (NGINX, Traefik, HAProxy, Kong, ...), you can find a full list of those 
-in the [Kubernetes site](https://kubernetes.io/docs/concepts/services-networking/ingress-controllers/), and all of them have pros and cons, in this guide we are going to explain how to deploy NGINX Ingress Controller. It is possible to use KRE with other Ingress Controller than NGINX, but this is maintained by the CNCF, and the maturity of NGINX itself is quite important.
+in the [Kubernetes site](https://kubernetes.io/docs/concepts/services-networking/ingress-controllers/), and all of them have pros and cons, in this guide we are going to explain how to deploy NGINX Ingress Controller. At this time KRE only support NGINX  Ingress Controller than NGINX, but this is maintained by the CNCF, and the maturity of NGINX itself is quite important.
 
 
 
@@ -93,11 +101,17 @@ helm upgrade --install \
      jetstack/cert-manager
 ```
 
+**NOTE**:
+
+Cert Mananager has [rate limits](https://letsencrypt.org/docs/rate-limits/) in place, be sure not to pass it or use staging environment.
+
 ## Storage provisioner
 
 In order to create the `hostPath` provisioner just install the Helm chart as shown below.
 
 ```bash
+helm repo add rimusz https://charts.rimusz.net
+helm repo update
 helm upgrade --install hostpath-provisioner --namespace kube-system rimusz/hostpath-provisioner
 ```
 
@@ -126,10 +140,10 @@ Depending on your environment you can use the `DNS01` challenge to validate that
 
 After a while the resolution of your domain should point to the ELB. KRE require of the following subdomains.
 
-| Subdomain    | Description                                            |
-| ------- | ----------------------------------------------------------- | 
+| Subdomain                  | Description        |
+| -------------------------- | ------------------ | 
 | `admin.kre.yourdomain.com` | Web admin console  | 
-| `api.kre.yourdomain.com` | API  |
+| `api.kre.yourdomain.com`   | API                |
  
 ## Validate 
 
@@ -185,35 +199,35 @@ config:
     port: "<SMTP_PORT>"
   baseDomainName: kre."<YOUR_DOMAIN>"
   admin:
-    apiBaseURL: api.kre."<YOUR_DOMAIN>"
+    apiHost: api.kre."<YOUR_DOMAIN>"
     frontendBaseURL: https://admin.kre."<YOUR_DOMAIN>"
-    # IMPORTANT: userEmail is used as the system admin user. Use this for first login and create new users.
+    # IMPORTANT: userEmail is used as the system admin user. 
+    # Use this for first login and create new users.
     userEmail: "<ADMIN_EMAIL_ADDRESS>" 
   runtime:
     sharedStorageClass: hostpath
+    # Uncomment this if you use a big dataset
     sharedStorageSize: 10Gi
     nats_streaming:
       storage:
         className: gp2
-        size: 2Gi
+        # Uncomment this if your solution will receive a very large number of requests
+        # size: 2Gi
     mongodb:
       persistentVolume:
-        enabled: true
         storageClass: gp2
-        size: 5Gi
+        # Uncomment this if you need more space for mongoDB
+        # size: 5Gi 
     chronograf:
       persistentVolume:
-        enabled: true
         storageClass: gp2
-        size: 1Gi
     influxdb:
       persistentVolume:
-        enabled: true
         storageClass: gp2
-        size: 5Gi
+        # Uncomment this if you need more space for metrics and measurements on InfluxDB
+        # size: 10Gi 
   auth:
-    verificationCodeDurationInMinutes: 5
-    jwtSignSecret: int_jwt_secret
+    jwtSignSecret: "<YOUR_SECRET_VALUE>"
     secureCookie: true
     cookieDomain: kre."<YOUR_DOMAIN>"
 
@@ -231,23 +245,30 @@ adminUI:
 
 mongodb:
   mongodbDatabase: "KRE"
+  mongodbUsername: "<MONGODB_USERNAME>"
+  mongodbPassword: "<MONGODB_PASS>"
   rootCredentials:
-    username: "admin"
-    password: "<MONGODB_PASS>"
-  image:
-    repository: mongo
-    tag: 4.2.8
-  persistence:
-    mountPath: /data/db
+    username: "<MONGODB_ROOT_USERNAME>"
+    password: "<MONGODB_ROOT_PASS>"
   storage:
     className: gp2
-    size: 6Gi
 
 certManager:
   enabled: true
   acme:
-    server: https://acme-v02.api.letsencrypt.org/directory
+    # By default KRE use production letsencrypt url, 
+    # if you need a staging environment, uncomment this.
+    # server: https://acme-staging-v02.api.letsencrypt.org/directory
     email: "<YOUR_EMAIL_ADDRESS>"
+```
+
+
+### Route53 config
+
+If you use Route53 or the cluster is behind a VPN, the http01 default cert-manager config is not valid and you must use this one.
+
+```yaml
+certManager:
   dns01:
     route53:
       region: "<AWS_REGION>"
@@ -255,6 +276,7 @@ certManager:
       accessKeyID: "<AWS_ACCESS_KEY_ID>"
       secretAccessKey: "<AWS_ACCESS_SECRET>"
 ```
+
 
 ## Install Helm chart
 
