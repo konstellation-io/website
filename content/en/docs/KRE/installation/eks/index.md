@@ -215,14 +215,17 @@ config:
         # size: 2Gi
     mongodb:
       persistentVolume:
+        enabled: true
         storageClass: gp2
         # Uncomment this if you need more space for mongoDB
         # size: 5Gi 
     chronograf:
       persistentVolume:
+        enabled: true
         storageClass: gp2
     influxdb:
       persistentVolume:
+        enabled: true
         storageClass: gp2
         # Uncomment this if you need more space for metrics and measurements on InfluxDB
         # size: 10Gi 
