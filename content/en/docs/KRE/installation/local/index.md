@@ -10,7 +10,7 @@ weight: 10
 
 The recomended way to test KRE is deploy it on top of Minikube with VirtualBox driver. Deploying this way you can check a full featured installation of KRE.
 
-Install the below required software following the steps in their respective sites, depend of your OS you will need one method or other described on each one.
+Install all these required software by following the guides linked bellow.
 
 [Docker](https://docs.docker.com/engine/install/)
 
