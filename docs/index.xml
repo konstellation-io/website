@@ -1,49 +1,22 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Konstellation – Documentation</title><link>https://konstellation-io.github.io/website/docs/</link><description>Recent content in Documentation on Konstellation</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><atom:link href="https://konstellation-io.github.io/website/docs/index.xml" rel="self" type="application/rss+xml"/><item><title>Docs: Getting started</title><link>https://konstellation-io.github.io/website/docs/kre/getting_started/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://konstellation-io.github.io/website/docs/kre/getting_started/</guid><description>
-&lt;h2 id="pre-requisites">Pre requisites&lt;/h2>
-&lt;p>In order to work with KRE you will need these requisites. This is not completely mandatory but if you read all docs before starting, it would help to understand better what you are doing on each step.&lt;/p>
-&lt;ul>
-&lt;li>&lt;a href="https://konstellation-io.github.io/website/website/docs/kre/installation/helm/">Basic helm knowledge&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://konstellation-io.github.io/website/website/docs/kre/concepts/">KRE basic concepts&lt;/a>&lt;/li>
-&lt;/ul>
 &lt;h2 id="installation">Installation&lt;/h2>
-&lt;p>To start working with KRE you first need to get it installed in some Kubernetes cluster. You can choose different installation targets like &lt;a href="https://konstellation-io.github.io/website/website/docs/kre/installation/minikube/">local Minikube&lt;/a>, &lt;a href="https://konstellation-io.github.io/website/website/docs/kre/installation/eks/">EKS&lt;/a> or &lt;a href="https://konstellation-io.github.io/website/website/docs/kre/installation/gke/">GKE&lt;/a>.&lt;/p>
+&lt;p>The best way to start working with KRE, to test it and understand how it works, is to deploy it on your local machine and follow basic instructions to create an example project.&lt;/p>
+&lt;p>Follow the instrcutions of install KRE on your &lt;a href="https://konstellation-io.github.io/website/website/docs/kre/installation/local/">local environment&lt;/a>&lt;/p>
 &lt;h2 id="logging-into-kre">Logging into KRE&lt;/h2>
-&lt;p>Once you have KRE installed you can access the Admin UI with the user email you set during installation and then follow the detailed &lt;a href="https://konstellation-io.github.io/website/website/docs/kre/tasks/login/">login guide&lt;/a>.&lt;/p>
-&lt;h2 id="create-your-first-version">Create your first Version&lt;/h2>
+&lt;p>As mention in the Install local environment section, to login to KRE just run the following script that you can find in the KRE repository.&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">./krectl.sh login
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="create-your-first-version">Create your first Version&lt;/h2>
 &lt;p>You need to follow these steps in order to create a version and get it ready to be called from outside KRE.&lt;/p>
 &lt;h3 id="1-create-runtime">1. Create Runtime&lt;/h3>
 &lt;p>Once you are logged in as an administrator, you can create a new Runtime by simply following the &lt;a href="https://konstellation-io.github.io/website/website/docs/kre/tasks/create_runtime/">create Runtime guide&lt;/a>.&lt;/p>
-&lt;h3 id="2-create-a-krt-file">2. Create a KRT file&lt;/h3>
-&lt;p>Inside a Runtime you can upload one or more versions that can later be ran and publish. You can use a pre-generated &lt;a href="https://konstellation-io.github.io/website/website/krts/greeter-v1.krt">sample greeter krt&lt;/a>, or learn &lt;a href="https://konstellation-io.github.io/website/website/docs/krt/tasks/">how to create your own KRT file&lt;/a>.&lt;/p>
+&lt;h3 id="2-download-a-sample-krt-file">2. Download a sample KRT file&lt;/h3>
+&lt;p>Inside a Runtime you can upload one or more versions that can later be ran and publish. You can use a pre-generated &lt;a href="https://konstellation-io.github.io/website/website/krts/greeter-v1.krt">sample greeter krt&lt;/a>. You can find a more detailed explanation on how to create your own KRT file &lt;a href="https://konstellation-io.github.io/website/website/docs/krt/tasks/">here&lt;/a>.&lt;/p>
 &lt;h3 id="3-upload-the-krt-file">3. Upload the KRT file&lt;/h3>
 &lt;p>Next thing you need is to upload the KRT that contains your Version. Within an existing Runtime detail page you can &lt;a href="https://konstellation-io.github.io/website/website/docs/kre/tasks/create_version/">upload a new version&lt;/a>.&lt;/p>
 &lt;h3 id="4-start-and-publish">4. Start and Publish&lt;/h3>
 &lt;p>An uploaded Version is created in &amp;ldquo;STOPPED&amp;rdquo; state, in order to use it you need to first &amp;ldquo;START&amp;rdquo; it and &amp;ldquo;PUBLISH&amp;rdquo; it before been able to call it. You can learn more about it on the &lt;a href="https://konstellation-io.github.io/website/website/docs/kre/tasks/version_management/#version-lifecycle">Version lifecycle guide&lt;/a>&lt;/p>
 &lt;h3 id="5-make-a-call">5. Make a call&lt;/h3>
-&lt;p>Now you have all set to consume your Version services. You can &lt;a href="https://konstellation-io.github.io/website/website/docs/kre/tasks/consume_version_services/#call-from-cli">test it with a simple CLI&lt;/a>, or you can &lt;a href="https://konstellation-io.github.io/website/website/docs/kre/tasks/consume_version_services/#call-from-grpc-client-on-golang">create a complete gRPC client&lt;/a> to call it.&lt;/p></description></item><item><title>Docs: Helm basics</title><link>https://konstellation-io.github.io/website/docs/kre/installation/helm/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://konstellation-io.github.io/website/docs/kre/installation/helm/</guid><description>
-&lt;p>KRE can be installed on top of a Kubernetes cluster using the &lt;a href="https://helm.sh/">Helm&lt;/a> package manager.&lt;/p>
-&lt;h2 id="prerequisites">Prerequisites&lt;/h2>
-&lt;ul>
-&lt;li>Helm v3 or later&lt;/li>
-&lt;li>Kubernetes v1.15+&lt;/li>
-&lt;/ul>
-&lt;h2 id="install-the-chart">Install the chart&lt;/h2>
-&lt;ol>
-&lt;li>Add the Konstellation Helm repository:&lt;/li>
-&lt;/ol>
-&lt;div class="highlight">&lt;pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">helm repo add konstellation-io https://charts.konstellation.io
-&lt;/code>&lt;/pre>&lt;/div>&lt;ol start="2">
-&lt;li>Optionally, create a namespace to deploy all KRE components or skip this step using a created one:&lt;/li>
-&lt;/ol>
-&lt;div class="highlight">&lt;pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">kubectl create namespace kre
-&lt;/code>&lt;/pre>&lt;/div>&lt;ol start="3">
-&lt;li>Run the following command, providing a name for your KRE release (in this case &lt;code>kre&lt;/code>) and specifying the namespace:&lt;/li>
-&lt;/ol>
-&lt;div class="highlight">&lt;pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">helm upgrade --install kre --namespace kre konstellation-io/kre
-&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="uninstall-the-chart">Uninstall the chart&lt;/h2>
-&lt;p>To uninstall the &lt;code>kre&lt;/code> deployment, use the following command:&lt;/p>
-&lt;div class="highlight">&lt;pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">helm uninstall kre --namespace kre
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>This command removes all the Kubernetes components associated with the chart and deletes the release. It only removes main KRE components, you may need to remove other resources created by KRE.&lt;/p></description></item><item><title>Docs: Concepts</title><link>https://konstellation-io.github.io/website/docs/kre/concepts/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://konstellation-io.github.io/website/docs/kre/concepts/</guid><description>
+&lt;p>Now you have all set to consume your Version services. You can &lt;a href="https://konstellation-io.github.io/website/website/docs/kre/tasks/consume_version_services/#call-from-cli">test it with a simple CLI&lt;/a>, or you can &lt;a href="https://konstellation-io.github.io/website/website/docs/kre/tasks/consume_version_services/#call-from-grpc-client-on-golang">create a complete gRPC client&lt;/a> to call it.&lt;/p></description></item><item><title>Docs: Concepts</title><link>https://konstellation-io.github.io/website/docs/kre/concepts/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://konstellation-io.github.io/website/docs/kre/concepts/</guid><description>
 &lt;h2 id="what-is-kre">What is KRE?&lt;/h2>
 &lt;p>It is an engine capable of deploy, manage and monitor a full AI solution in production in seconds using &lt;a href="https://konstellation-io.github.io/website/website/docs/krt/">KRT files&lt;/a>.&lt;/p>
 &lt;p>KRE has the following main concepts:&lt;/p>
@@ -218,7 +191,34 @@ the version is uploaded to KRE. Same as with the file variable called &lt;code>H
 &lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>&lt;span style="color:#204a87;font-weight:bold">entrypoint&lt;/span>&lt;span style="color:#000;font-weight:bold">:&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>SaveClientMetric&lt;span style="color:#f8f8f8;text-decoration:underline">
 &lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>&lt;span style="color:#204a87;font-weight:bold">sequential&lt;/span>&lt;span style="color:#000;font-weight:bold">:&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline">
 &lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>- client-metrics&lt;span style="color:#f8f8f8;text-decoration:underline">
-&lt;/span>&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>Docs: Login</title><link>https://konstellation-io.github.io/website/docs/kre/tasks/login/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://konstellation-io.github.io/website/docs/kre/tasks/login/</guid><description>
+&lt;/span>&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>Docs: Local</title><link>https://konstellation-io.github.io/website/docs/kre/installation/local/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://konstellation-io.github.io/website/docs/kre/installation/local/</guid><description>
+&lt;h1 id="requirements">Requirements&lt;/h1>
+&lt;p>The recomended way to test KRE is deploy it on top of Minikube with VirtualBox driver. Deploying this way you can check a full featured installation of KRE.&lt;/p>
+&lt;p>Install all these required software by following the guides linked bellow.&lt;/p>
+&lt;p>&lt;a href="https://docs.docker.com/engine/install/">Docker&lt;/a>&lt;/p>
+&lt;p>&lt;a href="https://kubernetes.io/es/docs/tasks/tools/install-kubectl/">kubectl&lt;/a>&lt;/p>
+&lt;p>&lt;a href="https://kubernetes.io/docs/tasks/tools/install-minikube/">Minikube&lt;/a>&lt;/p>
+&lt;p>&lt;a href="https://www.virtualbox.org/wiki/Downloads">VirtualBox&lt;/a>&lt;/p>
+&lt;p>&lt;a href="https://helm.sh/docs/intro/install/">Helm&lt;/a>&lt;/p>
+&lt;h2 id="installation-with-krectl-script">Installation with krectl script&lt;/h2>
+&lt;p>To hide all the complexity of installing and setting a local cluster, we&amp;rsquo;ve created a script called &lt;code>krectl.sh&lt;/code> in the &lt;a href="https://github.com/konstellation-io/kre">project repository&lt;/a> that do all the needed steps.&lt;/p>
+&lt;p>This script is a development tool used for several tasks. From an end user point of view, you can run this command:&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">./krectl.sh dev --skip-build
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>NOTE: the &lt;code>--skip-build&lt;/code> option means that the script won&amp;rsquo;t run a docker build for each component&amp;rsquo;s image. This is the default
+behaviour but is only needed if you are going to develop any KRE component.&lt;/p>
+&lt;p>After a couple of minutes you will have a running Minikube profile with a KRE installed and running. The script will also try an automatic login into the local admin section &lt;code>http://admin.kre.local&lt;/code> (see #validate-the-installation).&lt;/p>
+&lt;h2 id="edit-your-hosts-file">Edit your hosts file&lt;/h2>
+&lt;p>Get the cluster ip with the command:&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">minikube -p kre-local ip
+&lt;span style="color:#8f5902;font-style:italic"># Output example&lt;/span>
+&lt;span style="color:#8f5902;font-style:italic"># 192.168.99.100&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>Add this lines to &lt;code>/etc/hosts&lt;/code>&lt;/p>
+&lt;pre>&lt;code>192.168.99.100 admin.kre.local
+192.168.99.100 api.kre.local
+&lt;/code>&lt;/pre>&lt;h2 id="validate-the-installation">Validate the installation&lt;/h2>
+&lt;p>If every run correctly and you edited your hosts file, you should be able to login into KRE admin section. In a local environment there are no outgoing emails, but you can login with this command:&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">./krectl.sh login
+&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>Docs: Login</title><link>https://konstellation-io.github.io/website/docs/kre/tasks/login/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://konstellation-io.github.io/website/docs/kre/tasks/login/</guid><description>
 &lt;p>KRE login is a passwordless process so you only need to provide your email:&lt;/p>
 &lt;div class="card rounded p-2 td-post-card mb-4 mt-4" style="max-width: 610px">
 &lt;img class="card-img-top" src="https://konstellation-io.github.io/website/website/docs/kre/tasks/login/login_screen_hu6b4d4c4402f13ef6689bedcf64656ae8_12794_600x0_resize_catmullrom_2.png" width="600" height="368">
@@ -370,7 +370,7 @@ At this moment KRE is creating all necessary resources inside Kubernetes and it 
 &lt;p class="card-text">
 &lt;/p>
 &lt;/div>
-&lt;/div></description></item><item><title>Docs: GKE</title><link>https://konstellation-io.github.io/website/docs/kre/installation/gke/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://konstellation-io.github.io/website/docs/kre/installation/gke/</guid><description>
+&lt;/div></description></item><item><title>Docs: GKE</title><link>https://konstellation-io.github.io/website/docs/kre/installation/cloud/gke/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://konstellation-io.github.io/website/docs/kre/installation/cloud/gke/</guid><description>
 &lt;h1 id="gke-deployment">GKE deployment&lt;/h1>
 &lt;p>The flavor of Kubernetes on Google is called GKE (Google Kubernetes Engine) which allow to deploy a cluster managed by Google. This means that Google will manage the lifecycle of the Master nodes of your cluster.&lt;/p>
 &lt;p>When you create a GKE cluster by default is created an Instance Group, which is responsible to start the GCE (Google Compute Engine) instances and scale up and down depending on your configuration. In these instances of GCE is where the loads that we deploy on GKE will run. Therefore, is needed to adjust the type of instances on this instance group, to support the load of your deployment. For a PoC of KRE you can set up an Instance Group with min instances 1 up to 3 of type &lt;code>n1-standard-2&lt;/code> and everything will works fine. Be aware about the autoscaling configuration of the Instances Group, because if you only have one Instance Group added to your GKE cluster, at least is required one instance up in order to run some Kubernetes components that run as PODS.&lt;/p>
@@ -553,7 +553,30 @@ helm upgrade --install kre --namespace kre --values values.yaml konstellation-io
 &lt;/span>&lt;span style="color:#00a000">&lt;/span> - name: NVIDIA_INSTALL_DIR_HOST
 value: /home/kubernetes/bin/nvidia
 ...
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>And then apply it with &lt;code>kubectl -f daemonset-preloaded.yaml&lt;/code>, continue with the rest of the guide, noting that &lt;strong>this driver supports CUDA 10.2&lt;/strong>, matching with the cuda version supported by KRE python image.&lt;/p></description></item><item><title>Docs: KRT YAML specs</title><link>https://konstellation-io.github.io/website/docs/krt/specs/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://konstellation-io.github.io/website/docs/krt/specs/</guid><description>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>And then apply it with &lt;code>kubectl -f daemonset-preloaded.yaml&lt;/code>, continue with the rest of the guide, noting that &lt;strong>this driver supports CUDA 10.2&lt;/strong>, matching with the cuda version supported by KRE python image.&lt;/p></description></item><item><title>Docs: Helm basics</title><link>https://konstellation-io.github.io/website/docs/kre/installation/helm/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://konstellation-io.github.io/website/docs/kre/installation/helm/</guid><description>
+&lt;p>KRE can be installed on top of a Kubernetes cluster using the &lt;a href="https://helm.sh/">Helm&lt;/a> package manager.&lt;/p>
+&lt;h2 id="prerequisites">Prerequisites&lt;/h2>
+&lt;ul>
+&lt;li>Helm v3 or later&lt;/li>
+&lt;li>Kubernetes v1.15+&lt;/li>
+&lt;/ul>
+&lt;h2 id="install-the-chart">Install the chart&lt;/h2>
+&lt;ol>
+&lt;li>Add the Konstellation Helm repository:&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">helm repo add konstellation-io https://charts.konstellation.io
+&lt;/code>&lt;/pre>&lt;/div>&lt;ol start="2">
+&lt;li>Optionally, create a namespace to deploy all KRE components or skip this step using a created one:&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">kubectl create namespace kre
+&lt;/code>&lt;/pre>&lt;/div>&lt;ol start="3">
+&lt;li>Run the following command, providing a name for your KRE release (in this case &lt;code>kre&lt;/code>) and specifying the namespace:&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">helm upgrade --install kre --namespace kre konstellation-io/kre
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="uninstall-the-chart">Uninstall the chart&lt;/h2>
+&lt;p>To uninstall the &lt;code>kre&lt;/code> deployment, use the following command:&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">helm uninstall kre --namespace kre
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>This command removes all the Kubernetes components associated with the chart and deletes the release. It only removes main KRE components, you may need to remove other resources created by KRE.&lt;/p></description></item><item><title>Docs: KRT YAML specs</title><link>https://konstellation-io.github.io/website/docs/krt/specs/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://konstellation-io.github.io/website/docs/krt/specs/</guid><description>
 &lt;p>A KRT yaml file is a declarative file describing the content of the KRT. It has general description of the Version, a
 GRPC entrypoint for the Runtime Version, nodes that are
 connected between each other to form workflows that will be access through GRPC services defined on the entrypoint.&lt;/p>
@@ -613,28 +636,7 @@ each other and with a service defined in the entrypoint proto file.&lt;/p>
 exist on the node list defined above.&lt;/li>
 &lt;/ul>
 &lt;/li>
-&lt;/ul></description></item><item><title>Docs: Minikube</title><link>https://konstellation-io.github.io/website/docs/kre/installation/minikube/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://konstellation-io.github.io/website/docs/kre/installation/minikube/</guid><description>
-&lt;h1 id="minikube-deployment">Minikube deployment&lt;/h1>
-&lt;p>Minikube implements a local Kubernetes cluster on your OS. It runs the latest stable release of Kubernetes, with support for all standard Kubernetes features.&lt;/p>
-&lt;h2 id="installation-with-krectl-script">Installation with krectl script&lt;/h2>
-&lt;p>To hide all the complexity of installing and setting a local cluster, we&amp;rsquo;ve created a script called &lt;code>krectl.sh&lt;/code> in the &lt;a href="https://github.com/konstellation-io/kre">project repository&lt;/a> that do all the needed steps.&lt;/p>
-&lt;p>This script is a development tool used for several tasks. From an end user point of view, you can run this command:&lt;/p>
-&lt;div class="highlight">&lt;pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">./krectl.sh dev --skip-build
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>NOTE: the &lt;code>--skip-build&lt;/code> option means that the script won&amp;rsquo;t run a docker build for each component&amp;rsquo;s image. This is the default
-behaviour but is only needed if you are going to develop any KRE component.&lt;/p>
-&lt;p>After a couple of minutes you will have a running Minikube profile with a KRE installed and running. The script will also try an automatic login into the local admin section &lt;code>http://admin.kre.local&lt;/code> (see #validate-the-installation).&lt;/p>
-&lt;h2 id="edit-your-hosts-file">Edit your hosts file&lt;/h2>
-&lt;p>Get the cluster ip with the command:&lt;/p>
-&lt;div class="highlight">&lt;pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">minikube -p kre-local ip
-&lt;span style="color:#8f5902;font-style:italic"># Output example&lt;/span>
-&lt;span style="color:#8f5902;font-style:italic"># 192.168.99.100&lt;/span>
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>Add this lines to &lt;code>/etc/hosts&lt;/code>&lt;/p>
-&lt;pre>&lt;code>192.168.99.100 admin.kre.local
-192.168.99.100 api.kre.local
-&lt;/code>&lt;/pre>&lt;h2 id="validate-the-installation">Validate the installation&lt;/h2>
-&lt;p>If every run correctly and you edited your hosts file, you should be able to login into KRE admin section. In a local environment there are no outgoing emails, but you can login with this command:&lt;/p>
-&lt;div class="highlight">&lt;pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">./krectl.sh login
-&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>Docs: Create version</title><link>https://konstellation-io.github.io/website/docs/kre/tasks/create_version/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://konstellation-io.github.io/website/docs/kre/tasks/create_version/</guid><description>
+&lt;/ul></description></item><item><title>Docs: Create version</title><link>https://konstellation-io.github.io/website/docs/kre/tasks/create_version/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://konstellation-io.github.io/website/docs/kre/tasks/create_version/</guid><description>
 &lt;p>When all runtime resources are ready, you can click the created runtime in order to see the list of versions:&lt;/p>
 &lt;div class="card rounded p-2 td-post-card mb-4 mt-4" style="max-width: 1010px">
 &lt;img class="card-img-top" src="https://konstellation-io.github.io/website/website/docs/kre/tasks/create_version/versions_screen_hu0d45c690b63171258cd8b378095e3e48_40429_1000x0_resize_catmullrom_2.png" width="1000" height="382">
@@ -666,14 +668,14 @@ behaviour but is only needed if you are going to develop any KRE component.&lt;/
 &lt;p class="card-text">
 &lt;/p>
 &lt;/div>
-&lt;/div></description></item><item><title>Docs: EKS</title><link>https://konstellation-io.github.io/website/docs/kre/installation/eks/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://konstellation-io.github.io/website/docs/kre/installation/eks/</guid><description>
+&lt;/div></description></item><item><title>Docs: EKS</title><link>https://konstellation-io.github.io/website/docs/kre/installation/cloud/eks/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://konstellation-io.github.io/website/docs/kre/installation/cloud/eks/</guid><description>
 &lt;h1 id="eks-deployment">EKS deployment&lt;/h1>
 &lt;p>The flavor of Kubernetes on AWS is called EKS (Elastic Kubernetes Service) which allow to deploy a cluster managed by Amazon. This means that Amazon will manage the lifecycle of the Master nodes of your cluster.&lt;/p>
 &lt;p>Currently, there are two ways of run loads on top of EKS, using EC2 instances as compute nodes that are added to the cluster or using the Fargate mode, where AWS also manage these compute nodes. In this guide is just described the first one, adding your own compute nodes with &lt;a href="https://docs.aws.amazon.com/eks/latest/userguide/eks-optimized-ami.html">EC2 instances&lt;/a>.&lt;/p>
 &lt;p>Deploy an EKS cluster is not the goal of this guide, only the detail some specific configuration needed to run KRE on top of it. It is recommend to use IaC (Infrastructure As Code) approach using Terraform to automate the creation of your cluster, &lt;a href="https://learn.hashicorp.com/tutorials/terraform/eks">here&lt;/a> you can find useful resources about that. Also you can follow the instructions from the official &lt;a href="https://docs.aws.amazon.com/eks/latest/userguide/create-cluster.html">AWS site&lt;/a>.&lt;/p>
 &lt;p>The final EKS deployment should be something like the below diagram.&lt;/p>
 &lt;div class="card rounded p-2 td-post-card mb-4 mt-4" style="max-width: 610px">
-&lt;img class="card-img-top" src="https://konstellation-io.github.io/website/website/docs/kre/installation/eks/eks_diagram_hu810904b9cb0bf96ab0f9422ba192b8fc_30553_600x0_resize_catmullrom_2.png" width="600" height="512">
+&lt;img class="card-img-top" src="https://konstellation-io.github.io/website/website/docs/kre/installation/cloud/eks/eks_diagram_hu810904b9cb0bf96ab0f9422ba192b8fc_30553_600x0_resize_catmullrom_2.png" width="600" height="512">
 &lt;div class="card-body px-0 pt-2 pb-0">
 &lt;p class="card-text">
 &lt;/p>
@@ -685,13 +687,33 @@ behaviour but is only needed if you are going to develop any KRE component.&lt;/
 &lt;p>In AWS there are a service called EFS (Elastic File System) that bring to us a network shared storage. As mention before, the recommended way to create resources is using the approach of IaC, for EFS you can find examples of Terraform code &lt;a href="https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/efs_mount_target">here&lt;/a>, or follow the manual steps from the &lt;a href="https://docs.aws.amazon.com/efs/latest/ug/whatisefs.html">AWS site&lt;/a>.&lt;/p>
 &lt;p>The common way to use this from Kubernetes is deploying what is called &lt;code>efs-provisioner&lt;/code> that create the interface between Kubernetes &lt;code>PersistentVolumeClaim&lt;/code> and EFS.&lt;/p>
 &lt;p>In our experience we have had some issues with the &lt;code>efs-provisioner&lt;/code>, therefore instead of deploy an &lt;code>efs-provisioner&lt;/code> to support the creation of volumes on EFS we prefer to add a script to the &lt;code>UserData&lt;/code> of each EC2 instance to mount the shared EFS on a local mount point, for example on &lt;code>/mnt/efs/kre&lt;/code>, and create a &lt;code>HostPath&lt;/code> storageClass that will create all the volumes within this path. This way we can create &lt;code>ReadWriteMany&lt;/code> volumes that are accessible from all the nodes of your cluster. The &lt;code>UserData&lt;/code> script example is below, and is good practice setting it in the &lt;code>Launch Configuration&lt;/code> that manage the EC2 instance which are compute nodes of your cluster.&lt;/p>
-&lt;p>Replace the following values on the script:
-|Param |Example |
-|&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;ndash;|&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;ndash;|
-|API_SERVER_ENDPOINT | &lt;a href="https://ABCD1234.gr7.us-east-1.eks.amazonaws.com">https://ABCD1234.gr7.us-east-1.eks.amazonaws.com&lt;/a> |
-|CLUSTER_CERTIFICATE_AUTHORITY| LS0tLS1CRUdJTiBDRVJUSUZJQ0F&amp;hellip; |
-|CLUSTER_NAME | kre |
-|EFS_ENDPOINT | fs-123XYZ.efs.us-east-1.amazonaws.com |&lt;/p>
+&lt;p>Replace the following values on the script:&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Param&lt;/th>
+&lt;th>Example&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>API_SERVER_ENDPOINT&lt;/td>
+&lt;td>&lt;a href="https://ABCD1234.gr7.us-east-1.eks.amazonaws.com">https://ABCD1234.gr7.us-east-1.eks.amazonaws.com&lt;/a>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>CLUSTER_CERTIFICATE_AUTHORITY&lt;/td>
+&lt;td>LS0tLS1CRUdJTiBDRVJUSUZJQ0F&amp;hellip;&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>CLUSTER_NAME&lt;/td>
+&lt;td>kre&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>EFS_ENDPOINT&lt;/td>
+&lt;td>fs-123XYZ.efs.us-east-1.amazonaws.com&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
 &lt;div class="highlight">&lt;pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">&lt;span style="color:#8f5902;font-style:italic">#!/bin/bash
 &lt;/span>&lt;span style="color:#8f5902;font-style:italic">&lt;/span>&lt;span style="color:#204a87">set&lt;/span> -o xtrace
 /etc/eks/bootstrap.sh --apiserver-endpoint &lt;span style="color:#4e9a06">&amp;#39;&amp;lt;API_SERVER_ENDPOINT&amp;gt;&amp;#39;&lt;/span> --b64-cluster-ca &lt;span style="color:#4e9a06">&amp;#39;&amp;lt;CLUSTER_CERTIFICATE_AUTHORITY&amp;gt;&amp;#39;&lt;/span> &lt;span style="color:#4e9a06">&amp;#39;&amp;lt;CLUSTER_NAME&amp;gt;&amp;#39;&lt;/span>
