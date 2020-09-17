@@ -79,7 +79,7 @@ Note that the **return value must be a JSON serializable object** for KRE to pro
 import pandas as pd
 
 MEASUREMENT = 'features'
-MEASUREMENT_TAGS = { 'version': 1 }
+MEASUREMENT_TAGS = {}
 
 async def handler(ctx, data):
     ctx.logger.info("storing prediction and measurements")
