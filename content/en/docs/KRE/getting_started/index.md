@@ -31,7 +31,7 @@ Once you are logged in as an administrator, you can create a new Runtime by simp
 
 ### 2. Download a sample KRT file
 
-Inside a Runtime you can upload one or more versions that can later be ran and publish. You can use a pre-generated [sample greeter krt](/website/krts/greeter-v1.krt). You can find a more detailed explaination of how to create your own KRT file [here]({{< relref "docs/KRT/tasks" >}}).
+Inside a Runtime you can upload one or more versions that can later be ran and publish. You can use a pre-generated [sample greeter krt](/website/krts/greeter-v1.krt). You can find a more detailed explanation on how to create your own KRT file [here]({{< relref "docs/KRT/tasks" >}}).
 
 
 ### 3. Upload the KRT file
