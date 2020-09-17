@@ -1,7 +1,7 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Konstellation – Documentation</title><link>https://konstellation-io.github.io/website/docs/</link><description>Recent content in Documentation on Konstellation</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><atom:link href="https://konstellation-io.github.io/website/docs/index.xml" rel="self" type="application/rss+xml"/><item><title>Docs: Getting started</title><link>https://konstellation-io.github.io/website/docs/kre/getting_started/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://konstellation-io.github.io/website/docs/kre/getting_started/</guid><description>
 &lt;h2 id="installation">Installation&lt;/h2>
 &lt;p>The best way to start working with KRE, to test it and understand how it works, is to deploy it on your local machine and follow basic instructions to create an example project.&lt;/p>
-&lt;p>Follow the instrcutions of install KRE on your &lt;a href="https://konstellation-io.github.io/website/website/docs/kre/installation/local/">local environment&lt;/a>&lt;/p>
+&lt;p>Follow the instructions of install KRE on your &lt;a href="https://konstellation-io.github.io/website/website/docs/kre/installation/local/">local environment&lt;/a>&lt;/p>
 &lt;h2 id="logging-into-kre">Logging into KRE&lt;/h2>
 &lt;p>As mention in the Install local environment section, to login to KRE just run the following script that you can find in the KRE repository.&lt;/p>
 &lt;div class="highlight">&lt;pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">./krectl.sh login
