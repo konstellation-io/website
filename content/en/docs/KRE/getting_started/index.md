@@ -6,7 +6,7 @@ weight: 5
 
 ## Installation
 
-The best way to start working with KRE, to test it and understand how it works, is deploy it on your local machine and follow a basic instructions to create an example project.
+The best way to start working with KRE, to test it and understand how it works, is to deploy it on your local machine and follow basic instructions to create an example project.
 
 Follow the instrcutions of install KRE on your [local environment]({{< relref "docs/KRE/installation/local" >}})
 
