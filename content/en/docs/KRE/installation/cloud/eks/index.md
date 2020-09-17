@@ -34,6 +34,7 @@ The common way to use this from Kubernetes is deploying what is called `efs-prov
 In our experience we have had some issues with the `efs-provisioner`, therefore instead of deploy an `efs-provisioner` to support the creation of volumes on EFS we prefer to add a script to the `UserData` of each EC2 instance to mount the shared EFS on a local mount point, for example on `/mnt/efs/kre`, and create a `HostPath` storageClass that will create all the volumes within this path. This way we can create `ReadWriteMany` volumes that are accessible from all the nodes of your cluster. The `UserData` script example is below, and is good practice setting it in the `Launch Configuration` that manage the EC2 instance which are compute nodes of your cluster.
 
 Replace the following values on the script:
+
 |Param                        |Example                                           |
 |-----------------------------|--------------------------------------------------|
 |API_SERVER_ENDPOINT          | https://ABCD1234.gr7.us-east-1.eks.amazonaws.com |
