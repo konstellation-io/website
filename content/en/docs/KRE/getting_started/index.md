@@ -29,7 +29,7 @@ You need to follow these steps in order to create a version and get it ready to 
 Once you are logged in as an administrator, you can create a new Runtime by simply following the [create Runtime guide]({{< relref "docs/KRE/tasks/create_runtime" >}}).
 
 
-### 2. Download an sample KRT file
+### 2. Download a sample KRT file
 
 Inside a Runtime you can upload one or more versions that can later be ran and publish. You can use a pre-generated [sample greeter krt](/website/krts/greeter-v1.krt). You can find a more detailed explaination of how to create your own KRT file [here]({{< relref "docs/KRT/tasks" >}}).
 
@@ -47,4 +47,3 @@ An uploaded Version is created in "STOPPED" state, in order to use it you need t
 ### 5. Make a call
 
 Now you have all set to consume your Version services. You can [test it with a simple CLI]({{< relref "docs/KRE/tasks/consume_version_services#call-from-cli" >}}), or you can [create a complete gRPC client]({{< relref "docs/KRE/tasks/consume_version_services#call-from-grpc-client-on-golang" >}}) to call it. 
-
