@@ -1,7 +1,7 @@
 ---
 title: "Tasks"
 linkTitle: "Tasks"
-weight: 30
+weight: 40
 description: >
   Learn how to perform specific tasks with KRT.
 ---
