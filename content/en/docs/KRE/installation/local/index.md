@@ -8,7 +8,7 @@ weight: 10
 
 ## Hardware requirements
 
-The local environment is deployed on top of a Minikube using the VirtualBox driver. The basic configuration create a Virtual Machie with 8Gb and 4vCPUs. Due to this is recomended to run KRE on a machine with at least `16GB` of RAM and `4 CPU`.
+The local environment is deployed on top of a Minikube using the VirtualBox driver. The basic configuration creates a Virtual Machine with 8Gb and 4vCPUs. Due to this is recommended to run KRE on a machine with at least `16GB` of RAM and `4 CPU`.
 
 ## Software Requirements
 
