@@ -6,7 +6,11 @@ description: >
 weight: 10
 ---
 
-# Requirements
+## Hardware requirements
+
+The local environment is deployed on top of a Minikube using the VirtualBox driver. The basic configuration creates a Virtual Machine with 8Gb and 4vCPUs. Due to this is recommended to run KRE on a machine with at least `16GB` of RAM and `4 CPU`.
+
+## Software Requirements
 
 The recomended way to test KRE is deploy it on top of Minikube with VirtualBox driver. Deploying this way you can check a full featured installation of KRE.
 
@@ -24,7 +28,7 @@ Install all these required software by following the guides linked bellow.
 
 
 
-## Installation with krectl script
+## Installation with krectl.sh
 
 To hide all the complexity of installing and setting a local cluster, we've created a script called `krectl.sh` in the [project repository](https://github.com/konstellation-io/kre) that do all the needed steps.
 
@@ -43,13 +47,14 @@ After a couple of minutes you will have a running Minikube profile with a KRE in
 ## Edit your hosts file
 
 Get the cluster ip with the command:
+
 ```bash
 minikube -p kre-local ip
 # Output example
 # 192.168.99.100
 ```
 
-Add this lines to `/etc/hosts`
+Add these lines to your `/etc/hosts`
 ```
 192.168.99.100 admin.kre.local
 192.168.99.100 api.kre.local
