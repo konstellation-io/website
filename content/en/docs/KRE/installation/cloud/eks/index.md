@@ -10,7 +10,7 @@ weight: 30
 
 The flavor of Kubernetes on AWS is called EKS (Elastic Kubernetes Service) which allow to deploy a cluster managed by Amazon. This means that Amazon will manage the lifecycle of the Master nodes of your cluster. 
 
-Currently, there are two ways of run loads on top of EKS, using EC2 instances as compute nodes that are added to the cluster or using the Fargate mode, where AWS also manage these compute nodes. In this guide is just described the first one, adding your own compute nodes with [EC2 instances](https://docs.aws.amazon.com/eks/latest/userguide/eks-optimized-ami.html).
+Currently, there are two ways of run loads on top of EKS, using EC2 instances as compute nodes that are added to the cluster, or using the Fargate mode, where AWS also manage these compute nodes. In this guide is just described the first one, adding your own compute nodes with [EC2 instances](https://docs.aws.amazon.com/eks/latest/userguide/eks-optimized-ami.html). You can check the [minimun instance recomendend](#compute-rqeuirements) to run a PoC in the next section.
 
 Deploy an EKS cluster is not the goal of this guide, only the detail some specific configuration needed to run KRE on top of it. It is recommend to use IaC (Infrastructure As Code) approach using Terraform to automate the creation of your cluster, [here](https://learn.hashicorp.com/tutorials/terraform/eks) you can find useful resources about that. Also you can follow the instructions from the official [AWS site](https://docs.aws.amazon.com/eks/latest/userguide/create-cluster.html). 
 
@@ -22,8 +22,12 @@ The final EKS deployment should be something like the below diagram.
 
 After deploy your EKS cluster you are going to need the `kubeconfig` file. This file is the way to configure the `kubectl` and `helm` CLIs to access to your cluster. In the case of EKS used to be required an extra plugin called [AWS IAM authenticator](https://github.com/kubernetes-sigs/aws-iam-authenticator) to authenticate via the IAM account. Please follow the steps detailed in hte [AWS site](https://docs.aws.amazon.com/eks/latest/userguide/create-kubeconfig.html).
 
+## Compute requirements
 
-# Storage
+Just for testing is recomended to add to your ASG (Auto Scalling Group) three nodes `t3.medium`. Depending of your use case this setup can be modified to 
+adapt the environment to your load, this is just a starting point.
+
+## Storage
 
 An important amount of features of KRE are based on the use of shared storage with `ReadWriteMany` volumes. Therefore, is required to add a storageClass to Kubernetes that support this kind of volumes. 
 
@@ -57,12 +61,12 @@ Network shared storage can be a bottleneck of performance, so depends on your us
 `ReadWriteMany` volume, for the rest of the components you can use the default storageClass that will create an EBS resource on AWS. In the [Helm deployment](#helm-deployment) section is detailed the best option for your usecase and which pieces can use which storageClass.
 
 
-# Kubernetes required components
+## Kubernetes required components
 
 Some additional components are required on Kubernetes to get a full featured KRE deployment running. We are going to describe how to install those.
 
 
-## Ingress controller
+### Ingress controller
 
 The use of Ingress Controller in Kubernetes that are deployed on cloud providers is very common, due to the reduction of costs on
 load balancers, also the ingress objects help with the automation of some task when publish service to outside of your cluster, and many more.
@@ -80,7 +84,7 @@ helm upgrade --install \
      stable/nginx-ingress
 ```
 
-## Cert manager
+### Cert manager
 
 The access to the web admin interface of KRE and all the endpoints that are exposed to the end users required of a minimum level of security,
 this is the reason why add a piece to automate the management of the lifecycle of all required certificates.
@@ -106,7 +110,7 @@ helm upgrade --install \
 
 Cert Mananager has [rate limits](https://letsencrypt.org/docs/rate-limits/) in place, be sure not to pass it or use staging environment.
 
-## Storage provisioner
+### Storage provisioner
 
 In order to create the `hostPath` provisioner just install the Helm chart as shown below.
 
@@ -116,13 +120,13 @@ helm repo update
 helm upgrade --install hostpath-provisioner --namespace kube-system rimusz/hostpath-provisioner
 ```
 
-# DNS
+## DNS
 
 All the access to KRE services require of a hostname due to the use of Ingress objects and certificates. In order to get a 
 deployment and management processes easier we recommend delegating a subdomain `kre` of a domain owned by you to a `Route53` DNS hosted zone, and create a wildcard entry pointing to the Load Balancer of the Ingress Controller.
 
 
-## Get Ingress Controller hostname
+### Get Ingress Controller hostname
 
 First of all you need to konw the name of the ELB where we have to point your DNS entry. With the below command you will get name of this Load Balancer.
 
@@ -133,7 +137,7 @@ kubectl -n kube-system get svc -l app=nginx-ingress,component=controller -o json
 The output of this command should be something like `xxxxxxxxxxxxxxxxxxxxx-00000000.us-east-1.elb.amazonaws.com`.
 
 
-## Create wildcard entry in your hosted zone
+### Create wildcard entry in your hosted zone
 
 With the name of the ELB go to your hosted zone in Route53 and create a new A entry of type Alias pointing to the ELB name. That's it.
 
@@ -146,7 +150,7 @@ After a while the resolution of your domain should point to the ELB. KRE require
 | `admin.kre.yourdomain.com` | Web admin console  | 
 | `api.kre.yourdomain.com`   | API                |
  
-## Validate 
+### Validate 
 
 To validate that the DNS configuration is working fine you can use the tool `dig` to query the DNS as follow.
 
@@ -177,12 +181,18 @@ admin.kre.yourdomain.com.	1799 IN	A	1.2.3.4
 
 ```
 
-# Helm deployment
+## SMTP
+
+KRE require of a SMTP server to send the login link and monitoring alerts. You can use the Amazon SES (Simple Email Service). You can find the documentation to configure it [here](https://docs.aws.amazon.com/ses/latest/DeveloperGuide/send-email-set-up.html).
+
+Once you hace configure your SMTP follow [these instructions](https://docs.aws.amazon.com/es_es/ses/latest/DeveloperGuide/smtp-credentials.html) to get the credentials that will be required to fill in the `values.yaml` to deploy the KRE Helm Chart.  
+
+## Helm deployment
 
 Once you have your EKS cluster ready with all the required extra components installed and all the credentials to access to your cluster is time to start the KRE deployment. The first step is to define a `values.yaml` file that fit all the requirements for your installation. So we are going to describe an example of this file to deploy KRE in your cluster. After that we can apply the Helm chart with this value to deploy KRE and afterward we are going to describe how to validate the installation.
 
 
-## Create values.yaml
+### Create values.yaml
 
 Here is an example of a `values.yaml` to deploy in your clustes, just fill the parameters that required of your own information of credentials or domains, and save the file as `values.yaml` in order to apply it as is explained in the next section.
 
@@ -267,12 +277,18 @@ certManager:
 ```
 
 
-### Route53 config
+#### Route53 config
 
 If you use Route53 or the cluster is behind a VPN, the http01 default cert-manager config is not valid and you must use this one.
 
 ```yaml
 certManager:
+  enabled: true
+  acme:
+    # By default KRE use production letsencrypt url, 
+    # if you need a staging environment, uncomment this.
+    # server: https://acme-staging-v02.api.letsencrypt.org/directory
+    email: "<YOUR_EMAIL_ADDRESS>"
   dns01:
     route53:
       region: "<AWS_REGION>"
@@ -282,7 +298,7 @@ certManager:
 ```
 
 
-## Install Helm chart
+### Install Helm chart
 
 ```bash
 kubectl create namespace kre
@@ -291,6 +307,6 @@ helm repo update
 helm upgrade --install kre --namespace kre --values values.yaml konstellation-io/kre
 ```
 
-## Validate the installation
+### Validate the installation
 
 To check if everything is working fine follow the [Validate]({{< relref "docs/KRE/installation/validate" >}}) section.
