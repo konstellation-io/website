@@ -192,7 +192,9 @@ the version is uploaded to KRE. Same as with the file variable called &lt;code>H
 &lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>&lt;span style="color:#204a87;font-weight:bold">sequential&lt;/span>&lt;span style="color:#000;font-weight:bold">:&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline">
 &lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>- client-metrics&lt;span style="color:#f8f8f8;text-decoration:underline">
 &lt;/span>&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>Docs: Local</title><link>https://konstellation-io.github.io/website/docs/kre/installation/local/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://konstellation-io.github.io/website/docs/kre/installation/local/</guid><description>
-&lt;h1 id="requirements">Requirements&lt;/h1>
+&lt;h2 id="hardware-requirements">Hardware requirements&lt;/h2>
+&lt;p>The local environment is deployed on top of a Minikube using the VirtualBox driver. The basic configuration creates a Virtual Machine with 8Gb and 4vCPUs. Due to this is recommended to run KRE on a machine with at least &lt;code>16GB&lt;/code> of RAM and &lt;code>4 CPU&lt;/code>.&lt;/p>
+&lt;h2 id="software-requirements">Software Requirements&lt;/h2>
 &lt;p>The recomended way to test KRE is deploy it on top of Minikube with VirtualBox driver. Deploying this way you can check a full featured installation of KRE.&lt;/p>
 &lt;p>Install all these required software by following the guides linked bellow.&lt;/p>
 &lt;p>&lt;a href="https://docs.docker.com/engine/install/">Docker&lt;/a>&lt;/p>
@@ -200,7 +202,7 @@ the version is uploaded to KRE. Same as with the file variable called &lt;code>H
 &lt;p>&lt;a href="https://kubernetes.io/docs/tasks/tools/install-minikube/">Minikube&lt;/a>&lt;/p>
 &lt;p>&lt;a href="https://www.virtualbox.org/wiki/Downloads">VirtualBox&lt;/a>&lt;/p>
 &lt;p>&lt;a href="https://helm.sh/docs/intro/install/">Helm&lt;/a>&lt;/p>
-&lt;h2 id="installation-with-krectl-script">Installation with krectl script&lt;/h2>
+&lt;h2 id="installation-with-krectlsh">Installation with krectl.sh&lt;/h2>
 &lt;p>To hide all the complexity of installing and setting a local cluster, we&amp;rsquo;ve created a script called &lt;code>krectl.sh&lt;/code> in the &lt;a href="https://github.com/konstellation-io/kre">project repository&lt;/a> that do all the needed steps.&lt;/p>
 &lt;p>This script is a development tool used for several tasks. From an end user point of view, you can run this command:&lt;/p>
 &lt;div class="highlight">&lt;pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">./krectl.sh dev --skip-build
@@ -212,7 +214,7 @@ behaviour but is only needed if you are going to develop any KRE component.&lt;/
 &lt;div class="highlight">&lt;pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">minikube -p kre-local ip
 &lt;span style="color:#8f5902;font-style:italic"># Output example&lt;/span>
 &lt;span style="color:#8f5902;font-style:italic"># 192.168.99.100&lt;/span>
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>Add this lines to &lt;code>/etc/hosts&lt;/code>&lt;/p>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>Add these lines to your &lt;code>/etc/hosts&lt;/code>&lt;/p>
 &lt;pre>&lt;code>192.168.99.100 admin.kre.local
 192.168.99.100 api.kre.local
 &lt;/code>&lt;/pre>&lt;h2 id="validate-the-installation">Validate the installation&lt;/h2>
@@ -671,7 +673,7 @@ exist on the node list defined above.&lt;/li>
 &lt;/div></description></item><item><title>Docs: EKS</title><link>https://konstellation-io.github.io/website/docs/kre/installation/cloud/eks/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://konstellation-io.github.io/website/docs/kre/installation/cloud/eks/</guid><description>
 &lt;h1 id="eks-deployment">EKS deployment&lt;/h1>
 &lt;p>The flavor of Kubernetes on AWS is called EKS (Elastic Kubernetes Service) which allow to deploy a cluster managed by Amazon. This means that Amazon will manage the lifecycle of the Master nodes of your cluster.&lt;/p>
-&lt;p>Currently, there are two ways of run loads on top of EKS, using EC2 instances as compute nodes that are added to the cluster or using the Fargate mode, where AWS also manage these compute nodes. In this guide is just described the first one, adding your own compute nodes with &lt;a href="https://docs.aws.amazon.com/eks/latest/userguide/eks-optimized-ami.html">EC2 instances&lt;/a>.&lt;/p>
+&lt;p>Currently, there are two ways of run loads on top of EKS, using EC2 instances as compute nodes that are added to the cluster, or using the Fargate mode, where AWS also manage these compute nodes. In this guide is just described the first one, adding your own compute nodes with &lt;a href="https://docs.aws.amazon.com/eks/latest/userguide/eks-optimized-ami.html">EC2 instances&lt;/a>. You can check the &lt;a href="#compute-rqeuirements">minimun instance recomendend&lt;/a> to run a PoC in the next section.&lt;/p>
 &lt;p>Deploy an EKS cluster is not the goal of this guide, only the detail some specific configuration needed to run KRE on top of it. It is recommend to use IaC (Infrastructure As Code) approach using Terraform to automate the creation of your cluster, &lt;a href="https://learn.hashicorp.com/tutorials/terraform/eks">here&lt;/a> you can find useful resources about that. Also you can follow the instructions from the official &lt;a href="https://docs.aws.amazon.com/eks/latest/userguide/create-cluster.html">AWS site&lt;/a>.&lt;/p>
 &lt;p>The final EKS deployment should be something like the below diagram.&lt;/p>
 &lt;div class="card rounded p-2 td-post-card mb-4 mt-4" style="max-width: 610px">
@@ -682,7 +684,10 @@ exist on the node list defined above.&lt;/li>
 &lt;/div>
 &lt;/div>
 &lt;p>After deploy your EKS cluster you are going to need the &lt;code>kubeconfig&lt;/code> file. This file is the way to configure the &lt;code>kubectl&lt;/code> and &lt;code>helm&lt;/code> CLIs to access to your cluster. In the case of EKS used to be required an extra plugin called &lt;a href="https://github.com/kubernetes-sigs/aws-iam-authenticator">AWS IAM authenticator&lt;/a> to authenticate via the IAM account. Please follow the steps detailed in hte &lt;a href="https://docs.aws.amazon.com/eks/latest/userguide/create-kubeconfig.html">AWS site&lt;/a>.&lt;/p>
-&lt;h1 id="storage">Storage&lt;/h1>
+&lt;h2 id="compute-requirements">Compute requirements&lt;/h2>
+&lt;p>Just for testing is recomended to add to your ASG (Auto Scalling Group) three nodes &lt;code>t3.medium&lt;/code>. Depending of your use case this setup can be modified to
+adapt the environment to your load, this is just a starting point.&lt;/p>
+&lt;h2 id="storage">Storage&lt;/h2>
 &lt;p>An important amount of features of KRE are based on the use of shared storage with &lt;code>ReadWriteMany&lt;/code> volumes. Therefore, is required to add a storageClass to Kubernetes that support this kind of volumes.&lt;/p>
 &lt;p>In AWS there are a service called EFS (Elastic File System) that bring to us a network shared storage. As mention before, the recommended way to create resources is using the approach of IaC, for EFS you can find examples of Terraform code &lt;a href="https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/efs_mount_target">here&lt;/a>, or follow the manual steps from the &lt;a href="https://docs.aws.amazon.com/efs/latest/ug/whatisefs.html">AWS site&lt;/a>.&lt;/p>
 &lt;p>The common way to use this from Kubernetes is deploying what is called &lt;code>efs-provisioner&lt;/code> that create the interface between Kubernetes &lt;code>PersistentVolumeClaim&lt;/code> and EFS.&lt;/p>
@@ -724,9 +729,9 @@ mount -a -t efs defaults
 &lt;/code>&lt;/pre>&lt;/div>&lt;p>In the next section is described how to install the &lt;code>hostPath&lt;/code> provisioner.&lt;/p>
 &lt;p>Network shared storage can be a bottleneck of performance, so depends on your usecase you should use only for the pieces that require
 &lt;code>ReadWriteMany&lt;/code> volume, for the rest of the components you can use the default storageClass that will create an EBS resource on AWS. In the &lt;a href="#helm-deployment">Helm deployment&lt;/a> section is detailed the best option for your usecase and which pieces can use which storageClass.&lt;/p>
-&lt;h1 id="kubernetes-required-components">Kubernetes required components&lt;/h1>
+&lt;h2 id="kubernetes-required-components">Kubernetes required components&lt;/h2>
 &lt;p>Some additional components are required on Kubernetes to get a full featured KRE deployment running. We are going to describe how to install those.&lt;/p>
-&lt;h2 id="ingress-controller">Ingress controller&lt;/h2>
+&lt;h3 id="ingress-controller">Ingress controller&lt;/h3>
 &lt;p>The use of Ingress Controller in Kubernetes that are deployed on cloud providers is very common, due to the reduction of costs on
 load balancers, also the ingress objects help with the automation of some task when publish service to outside of your cluster, and many more.&lt;/p>
 &lt;p>There are multiple choices of Ingress Controller (NGINX, Traefik, HAProxy, Kong, &amp;hellip;), you can find a full list of those
@@ -736,7 +741,7 @@ in the &lt;a href="https://kubernetes.io/docs/concepts/services-networking/ingre
 &lt;/span>&lt;span style="color:#4e9a06">&lt;/span> --version 1.40.2 &lt;span style="color:#4e9a06">\
 &lt;/span>&lt;span style="color:#4e9a06">&lt;/span> nginx-ingress &lt;span style="color:#4e9a06">\
 &lt;/span>&lt;span style="color:#4e9a06">&lt;/span> stable/nginx-ingress
-&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="cert-manager">Cert manager&lt;/h2>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="cert-manager">Cert manager&lt;/h3>
 &lt;p>The access to the web admin interface of KRE and all the endpoints that are exposed to the end users required of a minimum level of security,
 this is the reason why add a piece to automate the management of the lifecycle of all required certificates.&lt;/p>
 &lt;p>Cert Manager allow creating certificates just with some configuration on the deployment process, and manage the lifecycle of those, updating those when expired without any human interaction. Moreover, with
@@ -753,19 +758,19 @@ helm upgrade --install &lt;span style="color:#4e9a06">\
 &lt;/span>&lt;span style="color:#4e9a06">&lt;/span> jetstack/cert-manager
 &lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;strong>NOTE&lt;/strong>:&lt;/p>
 &lt;p>Cert Mananager has &lt;a href="https://letsencrypt.org/docs/rate-limits/">rate limits&lt;/a> in place, be sure not to pass it or use staging environment.&lt;/p>
-&lt;h2 id="storage-provisioner">Storage provisioner&lt;/h2>
+&lt;h3 id="storage-provisioner">Storage provisioner&lt;/h3>
 &lt;p>In order to create the &lt;code>hostPath&lt;/code> provisioner just install the Helm chart as shown below.&lt;/p>
 &lt;div class="highlight">&lt;pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">helm repo add rimusz https://charts.rimusz.net
 helm repo update
 helm upgrade --install hostpath-provisioner --namespace kube-system rimusz/hostpath-provisioner
-&lt;/code>&lt;/pre>&lt;/div>&lt;h1 id="dns">DNS&lt;/h1>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="dns">DNS&lt;/h2>
 &lt;p>All the access to KRE services require of a hostname due to the use of Ingress objects and certificates. In order to get a
 deployment and management processes easier we recommend delegating a subdomain &lt;code>kre&lt;/code> of a domain owned by you to a &lt;code>Route53&lt;/code> DNS hosted zone, and create a wildcard entry pointing to the Load Balancer of the Ingress Controller.&lt;/p>
-&lt;h2 id="get-ingress-controller-hostname">Get Ingress Controller hostname&lt;/h2>
+&lt;h3 id="get-ingress-controller-hostname">Get Ingress Controller hostname&lt;/h3>
 &lt;p>First of all you need to konw the name of the ELB where we have to point your DNS entry. With the below command you will get name of this Load Balancer.&lt;/p>
 &lt;div class="highlight">&lt;pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">kubectl -n kube-system get svc -l &lt;span style="color:#000">app&lt;/span>&lt;span style="color:#ce5c00;font-weight:bold">=&lt;/span>nginx-ingress,component&lt;span style="color:#ce5c00;font-weight:bold">=&lt;/span>controller -o &lt;span style="color:#000">jsonpath&lt;/span>&lt;span style="color:#ce5c00;font-weight:bold">=&lt;/span>&lt;span style="color:#4e9a06">&amp;#34;{.items[0].status.loadBalancer.ingress[0].hostname}&amp;#34;&lt;/span>
 &lt;/code>&lt;/pre>&lt;/div>&lt;p>The output of this command should be something like &lt;code>xxxxxxxxxxxxxxxxxxxxx-00000000.us-east-1.elb.amazonaws.com&lt;/code>.&lt;/p>
-&lt;h2 id="create-wildcard-entry-in-your-hosted-zone">Create wildcard entry in your hosted zone&lt;/h2>
+&lt;h3 id="create-wildcard-entry-in-your-hosted-zone">Create wildcard entry in your hosted zone&lt;/h3>
 &lt;p>With the name of the ELB go to your hosted zone in Route53 and create a new A entry of type Alias pointing to the ELB name. That&amp;rsquo;s it.&lt;/p>
 &lt;p>Depending on your environment you can use the &lt;code>DNS01&lt;/code> challenge to validate that you are the owner of the DNS name, in that case with Cert Manager there are a plugin that allow to perform this validation with a Route53, so this is another interesting point to take in account. In the next section is detailed how to automate this in the KRE deployment.&lt;/p>
 &lt;p>After a while the resolution of your domain should point to the ELB. KRE require of the following subdomains.&lt;/p>
@@ -787,7 +792,7 @@ deployment and management processes easier we recommend delegating a subdomain &
 &lt;/tr>
 &lt;/tbody>
 &lt;/table>
-&lt;h2 id="validate">Validate&lt;/h2>
+&lt;h3 id="validate">Validate&lt;/h3>
 &lt;p>To validate that the DNS configuration is working fine you can use the tool &lt;code>dig&lt;/code> to query the DNS as follow.&lt;/p>
 &lt;div class="highlight">&lt;pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">dig admin.kre.yourdomain.com
 &lt;/code>&lt;/pre>&lt;/div>&lt;p>The output should be something as below.&lt;/p>
@@ -806,9 +811,12 @@ admin.kre.yourdomain.com. 1799 IN A 1.2.3.4
 ;; SERVER: 127.0.0.53#53(127.0.0.53)
 ;; WHEN: mié ago 12 16:18:49 CEST 2020
 ;; MSG SIZE rcvd: 75
-&lt;/code>&lt;/pre>&lt;h1 id="helm-deployment">Helm deployment&lt;/h1>
+&lt;/code>&lt;/pre>&lt;h2 id="smtp">SMTP&lt;/h2>
+&lt;p>KRE require of a SMTP server to send the login link and monitoring alerts. You can use the Amazon SES (Simple Email Service). You can find the documentation to configure it &lt;a href="https://docs.aws.amazon.com/ses/latest/DeveloperGuide/send-email-set-up.html">here&lt;/a>.&lt;/p>
+&lt;p>Once you hace configure your SMTP follow &lt;a href="https://docs.aws.amazon.com/es_es/ses/latest/DeveloperGuide/smtp-credentials.html">these instructions&lt;/a> to get the credentials that will be required to fill in the &lt;code>values.yaml&lt;/code> to deploy the KRE Helm Chart.&lt;/p>
+&lt;h2 id="helm-deployment">Helm deployment&lt;/h2>
 &lt;p>Once you have your EKS cluster ready with all the required extra components installed and all the credentials to access to your cluster is time to start the KRE deployment. The first step is to define a &lt;code>values.yaml&lt;/code> file that fit all the requirements for your installation. So we are going to describe an example of this file to deploy KRE in your cluster. After that we can apply the Helm chart with this value to deploy KRE and afterward we are going to describe how to validate the installation.&lt;/p>
-&lt;h2 id="create-valuesyaml">Create values.yaml&lt;/h2>
+&lt;h3 id="create-valuesyaml">Create values.yaml&lt;/h3>
 &lt;p>Here is an example of a &lt;code>values.yaml&lt;/code> to deploy in your clustes, just fill the parameters that required of your own information of credentials or domains, and save the file as &lt;code>values.yaml&lt;/code> in order to apply it as is explained in the next section.&lt;/p>
 &lt;p>All the parameters are ditailed in the section &lt;a href="https://konstellation-io.github.io/website/website/docs/kre/installation/customization/">Customization&lt;/a>.&lt;/p>
 &lt;div class="highlight">&lt;pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#204a87;font-weight:bold">config&lt;/span>&lt;span style="color:#000;font-weight:bold">:&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline">
@@ -886,21 +894,27 @@ admin.kre.yourdomain.com. 1799 IN A 1.2.3.4
 &lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>&lt;span style="color:#8f5902;font-style:italic"># if you need a staging environment, uncomment this.&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline">
 &lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>&lt;span style="color:#8f5902;font-style:italic"># server: https://acme-staging-v02.api.letsencrypt.org/directory&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline">
 &lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>&lt;span style="color:#204a87;font-weight:bold">email&lt;/span>&lt;span style="color:#000;font-weight:bold">:&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>&lt;span style="color:#4e9a06">&amp;#34;&amp;lt;YOUR_EMAIL_ADDRESS&amp;gt;&amp;#34;&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline">
-&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="route53-config">Route53 config&lt;/h3>
+&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h4 id="route53-config">Route53 config&lt;/h4>
 &lt;p>If you use Route53 or the cluster is behind a VPN, the http01 default cert-manager config is not valid and you must use this one.&lt;/p>
 &lt;div class="highlight">&lt;pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#204a87;font-weight:bold">certManager&lt;/span>&lt;span style="color:#000;font-weight:bold">:&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline">
+&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>&lt;span style="color:#204a87;font-weight:bold">enabled&lt;/span>&lt;span style="color:#000;font-weight:bold">:&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>&lt;span style="color:#204a87;font-weight:bold">true&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline">
+&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>&lt;span style="color:#204a87;font-weight:bold">acme&lt;/span>&lt;span style="color:#000;font-weight:bold">:&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline">
+&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>&lt;span style="color:#8f5902;font-style:italic"># By default KRE use production letsencrypt url, &lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline">
+&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>&lt;span style="color:#8f5902;font-style:italic"># if you need a staging environment, uncomment this.&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline">
+&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>&lt;span style="color:#8f5902;font-style:italic"># server: https://acme-staging-v02.api.letsencrypt.org/directory&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline">
+&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>&lt;span style="color:#204a87;font-weight:bold">email&lt;/span>&lt;span style="color:#000;font-weight:bold">:&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>&lt;span style="color:#4e9a06">&amp;#34;&amp;lt;YOUR_EMAIL_ADDRESS&amp;gt;&amp;#34;&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline">
 &lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>&lt;span style="color:#204a87;font-weight:bold">dns01&lt;/span>&lt;span style="color:#000;font-weight:bold">:&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline">
 &lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>&lt;span style="color:#204a87;font-weight:bold">route53&lt;/span>&lt;span style="color:#000;font-weight:bold">:&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline">
 &lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>&lt;span style="color:#204a87;font-weight:bold">region&lt;/span>&lt;span style="color:#000;font-weight:bold">:&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>&lt;span style="color:#4e9a06">&amp;#34;&amp;lt;AWS_REGION&amp;gt;&amp;#34;&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline">
 &lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>&lt;span style="color:#204a87;font-weight:bold">hostedZoneID&lt;/span>&lt;span style="color:#000;font-weight:bold">:&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>&lt;span style="color:#4e9a06">&amp;#34;&amp;lt;AWS_ROUTE53_HOSTEDZONE_ID&amp;gt;&amp;#34;&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline">
 &lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>&lt;span style="color:#204a87;font-weight:bold">accessKeyID&lt;/span>&lt;span style="color:#000;font-weight:bold">:&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>&lt;span style="color:#4e9a06">&amp;#34;&amp;lt;AWS_ACCESS_KEY_ID&amp;gt;&amp;#34;&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline">
 &lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>&lt;span style="color:#204a87;font-weight:bold">secretAccessKey&lt;/span>&lt;span style="color:#000;font-weight:bold">:&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>&lt;span style="color:#4e9a06">&amp;#34;&amp;lt;AWS_ACCESS_SECRET&amp;gt;&amp;#34;&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline">
-&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="install-helm-chart">Install Helm chart&lt;/h2>
+&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="install-helm-chart">Install Helm chart&lt;/h3>
 &lt;div class="highlight">&lt;pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">kubectl create namespace kre
 helm repo add konstellation-io https://charts.konstellation.io
 helm repo update
 helm upgrade --install kre --namespace kre --values values.yaml konstellation-io/kre
-&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="validate-the-installation">Validate the installation&lt;/h2>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="validate-the-installation">Validate the installation&lt;/h3>
 &lt;p>To check if everything is working fine follow the &lt;a href="https://konstellation-io.github.io/website/website/docs/kre/installation/validate/">Validate&lt;/a> section.&lt;/p></description></item><item><title>Docs: Validate</title><link>https://konstellation-io.github.io/website/docs/kre/installation/validate/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://konstellation-io.github.io/website/docs/kre/installation/validate/</guid><description>
 &lt;h2 id="check-pods-on-kre-namespace">Check pods on KRE namespace&lt;/h2>
 &lt;p>Command:&lt;/p>
