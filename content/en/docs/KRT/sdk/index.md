@@ -391,8 +391,8 @@ KRE has built-in graphs for classification problems. To populate the "Prediction
 Metrics context also provides an easy way to register common errors during a classification prediction: 
 
 ```python
-    ctx.metrics.
-        save(predicted_value="", true_value="", date="", error="") 
+    ctx.prediction.
+        save(predicted_value="", true_value="", utcdate=None, error="") 
 
     ERR_MISSING_VALUES = "missing_values"
     ERR_NEW_LABELS = "new_labels"
@@ -404,7 +404,7 @@ Metrics context also provides an easy way to register common errors during a cla
  
 {{<highlight python "linenos=table,hl_lines=2-5">}}
 async def handler(ctx, input):
-	ctx.prediction.save(date="2020-04-06T09:02:09.277853Z", 
+	ctx.prediction.save(utcdate=datetime.utcnow(), 
 	    predicted_value="class_x", 
 	    true_value="class_y"
 	    )
