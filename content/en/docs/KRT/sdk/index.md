@@ -52,7 +52,7 @@ import "github.com/konstellation-io/kre/runners/kre-go"
 
 func handlerInit(ctx *kre.HandlerContext) {
     // Saves a value in the context internal storage
-	ctx.Set("greeting", "Hello")   
+    ctx.Set("greeting", "Hello")   
 }
 
 func handler(ctx *kre.HandlerContext, data []byte) (interface{}, error) {
@@ -60,9 +60,9 @@ func handler(ctx *kre.HandlerContext, data []byte) (interface{}, error) {
     prefix := ctx.GetString("greeting")  
 
     // Here you can do any transformation to your data.
-	greetingText := fmt.Sprintf("%s %s!", prefix, input.Name)
+    greetingText := fmt.Sprintf("%s %s!", prefix, input.Name)
 
-	return Output{ Greeting: greetingText }, nil
+    return Output{ Greeting: greetingText }, nil
 }
 {{</highlight>}}
 
@@ -77,11 +77,11 @@ import "github.com/konstellation-io/kre/runners/kre-go"
 
 func handlerInit(ctx *kre.HandlerContext) {
     // get the path for labels file included in the KRT
-	labelPath := ctx.Path("assets/labels.json")
-	
-	content, err := ioutil.ReadFile(labelPath)
-	data := /* unmarshal json content */  
-	ctx.Set("labels", data)
+    labelPath := ctx.Path("assets/labels.json")
+    
+    content, err := ioutil.ReadFile(labelPath)
+    data := /* unmarshal json content */  
+    ctx.Set("labels", data)
 }
 {{</highlight>}}
 
@@ -115,21 +115,21 @@ package main
 import "github.com/konstellation-io/kre/runners/kre-go"
 
 func handlerInit(ctx *kre.HandlerContext) {
-	ctx.Set("greeting", "Hello")
-	ctx.Logger.Info("Process started")
+    ctx.Set("greeting", "Hello")
+    ctx.Logger.Info("Process started")
 }
 
 func handler(ctx *kre.HandlerContext, data []byte) (interface{}, error) {
-	ctx.Logger.Info("Performing some transformation")
+    ctx.Logger.Info("Performing some transformation")
     v, err := someFunction()
     if err != nil {
-    	ctx.Logger.Errorf("someFunction error: %s", err)
+        ctx.Logger.Errorf("someFunction error: %s", err)
         return
     }
-	ctx.Logger.Debugf("someFunction result: %d", v)
+    ctx.Logger.Debugf("someFunction result: %d", v)
 
-	// ... more code... 
-	return Output{ Greeting: greetingText }, nil
+    // ... more code... 
+    return Output{ Greeting: greetingText }, nil
 }
 
 {{</highlight>}}
@@ -159,21 +159,21 @@ On this example, a Data Scientist can access all `ny-data` and use it to retrain
 {{<highlight go "linenos=table,hl_lines=11 16">}}
 // Input struct used to Unmarshal incoming []byte to the message handler.
 type Input struct {
-	Name     string `json:"name"`
-	Bedrooms int `json:"bedrooms"`
-	TV       bool `json:"tv""` 
+    Name     string `json:"name"`
+    Bedrooms int `json:"bedrooms"`
+    TV       bool `json:"tv""` 
 }
 
 func handler(ctx *kre.HandlerContext, rawData []byte) (interface{}, error) {
     // Decode input data into your input message struct.
-	flatInfo := Input{}
-	err := json.Unmarshal(data, &flatInfo)
-	if err != nil {
-		return nil, err
-	}
+    flatInfo := Input{}
+    err := json.Unmarshal(data, &flatInfo)
+    if err != nil {
+        return nil, err
+    }
 
-	ctx.DB.Save("ny-data", flatInfo)
-	// ... more code... 
+    ctx.DB.Save("ny-data", flatInfo)
+    // ... more code... 
 }
 {{</highlight>}}
 
@@ -192,15 +192,15 @@ You can add arbitrary measurements to your code that will be saved as InfluxDB d
 
 {{<highlight go "linenos=table,hl_lines=5-9">}}
 func handler(ctx *kre.HandlerContext, rawData []byte) (interface{}, error) {
-	// ... prediction code...
-	 
-	ctx.Measurements.Save("features", map[string]interface{}{
-	    "bedrooms": 3,
-	    "beds": 5,
-	    "label": "low",
-	}, map[string]string{})
-	
-	return ...
+    // ... prediction code...
+     
+    ctx.Measurements.Save("features", map[string]interface{}{
+        "bedrooms": 3,
+        "beds": 5,
+        "label": "low",
+    }, map[string]string{})
+    
+    return ...
 }
 {{</highlight>}}
 
@@ -227,11 +227,11 @@ Metrics context also provides an easy way to register common errors during a cla
  
 {{<highlight go "linenos=table,hl_lines=2-4 6">}}
 func handler(ctx *kre.HandlerContext, rawData []byte) (interface{}, error) {
-	date := time.Now()
-	predictedValue := "low"
-	realValue := "high"
-	
-	ctx.Metrics.Save(date, predictedValue, realValue)
+    date := time.Now()
+    predictedValue := "low"
+    realValue := "high"
+    
+    ctx.Metrics.Save(date, predictedValue, realValue)
 }
 {{</highlight>}}
 
@@ -278,10 +278,10 @@ In this example you can see (line 3) how to get the path of any file relative to
 {{<highlight go "linenos=table,hl_lines=2-3 5">}}
 async def init(ctx):
     // get the path for model file included in the KRT
-	modelPath = ctx.path('models/encoder.joblib')
+    modelPath = ctx.path('models/encoder.joblib')
 
     ctx.set('encoder', joblib.load(modelPath))
-	
+    
 {{</highlight>}}
 
 
@@ -307,20 +307,20 @@ These are the available levels and their variants for multiple parameters:
 
 {{<highlight python "linenos=table,hl_lines=3 6 10 13">}}
 async def init(ctx):
-	ctx.set("greeting", "Hello")
-	ctx.logger.info("Process started")
+    ctx.set("greeting", "Hello")
+    ctx.logger.info("Process started")
 
 async def handler(ctx, input):
-	ctx.logger.info("Performing some transformation")
-	
+    ctx.logger.info("Performing some transformation")
+    
     res = someFunction()
     if res['error'] {
-    	ctx.logger.error(f"someFunction error: {res['error']}")
+        ctx.logger.error(f"someFunction error: {res['error']}")
         return
     }
-	ctx.logger.debug("someFunction result: %s", res)
+    ctx.logger.debug("someFunction result: %s", res)
 
-	// ... more code... 
+    // ... more code... 
     return {"prediction": res['prediction']} 
 }
 
@@ -350,9 +350,9 @@ On this example, a Data Scientist can access all `ny-data` and use it to retrain
 async def handler(ctx, input):
     // input is a dict with all features received
     // with the prediction made in a previous node.
-	ctx.db.save("ny-data", input) 
+    ctx.db.save("ny-data", input) 
 
-	// ... more code... 
+    // ... more code... 
 }
 {{</highlight>}}
 
@@ -371,15 +371,15 @@ You can add arbitrary measurements to your code that will be saved as InfluxDB d
 
 {{<highlight python "linenos=table,hl_lines=4-8">}}
 async def handler(ctx, input):
-	// ... prediction code...
-	 
-	ctx.measurements.save("features", {
-	    "bedrooms": 3,
-	    "beds": 5,
-	    "label": "low",
-	}, {})
-	
-	return ...
+    // ... prediction code...
+     
+    ctx.measurements.save("features", {
+        "bedrooms": 3,
+        "beds": 5,
+        "label": "low",
+    }, {})
+    
+    return ...
 }
 {{</highlight>}}
 
@@ -404,10 +404,10 @@ Metrics context also provides an easy way to register common errors during a cla
  
 {{<highlight python "linenos=table,hl_lines=2-5">}}
 async def handler(ctx, input):
-	ctx.prediction.save(utcdate=datetime.utcnow(), 
-	    predicted_value="class_x", 
-	    true_value="class_y"
-	    )
+    ctx.prediction.save(utcdate=datetime.utcnow(), 
+        predicted_value="class_x", 
+        true_value="class_y"
+        )
 }
 {{</highlight>}}
 
