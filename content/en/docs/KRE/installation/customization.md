@@ -100,8 +100,7 @@ Specific configuration for the MongoDB on the Engine.
 
 | Parameter                 | Description                                                 | Default    |
 | ------------------------- | ----------------------------------------------------------- | ---------- |
-| `mongodb.mongodbDatabase` | Database to create                                          | `localKRE` |
-| `mongodb.mongodbUsername` | MongoDB custom user (mandatory if `mongodbDatabase` is set) | `admin`    |
+| `mongodb.mongodbUsername` | MongoDB custom user                                         | `admin`    |
 | `mongodb.mongodbPassword` | MongoDB custom user password                                | `123456`   |
 | `mongodb.image.tag`       | MongoDB version 4.2                                         | `3.6`      |
 

@@ -258,7 +258,6 @@ adminUI:
   host: admin.kre."<YOUR_DOMAIN>"
 
 mongodb:
-  mongodbDatabase: "KRE"
   mongodbUsername: "<MONGODB_USERNAME>"
   mongodbPassword: "<MONGODB_PASS>"
   rootCredentials:
