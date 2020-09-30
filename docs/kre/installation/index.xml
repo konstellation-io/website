@@ -435,13 +435,8 @@ to create the volumes of the base service of a runtime.&lt;/p>
 &lt;/thead>
 &lt;tbody>
 &lt;tr>
-&lt;td>&lt;code>mongodb.mongodbDatabase&lt;/code>&lt;/td>
-&lt;td>Database to create&lt;/td>
-&lt;td>&lt;code>localKRE&lt;/code>&lt;/td>
-&lt;/tr>
-&lt;tr>
 &lt;td>&lt;code>mongodb.mongodbUsername&lt;/code>&lt;/td>
-&lt;td>MongoDB custom user (mandatory if &lt;code>mongodbDatabase&lt;/code> is set)&lt;/td>
+&lt;td>MongoDB custom user&lt;/td>
 &lt;td>&lt;code>admin&lt;/code>&lt;/td>
 &lt;/tr>
 &lt;tr>
