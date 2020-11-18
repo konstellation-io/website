@@ -1,4 +1,4 @@
-baseURL = "https://konstellation-io.github.io/website"
+baseURL = "https://www.konstellation.io/website"
 languageCode = "en-us"
 title = "Konstellation"
 staticDir = ["assets"]
