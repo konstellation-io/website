@@ -1,4 +1,4 @@
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Konstellation – Installation</title><link>https://www.konstellation.io/website/docs/kre/installation/</link><description>Recent content in Installation on Konstellation</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><atom:link href="https://www.konstellation.io/website/docs/kre/installation/index.xml" rel="self" type="application/rss+xml"/><item><title>Docs: Local</title><link>https://www.konstellation.io/website/docs/kre/installation/local/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://www.konstellation.io/website/docs/kre/installation/local/</guid><description>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Konstellation – Installation</title><link>https://www.konstellation.io/docs/kre/installation/</link><description>Recent content in Installation on Konstellation</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><atom:link href="https://www.konstellation.io/docs/kre/installation/index.xml" rel="self" type="application/rss+xml"/><item><title>Docs: Local</title><link>https://www.konstellation.io/docs/kre/installation/local/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://www.konstellation.io/docs/kre/installation/local/</guid><description>
 &lt;h2 id="hardware-requirements">Hardware requirements&lt;/h2>
 &lt;p>The local environment is deployed on top of a Minikube using the VirtualBox driver. The basic configuration creates a Virtual Machine with 8Gb and 4vCPUs. Due to this is recommended to run KRE on a machine with at least &lt;code>16GB&lt;/code> of RAM and &lt;code>4 CPU&lt;/code>.&lt;/p>
 &lt;h2 id="software-requirements">Software Requirements&lt;/h2>
@@ -27,7 +27,7 @@ behaviour but is only needed if you are going to develop any KRE component.&lt;/
 &lt;/code>&lt;/pre>&lt;h2 id="validate-the-installation">Validate the installation&lt;/h2>
 &lt;p>If every run correctly and you edited your hosts file, you should be able to login into KRE admin section. In a local environment there are no outgoing emails, but you can login with this command:&lt;/p>
 &lt;div class="highlight">&lt;pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">./krectl.sh login
-&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>Docs: Helm basics</title><link>https://www.konstellation.io/website/docs/kre/installation/helm/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://www.konstellation.io/website/docs/kre/installation/helm/</guid><description>
+&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>Docs: Helm basics</title><link>https://www.konstellation.io/docs/kre/installation/helm/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://www.konstellation.io/docs/kre/installation/helm/</guid><description>
 &lt;p>KRE can be installed on top of a Kubernetes cluster using the &lt;a href="https://helm.sh/">Helm&lt;/a> package manager.&lt;/p>
 &lt;h2 id="prerequisites">Prerequisites&lt;/h2>
 &lt;ul>
@@ -50,8 +50,8 @@ behaviour but is only needed if you are going to develop any KRE component.&lt;/
 &lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="uninstall-the-chart">Uninstall the chart&lt;/h2>
 &lt;p>To uninstall the &lt;code>kre&lt;/code> deployment, use the following command:&lt;/p>
 &lt;div class="highlight">&lt;pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">helm uninstall kre --namespace kre
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>This command removes all the Kubernetes components associated with the chart and deletes the release. It only removes main KRE components, you may need to remove other resources created by KRE.&lt;/p></description></item><item><title>Docs: Cloud</title><link>https://www.konstellation.io/website/docs/kre/installation/cloud/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://www.konstellation.io/website/docs/kre/installation/cloud/</guid><description>
-&lt;p>Following are described the best practice to deploy KRE on most common Kubernetes solution by Cloud providers.&lt;/p></description></item><item><title>Docs: Validate</title><link>https://www.konstellation.io/website/docs/kre/installation/validate/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://www.konstellation.io/website/docs/kre/installation/validate/</guid><description>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>This command removes all the Kubernetes components associated with the chart and deletes the release. It only removes main KRE components, you may need to remove other resources created by KRE.&lt;/p></description></item><item><title>Docs: Cloud</title><link>https://www.konstellation.io/docs/kre/installation/cloud/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://www.konstellation.io/docs/kre/installation/cloud/</guid><description>
+&lt;p>Following are described the best practice to deploy KRE on most common Kubernetes solution by Cloud providers.&lt;/p></description></item><item><title>Docs: Validate</title><link>https://www.konstellation.io/docs/kre/installation/validate/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://www.konstellation.io/docs/kre/installation/validate/</guid><description>
 &lt;h2 id="check-pods-on-kre-namespace">Check pods on KRE namespace&lt;/h2>
 &lt;p>Command:&lt;/p>
 &lt;div class="highlight">&lt;pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">kubectl -n kre get pods
@@ -70,7 +70,7 @@ prometheus-kre-local-prometheus-opera-prometheus-0 3/3 Running 1 28h
 &lt;/code>&lt;/pre>&lt;h2 id="open-admin-web-console">Open Admin web console&lt;/h2>
 &lt;p>If everything works fine you can go to &lt;a href="https://admin.kre.yourdomain.com">https://admin.kre.yourdomain.com&lt;/a> and see the admin UI as shown in the image bellow.&lt;/p>
 &lt;div class="card rounded p-2 td-post-card mb-4 mt-4" style="max-width: 610px">
-&lt;img class="card-img-top" src="https://www.konstellation.io/website/website/docs/kre/installation/validate/admin_web_hu51f4e7b3b1b2ceed12d523513c1d3459_36023_600x0_resize_q75_catmullrom.jpeg" width="600" height="463">
+&lt;img class="card-img-top" src="https://www.konstellation.io/docs/kre/installation/validate/admin_web_hu51f4e7b3b1b2ceed12d523513c1d3459_36023_600x0_resize_q75_catmullrom.jpeg" width="600" height="463">
 &lt;div class="card-body px-0 pt-2 pb-0">
 &lt;p class="card-text">
 &lt;/p>
@@ -144,7 +144,7 @@ CApath: /etc/ssl/certs
 2020-08-11T12:35:29.48550533Z INFO Request from user kre_admin_user
 2020-08-11T12:35:29.501522116Z INFO Request from user kre_admin_user
 2020-08-11T12:35:30.479367476Z INFO Request from user kre_admin_user
-&lt;/code>&lt;/pre>&lt;p>We should see at the very beginning of the API logs that the connection to MongoDB is fine and the service have started.&lt;/p></description></item><item><title>Docs: Customization</title><link>https://www.konstellation.io/website/docs/kre/installation/customization/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://www.konstellation.io/website/docs/kre/installation/customization/</guid><description>
+&lt;/code>&lt;/pre>&lt;p>We should see at the very beginning of the API logs that the connection to MongoDB is fine and the service have started.&lt;/p></description></item><item><title>Docs: Customization</title><link>https://www.konstellation.io/docs/kre/installation/customization/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://www.konstellation.io/docs/kre/installation/customization/</guid><description>
 &lt;p>It is posible to configure a lot of aspects of a KRE deployment, depending on your environment and your usecase the default values are not enough.
 Below are described all the parameters suceptible to be changed to adapt KRE Helm Chart to your environment. You can create your own &lt;code>values.yaml&lt;/code> with these
 parameters customized to be applied when run Helm. In order to get a more clear idea where can find

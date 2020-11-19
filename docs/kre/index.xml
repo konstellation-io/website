@@ -1,24 +1,24 @@
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Konstellation – KRE</title><link>https://www.konstellation.io/website/docs/kre/</link><description>Recent content in KRE on Konstellation</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><atom:link href="https://www.konstellation.io/website/docs/kre/index.xml" rel="self" type="application/rss+xml"/><item><title>Docs: Getting started</title><link>https://www.konstellation.io/website/docs/kre/getting_started/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://www.konstellation.io/website/docs/kre/getting_started/</guid><description>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Konstellation – KRE</title><link>https://www.konstellation.io/docs/kre/</link><description>Recent content in KRE on Konstellation</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><atom:link href="https://www.konstellation.io/docs/kre/index.xml" rel="self" type="application/rss+xml"/><item><title>Docs: Getting started</title><link>https://www.konstellation.io/docs/kre/getting_started/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://www.konstellation.io/docs/kre/getting_started/</guid><description>
 &lt;h2 id="installation">Installation&lt;/h2>
 &lt;p>The best way to start working with KRE, to test it and understand how it works, is to deploy it on your local machine and follow basic instructions to create an example project.&lt;/p>
-&lt;p>Follow the instructions of install KRE on your &lt;a href="https://www.konstellation.io/website/website/docs/kre/installation/local/">local environment&lt;/a>&lt;/p>
+&lt;p>Follow the instructions of install KRE on your &lt;a href="https://www.konstellation.io/docs/kre/installation/local/">local environment&lt;/a>&lt;/p>
 &lt;h2 id="logging-into-kre">Logging into KRE&lt;/h2>
 &lt;p>As mention in the Install local environment section, to login to KRE just run the following script that you can find in the KRE repository.&lt;/p>
 &lt;div class="highlight">&lt;pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">./krectl.sh login
 &lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="create-your-first-version">Create your first Version&lt;/h2>
 &lt;p>You need to follow these steps in order to create a version and get it ready to be called from outside KRE.&lt;/p>
 &lt;h3 id="1-create-runtime">1. Create Runtime&lt;/h3>
-&lt;p>Once you are logged in as an administrator, you can create a new Runtime by simply following the &lt;a href="https://www.konstellation.io/website/website/docs/kre/tasks/create_runtime/">create Runtime guide&lt;/a>.&lt;/p>
+&lt;p>Once you are logged in as an administrator, you can create a new Runtime by simply following the &lt;a href="https://www.konstellation.io/docs/kre/tasks/create_runtime/">create Runtime guide&lt;/a>.&lt;/p>
 &lt;h3 id="2-download-a-sample-krt-file">2. Download a sample KRT file&lt;/h3>
-&lt;p>Inside a Runtime you can upload one or more versions that can later be ran and publish. You can use a pre-generated &lt;a href="https://www.konstellation.io/website/website/krts/greeter-v1.krt">sample greeter krt&lt;/a>. You can find a more detailed explanation on how to create your own KRT file &lt;a href="https://www.konstellation.io/website/website/docs/krt/tasks/">here&lt;/a>.&lt;/p>
+&lt;p>Inside a Runtime you can upload one or more versions that can later be ran and publish. You can use a pre-generated &lt;a href="https://www.konstellation.io/website/krts/greeter-v1.krt">sample greeter krt&lt;/a>. You can find a more detailed explanation on how to create your own KRT file &lt;a href="https://www.konstellation.io/docs/krt/tasks/">here&lt;/a>.&lt;/p>
 &lt;h3 id="3-upload-the-krt-file">3. Upload the KRT file&lt;/h3>
-&lt;p>Next thing you need is to upload the KRT that contains your Version. Within an existing Runtime detail page you can &lt;a href="https://www.konstellation.io/website/website/docs/kre/tasks/create_version/">upload a new version&lt;/a>.&lt;/p>
+&lt;p>Next thing you need is to upload the KRT that contains your Version. Within an existing Runtime detail page you can &lt;a href="https://www.konstellation.io/docs/kre/tasks/create_version/">upload a new version&lt;/a>.&lt;/p>
 &lt;h3 id="4-start-and-publish">4. Start and Publish&lt;/h3>
-&lt;p>An uploaded Version is created in &amp;ldquo;STOPPED&amp;rdquo; state, in order to use it you need to first &amp;ldquo;START&amp;rdquo; it and &amp;ldquo;PUBLISH&amp;rdquo; it before been able to call it. You can learn more about it on the &lt;a href="https://www.konstellation.io/website/website/docs/kre/tasks/version_management/#version-lifecycle">Version lifecycle guide&lt;/a>&lt;/p>
+&lt;p>An uploaded Version is created in &amp;ldquo;STOPPED&amp;rdquo; state, in order to use it you need to first &amp;ldquo;START&amp;rdquo; it and &amp;ldquo;PUBLISH&amp;rdquo; it before been able to call it. You can learn more about it on the &lt;a href="https://www.konstellation.io/docs/kre/tasks/version_management/#version-lifecycle">Version lifecycle guide&lt;/a>&lt;/p>
 &lt;h3 id="5-make-a-call">5. Make a call&lt;/h3>
-&lt;p>Now you have all set to consume your Version services. You can &lt;a href="https://www.konstellation.io/website/website/docs/kre/tasks/consume_version_services/#call-from-cli">test it with a simple CLI&lt;/a>, or you can &lt;a href="https://www.konstellation.io/website/website/docs/kre/tasks/consume_version_services/#call-from-grpc-client-on-golang">create a complete gRPC client&lt;/a> to call it.&lt;/p></description></item><item><title>Docs: Concepts</title><link>https://www.konstellation.io/website/docs/kre/concepts/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://www.konstellation.io/website/docs/kre/concepts/</guid><description>
+&lt;p>Now you have all set to consume your Version services. You can &lt;a href="https://www.konstellation.io/docs/kre/tasks/consume_version_services/#call-from-cli">test it with a simple CLI&lt;/a>, or you can &lt;a href="https://www.konstellation.io/docs/kre/tasks/consume_version_services/#call-from-grpc-client-on-golang">create a complete gRPC client&lt;/a> to call it.&lt;/p></description></item><item><title>Docs: Concepts</title><link>https://www.konstellation.io/docs/kre/concepts/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://www.konstellation.io/docs/kre/concepts/</guid><description>
 &lt;h2 id="what-is-kre">What is KRE?&lt;/h2>
-&lt;p>It is an engine capable of deploy, manage and monitor a full AI solution in production in seconds using &lt;a href="https://www.konstellation.io/website/website/docs/krt/">KRT files&lt;/a>.&lt;/p>
+&lt;p>It is an engine capable of deploy, manage and monitor a full AI solution in production in seconds using &lt;a href="https://www.konstellation.io/docs/krt/">KRT files&lt;/a>.&lt;/p>
 &lt;p>KRE has the following main concepts:&lt;/p>
 &lt;ul>
 &lt;li>&lt;a href="#engine">Engine&lt;/a>&lt;/li>
@@ -29,19 +29,19 @@
 &lt;h3 id="engine">Engine&lt;/h3>
 &lt;p>Engine component is the central component that works as the &lt;strong>operation tool&lt;/strong> to create, manage and monitor all the resources associated with each solution that you would put in production. It includes an admin web app, an API and some other components.&lt;/p>
 &lt;div class="card rounded p-2 td-post-card mb-4 mt-4" style="max-width: 1010px">
-&lt;img class="card-img-top" src="https://www.konstellation.io/website/website/docs/kre/concepts/kre_overview_hu7a5b5d5cc96d9ada230aeb87ed5b9159_76309_1000x0_resize_q75_catmullrom.jpg" width="1000" height="347">
+&lt;img class="card-img-top" src="https://www.konstellation.io/docs/kre/concepts/kre_overview_hu7a5b5d5cc96d9ada230aeb87ed5b9159_76309_1000x0_resize_q75_catmullrom.jpg" width="1000" height="347">
 &lt;div class="card-body px-0 pt-2 pb-0">
 &lt;p class="card-text">
 Engine components are deployed in a specific k8s namespace. The runtimes are deployed in other namespaces.
 &lt;/p>
 &lt;/div>
 &lt;/div>
-&lt;p>Using the admin web app you will able to manage users, permissions and runtimes. You can see the &lt;a href="https://www.konstellation.io/website/website/docs/kre/tasks/">tasks&lt;/a> if you want more information about what things you can do.&lt;/p>
+&lt;p>Using the admin web app you will able to manage users, permissions and runtimes. You can see the &lt;a href="https://www.konstellation.io/docs/kre/tasks/">tasks&lt;/a> if you want more information about what things you can do.&lt;/p>
 &lt;h3 id="runtimes">Runtimes&lt;/h3>
 &lt;p>Inside a KRE you can create as many runtimes as you need. A runtime is identified by a name and a description and it is where you can upload one or more solutions that we call versions. For example, you can deploy a KRE for the ClientX and create a runtime for each ClientX project. Inside each ClientX project you will upload the versions of your AI solution.&lt;/p>
 &lt;p>Going into greater detail, a runtime is an environment that is &lt;strong>isolated&lt;/strong> from all other runtimes and other resources. Inside a runtime we will find the resources associated to your solution versions, a messaging system used to dispatch messages between components, databases to store metrics or generic data, a s3 store and internal components like an API to process incoming messages received from the KRE admin.&lt;/p>
 &lt;div class="card rounded p-2 td-post-card mb-4 mt-4" style="max-width: 710px">
-&lt;img class="card-img-top" src="https://www.konstellation.io/website/website/docs/kre/concepts/runtime_overview_hu7a5b5d5cc96d9ada230aeb87ed5b9159_96017_700x0_resize_q75_catmullrom.jpg" width="700" height="522">
+&lt;img class="card-img-top" src="https://www.konstellation.io/docs/kre/concepts/runtime_overview_hu7a5b5d5cc96d9ada230aeb87ed5b9159_96017_700x0_resize_q75_catmullrom.jpg" width="700" height="522">
 &lt;div class="card-body px-0 pt-2 pb-0">
 &lt;p class="card-text">
 All versions share databases, storage and message system but it is isolated from other runtimes.
@@ -49,11 +49,11 @@ All versions share databases, storage and message system but it is isolated from
 &lt;/div>
 &lt;/div>
 &lt;h3 id="versions">Versions&lt;/h3>
-&lt;p>A version is a collection of all things needed for your AI solution to work like code, models, assets,&amp;hellip; This is a key concept in KRE because if you make changes at any level, model or code, you then have a new version that must be uploaded. This make versions immutable entities easier to track and debug over time. To upload your versions into a runtime you will need a KRT file. Learn more about how to create a KRT file &lt;a href="https://www.konstellation.io/website/website/docs/krt/">here&lt;/a>.&lt;/p>
+&lt;p>A version is a collection of all things needed for your AI solution to work like code, models, assets,&amp;hellip; This is a key concept in KRE because if you make changes at any level, model or code, you then have a new version that must be uploaded. This make versions immutable entities easier to track and debug over time. To upload your versions into a runtime you will need a KRT file. Learn more about how to create a KRT file &lt;a href="https://www.konstellation.io/docs/krt/">here&lt;/a>.&lt;/p>
 &lt;p>The initial state of a version is stopped. A stopped version doesn&amp;rsquo;t consume any resource in the cluster. When you start a version, all needed resources are created but it is not accessible from the outside. You have to publish a version if you want to call it from the outside.&lt;/p>
 &lt;p>Usually, your AI solution must perform multiple actions, for example: to use a model to get a prediction or to receive information to calculate some metrics,&amp;hellip; so a version can define multiple workflows to accomplish that actions.&lt;/p>
 &lt;div class="card rounded p-2 td-post-card mb-4 mt-4" style="max-width: 810px">
-&lt;img class="card-img-top" src="https://www.konstellation.io/website/website/docs/kre/concepts/version_overview_hu7a5b5d5cc96d9ada230aeb87ed5b9159_78448_800x0_resize_q75_catmullrom.jpg" width="800" height="392">
+&lt;img class="card-img-top" src="https://www.konstellation.io/docs/kre/concepts/version_overview_hu7a5b5d5cc96d9ada230aeb87ed5b9159_78448_800x0_resize_q75_catmullrom.jpg" width="800" height="392">
 &lt;div class="card-body px-0 pt-2 pb-0">
 &lt;p class="card-text">
 &lt;/p>
@@ -62,12 +62,12 @@ All versions share databases, storage and message system but it is isolated from
 &lt;h3 id="workflows">Workflows&lt;/h3>
 &lt;p>A Workflow is a sequence of tasks that processes an incoming message from the external world and returns a response. Each task is a node of a graph that takes an input message and generates an output. You can add as many nodes as you need to your workflow. The following image shows a basic workflow that makes a prediction using three nodes:&lt;/p>
 &lt;div class="card rounded p-2 td-post-card mb-4 mt-4" style="max-width: 910px">
-&lt;img class="card-img-top" src="https://www.konstellation.io/website/website/docs/kre/concepts/basic_workflow_example_hu7a5b5d5cc96d9ada230aeb87ed5b9159_72389_900x0_resize_q75_catmullrom.jpg" width="900" height="261">
+&lt;img class="card-img-top" src="https://www.konstellation.io/docs/kre/concepts/basic_workflow_example_hu7a5b5d5cc96d9ada230aeb87ed5b9159_72389_900x0_resize_q75_catmullrom.jpg" width="900" height="261">
 &lt;div class="card-body px-0 pt-2 pb-0">
 &lt;p class="card-text">
 Example of a basic workflow
 &lt;/p>
 &lt;/div>
 &lt;/div>
-&lt;p>In KRE, external messages comes from a gRPC client. A special component called Entrypoint (gRPC server) dispatch the messages to an specific workflow and returns the response of the last node to the client. The workflow nodes becomes a PODs in your k8s cluster when the version is started.&lt;/p></description></item><item><title>Docs: Installation</title><link>https://www.konstellation.io/website/docs/kre/installation/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://www.konstellation.io/website/docs/kre/installation/</guid><description>
-&lt;p>KRE is ready to be deployed in a Kubernetes cluster or single node. This section contains guidelines for common scenarios for setup, deployment, cluster preparation and Helm values configuration.&lt;/p></description></item><item><title>Docs: Tasks</title><link>https://www.konstellation.io/website/docs/kre/tasks/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://www.konstellation.io/website/docs/kre/tasks/</guid><description/></item></channel></rss>
+&lt;p>In KRE, external messages comes from a gRPC client. A special component called Entrypoint (gRPC server) dispatch the messages to an specific workflow and returns the response of the last node to the client. The workflow nodes becomes a PODs in your k8s cluster when the version is started.&lt;/p></description></item><item><title>Docs: Installation</title><link>https://www.konstellation.io/docs/kre/installation/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://www.konstellation.io/docs/kre/installation/</guid><description>
+&lt;p>KRE is ready to be deployed in a Kubernetes cluster or single node. This section contains guidelines for common scenarios for setup, deployment, cluster preparation and Helm values configuration.&lt;/p></description></item><item><title>Docs: Tasks</title><link>https://www.konstellation.io/docs/kre/tasks/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://www.konstellation.io/docs/kre/tasks/</guid><description/></item></channel></rss>

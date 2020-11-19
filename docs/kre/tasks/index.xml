@@ -1,7 +1,7 @@
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Konstellation – Tasks</title><link>https://www.konstellation.io/website/docs/kre/tasks/</link><description>Recent content in Tasks on Konstellation</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><atom:link href="https://www.konstellation.io/website/docs/kre/tasks/index.xml" rel="self" type="application/rss+xml"/><item><title>Docs: Login</title><link>https://www.konstellation.io/website/docs/kre/tasks/login/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://www.konstellation.io/website/docs/kre/tasks/login/</guid><description>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Konstellation – Tasks</title><link>https://www.konstellation.io/docs/kre/tasks/</link><description>Recent content in Tasks on Konstellation</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><atom:link href="https://www.konstellation.io/docs/kre/tasks/index.xml" rel="self" type="application/rss+xml"/><item><title>Docs: Login</title><link>https://www.konstellation.io/docs/kre/tasks/login/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://www.konstellation.io/docs/kre/tasks/login/</guid><description>
 &lt;p>KRE login is a passwordless process so you only need to provide your email:&lt;/p>
 &lt;div class="card rounded p-2 td-post-card mb-4 mt-4" style="max-width: 610px">
-&lt;img class="card-img-top" src="https://www.konstellation.io/website/website/docs/kre/tasks/login/login_screen_hu6b4d4c4402f13ef6689bedcf64656ae8_12794_600x0_resize_catmullrom_2.png" width="600" height="368">
+&lt;img class="card-img-top" src="https://www.konstellation.io/docs/kre/tasks/login/login_screen_hu6b4d4c4402f13ef6689bedcf64656ae8_12794_600x0_resize_catmullrom_2.png" width="600" height="368">
 &lt;div class="card-body px-0 pt-2 pb-0">
 &lt;p class="card-text">
 &lt;/p>
@@ -9,7 +9,7 @@
 &lt;/div>
 &lt;p>After submitting your email address you will see the following screen:&lt;/p>
 &lt;div class="card rounded p-2 td-post-card mb-4 mt-4" style="max-width: 610px">
-&lt;img class="card-img-top" src="https://www.konstellation.io/website/website/docs/kre/tasks/login/login_passwordless_hu5fb6fdf09b0ac3b587961740a3982e57_31821_600x0_resize_catmullrom_2.png" width="600" height="432">
+&lt;img class="card-img-top" src="https://www.konstellation.io/docs/kre/tasks/login/login_passwordless_hu5fb6fdf09b0ac3b587961740a3982e57_31821_600x0_resize_catmullrom_2.png" width="600" height="432">
 &lt;div class="card-body px-0 pt-2 pb-0">
 &lt;p class="card-text">
 &lt;/p>
@@ -17,7 +17,7 @@
 &lt;/div>
 &lt;p>You will receive an email with a login link:&lt;/p>
 &lt;div class="card rounded p-2 td-post-card mb-4 mt-4" style="max-width: 610px">
-&lt;img class="card-img-top" src="https://www.konstellation.io/website/website/docs/kre/tasks/login/login_link_hu71fe54fbd1d880b0ebaac09911343df0_21486_600x0_resize_catmullrom_2.png" width="600" height="183">
+&lt;img class="card-img-top" src="https://www.konstellation.io/docs/kre/tasks/login/login_link_hu71fe54fbd1d880b0ebaac09911343df0_21486_600x0_resize_catmullrom_2.png" width="600" height="183">
 &lt;div class="card-body px-0 pt-2 pb-0">
 &lt;p class="card-text">
 &lt;/p>
@@ -25,7 +25,7 @@
 &lt;/div>
 &lt;p>Clicking the login link you will navigate to the runtime list screen.&lt;/p>
 &lt;div class="card rounded p-2 td-post-card mb-4 mt-4" style="max-width: 1010px">
-&lt;img class="card-img-top" src="https://www.konstellation.io/website/website/docs/kre/tasks/login/user_viewer_huf43b978f320152200ba1f5efbcf7e93a_20229_1000x0_resize_catmullrom_2.png" width="1000" height="368">
+&lt;img class="card-img-top" src="https://www.konstellation.io/docs/kre/tasks/login/user_viewer_huf43b978f320152200ba1f5efbcf7e93a_20229_1000x0_resize_catmullrom_2.png" width="1000" height="368">
 &lt;div class="card-body px-0 pt-2 pb-0">
 &lt;p class="card-text">
 &lt;/p>
@@ -34,7 +34,7 @@
 &lt;p>If you are a new user, your role will be &lt;code>viewer&lt;/code> so you should ask to the admin user for privileges for edition and creation (&lt;code>manager&lt;/code> role).
 An &lt;code>admin&lt;/code> user can change the user role using the user administration interface (&lt;code>/settings/users&lt;/code>):&lt;/p>
 &lt;div class="card rounded p-2 td-post-card mb-4 mt-4" style="max-width: 1010px">
-&lt;img class="card-img-top" src="https://www.konstellation.io/website/website/docs/kre/tasks/login/user_admin_hub9a3e132459504b3edb2f6bdc567690f_49810_1000x0_resize_catmullrom_2.png" width="1000" height="396">
+&lt;img class="card-img-top" src="https://www.konstellation.io/docs/kre/tasks/login/user_admin_hub9a3e132459504b3edb2f6bdc567690f_49810_1000x0_resize_catmullrom_2.png" width="1000" height="396">
 &lt;div class="card-body px-0 pt-2 pb-0">
 &lt;p class="card-text">
 &lt;/p>
@@ -91,10 +91,10 @@ An &lt;code>admin&lt;/code> user can change the user role using the user adminis
 &lt;td>-&lt;/td>
 &lt;/tr>
 &lt;/tbody>
-&lt;/table></description></item><item><title>Docs: Create runtime</title><link>https://www.konstellation.io/website/docs/kre/tasks/create_runtime/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://www.konstellation.io/website/docs/kre/tasks/create_runtime/</guid><description>
+&lt;/table></description></item><item><title>Docs: Create runtime</title><link>https://www.konstellation.io/docs/kre/tasks/create_runtime/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://www.konstellation.io/docs/kre/tasks/create_runtime/</guid><description>
 &lt;p>If you have &lt;code>manager&lt;/code> role, you will see the &amp;ldquo;ADD RUNTIME&amp;rdquo; button in the runtimes screen:&lt;/p>
 &lt;div class="card rounded p-2 td-post-card mb-4 mt-4" style="max-width: 1010px">
-&lt;img class="card-img-top" src="https://www.konstellation.io/website/website/docs/kre/tasks/create_runtime/runtimes_screen_hue4fd0a54479c3496d3bc183a61aaaea8_20361_1000x0_resize_catmullrom_2.png" width="1000" height="490">
+&lt;img class="card-img-top" src="https://www.konstellation.io/docs/kre/tasks/create_runtime/runtimes_screen_hue4fd0a54479c3496d3bc183a61aaaea8_20361_1000x0_resize_catmullrom_2.png" width="1000" height="490">
 &lt;div class="card-body px-0 pt-2 pb-0">
 &lt;p class="card-text">
 &lt;/p>
@@ -102,7 +102,7 @@ An &lt;code>admin&lt;/code> user can change the user role using the user adminis
 &lt;/div>
 &lt;p>We are going to create a new runtime called &lt;code>test&lt;/code>:&lt;/p>
 &lt;div class="card rounded p-2 td-post-card mb-4 mt-4" style="max-width: 610px">
-&lt;img class="card-img-top" src="https://www.konstellation.io/website/website/docs/kre/tasks/create_runtime/add_runtime_hu92d41c6992718aa3a74d49f59445185b_15287_600x0_resize_catmullrom_2.png" width="600" height="501">
+&lt;img class="card-img-top" src="https://www.konstellation.io/docs/kre/tasks/create_runtime/add_runtime_hu92d41c6992718aa3a74d49f59445185b_15287_600x0_resize_catmullrom_2.png" width="600" height="501">
 &lt;div class="card-body px-0 pt-2 pb-0">
 &lt;p class="card-text">
 &lt;/p>
@@ -111,7 +111,7 @@ An &lt;code>admin&lt;/code> user can change the user role using the user adminis
 &lt;p>After clicking the &lt;code>save&lt;/code> button, we will see the &lt;code>test&lt;/code> runtime in the runtimes screen with status &lt;code>creating&lt;/code>.
 At this moment KRE is creating all necessary resources inside Kubernetes and it can take a time.&lt;/p>
 &lt;div class="card rounded p-2 td-post-card mb-4 mt-4" style="max-width: 1010px">
-&lt;img class="card-img-top" src="https://www.konstellation.io/website/website/docs/kre/tasks/create_runtime/runtime_creating_hue45359b6cad59e1ee9c276af8929a8d3_33548_1000x0_resize_catmullrom_2.png" width="1000" height="394">
+&lt;img class="card-img-top" src="https://www.konstellation.io/docs/kre/tasks/create_runtime/runtime_creating_hue45359b6cad59e1ee9c276af8929a8d3_33548_1000x0_resize_catmullrom_2.png" width="1000" height="394">
 &lt;div class="card-body px-0 pt-2 pb-0">
 &lt;p class="card-text">
 &lt;/p>
@@ -119,23 +119,23 @@ At this moment KRE is creating all necessary resources inside Kubernetes and it 
 &lt;/div>
 &lt;p>After a while, the runtime status should be &lt;code>started&lt;/code> or if there was a problem with the initialization the status should be &lt;code>error&lt;/code>.&lt;/p>
 &lt;div class="card rounded p-2 td-post-card mb-4 mt-4" style="max-width: 410px">
-&lt;img class="card-img-top" src="https://www.konstellation.io/website/website/docs/kre/tasks/create_runtime/runtime_started_hu0e5f734b8fed8551e4eb33c3c0dffe27_19158_400x0_resize_catmullrom_2.png" width="400" height="330">
+&lt;img class="card-img-top" src="https://www.konstellation.io/docs/kre/tasks/create_runtime/runtime_started_hu0e5f734b8fed8551e4eb33c3c0dffe27_19158_400x0_resize_catmullrom_2.png" width="400" height="330">
 &lt;div class="card-body px-0 pt-2 pb-0">
 &lt;p class="card-text">
 &lt;/p>
 &lt;/div>
-&lt;/div></description></item><item><title>Docs: Create version</title><link>https://www.konstellation.io/website/docs/kre/tasks/create_version/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://www.konstellation.io/website/docs/kre/tasks/create_version/</guid><description>
+&lt;/div></description></item><item><title>Docs: Create version</title><link>https://www.konstellation.io/docs/kre/tasks/create_version/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://www.konstellation.io/docs/kre/tasks/create_version/</guid><description>
 &lt;p>When all runtime resources are ready, you can click the created runtime in order to see the list of versions:&lt;/p>
 &lt;div class="card rounded p-2 td-post-card mb-4 mt-4" style="max-width: 1010px">
-&lt;img class="card-img-top" src="https://www.konstellation.io/website/website/docs/kre/tasks/create_version/versions_screen_hu0d45c690b63171258cd8b378095e3e48_40429_1000x0_resize_catmullrom_2.png" width="1000" height="382">
+&lt;img class="card-img-top" src="https://www.konstellation.io/docs/kre/tasks/create_version/versions_screen_hu0d45c690b63171258cd8b378095e3e48_40429_1000x0_resize_catmullrom_2.png" width="1000" height="382">
 &lt;div class="card-body px-0 pt-2 pb-0">
 &lt;p class="card-text">
 &lt;/p>
 &lt;/div>
 &lt;/div>
-&lt;p>We are going to upload a version of the &lt;a href="https://github.com/konstellation-io/kre/tree/master/krt-template/greeter">greeting example&lt;/a>. You can download the krt file &lt;a href="https://www.konstellation.io/website/website/krts/greeter-v1.krt">here&lt;/a>.&lt;/p>
+&lt;p>We are going to upload a version of the &lt;a href="https://github.com/konstellation-io/kre/tree/master/krt-template/greeter">greeting example&lt;/a>. You can download the krt file &lt;a href="https://www.konstellation.io/website/krts/greeter-v1.krt">here&lt;/a>.&lt;/p>
 &lt;div class="card rounded p-2 td-post-card mb-4 mt-4" style="max-width: 610px">
-&lt;img class="card-img-top" src="https://www.konstellation.io/website/website/docs/kre/tasks/create_version/add_version_hua3bbf1bfa17fdaedecdab412e92334e6_14685_600x0_resize_catmullrom_2.png" width="600" height="354">
+&lt;img class="card-img-top" src="https://www.konstellation.io/docs/kre/tasks/create_version/add_version_hua3bbf1bfa17fdaedecdab412e92334e6_14685_600x0_resize_catmullrom_2.png" width="600" height="354">
 &lt;div class="card-body px-0 pt-2 pb-0">
 &lt;p class="card-text">
 &lt;/p>
@@ -143,7 +143,7 @@ At this moment KRE is creating all necessary resources inside Kubernetes and it 
 &lt;/div>
 &lt;p>After creating the greeting version, you will see the version status screen:&lt;/p>
 &lt;div class="card rounded p-2 td-post-card mb-4 mt-4" style="max-width: 1010px">
-&lt;img class="card-img-top" src="https://www.konstellation.io/website/website/docs/kre/tasks/create_version/greeting_version_screen_huf340600169102cc7f0f117e79759b2e8_63501_1000x0_resize_catmullrom_2.png" width="1000" height="658">
+&lt;img class="card-img-top" src="https://www.konstellation.io/docs/kre/tasks/create_version/greeting_version_screen_huf340600169102cc7f0f117e79759b2e8_63501_1000x0_resize_catmullrom_2.png" width="1000" height="658">
 &lt;div class="card-body px-0 pt-2 pb-0">
 &lt;p class="card-text">
 &lt;/p>
@@ -151,16 +151,16 @@ At this moment KRE is creating all necessary resources inside Kubernetes and it 
 &lt;/div>
 &lt;p>As you can see, the &lt;a href="https://github.com/konstellation-io/kre/tree/master/krt-template/greeter">greeting example&lt;/a> has two workflows called &lt;code>greeting&lt;/code> and &lt;code>saluting&lt;/code>. Both workflows have only one process called &lt;code>greeter&lt;/code>. The version status at this moment is &lt;code>stopped&lt;/code> so the &lt;code>greeter&lt;/code> processes color are grey. A workflow is a sequence of connected nodes, the first and the last node are called &lt;code>entrypoint&lt;/code>.&lt;/p>
 &lt;div class="card rounded p-2 td-post-card mb-4 mt-4" style="max-width: 1010px">
-&lt;img class="card-img-top" src="https://www.konstellation.io/website/website/docs/kre/tasks/create_version/greeting_version_screen_explained_hu618855afb64b2a97c4762ec269c4726e_194378_1000x0_resize_catmullrom_2.png" width="1000" height="657">
+&lt;img class="card-img-top" src="https://www.konstellation.io/docs/kre/tasks/create_version/greeting_version_screen_explained_hu618855afb64b2a97c4762ec269c4726e_194378_1000x0_resize_catmullrom_2.png" width="1000" height="657">
 &lt;div class="card-body px-0 pt-2 pb-0">
 &lt;p class="card-text">
 &lt;/p>
 &lt;/div>
-&lt;/div></description></item><item><title>Docs: Version Management</title><link>https://www.konstellation.io/website/docs/kre/tasks/version_management/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://www.konstellation.io/website/docs/kre/tasks/version_management/</guid><description>
+&lt;/div></description></item><item><title>Docs: Version Management</title><link>https://www.konstellation.io/docs/kre/tasks/version_management/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://www.konstellation.io/docs/kre/tasks/version_management/</guid><description>
 &lt;h3 id="version-lifecycle">Version lifecycle&lt;/h3>
 &lt;p>In the following graph you can see all possible statuses and actions for a runtime version. The blue boxes are actions, and the green ones are statuses:&lt;/p>
 &lt;div class="card rounded p-2 td-post-card mb-4 mt-4" style="max-width: 1010px">
-&lt;img class="card-img-top" src="https://www.konstellation.io/website/website/docs/kre/tasks/version_management/version_lifecycle_hu3d0103200f92e22fba46921b44813a51_104333_1000x0_resize_q75_catmullrom.jpg" width="1000" height="349">
+&lt;img class="card-img-top" src="https://www.konstellation.io/docs/kre/tasks/version_management/version_lifecycle_hu3d0103200f92e22fba46921b44813a51_104333_1000x0_resize_q75_catmullrom.jpg" width="1000" height="349">
 &lt;div class="card-body px-0 pt-2 pb-0">
 &lt;p class="card-text">
 &lt;/p>
@@ -202,7 +202,7 @@ At this moment KRE is creating all necessary resources inside Kubernetes and it 
 &lt;h3 id="start-a-version">Start a version&lt;/h3>
 &lt;p>Clicking the &lt;code>Start&lt;/code> button and providing the reason text we will see that the version goes to the &lt;code>starting&lt;/code> status and after a time changes to &lt;code>started&lt;/code>.&lt;/p>
 &lt;div class="card rounded p-2 td-post-card mb-4 mt-4" style="max-width: 1010px">
-&lt;img class="card-img-top" src="https://www.konstellation.io/website/website/docs/kre/tasks/version_management/version_started_hu7848eb828a18e41987a0e2d9b524ab45_53884_1000x0_resize_catmullrom_2.png" width="1000" height="910">
+&lt;img class="card-img-top" src="https://www.konstellation.io/docs/kre/tasks/version_management/version_started_hu7848eb828a18e41987a0e2d9b524ab45_53884_1000x0_resize_catmullrom_2.png" width="1000" height="910">
 &lt;div class="card-body px-0 pt-2 pb-0">
 &lt;p class="card-text">
 &lt;/p>
@@ -215,14 +215,14 @@ Use this action when you want to delete all associated resources in kubernetes f
 The collected logs and metrics will be persisted after stopping.&lt;/p>
 &lt;h3 id="publish-a-version">Publish a version&lt;/h3>
 &lt;p>A started version with all nodes on green means that the version is ready to receive messages, but it is not exposed to the outside world until you decide to publish it.
-You can use this state to be sure all pieces of the workflow are working correctly before publishing.&lt;/p></description></item><item><title>Docs: Call Version Services</title><link>https://www.konstellation.io/website/docs/kre/tasks/consume_version_services/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://www.konstellation.io/website/docs/kre/tasks/consume_version_services/</guid><description>
+You can use this state to be sure all pieces of the workflow are working correctly before publishing.&lt;/p></description></item><item><title>Docs: Call Version Services</title><link>https://www.konstellation.io/docs/kre/tasks/consume_version_services/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://www.konstellation.io/docs/kre/tasks/consume_version_services/</guid><description>
 &lt;p>Once you have a published version you can call it from outside through the entrypoint gRPC services.&lt;/p>
 &lt;p>For this example the pre requisites are:&lt;/p>
 &lt;ul>
 &lt;li>An existing Runtime called &lt;code>Test&lt;/code>.&lt;/li>
 &lt;li>A &lt;strong>published version&lt;/strong> containing a workflow pointing to a &lt;code>Greeting&lt;/code> service in the entrypoint.&lt;/li>
 &lt;/ul>
-&lt;p>To learn how to get this requisites you can check &lt;a href="https://www.konstellation.io/website/website/docs/krt/tasks/">KRT tasks&lt;/a> and &lt;a href="https://www.konstellation.io/website/website/docs/kre/tasks/version_management/">KRE version management&lt;/a>.&lt;/p>
+&lt;p>To learn how to get this requisites you can check &lt;a href="https://www.konstellation.io/docs/krt/tasks/">KRT tasks&lt;/a> and &lt;a href="https://www.konstellation.io/docs/kre/tasks/version_management/">KRE version management&lt;/a>.&lt;/p>
 &lt;h2 id="call-from-cli">Call from CLI&lt;/h2>
 &lt;p>The fastest way to interact with the gRPC server is with &lt;a href="https://github.com/fullstorydev/grpcurl">grpcurl&lt;/a>. This tool is similar to &lt;code>curl&lt;/code> but for gRPC servers.&lt;/p>
 &lt;p>Just run this:&lt;/p>

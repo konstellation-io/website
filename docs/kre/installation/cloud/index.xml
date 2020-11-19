@@ -1,4 +1,4 @@
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Konstellation – Cloud</title><link>https://www.konstellation.io/website/docs/kre/installation/cloud/</link><description>Recent content in Cloud on Konstellation</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><atom:link href="https://www.konstellation.io/website/docs/kre/installation/cloud/index.xml" rel="self" type="application/rss+xml"/><item><title>Docs: GKE</title><link>https://www.konstellation.io/website/docs/kre/installation/cloud/gke/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://www.konstellation.io/website/docs/kre/installation/cloud/gke/</guid><description>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Konstellation – Cloud</title><link>https://www.konstellation.io/docs/kre/installation/cloud/</link><description>Recent content in Cloud on Konstellation</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><atom:link href="https://www.konstellation.io/docs/kre/installation/cloud/index.xml" rel="self" type="application/rss+xml"/><item><title>Docs: GKE</title><link>https://www.konstellation.io/docs/kre/installation/cloud/gke/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://www.konstellation.io/docs/kre/installation/cloud/gke/</guid><description>
 &lt;h1 id="gke-deployment">GKE deployment&lt;/h1>
 &lt;p>The flavor of Kubernetes on Google is called GKE (Google Kubernetes Engine) which allow to deploy a cluster managed by Google. This means that Google will manage the lifecycle of the Master nodes of your cluster.&lt;/p>
 &lt;p>When you create a GKE cluster by default is created an Instance Group, which is responsible to start the GCE (Google Compute Engine) instances and scale up and down depending on your configuration. In these instances of GCE is where the loads that we deploy on GKE will run. Therefore, is needed to adjust the type of instances on this instance group, to support the load of your deployment. For a PoC of KRE you can set up an Instance Group with min instances 1 up to 3 of type &lt;code>n1-standard-2&lt;/code> and everything will works fine. Be aware about the autoscaling configuration of the Instances Group, because if you only have one Instance Group added to your GKE cluster, at least is required one instance up in order to run some Kubernetes components that run as PODS.&lt;/p>
@@ -15,7 +15,7 @@
 nginx-ingress \
 stable/nginx-ingress
 &lt;/code>&lt;/pre>&lt;h2 id="cert-manager">Cert manager&lt;/h2>
-&lt;p>Cert Manager automatize the creation and maintenance of certificates, allowing the use of TLS in the ingress controller. &lt;a href="https://www.konstellation.io/website/website/docs/kre/installation/customization/#cert-manager">+ Info&lt;/a>&lt;/p>
+&lt;p>Cert Manager automatize the creation and maintenance of certificates, allowing the use of TLS in the ingress controller. &lt;a href="https://www.konstellation.io/docs/kre/installation/customization/#cert-manager">+ Info&lt;/a>&lt;/p>
 &lt;div class="highlight">&lt;pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">kubectl create namespace cert-manager --dry-run -o yaml &lt;span style="color:#000;font-weight:bold">|&lt;/span> kubectl apply -f -
 helm repo add jetstack https://charts.jetstack.io
 helm repo update
@@ -171,7 +171,7 @@ helm repo add konstellation-io https://charts.konstellation.io
 helm repo update
 helm upgrade --install kre --namespace kre --values values.yaml konstellation-io/kre
 &lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="validate-the-installation">Validate the installation&lt;/h2>
-&lt;p>To check if everything is working fine follow the &lt;a href="https://www.konstellation.io/website/website/docs/kre/installation/validate/">Validate&lt;/a> section.&lt;/p>
+&lt;p>To check if everything is working fine follow the &lt;a href="https://www.konstellation.io/docs/kre/installation/validate/">Validate&lt;/a> section.&lt;/p>
 &lt;h1 id="gpu-support-optional">GPU support (optional)&lt;/h1>
 &lt;p>Create a gpu node pool with the following &lt;a href="https://cloud.google.com/kubernetes-engine/docs/how-to/gpus">the official GKE guide&lt;/a>. When you get to section &lt;a href="https://cloud.google.com/kubernetes-engine/docs/how-to/gpus#installing_drivers">Installing NVIDIA GPU device drivers&lt;/a>, instead of applying the yaml directly, &lt;strong>download it&lt;/strong> and add the following lines on daemonset env container section for nvidia-driver-installer:&lt;/p>
 &lt;div class="highlight">&lt;pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-diff" data-lang="diff"> env:
@@ -180,14 +180,14 @@ helm upgrade --install kre --namespace kre --values values.yaml konstellation-io
 &lt;/span>&lt;span style="color:#00a000">&lt;/span> - name: NVIDIA_INSTALL_DIR_HOST
 value: /home/kubernetes/bin/nvidia
 ...
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>And then apply it with &lt;code>kubectl -f daemonset-preloaded.yaml&lt;/code>, continue with the rest of the guide, noting that &lt;strong>this driver supports CUDA 10.2&lt;/strong>, matching with the cuda version supported by KRE python image.&lt;/p></description></item><item><title>Docs: EKS</title><link>https://www.konstellation.io/website/docs/kre/installation/cloud/eks/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://www.konstellation.io/website/docs/kre/installation/cloud/eks/</guid><description>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>And then apply it with &lt;code>kubectl -f daemonset-preloaded.yaml&lt;/code>, continue with the rest of the guide, noting that &lt;strong>this driver supports CUDA 10.2&lt;/strong>, matching with the cuda version supported by KRE python image.&lt;/p></description></item><item><title>Docs: EKS</title><link>https://www.konstellation.io/docs/kre/installation/cloud/eks/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://www.konstellation.io/docs/kre/installation/cloud/eks/</guid><description>
 &lt;h1 id="eks-deployment">EKS deployment&lt;/h1>
 &lt;p>The flavor of Kubernetes on AWS is called EKS (Elastic Kubernetes Service) which allow to deploy a cluster managed by Amazon. This means that Amazon will manage the lifecycle of the Master nodes of your cluster.&lt;/p>
 &lt;p>Currently, there are two ways of run loads on top of EKS, using EC2 instances as compute nodes that are added to the cluster, or using the Fargate mode, where AWS also manage these compute nodes. In this guide is just described the first one, adding your own compute nodes with &lt;a href="https://docs.aws.amazon.com/eks/latest/userguide/eks-optimized-ami.html">EC2 instances&lt;/a>. You can check the &lt;a href="#compute-rqeuirements">minimun instance recomendend&lt;/a> to run a PoC in the next section.&lt;/p>
 &lt;p>Deploy an EKS cluster is not the goal of this guide, only the detail some specific configuration needed to run KRE on top of it. It is recommend to use IaC (Infrastructure As Code) approach using Terraform to automate the creation of your cluster, &lt;a href="https://learn.hashicorp.com/tutorials/terraform/eks">here&lt;/a> you can find useful resources about that. Also you can follow the instructions from the official &lt;a href="https://docs.aws.amazon.com/eks/latest/userguide/create-cluster.html">AWS site&lt;/a>.&lt;/p>
 &lt;p>The final EKS deployment should be something like the below diagram.&lt;/p>
 &lt;div class="card rounded p-2 td-post-card mb-4 mt-4" style="max-width: 610px">
-&lt;img class="card-img-top" src="https://www.konstellation.io/website/website/docs/kre/installation/cloud/eks/eks_diagram_hu810904b9cb0bf96ab0f9422ba192b8fc_30553_600x0_resize_catmullrom_2.png" width="600" height="512">
+&lt;img class="card-img-top" src="https://www.konstellation.io/docs/kre/installation/cloud/eks/eks_diagram_hu810904b9cb0bf96ab0f9422ba192b8fc_30553_600x0_resize_catmullrom_2.png" width="600" height="512">
 &lt;div class="card-body px-0 pt-2 pb-0">
 &lt;p class="card-text">
 &lt;/p>
@@ -328,7 +328,7 @@ admin.kre.yourdomain.com. 1799 IN A 1.2.3.4
 &lt;p>Once you have your EKS cluster ready with all the required extra components installed and all the credentials to access to your cluster is time to start the KRE deployment. The first step is to define a &lt;code>values.yaml&lt;/code> file that fit all the requirements for your installation. So we are going to describe an example of this file to deploy KRE in your cluster. After that we can apply the Helm chart with this value to deploy KRE and afterward we are going to describe how to validate the installation.&lt;/p>
 &lt;h3 id="create-valuesyaml">Create values.yaml&lt;/h3>
 &lt;p>Here is an example of a &lt;code>values.yaml&lt;/code> to deploy in your clustes, just fill the parameters that required of your own information of credentials or domains, and save the file as &lt;code>values.yaml&lt;/code> in order to apply it as is explained in the next section.&lt;/p>
-&lt;p>All the parameters are ditailed in the section &lt;a href="https://www.konstellation.io/website/website/docs/kre/installation/customization/">Customization&lt;/a>.&lt;/p>
+&lt;p>All the parameters are ditailed in the section &lt;a href="https://www.konstellation.io/docs/kre/installation/customization/">Customization&lt;/a>.&lt;/p>
 &lt;div class="highlight">&lt;pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#204a87;font-weight:bold">config&lt;/span>&lt;span style="color:#000;font-weight:bold">:&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline">
 &lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>&lt;span style="color:#204a87;font-weight:bold">smtp&lt;/span>&lt;span style="color:#000;font-weight:bold">:&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline">
 &lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>&lt;span style="color:#204a87;font-weight:bold">enabled&lt;/span>&lt;span style="color:#000;font-weight:bold">:&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>&lt;span style="color:#204a87;font-weight:bold">true&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline">
@@ -424,4 +424,4 @@ helm repo add konstellation-io https://charts.konstellation.io
 helm repo update
 helm upgrade --install kre --namespace kre --values values.yaml konstellation-io/kre
 &lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="validate-the-installation">Validate the installation&lt;/h3>
-&lt;p>To check if everything is working fine follow the &lt;a href="https://www.konstellation.io/website/website/docs/kre/installation/validate/">Validate&lt;/a> section.&lt;/p></description></item></channel></rss>
+&lt;p>To check if everything is working fine follow the &lt;a href="https://www.konstellation.io/docs/kre/installation/validate/">Validate&lt;/a> section.&lt;/p></description></item></channel></rss>

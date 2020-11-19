@@ -1,4 +1,4 @@
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Konstellation – KRT</title><link>https://www.konstellation.io/website/docs/krt/</link><description>Recent content in KRT on Konstellation</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><atom:link href="https://www.konstellation.io/website/docs/krt/index.xml" rel="self" type="application/rss+xml"/><item><title>Docs: Concepts</title><link>https://www.konstellation.io/website/docs/krt/concepts/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://www.konstellation.io/website/docs/krt/concepts/</guid><description>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Konstellation – KRT</title><link>https://www.konstellation.io/docs/krt/</link><description>Recent content in KRT on Konstellation</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><atom:link href="https://www.konstellation.io/docs/krt/index.xml" rel="self" type="application/rss+xml"/><item><title>Docs: Concepts</title><link>https://www.konstellation.io/docs/krt/concepts/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://www.konstellation.io/docs/krt/concepts/</guid><description>
 &lt;h2 id="what-is-krt">What is KRT?&lt;/h2>
 &lt;p>It stands for &lt;strong>Konstellation Runtime Transport&lt;/strong>. Is the file format used in Konstellation as an easy way to move
 between Development (KDL) to Production (KRE) environments.&lt;/p>
@@ -24,13 +24,13 @@ in &lt;code>.tar.gz&lt;/code> format and renamed to &lt;code>.krt&lt;/code> exte
 a gRPC entrypoint for the Version, a list of nodes that are connected between each other in different workflows.&lt;/p>
 &lt;p>The yaml file connects all these entities together, Entrypoint, Workflow, Nodes and Runners in order to define a Version
 and the way it works.&lt;/p>
-&lt;p>Learn about the fields in the &lt;a href="https://www.konstellation.io/website/website/docs/krt/specs/">KRT YAML specs&lt;/a> and see a working
-&lt;a href="https://www.konstellation.io/website/website/docs/krt/tasks/define_krt_yml/">krt.yml example&lt;/a>&lt;/p>
+&lt;p>Learn about the fields in the &lt;a href="https://www.konstellation.io/docs/krt/specs/">KRT YAML specs&lt;/a> and see a working
+&lt;a href="https://www.konstellation.io/docs/krt/tasks/define_krt_yml/">krt.yml example&lt;/a>&lt;/p>
 &lt;h2 id="entrypoint">Entrypoint&lt;/h2>
 &lt;p>A Version defines its communication with the outside world through its entrypoint. This is a gRPC server
 defined in proto buffer format containing messages and services to interact with workflows inside the Version.&lt;/p>
 &lt;div class="card rounded p-2 td-post-card mb-4 mt-4" style="max-width: 910px">
-&lt;img class="card-img-top" src="https://www.konstellation.io/website/website/docs/krt/concepts/entrypoint_example_hu8701a1e7995c95d39a92b454faad3e38_63313_900x0_resize_q75_catmullrom.jpg" width="900" height="328">
+&lt;img class="card-img-top" src="https://www.konstellation.io/docs/krt/concepts/entrypoint_example_hu8701a1e7995c95d39a92b454faad3e38_63313_900x0_resize_q75_catmullrom.jpg" width="900" height="328">
 &lt;div class="card-body px-0 pt-2 pb-0">
 &lt;p class="card-text">
 Entrypoint example
@@ -43,7 +43,7 @@ Entrypoint example
 Each task is a node of a graph that takes an input message and generates an output for the next node. The last node&amp;rsquo;s
 output is used as response to the incoming message.&lt;/p>
 &lt;div class="card rounded p-2 td-post-card mb-4 mt-4" style="max-width: 910px">
-&lt;img class="card-img-top" src="https://www.konstellation.io/website/website/docs/krt/concepts/basic_workflow_example_hu7a5b5d5cc96d9ada230aeb87ed5b9159_72389_900x0_resize_q75_catmullrom.jpg" width="900" height="261">
+&lt;img class="card-img-top" src="https://www.konstellation.io/docs/krt/concepts/basic_workflow_example_hu7a5b5d5cc96d9ada230aeb87ed5b9159_72389_900x0_resize_q75_catmullrom.jpg" width="900" height="261">
 &lt;div class="card-body px-0 pt-2 pb-0">
 &lt;p class="card-text">
 Example of a basic workflow that makes a prediction using three nodes
@@ -66,11 +66,11 @@ is optional and will be executed only once upon node starting to run. Message ha
 be executed each time the node receives a message.&lt;/p>
 &lt;h2 id="runners">Runners&lt;/h2>
 &lt;p>Runners are base docker images, provided by Konstellation team, that can be used for nodes to run code on different
-programming languages. Each image includes language specific tools to integrate itself as part of a workflow.&lt;/p></description></item><item><title>Docs: KRT YAML specs</title><link>https://www.konstellation.io/website/docs/krt/specs/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://www.konstellation.io/website/docs/krt/specs/</guid><description>
+programming languages. Each image includes language specific tools to integrate itself as part of a workflow.&lt;/p></description></item><item><title>Docs: KRT YAML specs</title><link>https://www.konstellation.io/docs/krt/specs/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://www.konstellation.io/docs/krt/specs/</guid><description>
 &lt;p>A KRT yaml file is a declarative file describing the content of the KRT. It has general description of the Version, a
 GRPC entrypoint for the Runtime Version, nodes that are
 connected between each other to form workflows that will be access through GRPC services defined on the entrypoint.&lt;/p>
-&lt;p>You can see an &lt;a href="https://www.konstellation.io/website/website/docs/krt/tasks/define_krt_yml/#example-file">example &lt;code>krt.yml&lt;/code> file&lt;/a>&lt;/p>
+&lt;p>You can see an &lt;a href="https://www.konstellation.io/docs/krt/tasks/define_krt_yml/#example-file">example &lt;code>krt.yml&lt;/code> file&lt;/a>&lt;/p>
 &lt;h2 id="fields-specs">Fields Specs&lt;/h2>
 &lt;p>Here is a description of each field divided in five main concepts that make a KRT file:&lt;/p>
 &lt;h3 id="metadata">Metadata&lt;/h3>
@@ -126,7 +126,7 @@ each other and with a service defined in the entrypoint proto file.&lt;/p>
 exist on the node list defined above.&lt;/li>
 &lt;/ul>
 &lt;/li>
-&lt;/ul></description></item><item><title>Docs: Tasks</title><link>https://www.konstellation.io/website/docs/krt/tasks/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://www.konstellation.io/website/docs/krt/tasks/</guid><description>
+&lt;/ul></description></item><item><title>Docs: Tasks</title><link>https://www.konstellation.io/docs/krt/tasks/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://www.konstellation.io/docs/krt/tasks/</guid><description>
 &lt;p>All this task will refer to the same example project.&lt;/p>
 &lt;p>This project is divided in two process, first is a prediction process one to make predictions and one to collect metrics.
 This two process are called workflows.&lt;/p>
