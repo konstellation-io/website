@@ -19,6 +19,7 @@ KRE can be installed on top of a Kubernetes cluster using the [Helm](https://hel
 
 ```bash
 helm repo add konstellation-io https://charts.konstellation.io
+helm repo update
 ```
 
 2. Optionally, create a namespace to deploy all KRE components or skip this step using a created one:
@@ -32,6 +33,16 @@ kubectl create namespace kre
 ```bash
 helm upgrade --install kre --namespace kre konstellation-io/kre
 ```
+
+### Install monoruntime mode 
+
+To use KRE in `MONORUNTIME_MODE` replace the command in step 3 with this: 
+
+```bash
+helm upgrade --install kre-monoruntime --namespace kre-monoruntime konstellation-io/kre-monoruntime 
+```
+
+
 
 ## Uninstall the chart
 

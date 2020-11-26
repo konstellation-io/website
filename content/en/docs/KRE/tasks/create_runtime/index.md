@@ -6,6 +6,8 @@ description: >
 weight: 20
 ---
 
+(***NOTE**: This feature is disable if you are running in `MONORUNTIME_MODE`.*)
+
 If you have `manager` role, you will see the "ADD RUNTIME" button in the runtimes screen:
 
 {{< imgproc runtimes_screen Resize "1000x" >}}
