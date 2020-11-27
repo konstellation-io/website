@@ -25,7 +25,7 @@ Engine component is the central component that works as the **operation tool** t
 Engine components are deployed in a specific k8s namespace. The runtimes are deployed in other namespaces.
 {{< /imgproc >}}
 
-Using the admin web app you will able to manage users, permissions and runtimes. You can see the [tasks]({{< relref "docs/KRE/tasks" >}}) if you want more information about what things you can do.
+Using the admin web app you will be able to manage users, permissions and runtimes. You can see the [tasks]({{< relref "docs/KRE/tasks" >}}) if you want more information about what things you can do.
 
 
 ### Runtimes
@@ -35,8 +35,14 @@ Inside a KRE you can create as many runtimes as you need. A runtime is identifie
 Going into greater detail, a runtime is an environment that is **isolated** from all other runtimes and other resources. Inside a runtime we will find the resources associated to your solution versions, a messaging system used to dispatch messages between components, databases to store metrics or generic data, a s3 store and internal components like an API to process incoming messages received from the KRE admin.
 
 {{< imgproc runtime_overview Resize "700x" >}}
-All versions share databases, storage and message system but it is isolated from other runtimes.
+All versions share databases, storage and message system, but are is isolated from other runtimes.
 {{< /imgproc >}}
+
+
+#### Monoruntime
+
+KRE can be installed with `MONORUNTIME_MODE` and it will disable the feature to create new runtimes and assume a single runtime. Every resource will be created in a single Kubernetes namespace.
+
 
 
 ### Versions
