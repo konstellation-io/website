@@ -36,7 +36,7 @@ Engine components are deployed in a specific k8s namespace. The runtimes are dep
 &lt;/p>
 &lt;/div>
 &lt;/div>
-&lt;p>Using the admin web app you will able to manage users, permissions and runtimes. You can see the &lt;a href="https://www.konstellation.io/docs/kre/tasks/">tasks&lt;/a> if you want more information about what things you can do.&lt;/p>
+&lt;p>Using the admin web app you will be able to manage users, permissions and runtimes. You can see the &lt;a href="https://www.konstellation.io/docs/kre/tasks/">tasks&lt;/a> if you want more information about what things you can do.&lt;/p>
 &lt;h3 id="runtimes">Runtimes&lt;/h3>
 &lt;p>Inside a KRE you can create as many runtimes as you need. A runtime is identified by a name and a description and it is where you can upload one or more solutions that we call versions. For example, you can deploy a KRE for the ClientX and create a runtime for each ClientX project. Inside each ClientX project you will upload the versions of your AI solution.&lt;/p>
 &lt;p>Going into greater detail, a runtime is an environment that is &lt;strong>isolated&lt;/strong> from all other runtimes and other resources. Inside a runtime we will find the resources associated to your solution versions, a messaging system used to dispatch messages between components, databases to store metrics or generic data, a s3 store and internal components like an API to process incoming messages received from the KRE admin.&lt;/p>
@@ -44,10 +44,12 @@ Engine components are deployed in a specific k8s namespace. The runtimes are dep
 &lt;img class="card-img-top" src="https://www.konstellation.io/docs/kre/concepts/runtime_overview_hu7a5b5d5cc96d9ada230aeb87ed5b9159_96017_700x0_resize_q75_catmullrom.jpg" width="700" height="522">
 &lt;div class="card-body px-0 pt-2 pb-0">
 &lt;p class="card-text">
-All versions share databases, storage and message system but it is isolated from other runtimes.
+All versions share databases, storage and message system, but are is isolated from other runtimes.
 &lt;/p>
 &lt;/div>
 &lt;/div>
+&lt;h4 id="monoruntime">Monoruntime&lt;/h4>
+&lt;p>KRE can be installed with &lt;code>MONORUNTIME_MODE&lt;/code> and it will disable the feature to create new runtimes and assume a single runtime. Every resource will be created in a single Kubernetes namespace.&lt;/p>
 &lt;h3 id="versions">Versions&lt;/h3>
 &lt;p>A version is a collection of all things needed for your AI solution to work like code, models, assets,&amp;hellip; This is a key concept in KRE because if you make changes at any level, model or code, you then have a new version that must be uploaded. This make versions immutable entities easier to track and debug over time. To upload your versions into a runtime you will need a KRT file. Learn more about how to create a KRT file &lt;a href="https://www.konstellation.io/docs/krt/">here&lt;/a>.&lt;/p>
 &lt;p>The initial state of a version is stopped. A stopped version doesn&amp;rsquo;t consume any resource in the cluster. When you start a version, all needed resources are created but it is not accessible from the outside. You have to publish a version if you want to call it from the outside.&lt;/p>
@@ -70,4 +72,6 @@ Example of a basic workflow
 &lt;/div>
 &lt;/div>
 &lt;p>In KRE, external messages comes from a gRPC client. A special component called Entrypoint (gRPC server) dispatch the messages to an specific workflow and returns the response of the last node to the client. The workflow nodes becomes a PODs in your k8s cluster when the version is started.&lt;/p></description></item><item><title>Docs: Installation</title><link>https://www.konstellation.io/docs/kre/installation/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://www.konstellation.io/docs/kre/installation/</guid><description>
-&lt;p>KRE is ready to be deployed in a Kubernetes cluster or single node. This section contains guidelines for common scenarios for setup, deployment, cluster preparation and Helm values configuration.&lt;/p></description></item><item><title>Docs: Tasks</title><link>https://www.konstellation.io/docs/kre/tasks/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://www.konstellation.io/docs/kre/tasks/</guid><description/></item></channel></rss>
+&lt;p>KRE is ready to be deployed in a Kubernetes cluster or single node. This section contains guidelines for common
+scenarios for setup, deployment, cluster preparation and Helm values configuration.&lt;/p>
+&lt;p>When using it locally, it is a better fit to install it in &lt;code>MONORUNTIME_MODE&lt;/code> to consume less resources.&lt;/p></description></item><item><title>Docs: Tasks</title><link>https://www.konstellation.io/docs/kre/tasks/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://www.konstellation.io/docs/kre/tasks/</guid><description/></item></channel></rss>

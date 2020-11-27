@@ -16,6 +16,10 @@
 &lt;/code>&lt;/pre>&lt;/div>&lt;p>NOTE: the &lt;code>--skip-build&lt;/code> option means that the script won&amp;rsquo;t run a docker build for each component&amp;rsquo;s image. This is the default
 behaviour but is only needed if you are going to develop any KRE component.&lt;/p>
 &lt;p>After a couple of minutes you will have a running Minikube profile with a KRE installed and running. The script will also try an automatic login into the local admin section &lt;code>http://admin.kre.local&lt;/code> (see #validate-the-installation).&lt;/p>
+&lt;h3 id="monoruntime-installation">Monoruntime Installation&lt;/h3>
+&lt;p>It is possible to use KRE within a single Kubernetes namespace. To use this option, run the commmand with &lt;code>--monoruntime&lt;/code> flag as follow.&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">./krectl.sh dev --monoruntime &lt;span style="color:#ce5c00;font-weight:bold">[&lt;/span>--skip-build&lt;span style="color:#ce5c00;font-weight:bold">]&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>NOTE: the &lt;code>--skip-build&lt;/code> flag is also available to use pre-generated images instead of building them locally.&lt;/p>
 &lt;h2 id="edit-your-hosts-file">Edit your hosts file&lt;/h2>
 &lt;p>Get the cluster ip with the command:&lt;/p>
 &lt;div class="highlight">&lt;pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">minikube -p kre-local ip
@@ -39,6 +43,7 @@ behaviour but is only needed if you are going to develop any KRE component.&lt;/
 &lt;li>Add the Konstellation Helm repository:&lt;/li>
 &lt;/ol>
 &lt;div class="highlight">&lt;pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">helm repo add konstellation-io https://charts.konstellation.io
+helm repo update
 &lt;/code>&lt;/pre>&lt;/div>&lt;ol start="2">
 &lt;li>Optionally, create a namespace to deploy all KRE components or skip this step using a created one:&lt;/li>
 &lt;/ol>
@@ -47,6 +52,9 @@ behaviour but is only needed if you are going to develop any KRE component.&lt;/
 &lt;li>Run the following command, providing a name for your KRE release (in this case &lt;code>kre&lt;/code>) and specifying the namespace:&lt;/li>
 &lt;/ol>
 &lt;div class="highlight">&lt;pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">helm upgrade --install kre --namespace kre konstellation-io/kre
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="install-monoruntime-mode">Install monoruntime mode&lt;/h3>
+&lt;p>To use KRE in &lt;code>MONORUNTIME_MODE&lt;/code> replace the command in step 3 with this:&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">helm upgrade --install kre-monoruntime --namespace kre-monoruntime konstellation-io/kre-monoruntime
 &lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="uninstall-the-chart">Uninstall the chart&lt;/h2>
 &lt;p>To uninstall the &lt;code>kre&lt;/code> deployment, use the following command:&lt;/p>
 &lt;div class="highlight">&lt;pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">helm uninstall kre --namespace kre

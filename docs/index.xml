@@ -36,7 +36,7 @@ Engine components are deployed in a specific k8s namespace. The runtimes are dep
 &lt;/p>
 &lt;/div>
 &lt;/div>
-&lt;p>Using the admin web app you will able to manage users, permissions and runtimes. You can see the &lt;a href="https://www.konstellation.io/docs/kre/tasks/">tasks&lt;/a> if you want more information about what things you can do.&lt;/p>
+&lt;p>Using the admin web app you will be able to manage users, permissions and runtimes. You can see the &lt;a href="https://www.konstellation.io/docs/kre/tasks/">tasks&lt;/a> if you want more information about what things you can do.&lt;/p>
 &lt;h3 id="runtimes">Runtimes&lt;/h3>
 &lt;p>Inside a KRE you can create as many runtimes as you need. A runtime is identified by a name and a description and it is where you can upload one or more solutions that we call versions. For example, you can deploy a KRE for the ClientX and create a runtime for each ClientX project. Inside each ClientX project you will upload the versions of your AI solution.&lt;/p>
 &lt;p>Going into greater detail, a runtime is an environment that is &lt;strong>isolated&lt;/strong> from all other runtimes and other resources. Inside a runtime we will find the resources associated to your solution versions, a messaging system used to dispatch messages between components, databases to store metrics or generic data, a s3 store and internal components like an API to process incoming messages received from the KRE admin.&lt;/p>
@@ -44,10 +44,12 @@ Engine components are deployed in a specific k8s namespace. The runtimes are dep
 &lt;img class="card-img-top" src="https://www.konstellation.io/docs/kre/concepts/runtime_overview_hu7a5b5d5cc96d9ada230aeb87ed5b9159_96017_700x0_resize_q75_catmullrom.jpg" width="700" height="522">
 &lt;div class="card-body px-0 pt-2 pb-0">
 &lt;p class="card-text">
-All versions share databases, storage and message system but it is isolated from other runtimes.
+All versions share databases, storage and message system, but are is isolated from other runtimes.
 &lt;/p>
 &lt;/div>
 &lt;/div>
+&lt;h4 id="monoruntime">Monoruntime&lt;/h4>
+&lt;p>KRE can be installed with &lt;code>MONORUNTIME_MODE&lt;/code> and it will disable the feature to create new runtimes and assume a single runtime. Every resource will be created in a single Kubernetes namespace.&lt;/p>
 &lt;h3 id="versions">Versions&lt;/h3>
 &lt;p>A version is a collection of all things needed for your AI solution to work like code, models, assets,&amp;hellip; This is a key concept in KRE because if you make changes at any level, model or code, you then have a new version that must be uploaded. This make versions immutable entities easier to track and debug over time. To upload your versions into a runtime you will need a KRT file. Learn more about how to create a KRT file &lt;a href="https://www.konstellation.io/docs/krt/">here&lt;/a>.&lt;/p>
 &lt;p>The initial state of a version is stopped. A stopped version doesn&amp;rsquo;t consume any resource in the cluster. When you start a version, all needed resources are created but it is not accessible from the outside. You have to publish a version if you want to call it from the outside.&lt;/p>
@@ -209,6 +211,10 @@ the version is uploaded to KRE. Same as with the file variable called &lt;code>H
 &lt;/code>&lt;/pre>&lt;/div>&lt;p>NOTE: the &lt;code>--skip-build&lt;/code> option means that the script won&amp;rsquo;t run a docker build for each component&amp;rsquo;s image. This is the default
 behaviour but is only needed if you are going to develop any KRE component.&lt;/p>
 &lt;p>After a couple of minutes you will have a running Minikube profile with a KRE installed and running. The script will also try an automatic login into the local admin section &lt;code>http://admin.kre.local&lt;/code> (see #validate-the-installation).&lt;/p>
+&lt;h3 id="monoruntime-installation">Monoruntime Installation&lt;/h3>
+&lt;p>It is possible to use KRE within a single Kubernetes namespace. To use this option, run the commmand with &lt;code>--monoruntime&lt;/code> flag as follow.&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">./krectl.sh dev --monoruntime &lt;span style="color:#ce5c00;font-weight:bold">[&lt;/span>--skip-build&lt;span style="color:#ce5c00;font-weight:bold">]&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>NOTE: the &lt;code>--skip-build&lt;/code> flag is also available to use pre-generated images instead of building them locally.&lt;/p>
 &lt;h2 id="edit-your-hosts-file">Edit your hosts file&lt;/h2>
 &lt;p>Get the cluster ip with the command:&lt;/p>
 &lt;div class="highlight">&lt;pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">minikube -p kre-local ip
@@ -340,6 +346,7 @@ message MetricsResponse {
 ... add fields here ...
 }
 &lt;/code>&lt;/pre></description></item><item><title>Docs: Create runtime</title><link>https://www.konstellation.io/docs/kre/tasks/create_runtime/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://www.konstellation.io/docs/kre/tasks/create_runtime/</guid><description>
+&lt;p>(&lt;em>&lt;strong>NOTE&lt;/strong>: This feature is disable if you are running in &lt;code>MONORUNTIME_MODE&lt;/code>.&lt;/em>)&lt;/p>
 &lt;p>If you have &lt;code>manager&lt;/code> role, you will see the &amp;ldquo;ADD RUNTIME&amp;rdquo; button in the runtimes screen:&lt;/p>
 &lt;div class="card rounded p-2 td-post-card mb-4 mt-4" style="max-width: 1010px">
 &lt;img class="card-img-top" src="https://www.konstellation.io/docs/kre/tasks/create_runtime/runtimes_screen_hue4fd0a54479c3496d3bc183a61aaaea8_20361_1000x0_resize_catmullrom_2.png" width="1000" height="490">
@@ -566,6 +573,7 @@ value: /home/kubernetes/bin/nvidia
 &lt;li>Add the Konstellation Helm repository:&lt;/li>
 &lt;/ol>
 &lt;div class="highlight">&lt;pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">helm repo add konstellation-io https://charts.konstellation.io
+helm repo update
 &lt;/code>&lt;/pre>&lt;/div>&lt;ol start="2">
 &lt;li>Optionally, create a namespace to deploy all KRE components or skip this step using a created one:&lt;/li>
 &lt;/ol>
@@ -574,6 +582,9 @@ value: /home/kubernetes/bin/nvidia
 &lt;li>Run the following command, providing a name for your KRE release (in this case &lt;code>kre&lt;/code>) and specifying the namespace:&lt;/li>
 &lt;/ol>
 &lt;div class="highlight">&lt;pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">helm upgrade --install kre --namespace kre konstellation-io/kre
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="install-monoruntime-mode">Install monoruntime mode&lt;/h3>
+&lt;p>To use KRE in &lt;code>MONORUNTIME_MODE&lt;/code> replace the command in step 3 with this:&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">helm upgrade --install kre-monoruntime --namespace kre-monoruntime konstellation-io/kre-monoruntime
 &lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="uninstall-the-chart">Uninstall the chart&lt;/h2>
 &lt;p>To uninstall the &lt;code>kre&lt;/code> deployment, use the following command:&lt;/p>
 &lt;div class="highlight">&lt;pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">helm uninstall kre --namespace kre

@@ -92,6 +92,7 @@ An &lt;code>admin&lt;/code> user can change the user role using the user adminis
 &lt;/tr>
 &lt;/tbody>
 &lt;/table></description></item><item><title>Docs: Create runtime</title><link>https://www.konstellation.io/docs/kre/tasks/create_runtime/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://www.konstellation.io/docs/kre/tasks/create_runtime/</guid><description>
+&lt;p>(&lt;em>&lt;strong>NOTE&lt;/strong>: This feature is disable if you are running in &lt;code>MONORUNTIME_MODE&lt;/code>.&lt;/em>)&lt;/p>
 &lt;p>If you have &lt;code>manager&lt;/code> role, you will see the &amp;ldquo;ADD RUNTIME&amp;rdquo; button in the runtimes screen:&lt;/p>
 &lt;div class="card rounded p-2 td-post-card mb-4 mt-4" style="max-width: 1010px">
 &lt;img class="card-img-top" src="https://www.konstellation.io/docs/kre/tasks/create_runtime/runtimes_screen_hue4fd0a54479c3496d3bc183a61aaaea8_20361_1000x0_resize_catmullrom_2.png" width="1000" height="490">
