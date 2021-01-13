@@ -34,15 +34,6 @@ kubectl create namespace kre
 helm upgrade --install kre --namespace kre konstellation-io/kre
 ```
 
-### Install monoruntime mode 
-
-To use KRE in `MONORUNTIME_MODE` replace the command in step 3 with this: 
-
-```bash
-helm upgrade --install kre-monoruntime --namespace kre-monoruntime konstellation-io/kre-monoruntime 
-```
-
-
 
 ## Uninstall the chart
 

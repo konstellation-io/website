@@ -39,11 +39,6 @@ All versions share databases, storage and message system, but are is isolated fr
 {{< /imgproc >}}
 
 
-#### Monoruntime
-
-KRE can be installed with `MONORUNTIME_MODE` and it will disable the feature to create new runtimes and assume a single runtime. Every resource will be created in a single Kubernetes namespace.
-
-
 
 ### Versions
 

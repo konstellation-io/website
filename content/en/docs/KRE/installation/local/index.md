@@ -44,17 +44,6 @@ behaviour but is only needed if you are going to develop any KRE component.
 After a couple of minutes you will have a running Minikube profile with a KRE installed and running. The script will also try an automatic login into the local admin section `http://admin.kre.local` (see #validate-the-installation). 
 
 
-### Monoruntime Installation
-
-It is possible to use KRE within a single Kubernetes namespace. To use this option, run the commmand with `--monoruntime` flag as follow.
-
-```bash
-./krectl.sh dev --monoruntime [--skip-build] 
-```
-
-NOTE: the `--skip-build` flag is also available to use pre-generated images instead of building them locally.
-
-
 ## Edit your hosts file
 
 Get the cluster ip with the command:
