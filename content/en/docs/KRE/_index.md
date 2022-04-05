@@ -1,7 +1,7 @@
 ---
-title: "KRE"
-linkTitle: "Runtime Engine (KRE)"
+title: "KAI Server"
+linkTitle: "KAI Server"
 weight: 30
 description: >
-  Konstellation Runtime Engine.
+  Konstellation AI Server.
 ---
