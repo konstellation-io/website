@@ -1,7 +1,7 @@
 ---
 title: "KAI Server Architecture"
 linkTitle: "KAI Server Architecture"
-weight: 30
+weight: 20
 description: >
   Components and architecture of a KAI Server
 ---
@@ -30,10 +30,8 @@ This is the database where the Admin API stores all the objects needed to manage
 
 NATs is the event broker that serves as the backbone of communications inside the Server. Nodes in Workflows makes use of NATs to communicate with each other.
 
-### Monitorization
-
 #### InfluxDB
 
-#### Chronograf
 
-## Helm Chart
+
+#### Chronograf

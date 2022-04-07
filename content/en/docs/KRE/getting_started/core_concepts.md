@@ -1,7 +1,7 @@
 ---
 title: "Core concepts"
 linkTitle: "Core concepts"
-weight: 40
+weight: 10
 description: >
   Description of core concepts to understand how KAI Server works
 ---

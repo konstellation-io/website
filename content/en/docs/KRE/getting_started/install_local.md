@@ -1,11 +1,10 @@
 ---
 title: "Run KAI Server"
 linkTitle: "Run KAI Server"
-weight: 40
+weight: 30
 description: >
   Run KAI Server in a local environment
 ---
-
 
 ## Requirements
 
