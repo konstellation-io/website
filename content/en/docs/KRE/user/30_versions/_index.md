@@ -29,7 +29,7 @@ Each version is composed by at least one `entrypoint`, one `node` and one `workf
 
 ### Entrypoint
 
-This is the starting point of the application and is the node that receive requests from external actors and provide responses to them. The entrypoint is created by the `KAI Server` and the users do not have control over it. This is done automatically by the underlying `KAI Server Framework`.
+This is the starting point of the application and is the node that receive requests from external actors and provide responses to them. The entrypoint is created by the `KAI Server` and the users do not have control over it. This is done automatically by the underlying `KAI Server Runner SDK`.
 
 An `entrypoint` has a kubernetes `Service` attached to it, so it can be reached and queried. The `Service` attached to the `Entrypoint` has the following spec:
 
@@ -74,7 +74,7 @@ Where:
 
 ### Node
 
-A node is a process defined and programmed by the user. It can be coded in python or goLang and it uses the `KAI Server Framework`. A user can define one or more nodes inside a version.
+A node is a process defined and programmed by the user. It can be coded in python or goLang and it uses the `KAI Server Runner SDK`. A user can define one or more nodes inside a version.
 
 Every node must receive data and return data. The data received/returned must be specified in a `.proto` file and is defined by the user.
 
@@ -82,7 +82,7 @@ The main components of a node are:
 
 - The data contract defined in `.proto` files. Specifies the input and output of a node.
 - The base image for the node. `KAI Server` provides several flavors for the base image (both in python and goLang).
-- The code that runs on top the base image. The code defines the behaviour and responsibilities of the node. Nodes are coded on top of the `KAI Server Framework`
+- The code that runs on top the base image. The code defines the behaviour and responsibilities of the node. Nodes are coded on top of the `KAI Server Runner SDK`
 
 Nodes are defined in the `krt.yml` manifest with the following structure:
 
@@ -93,7 +93,11 @@ Nodes are defined in the `krt.yml` manifest with the following structure:
   gpu: false # gpu is an optional value, defaults to false.
 ```
 
-You can get more detailed info about nodes in [KRT guide]({{< relref "docs/KRE/user/40_krt" >}}) and in the [KAI Server Framework Guide]({{< relref "docs/KRE/user/50_kais_framework" >}})
+A node is deployed within a `KAI Server Runner Image` that is responsible for executing the code defined for the node. In this way, KAI Server can provide utilities (such as measurements, logs, observability...) that make coding a node focused solely on worrying about business logic.
+
+{{< imgproc version_architecture Resize "800x" />}}
+
+You can get more detailed info about nodes in [KRT guide]({{< relref "docs/KRE/user/40_krt" >}}) and in the [KAI Server Runner SDK Guide]({{< relref "docs/KRE/user/50_kais_runner_sdk" >}})
 
 ### Workflow
 
@@ -142,9 +146,8 @@ To create new versions for the project you need to prepare and upload a `KRT` fi
 
 Starting new versions is the action to start all the components for that version (defined in the `krt.yml` manifest) in the underlying kubernetes cluster. A started version is accesible from within the cluster but not from the outside.
 
-{{< imgproc version_started_diagram Resize "400x" >}}
+{{< imgproc version_started_diagram Resize "400x" />}}
 
-{{< /imgproc >}}
 
 ### Stopping a version
 
@@ -152,10 +155,6 @@ Stopping a version will remove all resources associated to that version from the
 
 ### Publishing a version
 
-Publishing a version will change the `Service` attached to the version's entrypoint to change its name. The `Service` will be renamed to `active-entrypoint` so that the cluster ingress is tied to it. This means that a published version will have its entrypoint linked to a cluster ingress making it reachable from the outside.
+Publishing a version will change the `Service` name attached to the version's entrypoint. The `Service` will be renamed to `active-entrypoint` so that the cluster ingress is linked to it. This means that the published version will have its entrypoint linked to a cluster ingress making it reachable from the outside.
 
 Only one version can be public at a time, and if you try to publish a version while another version is published it will result in a change in the published versions.
-
-
-
-
