@@ -1,7 +1,7 @@
 ---
 title: "KAI Server Architecture"
 linkTitle: "KAI Server Architecture"
-weight: 20
+weight: 10
 description: >
   Components and architecture of a KAI Server
 ---
@@ -9,6 +9,12 @@ description: >
 KAI Server runs inside a kubernetes cluster in a single namespace. All components for the KAI Server are deployed in the same namespace (`kre` by default).
 
 ## Components
+
+{{< figure src="/docs/static/kais_architecture.jpg" width="1000px" >}}
+
+
+The above schema shows the architecture inside KAI Server. Is an scalable and asynchronous architecture designed to seamless deploy process automation projects into production.
+
 
 ### Admin API
 
