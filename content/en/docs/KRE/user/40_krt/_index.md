@@ -139,7 +139,10 @@ A Node is a task inside a workflow. It has two main parts, a runner image, and t
    
 Nodes have a single responsibility consisting on receive an input message, perform a task and return an output message. This is achieved with handler functions defined in source code files specified in the KRT file. 
 
-Once the node is running it will look for two handler functions, one at starting time for initialization, and a second one to process incoming messages, these functions are called init handler and message handler respectively. Init handler is optional and will be executed only once upon node starting to run. Message handler is mandatory and will be executed each time the node receives a message. 
+Once the node is running it will look for two handler functions, one at starting time for initialization, and a second one to process incoming messages, these functions are called init handler and message handler respectively. Init handler is optional and will be executed only once upon node starting to run. Message handler is mandatory and will be executed each time the node receives a message.
+
+- `handlerInit(ctx *kre.HandlerContext)`
+- `handler(ctx *kre.HandlerContext, data *any.Any) (proto.Message, error)`
 
 
 ## Workflows
