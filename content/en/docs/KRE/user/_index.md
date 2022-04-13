@@ -1,7 +1,7 @@
 ---
 title: "User"
 linkTitle: "User documentation"
-weight: 40
+weight: 30
 description: >
   User documentation for Konstellation AI Server.
 ---
