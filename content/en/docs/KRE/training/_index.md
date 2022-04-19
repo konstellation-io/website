@@ -140,9 +140,27 @@ This second protobuf file defines the data contract for the internal nodes. It f
 
 Keep in mind that in order to properly create the `GithubOutput` message, its necessary to import the `GithubInfo` message from the `public_input.proto` file.
 
-# 4. Create each version node
+Nodes are defined isolated from each others in the `src` directory.
 
-As this training is based in creating a Github and Dockerfile descriptor (a tool to get what are the latest versions updated to GitHub and DockerHub of a component.), it will be necessary to create the following nodes:
+1. Create a new empty directory in `src`
+```sh
+mkdir node-name
+```
+2. Initialize the directory as Go project
+```sh
+go mod init node-name
+```
+3. Create a `main.go` as the entrypoint of the code
+```sh
+touch main.go
+```
+4. Define `init` and `handler` functions explained [here]({{< relref "docs/KRE/user/50_kais_runner_sdk" >}})
+
+The code inside a node can be organized in many ways the keep the best clean code practices, but in the root directory
+it should be a main.go file with the `init` and `handler` functions.
+
+As this training is based in creating a Github and DockerHub descriptor (a tool to get what are the latest versions
+updated to GitHub and DockerHub of a component.), it will be necessary to create the following nodes:
 
 - ETL: This node is in charge of processing the data passed in the entrypoint and follows the below structure:
 ```
