@@ -275,14 +275,11 @@ rm  build/${VERSION_DIR} -rf
 echo "Done"
 ```
 
-
-
-
 # 6. Deploy and test the new version
 
-Once the .krt file is created, it can be uploaded to the KRE server.
+Once the .krt file is created, it can be uploaded to KAI Server.
 
-<IMAGE>
+{{< figure src="/docs/static/upload_version.png" width="1000px" >}}
 
 Finally, in order to test the new version, you can use the [run_test.sh]() script as follows:
 
