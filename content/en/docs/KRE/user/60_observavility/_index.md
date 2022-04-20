@@ -19,7 +19,7 @@ Here goes a quick example written in GoLang, this is the way we could log everyt
 
 Info given to the logger in the form of a string will later on be added some metadata, such as the workflow and node from where it comes and the time the log was created.
 
-This is how a log console looks like.
+This is how the log console looks like:
 
 {{< imgproc log_example Resize "1200x" />}}
 
