@@ -16,16 +16,15 @@ In order to start development on this project you will need these tools:
 - **yq**: YAML processor. Make sure you have v4+
 - **hostctl**: Cli tool to manage entries in `/etc/hosts` file
 
-
 ## Local Environment
 
 KAI Server has a tool called `krectl` to handle common actions you will need during development.
 
-All the configuration needed to run KAI Server locally can be found in `.krectl.conf` file. Usually you'd be ok with the default values. Check Minikube's parameters if you need to tweak the resources assigned to it.
+All the configuration needed to run KAI Server locally can be found in the `.krectl.conf` file. Usually, you'll be ok with the default values. Check Minikube's parameters if you need to tweak the resources assigned to it.
 
-Run help to get info for each command:
+Run `help` to get info for each command:
 
-```
+```sh
 $> krectl.sh [command] --help
 
 // Outputs:
@@ -52,11 +51,12 @@ $> krectl.sh [command] --help
 
 To install KRE in your local environment:
 
-```
-$ ./krectl.sh dev
+```sh
+$> ./krectl.sh dev [--hard]
 ```
 
-It will install everything in the namespace specified in your development `.krectl.conf` file.
+This will install everything you need into the namespace specified in your development `.krectl.conf` file.  
+The `Hard` flag will force to start from 0 all installation processes.
 
 ### Login to local environment
 
@@ -66,13 +66,13 @@ First, remember to edit your `/etc/hosts`, see `./krectl.sh dev` output for more
 
 Now you can access the admin UI visiting the login URL that will be opened automatically by executing the following script:
 
-```bash
-$ ./krectl.sh login [--new]
+```sh
+$> ./krectl.sh login [--new]
 ```
 
 You will see an output like this:
 
-```bash
+```sh
 ⏳ Calling Admin API...
 
  Login done. Open your browser at:

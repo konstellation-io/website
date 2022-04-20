@@ -15,18 +15,17 @@ KAI Server has the following core concepts:
 - [Workflows](#workflows)
 - [Nodes](#nodes)
 
-
 ### Engine
 
-Engine component is the central component that works as the **operation tool** to create, manage and monitor all the resources associated with each solution that you would put in production. It includes an admin web app, an API and some other components.
+The Engine component is the central component that works as the **operation tool** to create, manage and monitor all the resources associated with each solution that you would put in production. It includes an admin web app, an API and some other components.
 
 Using the admin web app you will be able to manage users, permissions and runtimes.
 
 ### Projects (a.k.a. Runtimes)
 
-Inside KAI Server you install Projects. A project is identified by a name and a description and you can upload as many different versions for it as you need.
+Inside KAI Server you install Projects. A project is identified by a name and a description, you can upload as many different versions for it as you need.
 
-A project represents a single application, with different versions and all the tools and resources related to it, such as monitorization, audits, users, workflows, data etc.
+A project represents a single application, with different versions and all the tools and resources related to it, such as monitorization, audits, users, workflows, data, etc..
 
 ### Versions
 
@@ -36,11 +35,10 @@ The initial state of a version is stopped. A stopped version doesn't consume any
 
 ### Workflows
 
-A Workflow is a sequence of tasks that processes an incoming message from the external world and returns a response. Each task is a node of a graph that takes an input message and generates an output. You can add as many nodes as you need to your workflow. 
+A Workflow is a sequence of tasks that process an incoming message from the external world and return a response. Each task is envisioned as a node that takes an input message and generates an output. You can add as many nodes as you need to your workflow.
 
-A workflow is composed by an entrypoint and as many nodes as you need to fulfill the workflow. The workflow defines how the nodes are interconected and how the information will flow from one node to another.
+A workflow is composed by an entrypoint and as many nodes as you need to fulfill the desired solution. The workflow defines how the nodes are interconected and how the information will flow from one node to another.
 
 ### Nodes
 
-A node is an isolated process inside a workflow. It can be code in `python` or in `goLang` and they are designed to be scalable and asyncronous. Each node is deployed in a separed pod inside the cluster and is connected to other nodes through an event broker.
-
+A node is an isolated process inside a workflow. They can be coded in `Python` or in `GoLang` and are designed to be scalable and asyncronous. Each node is deployed in a separated pod inside the cluster and they are connected to other nodes through an event broker.
