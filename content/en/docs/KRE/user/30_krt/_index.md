@@ -43,7 +43,7 @@ It is a declarative file describing the content of the KRT. It has general descr
  
 The yaml file connects all these entities together, Entrypoint, Workflow, Nodes and Runners in order to define a Version and the way it works.
 
-Learn about the fields in the [KRT YAML specs]({{< relref "docs/KRE/user/40_krt/specs" >}}). 
+Learn about the fields in the [KRT YAML specs]({{< relref "docs/KRE/user/30_krt/specs" >}}). 
 
 ```yaml
 version: price-estimator-v3

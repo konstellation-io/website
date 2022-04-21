@@ -10,7 +10,7 @@ description: >
 The [Kai Server Training repo](https://github.com/konstellation-io/kai-server-training) is a training exercise designed to introduce new users to the usage and development of KRT projects.  
 You can use the training exercise to build and deploy your first KRT project and also to reverse engineer it and learn how to develop your own projects.
 
-## Description
+## Introduction
 
 This example consists of a workflow called _Descritpor_ that will print information of a given github repository, being this info its last github and dockerhub tag released.  
 The workflow is made up of 3 different nodes, each one in charge of a different process through the pipeline:
@@ -45,10 +45,11 @@ This step-by-step page will guide you creating a new Konstellation version for y
 - 
 -
 -
--
+
+## Step-by-step guide
 
 
-# 1. Create the version structure based on the krt-template
+### 1. Create the version structure based on the krt-template
 
 First of all, start creating an empty project with the following folders and files:
 
@@ -73,7 +74,7 @@ First of all, start creating an empty project with the following folders and fil
     |   internal_nodes.proto  # proto defining Messages that interconnect nodes.
 ```
 
-# 2. Fill the `krt.yml`
+### 2. Fill the `krt.yml`
 
 The KRT file definition can be found in the [KRT](../40_krt/_index.md) page.
 
@@ -118,9 +119,9 @@ The KRT file definition can be found in the [KRT](../40_krt/_index.md) page.
           - dockerhub
 ```
 
-# 3. Fill the protobuf files
+### 3. Fill the protobuf files
 
-## public_input.proto
+#### public_input.proto
 
 This file will be used to define the public nodes data contract and should contain the following info:
 
@@ -130,7 +131,7 @@ This file will be used to define the public nodes data contract and should conta
 - `Response` message: Final response.
 - `Entrypoint` service that enroutes to the first node and returns a `Response` message.
 
-## internal_nodes.proto
+#### internal_nodes.proto
 
 This second protobuf file defines the data contract for the internal nodes. It follows the same approach of the `public_input.proto` file to generate the following resources:
 
@@ -154,7 +155,7 @@ go mod init node-name
 ```sh
 touch main.go
 ```
-4. Define `init` and `handler` functions explained [here]({{< relref "docs/KRE/user/50_kais_runner_sdk" >}})
+4. Define `init` and `handler` functions explained [here]({{< relref "docs/KRE/user/40_kais_runner_sdk" >}})
 
 The code inside a node can be organized in many ways the keep the best clean code practices, but in the root directory
 it should be a main.go file with the `init` and `handler` functions.
@@ -212,7 +213,7 @@ Once the protobuf files are compiled, you can start coding the nodes.
 
 > The full content of the nodes and protobuf files can be found [here](https://github.com/konstellation-io/kai-server-training/tree/docs/descriptor/src)
 
-# 5. Build the .krt file
+### 5. Build the .krt file
 
 In order to upload a new version to the KRE server, its necessary to create a .krt file that contains all the required files. This file can be created with the following script:
 
@@ -275,7 +276,7 @@ rm  build/${VERSION_DIR} -rf
 echo "Done"
 ```
 
-# 6. Deploy and test the new version
+### 6. Deploy and test the new version
 
 Once the .krt file is created, it can be uploaded to KAI Server.
 
