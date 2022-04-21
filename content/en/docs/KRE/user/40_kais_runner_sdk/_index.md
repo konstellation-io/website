@@ -134,15 +134,16 @@ In those cases you can use the following functions:
 
 ### Logger
 
-You can use four log levels that will be shown on Admin UI page for the Version it belongs. The SDK will take care of saving the timestamp and tag each log with metadata to locate the source of the error.
+You can use four log levels that will be shown on the Admin UI page for the Version it belongs. The SDK will take care
+of saving the timestamp and tag each log with metadata to help locate the source of the error.
 These are the available levels and their variants for multiple parameters:
 ```go
     ctx.Logger.
     
-        func Debug(msg string) 
+        func Debug(msg string)
         func Info(msg string)
-        func Warn(msg string) 
-        func Error(msg string) 
+        func Warn(msg string)
+        func Error(msg string)
     
         func Debugf(format string, a ...interface{})
         func Infof(format string, a ...interface{}) 
