@@ -24,21 +24,11 @@ can later use on the handler function. It doesn't return any value.
 ### Python example
 
 ```python
-async def handler(ctx, data):
-    ctx.logger.info("message received")
+import joblib
 
-    # Create a dataframe from input dict
-    df = pd.DataFrame.from_dict(data)
-
-    # Access pre-loaded data from context loaded on init() function 
-    model = ctx.get('model')
-
-    # Run a prediction
-    ctx.logger.info('running prediction')
-    prediction = model.predict(df)
-
-    # Return prediction value as a JSON serializable object
-    return {'price_category': prediction.item()}
+async def init(ctx):
+  ctx.logger.info("[worker init]")
+  ctx.set('model', joblib.load(ctx.path('models/model.joblib')))
 ```
 
 ### Golang example
