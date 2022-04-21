@@ -9,10 +9,10 @@ description: >
 
 ## The Runner SDK
 
-KAI Server supports Python and Golang providing an SDK that allow users to receive,
+KAI Server supports Python and Golang providing an SDK that allows users to receive,
 process and send messages between nodes.
 
-Thanks to the SDK, users can implement `handler` and `init` functions, which are explained below.
+Thanks to the SDK, users can implement `handler` and `init` functions.
 
 ## Init function
 
