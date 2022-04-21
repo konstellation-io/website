@@ -97,7 +97,7 @@ A node is deployed within a `KAI Server Runner Image` that is responsible for ex
 
 {{< imgproc version_architecture Resize "800x" />}}
 
-You can get more detailed info about nodes in [KRT guide]({{< relref "docs/KRE/user/40_krt" >}}) and in the [KAI Server Runner SDK Guide]({{< relref "docs/KRE/user/50_kais_runner_sdk" >}})
+You can get more detailed info about nodes in [KRT guide]({{< relref "docs/KRE/user/30_krt" >}}) and in the [KAI Server Runner SDK Guide]({{< relref "docs/KRE/user/40_kais_runner_sdk" >}})
 
 ### Workflow
 
@@ -140,7 +140,7 @@ In the version details screen we can manage the project version. There are four 
 
 ### Creating new versions
 
-To create new versions for the project you need to prepare and upload a `KRT` file. You can find detailed info about `KRT` files in the [KRT guide]({{< relref "docs/KRE/user/40_krt" >}}).
+To create new versions for the project you need to prepare and upload a `KRT` file. You can find detailed info about `KRT` files in the [KRT guide]({{< relref "docs/KRE/user/30_krt" >}}).
 
 ### Starting a version
 
