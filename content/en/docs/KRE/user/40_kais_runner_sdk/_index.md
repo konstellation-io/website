@@ -107,10 +107,7 @@ func handler(ctx *kre.HandlerContext, data *any.Any) (proto.Message, error) {
 
 ## Context
 
-The context object provides a set of utilities as database client or logger that can be used
-for different purposes on `init` or `handler` functions.
-
-The context provides all these functionalities:
+The context object provides a set of utilities that can be used  for different purposes on `init` and `handler` functions:
 
 - **In-Memory Storage**: A volatile variable storage that will be available from start until the version is stopped or restarted. You can set a value with a key name and retrieve it later by that key.
 
