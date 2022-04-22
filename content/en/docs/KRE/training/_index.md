@@ -41,22 +41,15 @@ file placed inside this directory as well.
 
 {{< imgproc kai-training-result-example Resize "1000x" />}}
 
-
-This step-by-step page will guide you creating a new Konstellation version for your project that will help you to
-understand the all the main KRE concepts and allow you testing all the KRE functions.
-
-## Prerequisites
-
-- 
--
--
-
 ## Step-by-step guide
+
+This step-by-step guide will aid you create a new Konstellation version for your project, which will help you understand
+all the main KRE concepts and test KRE functions.
 
 
 ### 1. Create the version structure based on the krt-template
 
-First of all, start creating an empty project with the following folders and files:
+Start by creating an empty project with the following folders and files:
 
 
  ``` bash
@@ -81,8 +74,7 @@ First of all, start creating an empty project with the following folders and fil
 
 ### 2. Fill the `krt.yml`
 
-The KRT file definition can be found in the [KRT](../40_krt/_index.md) page.
-
+More information can be found [here]({{< relref "docs/KRE/user/30_krt" >}}).
 
 ```yaml
     version: descriptor-v2
@@ -128,7 +120,7 @@ The KRT file definition can be found in the [KRT](../40_krt/_index.md) page.
 
 #### public_input.proto
 
-This file will be used to define the public nodes data contract and should contain the following info:
+This file will be used to define the public nodes' data contract and should contain the following info:
 
 - `Request` message: main entrypoint entrance.
 - `GithubInfo` message: Data structure for the Github info.
@@ -146,7 +138,7 @@ This second protobuf file defines the data contract for the internal nodes. It f
 
 Keep in mind that in order to properly create the `GithubOutput` message, its necessary to import the `GithubInfo` message from the `public_input.proto` file.
 
-Nodes are defined isolated from each others in the `src` directory.
+Nodes are defined isolated from each other in the `src` directory.
 
 1. Create a new empty directory in `src`
 ```sh
@@ -162,13 +154,13 @@ touch main.go
 ```
 4. Define `init` and `handler` functions explained [here]({{< relref "docs/KRE/user/40_kais_runner_sdk" >}})
 
-The code inside a node can be organized in many ways the keep the best clean code practices, but in the root directory
-it should be a main.go file with the `init` and `handler` functions.
+The code inside a node can be organized in many ways to keep the best clean code practices, but the root directory
+should have a main.go file with the `init` and `handler` functions.
 
-As this training is based in creating a Github and DockerHub descriptor (a tool to get what are the latest versions
-updated to GitHub and DockerHub of a component.), it will be necessary to create the following nodes:
+As this training exercise is based in creating a GitHub and DockerHub descriptor (a tool to get what are the latest
+versions updated to GitHub and DockerHub of a component.), it will be necessary to create the following nodes:
 
-- ETL: This node is in charge of processing the data passed in the entrypoint and follows the below structure:
+- ETL: This node is in charge of processing the data passed in the entrypoint and follows the structure below:
 ```
   etl     
   └───go.mod
@@ -176,7 +168,7 @@ updated to GitHub and DockerHub of a component.), it will be necessary to create
   └───main.go
   └───public_input.pb.go
 ```
-- Github: This node is in charge of checking the latest version of the selected Konstellation repository.
+- GitHub: This node is in charge of checking the latest version of the selected Konstellation repository.
 
 ```
   github     
