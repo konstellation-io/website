@@ -36,8 +36,8 @@ NATs is the event broker that serves as the backbone of communications inside th
 
 #### InfluxDB
 
-KRE also stores metrics, for this it is used an InfluxDB instance. All nodes can write any kind of metric anytime desired.
+KRE also stores metrics, for this it is used an InfluxDB instance. All nodes can write any kind of metric anytime desired. By giving a measurement name, tags, fields and data as usage of Influx requires.
 
 #### Chronograf
 
-Chronograf will then display stored metrics in any form given. For this _Flux_ queries are used within a given display format. These will display cells inside dashboards giving metrics meaning and context, valuable for analytics and supervision of our projects.
+Chronograf will display stored metrics in any form desired. For this _Flux_ queries are used within a given display format. These will display cells inside dashboards giving metrics meaning and context, valuable for analytics and supervision of projects.
