@@ -83,7 +83,7 @@ The main components of a node are:
 
 - The data contract defined in `.proto` files. Specifies the input and output of a node.
 - The base image for the node. `KAI Server` provides several flavors for the base image (both in Python and GoLang).
-- The code that runs on top the base image. The code defines the behaviour and responsibilities of the node. Nodes are coded on top of the `KAI Server Runner SDK`
+- The code that runs on top the base image. The code defines the behavior and responsibilities of the node. Nodes are coded on top of the `KAI Server Runner SDK`
 
 Nodes are defined in the `krt.yml` manifest with the following structure:
 
@@ -140,9 +140,9 @@ When we perform any of these actions the version status changes. The following t
 | Status      | Description                                                                                                                                  |
 | ----------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
 | `stopping`  | Indicates the version is deleting their associated k8s resources.                                                                            |
-| `stopped`   | The version is created in KAI Server but it is not consuming any resource because all components are not created at k8s.                            |
+| `stopped`   | The version is created in KAI Server, but it is not consuming any resource because all components are not created at k8s.                            |
 | `starting`  | The version is creating their associated k8s resources.                                                                                      |
-| `started`   | The version entrypoint and nodes are running and ready in k8s. The entrypoint service is not not associated with the ingress so you cannot call it from outside. |
+| `started`   | The version entrypoint and nodes are running and ready in k8s. The entrypoint service is not associated with the ingress, so you cannot call it from outside. |
 | `published` | The entrypoint is accessible from outside and the incoming requests are routed to it.                                                         |
 
 ### Creating new versions
