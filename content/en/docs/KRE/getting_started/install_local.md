@@ -29,7 +29,7 @@ $> krectl.sh [command] --help
 
 // Outputs:
 
-  krectl.sh -- a tool to manage KRE environment during development.
+  krectl.sh -- a tool to manage KAI Server environment during development.
 
   syntax: krectl.sh <command> [options]
 
@@ -49,7 +49,7 @@ $> krectl.sh [command] --help
 
 ### Install local environment
 
-To install KRE in your local environment:
+To install KAI Server in your local environment:
 
 ```sh
 $> ./krectl.sh dev [--hard]

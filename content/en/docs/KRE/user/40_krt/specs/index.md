@@ -31,7 +31,7 @@ This section describes how to access the Runtime Version.
 ### Configuration
 
 This section describes all variables and files that are environment related and would be configured
-once the Runtime Version is uploaded to a KRE instance. This includes sensible data that should not
+once the Runtime Version is uploaded to a KAI Server instance. This includes sensible data that should not
 be included on the KRT file, for example passwords.
 
 All configuration defined here is mandatory, the Runtime Version won't run if any of them is undefined.

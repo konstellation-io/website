@@ -36,7 +36,7 @@ NATs is the event broker that serves as the backbone of communications inside th
 
 #### InfluxDB
 
-KRE also stores metrics, for this it is used an InfluxDB instance. All nodes can write any kind of metric anytime desired. By giving a measurement name, tags, fields and data as usage of Influx requires.
+KAI Server also stores metrics, for this it is used an InfluxDB instance. All nodes can write any kind of metric anytime desired. By giving a measurement name, tags, fields and data as usage of Influx requires.
 
 #### Chronograf
 

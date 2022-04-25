@@ -44,7 +44,7 @@ file placed inside this directory as well.
 ## Step-by-step guide
 
 This step-by-step guide will aid you create a new Konstellation version for your project, which will help you understand
-all the main KRE concepts and test KRE functions.
+all the main KAI Server concepts and test KAI Server functions.
 
 
 ### 1. Create the version structure based on the krt-template
@@ -213,7 +213,7 @@ Once the protobuf files are compiled, you can start coding the nodes.
 
 ### 5. Build the .krt file
 
-In order to upload a new version to the KRE server, it's necessary to create a .krt file that contains all the required
+In order to upload a new version to the KAI Server server, it's necessary to create a .krt file that contains all the required
 files. This file can be created with the following script:
 
 ```bash
