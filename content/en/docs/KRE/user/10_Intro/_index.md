@@ -18,7 +18,7 @@ Projects will then be run by a runner inside KAI Server, it looks something like
 
 {{< imgproc versions_architecture Resize "1000x" />}}
 
-NATS acts as an event broker, when building our projects we must provide the order and id of the nodes
+NATS acts as an event broker, when building our projects we must provide the order and ID of the nodes
 compromising our workflow, so remember, nodes will be executed in a specific order.  
 Also, an entrypoint must be declared, so we can call our project. So, for the moment being we can
 make some calls to a started version from within the cluster.  

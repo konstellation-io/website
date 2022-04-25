@@ -13,7 +13,7 @@ Runtimes also have a log console embedded within them, you can access the consol
 Runners will log some useful information as well as handling and reporting errors.  
 You can pass down any info you desire to the logger from your nodes. To do so, you have to use the `simplelogger` that comes inside the handler's context as an attribute called `Logger`.
 
-Here goes a quick example written in GoLang, this is the way we could log everytime our handler is invoked.
+Here goes a quick example written in GoLang, this is the way we could log every time our handler is invoked.
 
 `ctx.Logger.Info("[handler invoked]")`
 
@@ -46,7 +46,7 @@ Metrics need context and form, otherwise they would just be rows of data with no
 Dashboards contain several cells, each will display filtered data by a given visualization format, giving data context and form. A dashboard can contain several cells of different size, thematic and purpose.
 
 Cells are calculated in two steps. The first one being a *Flux* query that retrieves, filters and processes data, then this data will be given a display format, whether it be a table, a line graph or a counter.  
-It is important to choose for the cell a proper and fitting visual format so data can have a proper meaning. Data can also be grouped by tags so several contexts can be displayed in the same cell.
+It is important to choose for the cell a proper and fitting visual format, so data can have a proper meaning. Data can also be grouped by tags, so several contexts can be displayed in the same cell.
 
 Here is an example of a complete dashboard from our training repo.
 
