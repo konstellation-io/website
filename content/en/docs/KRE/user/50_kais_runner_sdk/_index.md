@@ -21,7 +21,7 @@ can later use on the handler function. It doesn't return any value.
 
 `init` function is mainly used to initialize data, for example, loading models.
 
-### Python example
+### Python init example
 
 ```python
 import joblib
@@ -31,20 +31,20 @@ async def init(ctx):
   ctx.set('model', joblib.load(ctx.path('models/model.joblib')))
 ```
 
-### Golang example
+### Golang init example
 
 ```golang
 package main
 
 import (
-	"github.com/konstellation-io/kre/runners/kre-go"
+ "github.com/konstellation-io/kre/runners/kre-go"
 )
 
 func handlerInit(ctx *kre.HandlerContext) {
-	ctx.Logger.Info("init handler")
+ ctx.Logger.Info("init handler")
     
     // Saves a value in the context internal registry
-	ctx.Set("greeting", "Hello")   
+ ctx.Set("greeting", "Hello")   
 }
 ```
 
@@ -53,7 +53,7 @@ func handlerInit(ctx *kre.HandlerContext) {
 This function receives a context, which is the same from the `init` function, and the data, which is the message
 sent from the previous node or from the client. The context object is shared between different executions.
 
-### Python example
+### Python handler example
 
 ```python
 import pandas as pd
@@ -75,25 +75,25 @@ async def handler(ctx, data):
     return {'price_category': prediction.item()}
 ```
 
-### Golang example
+### Golang handler example
 
 ```golang
 func handler(ctx *kre.HandlerContext, data *any.Any) (proto.Message, error) {
-	ctx.Logger.Info("[handler invoked]")
+ ctx.Logger.Info("[handler invoked]")
 
-	req := &Request{}
-	res := &EtlOutput{}
+ req := &Request{}
+ res := &EtlOutput{}
 
-	err := anypb.UnmarshalTo(data, req, proto2.UnmarshalOptions{})
-	if err != nil {
-		return res, fmt.Errorf("invalid request: %s", err)
-	}
+ err := anypb.UnmarshalTo(data, req, proto2.UnmarshalOptions{})
+ if err != nil {
+  return res, fmt.Errorf("invalid request: %s", err)
+ }
 
-	res.Component = req.Component
+ res.Component = req.Component
 
-	saveEtlMetrics(ctx, req.Component)
+ saveEtlMetrics(ctx, req.Component)
 
-	return res, nil
+ return res, nil
 }
 ```
 
@@ -137,6 +137,7 @@ In those cases you can use the following functions:
 You can use four log levels that will be shown on the Admin UI page for the Version it belongs. The SDK will take care
 of saving the timestamp and tag each log with metadata to help locate the source of the error.
 These are the available levels and their variants for multiple parameters:
+
 ```go
     ctx.Logger.
     
