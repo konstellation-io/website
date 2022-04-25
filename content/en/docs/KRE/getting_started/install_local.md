@@ -56,7 +56,7 @@ $> ./krectl.sh dev [--hard]
 ```
 
 This will install everything you need into the namespace specified in your development `.krectl.conf` file.  
-The `Hard` flag will force to start from 0 all installation processes.
+The `Hard` flag will force starting from 0 all installation processes.
 
 ### Login to local environment
 

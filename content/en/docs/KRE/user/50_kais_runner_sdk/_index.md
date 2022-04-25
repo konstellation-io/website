@@ -64,7 +64,7 @@ async def handler(ctx, data):
     # Create a dataframe from input dict
     df = pd.DataFrame.from_dict(data)
 
-    # Access pre-loaded data from context loaded on init() function 
+    # Access preloaded data from context loaded on init() function 
     model = ctx.get('model')
 
     # Run a prediction

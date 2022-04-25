@@ -27,7 +27,7 @@ Each version is composed by at least one `entrypoint`, one `node` and one `workf
 
 ### Entrypoint
 
-This is the starting point of the application and it is the node that receives requests from external actors and provides responses to them.
+This is the starting point of the application, and it is the node that receives requests from external actors and provides responses to them.
 The entrypoint is created by the `KAI Server` and the users do not have control over it.
 This is done automatically by the underlying `KAI Server Runner SDK`.
 
@@ -67,14 +67,14 @@ status:
 
 Where:
 
-- `#VERSION_NAME#`: The version name defined in the `krt.yml` manifest (eg. `v1`).
+- `#VERSION_NAME#`: The version name defined in the `krt.yml` manifest (e.g. `v1`).
 - `#SERVICE_NAME#`: Depending on the version status:
   - `Started` version: is the same as the `#VERSION_NAME#`
   - `Published` version: `active-entrypoint`
 
 ### Node
 
-A node is a process defined and programmed by the user. It can be coded in python or goLang and it uses the `KAI Server Runner SDK`.
+A node is a process defined and programmed by the user. It can be coded in Python or GoLang, and it uses the `KAI Server Runner SDK`.
 A user can define one or more nodes inside a version.
 
 Every node must receive data and return data. The data received/returned must be specified in a `.proto` file and is defined by the user.
@@ -82,7 +82,7 @@ Every node must receive data and return data. The data received/returned must be
 The main components of a node are:
 
 - The data contract defined in `.proto` files. Specifies the input and output of a node.
-- The base image for the node. `KAI Server` provides several flavors for the base image (both in python and goLang).
+- The base image for the node. `KAI Server` provides several flavors for the base image (both in Python and GoLang).
 - The code that runs on top the base image. The code defines the behaviour and responsibilities of the node. Nodes are coded on top of the `KAI Server Runner SDK`
 
 Nodes are defined in the `krt.yml` manifest with the following structure:
@@ -151,7 +151,7 @@ To create new versions for the project you need to prepare and upload a `KRT` fi
 
 ### Starting a version
 
-Starting new versions is the action to start all the components for that version (defined in the `krt.yml` manifest) in the underlying kubernetes cluster. A started version is accesible from within the cluster but not from the outside.
+Starting new versions is the action to start all the components for that version (defined in the `krt.yml` manifest) in the underlying kubernetes cluster. A started version is accessible from within the cluster but not from the outside.
 
 {{< imgproc version_started_diagram Resize "400x" />}}
 

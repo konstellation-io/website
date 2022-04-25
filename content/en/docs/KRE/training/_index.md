@@ -123,20 +123,20 @@ More information can be found [here]({{< relref "docs/KRE/user/40_krt" >}}).
 This file will be used to define the public nodes' data contract and should contain the following info:
 
 - `Request` message: main entrypoint entrance.
-- `GithubInfo` message: Data structure for the Github info.
+- `GithubInfo` message: Data structure for the GitHub info.
 - `DockerhubInfo` message: Data structure for the Dockerhub info.
 - `Response` message: Final response.
-- `Entrypoint` service that enroutes to the first node and returns a `Response` message.
+- `Entrypoint` service that routes to the first node and returns a `Response` message.
 
 #### internal_nodes.proto
 
 This second protobuf file defines the data contract for the internal nodes. It follows the same approach of the `public_input.proto` file to generate the following resources:
 
 - `EtlOutput` message: Output of the ETL node.
-- `GithubOutput` message: Output of the Github node. 
+- `GithubOutput` message: Output of the GitHub node. 
 
 
-Keep in mind that in order to properly create the `GithubOutput` message, its necessary to import the `GithubInfo` message from the `public_input.proto` file.
+Keep in mind that in order to properly create the `GithubOutput` message, it's necessary to import the `GithubInfo` message from the `public_input.proto` file.
 
 Nodes are defined isolated from each other in the `src` directory.
 
@@ -155,7 +155,7 @@ touch main.go
 4. Define `init` and `handler` functions explained [here]({{< relref "docs/KRE/user/50_kais_runner_sdk" >}})
 
 The code inside a node can be organized in many ways to keep the best clean code practices, but the root directory
-should have a main.go file with the `init` and `handler` functions.
+should have a `main.go` file with the `init` and `handler` functions.
 
 As this training exercise is based in creating a GitHub and DockerHub descriptor (a tool to get what are the latest
 versions updated to GitHub and DockerHub of a component.), it will be necessary to create the following nodes:
@@ -213,7 +213,7 @@ Once the protobuf files are compiled, you can start coding the nodes.
 
 ### 5. Build the .krt file
 
-In order to upload a new version to the KAI Server server, it's necessary to create a .krt file that contains all the required
+In order to upload a new version to the KAI Server, it's necessary to create a .krt file that contains all the required
 files. This file can be created with the following script:
 
 ```bash

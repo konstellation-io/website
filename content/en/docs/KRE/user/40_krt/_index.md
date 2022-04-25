@@ -162,7 +162,7 @@ Once a Version is started, all nodes from all workflows are created as a POD in 
 ## Runners
 
 Runners are base docker images, provided by Konstellation, that are used for nodes to run code on different
-programming languages. Each image includes a specific framework tha provides utilities to the users and is responsible of all the piping that occurs inside a node.
+programming languages. Each image includes a specific framework tha provides utilities to the users and is responsible for all the piping that occurs inside a node.
 
 ## Structure of a KRT
 
