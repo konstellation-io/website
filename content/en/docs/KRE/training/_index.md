@@ -30,7 +30,7 @@ You can find information about building and deployment within the repo's `readme
 ## How to use
 
 Once deployed the generated KRT file, you can open an entrypoint to your local pod. However, to easy up usage, we've
-placed some helping scripts inside a folder called `scritps`, you can find information about usage within the `readme`
+placed some helping scripts inside a folder called `scripts`, you can find information about usage within the `readme`
 file placed inside this directory as well.
 
 ## Descriptor example
@@ -137,6 +137,9 @@ This second protobuf file defines the data contract for the internal nodes. It f
 
 
 Keep in mind that in order to properly create the `GithubOutput` message, it's necessary to import the `GithubInfo` message from the `public_input.proto` file.
+
+
+### 4. Develop the nodes
 
 Nodes are defined isolated from each other in the `src` directory.
 

@@ -35,7 +35,7 @@ The initial state of a version is stopped. A stopped version doesn't consume any
 
 ### Workflows
 
-A Workflow is a sequence of tasks that process an incoming message from the external world and return a response. Each task is envisioned as a node that takes an input message and generates an output. You can add as many nodes as you need to your workflow.
+A Workflow is a sequence of tasks that process an incoming message from the external world and return a response. Each task is designed as a node that takes an input message and generates an output. You can add as many nodes as you need to your workflow.
 
 A workflow is composed by an entrypoint and as many nodes as you need to fulfill the desired solution. The workflow defines how the nodes are interconnected and how the information will flow from one node to another.
 
