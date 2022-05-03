@@ -457,4 +457,25 @@ It is important to choose for the cell a proper and fitting visual format, so da
 &lt;p>Here is an example of a complete dashboard from our training repo.&lt;/p>
 &lt;div class="card rounded p-2 td-post-card mb-4 mt-4" style="max-width: 1210px">
 &lt;img class="card-img-top" src="https://www.konstellation.io/docs/kre/user/60_observavility/chronograf_dashboard_example_hu50d52fab257badc7e52070538e1cfee4_170372_1200x0_resize_catmullrom_2.png" width="1200" height="613">
-&lt;/div></description></item></channel></rss>
+&lt;/div></description></item><item><title>Docs: Features</title><link>https://www.konstellation.io/docs/kre/user/70_features/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://www.konstellation.io/docs/kre/user/70_features/</guid><description>
+&lt;h2 id="early-reply">Early Reply&lt;/h2>
+&lt;p>Early reply allows asynchronous calling to an endpoint. So now instead of waiting for the whole
+execution of the workflow to finish users can reply directly to the endpoint from anywhere within
+the workflow.&lt;/p>
+&lt;p>The endpoint will receive an early reply message and close connection to the GRPC client, the workflow
+will continue execution in the background.&lt;/p>
+&lt;div class="card rounded p-2 td-post-card mb-4 mt-4" style="max-width: 1010px">
+&lt;img class="card-img-top" src="https://www.konstellation.io/docs/kre/user/70_features/early_reply_example_hua05946c879ecc891714f59a622a5f88d_43864_1000x0_resize_catmullrom_2.png" width="1000" height="627">
+&lt;/div>
+&lt;p>This can be done from any node by calling the function &lt;code>Reply&lt;/code> provided in the &lt;code>ctx&lt;/code> structure.
+It is needed a proto compliant message to be returned from the &lt;code>Reply&lt;/code> function, the message can even be empty.&lt;/p>
+&lt;p>Here is an example in Go:&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-go" data-lang="go">&lt;span style="color:#204a87;font-weight:bold">func&lt;/span> &lt;span style="color:#000">handler&lt;/span>&lt;span style="color:#000;font-weight:bold">(&lt;/span>&lt;span style="color:#000">ctx&lt;/span> &lt;span style="color:#ce5c00;font-weight:bold">*&lt;/span>&lt;span style="color:#000">kre&lt;/span>&lt;span style="color:#000;font-weight:bold">.&lt;/span>&lt;span style="color:#000">HandlerContext&lt;/span>&lt;span style="color:#000;font-weight:bold">,&lt;/span> &lt;span style="color:#000">data&lt;/span> &lt;span style="color:#ce5c00;font-weight:bold">*&lt;/span>&lt;span style="color:#000">any&lt;/span>&lt;span style="color:#000;font-weight:bold">.&lt;/span>&lt;span style="color:#000">Any&lt;/span>&lt;span style="color:#000;font-weight:bold">)&lt;/span> &lt;span style="color:#000;font-weight:bold">(&lt;/span>&lt;span style="color:#000">proto&lt;/span>&lt;span style="color:#000;font-weight:bold">.&lt;/span>&lt;span style="color:#000">Message&lt;/span>&lt;span style="color:#000;font-weight:bold">,&lt;/span> &lt;span style="color:#204a87;font-weight:bold">error&lt;/span>&lt;span style="color:#000;font-weight:bold">)&lt;/span> &lt;span style="color:#000;font-weight:bold">{&lt;/span>
+&lt;span style="color:#000">ctx&lt;/span>&lt;span style="color:#000;font-weight:bold">.&lt;/span>&lt;span style="color:#000">Logger&lt;/span>&lt;span style="color:#000;font-weight:bold">.&lt;/span>&lt;span style="color:#000">Info&lt;/span>&lt;span style="color:#000;font-weight:bold">(&lt;/span>&lt;span style="color:#4e9a06">&amp;#34;[handler invoked]&amp;#34;&lt;/span>&lt;span style="color:#000;font-weight:bold">)&lt;/span>
+&lt;span style="color:#000">req&lt;/span> &lt;span style="color:#ce5c00;font-weight:bold">:=&lt;/span> &lt;span style="color:#ce5c00;font-weight:bold">&amp;amp;&lt;/span>&lt;span style="color:#000">Request&lt;/span>&lt;span style="color:#000;font-weight:bold">{}&lt;/span>
+&lt;span style="color:#000">res&lt;/span> &lt;span style="color:#ce5c00;font-weight:bold">:=&lt;/span> &lt;span style="color:#ce5c00;font-weight:bold">&amp;amp;&lt;/span>&lt;span style="color:#000">EtlOutput&lt;/span>&lt;span style="color:#000;font-weight:bold">{}&lt;/span>
+&lt;span style="color:#000">ctx&lt;/span>&lt;span style="color:#000;font-weight:bold">.&lt;/span>&lt;span style="color:#000">Reply&lt;/span>&lt;span style="color:#000;font-weight:bold">(&lt;/span>&lt;span style="color:#000">res&lt;/span>&lt;span style="color:#000;font-weight:bold">)&lt;/span>
+&lt;span style="color:#ce5c00;font-weight:bold">...&lt;/span>
+&lt;span style="color:#204a87;font-weight:bold">return&lt;/span> &lt;span style="color:#000">res&lt;/span>&lt;span style="color:#000;font-weight:bold">,&lt;/span> &lt;span style="color:#204a87;font-weight:bold">nil&lt;/span>
+&lt;span style="color:#000;font-weight:bold">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div></description></item></channel></rss>
