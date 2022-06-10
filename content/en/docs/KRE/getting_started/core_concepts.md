@@ -21,15 +21,15 @@ The Engine component is the central component that works as the **operation tool
 
 Using the admin web app you will be able to manage users, permissions and runtimes.
 
-### Projects (a.k.a. Runtimes)
+### Runtimes
 
-Inside KAI Server you install Projects. A project is identified by a name and a description, you can upload as many versions for it as you need.
+Inside KAI Server you create runtimes. A runtime is identified by an ID and a name, you can upload as many versions for it as you need.
 
 A project represents a single application, with different versions and all the tools and resources related to it, such as monitoring, audits, users, workflows, data, etc.
 
 ### Versions
 
-A version is a collection of all things needed for your solution to work, like code for each node, models, assets... This is a key concept in KAI Server because if you make changes at any level, model or code, you then have a new version that must be uploaded and deployed. This make versions immutable entities easier to track and debug over time. To upload your versions into a project you will need a KRT file.
+A version is a collection of all things needed for your solution to work, like code for each node, models, assets... This is a key concept in KAI Server because if you make changes at any level, model or code, you then have a new version that must be uploaded and deployed. This make versions immutable entities easier to track and debug over time. To upload your versions into a runtime you will need a KRT file.
 
 The initial state of a version is stopped. A stopped version doesn't consume any resource in the cluster. When you start a version, all needed resources are created, but it is not accessible from the outside. You have to publish a version if you want to call it from the outside.
 
