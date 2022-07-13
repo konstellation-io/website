@@ -10,8 +10,8 @@ description: >
 
 Runtimes also have a log console embedded within them, you can access the console by clicking the `>_` icon in the top right corner of your desired workflow.
 
-Runners will log some useful information as well as handling and reporting errors.  
-You can pass down any info you desire to the logger from your nodes. To do so, you have to use the `simplelogger` that comes inside the handler's context as an attribute called `Logger`.
+Runners will log some useful information as well as handling and reporting errors.
+Custom logs can be added from the nodes using the `logger` included in the [context]({{< relref "docs/KRE/user/50_kais_runner_sdk/#context" >}}) object.
 
 Here goes a quick example written in GoLang, this is the way we could log every time our handler is invoked.
 
