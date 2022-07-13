@@ -31,12 +31,15 @@ If you are not familiar with *InfluxDB* and *Flux* queries, we recommend that yo
 
 ### InfluxDB
 
-KAI Server containerizes and deploys an InfluxDB image responsible for the handling and usage of metrics.  
-This DB is accessed by the nodes through a client, this client is passed down to the nodes inside the handler's context, one of the handler's calling arguments.
+KAI Server containerizes and deploys an InfluxDB image responsible for the handling and usage of metrics. Each runtime
+has its own database, which can be updated with new metrics by the nodes through the 
+[context]({{< relref "docs/KRE/user/50_kais_runner_sdk/#context" >}}) object.
 
 ### Chronograf
 
-A Chronograf image will also be containerized and deployed by KAI Server. Chronograf will consume data from the influxDB through *Flux* queries then display it in dashboards.
+A Chronograf image will also be containerized and deployed by KAI Server. Chronograf will consume data from the InfluxDB
+through *Flux* queries and then display it in dashboards. To create this queries, it's important to remember that each runtime
+has its own databases whose name is the runtime ID.
 
 Several dashboards can be contained within Chronograf, one for each project for example.
 
