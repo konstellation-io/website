@@ -8,17 +8,53 @@ description: >
 
 ## Early Reply
 
-Early reply allows asynchronous calling to an endpoint. So now instead of waiting for the whole
-execution of the workflow to finish users can reply directly to the endpoint from anywhere within
-the workflow.
+Early reply allows asynchronous calling to an endpoint. So now instead of waiting for the whole execution of the workflow to finish, users can reply directly to the endpoint from anywhere within the workflow.
 
-The endpoint will receive an early reply message and close connection to the GRPC client, the workflow
-will continue execution in the background.
+The endpoint will receive an early reply message and close connection to the GRPC client, the workflow will continue execution in the background.
 
 {{< imgproc early_reply_example Resize "1000x" />}}
 
-This can be done from any node by calling the function `Reply` provided in the `ctx` structure.
-It is needed a proto compliant message to be returned from the `Reply` function, the message can even be empty.
+This can be done from any node by calling the function `EarlyReply` provided in the `ctx` structure.
+The reply message must be a proto message compliant with the response expected by the entrypoint, the message can also be empty.
+
+Caution is advised when using this function as users need to remember that the entrypoint can only
+be answered once.
+
+Here is an example in Go:
+
+```go
+func handler(ctx *kre.HandlerContext, data *any.Any) (proto.Message, error) {
+ ctx.Logger.Info("[handler invoked]")
+
+ req := &Request{}
+ finalRes := &proto.Response{}
+
+ ctx.EarlyReply(finalRes)
+
+ res := &EtlOutput{}
+
+ ...
+
+ return res, nil
+
+}
+```
+
+## Early Exit
+
+The early exit feature allows users to end workflow execution when desired.
+
+By calling the function `SetEarlyExit` provided in the `ctx` structure, we are
+instructing the node to reply directly to the entrypoint instead of its following
+workflow node, _only for this execution_.
+
+{{< imgproc early_exit_example Resize "1000x" />}}
+
+Thus, the workflow execution will be stopped without needing to throw exceptions or temper with
+the workflow execution as the following nodes will not be called.
+
+Caution is advised when using this function as users need to remember that the entrypoint can only
+be answered once.
 
 Here is an example in Go:
 
@@ -29,7 +65,15 @@ func handler(ctx *kre.HandlerContext, data *any.Any) (proto.Message, error) {
  req := &Request{}
  res := &EtlOutput{}
 
- ctx.Reply(res)
+ ...
+
+ if conditionExample {
+   ctx.SetEarlyExit()
+   finalRes := &proto.Response{
+    Msg: "Request couldn't be processed"
+   }
+   return finalRes, nil
+ }
 
  ...
 
