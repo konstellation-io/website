@@ -18,8 +18,18 @@ But what happens when we want to call a version from outside the cluster? We mus
 &lt;/div>
 &lt;p>A published version will expose an entrypoint through GRPC and an ingress, it will be hosted in an
 IP address. So external users can make use of this endpoint to send requests.&lt;br>
-Only one version can be published at a time in a KAI Server cluster.&lt;/p></description></item><item><title>Docs: Projects</title><link>https://www.konstellation.io/docs/kre/user/20_projects/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://www.konstellation.io/docs/kre/user/20_projects/</guid><description>
-&lt;h2 id="creating-new-project">Creating New Project&lt;/h2></description></item><item><title>Docs: Versions</title><link>https://www.konstellation.io/docs/kre/user/30_versions/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://www.konstellation.io/docs/kre/user/30_versions/</guid><description>
+Only one version can be published at a time in a KAI Server cluster.&lt;/p></description></item><item><title>Docs: Runtimes</title><link>https://www.konstellation.io/docs/kre/user/20_runtimes/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://www.konstellation.io/docs/kre/user/20_runtimes/</guid><description>
+&lt;h2 id="creating-a-new-runtime">Creating A New Runtime&lt;/h2>
+&lt;p>Runtimes can be created in the KAI Server&amp;rsquo;s main page. An ID, name, and a description must be provided. The ID and name
+must be unique.&lt;/p>
+&lt;div class="card rounded p-2 td-post-card mb-4 mt-4" style="max-width: 810px">
+&lt;img class="card-img-top" src="https://www.konstellation.io/docs/kre/user/20_runtimes/runtimes_huee80c1370186584ed17c629bc76ca877_28490_800x0_resize_catmullrom_2.png" width="800" height="526">
+&lt;div class="card-body px-0 pt-2 pb-0">
+&lt;p class="card-text">
+Runtimes list with the "add runtime" option.
+&lt;/p>
+&lt;/div>
+&lt;/div></description></item><item><title>Docs: Versions</title><link>https://www.konstellation.io/docs/kre/user/30_versions/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://www.konstellation.io/docs/kre/user/30_versions/</guid><description>
 &lt;ul>
 &lt;li>&lt;a href="#version-components">Version Components&lt;/a>
 &lt;ul>
@@ -174,7 +184,8 @@ When we perform any of these actions the version status changes. The following t
 &lt;/tbody>
 &lt;/table>
 &lt;h3 id="creating-new-versions">Creating new versions&lt;/h3>
-&lt;p>To create new versions for the project you need to prepare and upload a &lt;code>KRT&lt;/code> file. You can find detailed info about &lt;code>KRT&lt;/code> files in the &lt;a href="https://www.konstellation.io/docs/kre/user/40_krt/">KRT guide&lt;/a>.&lt;/p>
+&lt;p>To create new versions for the project you need to prepare and upload a &lt;code>KRT&lt;/code> file. You can find detailed info about &lt;code>KRT&lt;/code> files in the &lt;a href="https://www.konstellation.io/docs/kre/user/40_krt/">KRT guide&lt;/a>.
+The version name should be unique in the runtime.&lt;/p>
 &lt;h3 id="starting-a-version">Starting a version&lt;/h3>
 &lt;p>Starting new versions is the action to start all the components for that version (defined in the &lt;code>krt.yml&lt;/code> manifest) in the underlying kubernetes cluster. A started version is accessible from within the cluster but not from the outside.&lt;/p>
 &lt;div class="card rounded p-2 td-post-card mb-4 mt-4" style="max-width: 410px">
@@ -408,13 +419,15 @@ sent from the previous node or from the client. The context object is shared bet
 &lt;/li>
 &lt;/ul>
 &lt;h3 id="database">Database&lt;/h3>
-&lt;p>During any part of your workflows you may need to persist data or recover previously saved data from a DB.&lt;br>
-In those cases you can use the following functions:&lt;/p>
+&lt;p>During any part of your workflows you may need to persist data or recover previously saved data from a database.
+In those cases you can use the following functions of the context&amp;rsquo;s DB attribute:&lt;/p>
 &lt;div class="highlight">&lt;pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-golang" data-lang="golang"> &lt;span style="color:#204a87;font-weight:bold">func&lt;/span> &lt;span style="color:#000">Find&lt;/span>&lt;span style="color:#000;font-weight:bold">(&lt;/span>&lt;span style="color:#000">colName&lt;/span> &lt;span style="color:#204a87;font-weight:bold">string&lt;/span>&lt;span style="color:#000;font-weight:bold">,&lt;/span> &lt;span style="color:#000">query&lt;/span> &lt;span style="color:#000">QueryData&lt;/span>&lt;span style="color:#000;font-weight:bold">,&lt;/span> &lt;span style="color:#000">res&lt;/span> &lt;span style="color:#204a87;font-weight:bold">interface&lt;/span>&lt;span style="color:#000;font-weight:bold">{})&lt;/span> &lt;span style="color:#204a87;font-weight:bold">error&lt;/span>
 &lt;span style="color:#204a87;font-weight:bold">func&lt;/span> &lt;span style="color:#000">Save&lt;/span>&lt;span style="color:#000;font-weight:bold">(&lt;/span>&lt;span style="color:#000">colName&lt;/span> &lt;span style="color:#204a87;font-weight:bold">string&lt;/span>&lt;span style="color:#000;font-weight:bold">,&lt;/span> &lt;span style="color:#000">data&lt;/span> &lt;span style="color:#204a87;font-weight:bold">interface&lt;/span>&lt;span style="color:#000;font-weight:bold">{})&lt;/span> &lt;span style="color:#204a87;font-weight:bold">error&lt;/span>
 &lt;span style="color:#8f5902;font-style:italic">// QueryData is the following type:
 &lt;/span>&lt;span style="color:#8f5902;font-style:italic">&lt;/span> &lt;span style="color:#204a87;font-weight:bold">type&lt;/span> &lt;span style="color:#000">QueryData&lt;/span> &lt;span style="color:#204a87;font-weight:bold">map&lt;/span>&lt;span style="color:#000;font-weight:bold">[&lt;/span>&lt;span style="color:#204a87;font-weight:bold">string&lt;/span>&lt;span style="color:#000;font-weight:bold">]&lt;/span>&lt;span style="color:#204a87;font-weight:bold">interface&lt;/span>&lt;span style="color:#000;font-weight:bold">{}&lt;/span>
-&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="logger">Logger&lt;/h3>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>This functions will store on query data on a MongoDB database, so the data inserted should have a BSON compatible structure.
+Each runtime has its respective database whose name is &lt;code>&amp;lt;runtime-id&amp;gt;-data&lt;/code>.&lt;/p>
+&lt;h3 id="logger">Logger&lt;/h3>
 &lt;p>You can use four log levels that will be shown on the Admin UI page for the Version it belongs. The SDK will take care
 of saving the timestamp and tag each log with metadata to help locate the source of the error.
 These are the available levels and their variants for multiple parameters:&lt;/p>
@@ -428,11 +441,16 @@ These are the available levels and their variants for multiple parameters:&lt;/p
 &lt;span style="color:#204a87;font-weight:bold">func&lt;/span> &lt;span style="color:#000">Warnf&lt;/span>&lt;span style="color:#000;font-weight:bold">(&lt;/span>&lt;span style="color:#000">format&lt;/span> &lt;span style="color:#204a87;font-weight:bold">string&lt;/span>&lt;span style="color:#000;font-weight:bold">,&lt;/span> &lt;span style="color:#000">a&lt;/span> &lt;span style="color:#ce5c00;font-weight:bold">...&lt;/span>&lt;span style="color:#204a87;font-weight:bold">interface&lt;/span>&lt;span style="color:#000;font-weight:bold">{})&lt;/span>
 &lt;span style="color:#204a87;font-weight:bold">func&lt;/span> &lt;span style="color:#000">Errorf&lt;/span>&lt;span style="color:#000;font-weight:bold">(&lt;/span>&lt;span style="color:#000">format&lt;/span> &lt;span style="color:#204a87;font-weight:bold">string&lt;/span>&lt;span style="color:#000;font-weight:bold">,&lt;/span> &lt;span style="color:#000">a&lt;/span> &lt;span style="color:#ce5c00;font-weight:bold">...&lt;/span>&lt;span style="color:#204a87;font-weight:bold">interface&lt;/span>&lt;span style="color:#000;font-weight:bold">{})&lt;/span>
 &lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="measurements">Measurements&lt;/h3>
-&lt;h3 id="predictions">Predictions&lt;/h3></description></item><item><title>Docs: Observability</title><link>https://www.konstellation.io/docs/kre/user/60_observavility/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://www.konstellation.io/docs/kre/user/60_observavility/</guid><description>
+&lt;h3 id="predictions">Predictions&lt;/h3>
+&lt;p>To help to analyze and visualize the reliability of a model, prediction&amp;rsquo;s data could de stored through the &lt;code>save&lt;/code> function
+of the Prediction attribute of the context. This function receives a timestamp, the predicted value as string, and the
+real value as string. This data is stored in a MongoDB database named &lt;code>&amp;lt;runtime-id&amp;gt;-data&lt;/code>.&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-go" data-lang="go"> &lt;span style="color:#000">ctx&lt;/span>&lt;span style="color:#000;font-weight:bold">.&lt;/span>&lt;span style="color:#000">Prediction&lt;/span>&lt;span style="color:#000;font-weight:bold">.&lt;/span>&lt;span style="color:#000">Save&lt;/span>&lt;span style="color:#000;font-weight:bold">(&lt;/span>&lt;span style="color:#000">time&lt;/span>&lt;span style="color:#000;font-weight:bold">.&lt;/span>&lt;span style="color:#000">Now&lt;/span>&lt;span style="color:#000;font-weight:bold">(),&lt;/span> &lt;span style="color:#4e9a06">&amp;#34;test-predicted-value&amp;#34;&lt;/span>&lt;span style="color:#000;font-weight:bold">,&lt;/span> &lt;span style="color:#4e9a06">&amp;#34;test-true-value&amp;#34;&lt;/span>&lt;span style="color:#000;font-weight:bold">)&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>Docs: Observability</title><link>https://www.konstellation.io/docs/kre/user/60_observavility/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://www.konstellation.io/docs/kre/user/60_observavility/</guid><description>
 &lt;h2 id="logs">Logs&lt;/h2>
 &lt;p>Runtimes also have a log console embedded within them, you can access the console by clicking the &lt;code>&amp;gt;_&lt;/code> icon in the top right corner of your desired workflow.&lt;/p>
-&lt;p>Runners will log some useful information as well as handling and reporting errors.&lt;br>
-You can pass down any info you desire to the logger from your nodes. To do so, you have to use the &lt;code>simplelogger&lt;/code> that comes inside the handler&amp;rsquo;s context as an attribute called &lt;code>Logger&lt;/code>.&lt;/p>
+&lt;p>Runners will log some useful information as well as handling and reporting errors.
+Custom logs can be added from the nodes using the &lt;code>logger&lt;/code> included in the &lt;a href="https://www.konstellation.io/docs/kre/user/50_kais_runner_sdk/#context">context&lt;/a> object.&lt;/p>
 &lt;p>Here goes a quick example written in GoLang, this is the way we could log every time our handler is invoked.&lt;/p>
 &lt;p>&lt;code>ctx.Logger.Info(&amp;quot;[handler invoked]&amp;quot;)&lt;/code>&lt;/p>
 &lt;p>Info given to the logger in the form of a string will later on be added some metadata, such as the workflow and node from where it comes and the time the log was created.&lt;/p>
@@ -444,10 +462,13 @@ You can pass down any info you desire to the logger from your nodes. To do so, y
 &lt;p>Metrics generated by nodes are saved through an &lt;em>InfluxDB&lt;/em> client then displayed by a &lt;em>Chronograf&lt;/em> instance.&lt;/p>
 &lt;p>If you are not familiar with &lt;em>InfluxDB&lt;/em> and &lt;em>Flux&lt;/em> queries, we recommend that you refer to our training documentation uploaded in our Google Drive regarding the usage and good practices of &lt;em>InfluxDB&lt;/em>.&lt;/p>
 &lt;h3 id="influxdb">InfluxDB&lt;/h3>
-&lt;p>KAI Server containerizes and deploys an InfluxDB image responsible for the handling and usage of metrics.&lt;br>
-This DB is accessed by the nodes through a client, this client is passed down to the nodes inside the handler&amp;rsquo;s context, one of the handler&amp;rsquo;s calling arguments.&lt;/p>
+&lt;p>KAI Server containerizes and deploys an InfluxDB image responsible for the handling and usage of metrics. Each runtime
+has its own database, which can be updated with new metrics by the nodes through the
+&lt;a href="https://www.konstellation.io/docs/kre/user/50_kais_runner_sdk/#context">context&lt;/a> object.&lt;/p>
 &lt;h3 id="chronograf">Chronograf&lt;/h3>
-&lt;p>A Chronograf image will also be containerized and deployed by KAI Server. Chronograf will consume data from the influxDB through &lt;em>Flux&lt;/em> queries then display it in dashboards.&lt;/p>
+&lt;p>A Chronograf image will also be containerized and deployed by KAI Server. Chronograf will consume data from the InfluxDB
+through &lt;em>Flux&lt;/em> queries and then display it in dashboards. To create this queries, it&amp;rsquo;s important to remember that each runtime
+has its own databases whose name is the runtime ID.&lt;/p>
 &lt;p>Several dashboards can be contained within Chronograf, one for each project for example.&lt;/p>
 &lt;h4 id="dashboards">Dashboards&lt;/h4>
 &lt;p>Metrics need context and form, otherwise they would just be rows of data with no meaning.

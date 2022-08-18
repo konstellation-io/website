@@ -10,11 +10,11 @@
 &lt;h3 id="engine">Engine&lt;/h3>
 &lt;p>The Engine component is the central component that works as the &lt;strong>operation tool&lt;/strong> to create, manage and monitor all the resources associated with each solution that you would put in production. It includes an admin web app, an API and some other components.&lt;/p>
 &lt;p>Using the admin web app you will be able to manage users, permissions and runtimes.&lt;/p>
-&lt;h3 id="projects-aka-runtimes">Projects (a.k.a. Runtimes)&lt;/h3>
-&lt;p>Inside KAI Server you install Projects. A project is identified by a name and a description, you can upload as many versions for it as you need.&lt;/p>
+&lt;h3 id="runtimes">Runtimes&lt;/h3>
+&lt;p>Inside KAI Server you create runtimes. A runtime is identified by an ID and a name, you can upload as many versions for it as you need.&lt;/p>
 &lt;p>A project represents a single application, with different versions and all the tools and resources related to it, such as monitoring, audits, users, workflows, data, etc.&lt;/p>
 &lt;h3 id="versions">Versions&lt;/h3>
-&lt;p>A version is a collection of all things needed for your solution to work, like code for each node, models, assets&amp;hellip; This is a key concept in KAI Server because if you make changes at any level, model or code, you then have a new version that must be uploaded and deployed. This make versions immutable entities easier to track and debug over time. To upload your versions into a project you will need a KRT file.&lt;/p>
+&lt;p>A version is a collection of all things needed for your solution to work, like code for each node, models, assets&amp;hellip; This is a key concept in KAI Server because if you make changes at any level, model or code, you then have a new version that must be uploaded and deployed. This make versions immutable entities easier to track and debug over time. To upload your versions into a runtime you will need a KRT file.&lt;/p>
 &lt;p>The initial state of a version is stopped. A stopped version doesn&amp;rsquo;t consume any resource in the cluster. When you start a version, all needed resources are created, but it is not accessible from the outside. You have to publish a version if you want to call it from the outside.&lt;/p>
 &lt;h3 id="workflows">Workflows&lt;/h3>
 &lt;p>A Workflow is a sequence of tasks that process an incoming message from the external world and return a response. Each task is designed as a node that takes an input message and generates an output. You can add as many nodes as you need to your workflow.&lt;/p>
