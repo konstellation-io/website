@@ -17,26 +17,26 @@ The endpoint will receive an early reply message and close connection to the GRP
 This can be done from any node by calling the function `EarlyReply` provided in the `ctx` structure.
 The reply message must be a proto message compliant with the response expected by the entrypoint, the message can also be empty.
 
-Caution is advised when using this function as users need to remember that the entrypoint can only
-be answered once.
+Remember that the entrypoint can only be answered once. So if this function is called several times,
+subsequent replies will be discarded by the runner as a fail-safe procedure.
 
-Here is an example in Go:
+Here is an example in Go:  
+(This example displays usage within the multi-response feature approach)
 
 ```go
-func handler(ctx *kre.HandlerContext, data *any.Any) (proto.Message, error) {
- ctx.Logger.Info("[handler invoked]")
+func handler(ctx *kre.HandlerContext, data *any.Any) error {
+  ctx.Logger.Info("[handler invoked]")
 
- req := &Request{}
- finalRes := &proto.Response{}
+  req := &Request{}
+  finalRes := &proto.Response{}
 
- ctx.EarlyReply(finalRes)
+  ctx.EarlyReply(finalRes)
 
- res := &EtlOutput{}
+  res := &EtlOutput{}
 
- ...
+  ...
 
- return res, nil
-
+  return ctx.SendOutput(res)
 }
 ```
 
@@ -53,31 +53,31 @@ workflow node, _only for this execution_.
 Thus, the workflow execution will be stopped without needing to throw exceptions or temper with
 the workflow execution as the following nodes will not be called.
 
-Caution is advised when using this function as users need to remember that the entrypoint can only
-be answered once.
+Remember that the entrypoint can only be answered once. So if this several replies are sent,
+subsequent replies will be discarded by the runner as a fail-safe procedure.
 
-Here is an example in Go:
+Here is an example in Go:  
+(This example displays usage within the multi-response feature approach)
 
 ```go
-func handler(ctx *kre.HandlerContext, data *any.Any) (proto.Message, error) {
- ctx.Logger.Info("[handler invoked]")
+func handler(ctx *kre.HandlerContext, data *any.Any) error {
+  ctx.Logger.Info("[handler invoked]")
 
- req := &Request{}
- res := &EtlOutput{}
+  req := &Request{}
+  res := &EtlOutput{}
 
- ...
+  ...
 
- if conditionExample {
+  if conditionExample {
    ctx.SetEarlyExit()
    finalRes := &proto.Response{
     Msg: "Request couldn't be processed"
    }
-   return finalRes, nil
- }
+   return ctx.SendOutput(finalRes)
+  }
 
- ...
+  ...
 
- return res, nil
-
+  return ctx.SendOutput(res)
 }
 ```
