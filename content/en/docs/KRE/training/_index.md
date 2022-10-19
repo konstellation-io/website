@@ -7,15 +7,11 @@ description: >
 ---
 
 
-The [Kai Server Training repo](https://github.com/konstellation-io/kai-server-training) is a training exercise designed 
-to introduce new users to the usage and development of KRT projects. You can use the training exercise to build and
-deploy your first KRT project and also to reverse engineer it and learn how to develop your own projects.
+The [Kai Server Training repo](https://github.com/konstellation-io/kai-server-training) is a training exercise designed to introduce new users to the usage and development of KRT projects. You can use the training exercise to build and deploy your first KRT project and also to reverse engineer it and learn how to develop your own projects.
 
 ## Introduction
 
-This example consists of a workflow called _Descriptor_ that will print information of a given GitHub repository, being
-this info its last GitHub and Dockerhub tag released. The workflow is made up of 3 different nodes, each one in charge 
-of a different process through the pipeline:
+This example consists of a workflow called _Descriptor_ that will print information of a given GitHub repository, being this info its last GitHub and Dockerhub tag released. The workflow is made up of 3 different nodes, each one in charge of a different process through the pipeline:
 
 - **ETL**: This node will accept incoming requests and prepare a new info struct to be filled.
 - **GitHub**: This node will search for the GitHub information of the repo then fill the info struct with it if found.
@@ -46,11 +42,9 @@ file placed inside this directory as well.
 This step-by-step guide will aid you create a new Konstellation version for your project, which will help you understand
 all the main KAI Server concepts and test KAI Server functions.
 
-
 ### 1. Create the version structure based on the krt-template
 
 Start by creating an empty project with the following folders and files:
-
 
  ``` bash
     project
@@ -133,28 +127,32 @@ This file will be used to define the public nodes' data contract and should cont
 This second protobuf file defines the data contract for the internal nodes. It follows the same approach of the `public_input.proto` file to generate the following resources:
 
 - `EtlOutput` message: Output of the ETL node.
-- `GithubOutput` message: Output of the GitHub node. 
-
+- `GithubOutput` message: Output of the GitHub node.
 
 Keep in mind that in order to properly create the `GithubOutput` message, it's necessary to import the `GithubInfo` message from the `public_input.proto` file.
-
 
 ### 4. Develop the nodes
 
 Nodes are defined isolated from each other in the `src` directory.
 
 1. Create a new empty directory in `src`
+
 ```sh
 mkdir node-name
 ```
+
 2. Initialize the directory as Go project
+
 ```sh
 go mod init node-name
 ```
+
 3. Create a `main.go` as the entrypoint of the code
+
 ```sh
 touch main.go
 ```
+
 4. Define `init` and `handler` functions explained [here]({{< relref "docs/KRE/user/50_kais_runner_sdk" >}})
 
 The code inside a node can be organized in many ways to keep the best clean code practices, but the root directory
@@ -164,16 +162,18 @@ As this training exercise is based in creating a GitHub and DockerHub descriptor
 versions updated to GitHub and DockerHub of a component.), it will be necessary to create the following nodes:
 
 - ETL: This node is in charge of processing the data passed in the entrypoint and follows the structure below:
-```
+
+```sh
   etl     
   └───go.mod
   └───go.sum
   └───main.go
   └───public_input.pb.go
 ```
+
 - GitHub: This node is in charge of checking the latest version of the selected Konstellation repository.
 
-```
+```sh
   github     
   └───dockerhubservice
   |   └───mocks_service.go
@@ -187,7 +187,7 @@ versions updated to GitHub and DockerHub of a component.), it will be necessary 
 
 - Dockerhub: This node is in charge of checking the latest image uploaded to the selected Dockerhub repository.
 
-```
+```sh
   dockerhub     
   └───dockerhubservice
   |   └───mocks_service.go
@@ -202,7 +202,7 @@ versions updated to GitHub and DockerHub of a component.), it will be necessary 
 After creating the nodes folders, the next step is to compile the protobuf files and generate the `public_input.proto`
 file inside each node folder, using the following command:
 
-```
+```sh
   protoc -I=./descriptor \
   --go_out=descriptor/src/etl \
   --go_out=descriptor/src/github \
@@ -284,7 +284,7 @@ Once the .krt file is created, it can be uploaded to KAI Server.
 
 {{< figure src="/docs/static/upload_version.png" width="1000px" >}}
 
-Finally, in order to test the new version, you can use the [run_test.sh]() script as follows:
+Finally, in order to test the new version, you can use the `run_test.sh` script as follows:
 
 ```bash
 run_test.sh <NAMESPACE> <VERSION_NAME> <WORKFLOW> <NUM_MSGS> <REQUESTED_COMPONENT>
@@ -292,7 +292,6 @@ run_test.sh <NAMESPACE> <VERSION_NAME> <WORKFLOW> <NUM_MSGS> <REQUESTED_COMPONEN
 
 **Example**: For our namespace `kre` and a krt version `descriptor-v1`, you can try out these commands:
 
-  
 ```bash
 ./scripts/run_test.sh kre descriptor-v1 GoDescriptor 1 konstellation-io/kre
 ./scripts/run_test.sh kre descriptor-v1 GoDescriptor 1 konstellation-io/kdl-server
