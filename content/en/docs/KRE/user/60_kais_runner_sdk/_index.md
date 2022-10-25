@@ -50,10 +50,11 @@ func handlerInit(ctx *kre.HandlerContext) {
 
 ## Handler function
 
-This function receives a context, which is the same from the `init` function, and the data, which is the message
-sent from the previous node or from the client. The context object is shared between different executions.
+This function receives a context, the same as the `init` function does, and the data, which is the incoming payload to process sent from this node's subscription. The context object is shared between different executions.
 
-### Python handler example
+`Handler` functions are used to process data, users can implement their service logic here.
+
+### Python handler example for runner V2
 
 ```python
 import pandas as pd
@@ -75,7 +76,7 @@ async def handler(ctx, data):
     return {'price_category': prediction.item()}
 ```
 
-### Golang handler example
+### Golang handler example for runner V2
 
 ```golang
 func handler(ctx *kre.HandlerContext, data *any.Any) (proto.Message, error) {
@@ -97,6 +98,49 @@ func handler(ctx *kre.HandlerContext, data *any.Any) (proto.Message, error) {
 }
 ```
 
+## How to provide node functions to kre
+
+Once the `init` and `handler` functions have been declared and implemented, they have to be served in a certain way, so runners recognize them.
+
+### For runners V2
+
+#### Python V2
+
+Just by having two functions named __init__ and __handler__. Python runners interpret what source code is given.
+
+#### Golang V2
+
+Golang nodes use the Golang runners as a library. To load them up, inside the `main` function in the `main.go` file the runner must be run passing down the functions that serve as `init` and `handler`.
+
+```go
+func main() {
+  kre.Start(handlerInit, handler)
+}
+```
+
+### For runners V3
+
+Users for this runner version can decide which function implemented by the node will act as the `handler` depending on the source of the incoming payload.
+
+#### Python V3
+
+The function named _default_handler_ will act as the default handler. Custom handlers will be declared inside a dictionary named _custom_handlers_, the dictionary will have as key the source node name and as value the function to execute.
+
+#### Golang V3
+
+To load default and custom handlers, the have to used in the function `Start` from the runner's library as their arguments. The first argument will be the _init_ function, the second the _default handler_ and the third a map of key the source node's name and value the function to execute.
+
+```go
+func main() {
+  handlers := map[string]kre.Handler{
+    "entrypoint": entrypointHandler,
+    "nodeA": nodeAHandler,
+  }
+
+  kre.Start(handlerInit, defaultHandler, handlers)
+}
+```
+
 ## Secrets & Environment
 
 ## Config
@@ -109,15 +153,15 @@ func handler(ctx *kre.HandlerContext, data *any.Any) (proto.Message, error) {
 
 The context object provides a set of utilities that can be used  for different purposes on `init` and `handler` functions:
 
-- **In-Memory Storage**: A volatile variable storage that will be available from start until the version is stopped or restarted. You can set a value with a key name and retrieve it later by that key.
+- __In-Memory Storage__: A volatile variable storage that will be available from start until the version is stopped or restarted. You can set a value with a key name and retrieve it later by that key.
 
-- **Logging**: Functions to register any message or error with different log levels: `debug, info, warning, error`.
+- __Logging__: Functions to register any message or error with different log levels: `debug, info, warning, error`.
 
-- **Data Persistence**: A way to persist and/or retrieve data from a DB.
+- __Data Persistence__: A way to persist and/or retrieve data from a DB.
 
-- **Measurements**: An easy way to save any amount of arbitrary measurements you need to use later on an Influx graph.
+- __Measurements__: An easy way to save any amount of arbitrary measurements you need to use later on an Influx graph.
 
-- **Metrics**: Allows you to save predicted and real data in order to feed the pre-generated charts on the "Metrics" menu for each version.
+- __Metrics__: Allows you to save predicted and real data in order to feed the pre-generated charts on the "Metrics" menu for each version.
 
 ### Database
 
