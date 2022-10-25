@@ -153,7 +153,7 @@ go mod init node-name
 touch main.go
 ```
 
-4. Define `init` and `handler` functions explained [here]({{< relref "docs/KRE/user/50_kais_runner_sdk" >}})
+4. Define `init` and `handler` functions explained [here]({{< relref "docs/KRE/user/60_kais_runner_sdk" >}})
 
 The code inside a node can be organized in many ways to keep the best clean code practices, but the root directory
 should have a `main.go` file with the `init` and `handler` functions.

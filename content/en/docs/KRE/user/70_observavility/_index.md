@@ -1,7 +1,7 @@
 ---
 title: "Observability"
 linkTitle: "Observability"
-weight: 60
+weight: 70
 description: >
   Add observability and monitoring to projects
 ---

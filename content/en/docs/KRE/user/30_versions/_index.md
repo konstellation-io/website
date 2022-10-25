@@ -100,7 +100,7 @@ In this way, KAI Server can provide utilities (such as measurements, logs, obser
 {{< imgproc version_architecture Resize "800x" />}}
 
 You can get more detailed info about nodes in [KRT guide]({{< relref "docs/KRE/user/40_krt" >}})
-and in the [KAI Server Runner SDK Guide]({{< relref "docs/KRE/user/50_kais_runner_sdk" >}})
+and in the [KAI Server Runner SDK Guide]({{< relref "docs/KRE/user/60_kais_runner_sdk" >}})
 
 ### Workflow
 

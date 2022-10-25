@@ -7,7 +7,7 @@ weight: 20
 
 A KRT yaml file is a declarative file describing the content of the KRT.
 It has general description of the Version, a GRPC entrypoint for the Runtime Version and
-nodes that are connected between each other to form workflows that will be access through GRPC services defined on the entrypoint.  
+nodes that are connected between each other to form workflows that will be accessed through GRPC services defined on the entrypoint.  
 
 ## Fields Specs
 

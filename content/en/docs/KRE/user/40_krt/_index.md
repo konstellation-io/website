@@ -7,6 +7,7 @@ description: >
 ---
 
 - [What is a KRT?](#what-is-a-krt)
+- [Diagram of an architecture defined by a KRT](#diagram-of-an-architecture-defined-by-a-krt)
 - [Entities](#entities)
 - [KRT YAML File](#krt-yaml-file)
 - [Entrypoint](#entrypoint)
@@ -15,7 +16,7 @@ description: >
 - [Runners](#runners)
 - [Structure of a KRT](#structure-of-a-krt)
 
-## What is KRT?
+## What is a KRT?
 
 It stands for **Konstellation Runtime Transport**. Is the file format used in Konstellation as an easy way to move between Development (KAI Lab) to Production (KAI Server) environments.
 
@@ -23,9 +24,15 @@ A KRT file is a **single and self-contained file** with everything needed for a 
 
 A KRT file defines and pack a complete Version, including:
 
-- a definition YAML file named `krt.yml`.
-- source code of all components.
-- assets needed by each component.
+- A definition YAML file named `krt.yml`.
+- Source code of all components.
+- Assets needed by each component.
+
+## Diagram of an architecture defined by a KRT
+
+Here is an example of an architecture defined by a KRT file, this example is taken from our training repo:
+
+{{< imgproc diagram_krt Resize "1000x" />}}
 
 ## Entities
 
@@ -41,7 +48,7 @@ These entities are used to in a KRT file to define how Version's components inte
 
 It is a declarative file describing the content of the KRT. It has general description of the Runtime Version, a gRPC entrypoint for the Version and a list of nodes that are connected between each other in different workflows.
 
-The yaml file connects all these entities together, Entrypoint, Workflow, Nodes and Runners in order to define a Version and the way it works.
+The YAML file connects all these entities together, Entrypoint, Workflow, Nodes and Runners in order to define a Version and the way it works.
 
 Learn about the fields in the [KRT YAML specs]({{< relref "docs/KRE/user/40_krt/specs" >}}).
 
@@ -144,6 +151,22 @@ Once the node is running it will look for two handler functions, one at starting
 
 - `handlerInit(ctx *kre.HandlerContext)`
 - `handler(ctx *kre.HandlerContext, data *any.Any) (proto.Message, error)`
+
+### Version 3
+
+From version 3.x.x onwards nodes are capable of sending zero to several messages to the next node. They are no longer required to return their result on handler execution, thus the handler contract changes:
+
+- `handlerInit(ctx *kre.HandlerContext)`
+- `handler(ctx *kre.HandlerContext, data *any.Any) error`
+
+In order to send messages to the next node the functions provided by the _context_ must be used. An example for the publishing of a message in Golang will be:
+
+```go
+ res := &proto.ExampleOutput{}
+  ...
+ ctx.SendOutput(res)
+
+```
 
 ## Workflows
 

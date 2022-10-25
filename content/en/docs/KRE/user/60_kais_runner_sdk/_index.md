@@ -1,7 +1,7 @@
 ---
 title: "KAI Server Runner SDK"
 linkTitle: "KAI Server Runner SDK"
-weight: 50
+weight: 60
 description: >
   Code your nodes on top of the KAI Server Runner SDK
 ---
