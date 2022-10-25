@@ -1,9 +1,9 @@
 ---
 title: "Versions"
-linkTitle: "Project Versions"
+linkTitle: "Versions"
 weight: 30
 description: >
-  Manage versions in a KAI Server project
+  Manage versions in a KAI Server runtime
 ---
 
 - [Version Components](#version-components)
@@ -148,6 +148,7 @@ When we perform any of these actions the version status changes. The following t
 ### Creating new versions
 
 To create new versions for the project you need to prepare and upload a `KRT` file. You can find detailed info about `KRT` files in the [KRT guide]({{< relref "docs/KRE/user/40_krt" >}}).
+The version name should be unique in the runtime. 
 
 ### Starting a version
 

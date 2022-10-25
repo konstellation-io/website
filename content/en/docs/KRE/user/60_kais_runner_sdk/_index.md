@@ -121,8 +121,8 @@ The context object provides a set of utilities that can be used  for different p
 
 ### Database
 
-During any part of your workflows you may need to persist data or recover previously saved data from a DB.  
-In those cases you can use the following functions:
+During any part of your workflows you may need to persist data or recover previously saved data from a database.
+In those cases you can use the following functions of the context's DB attribute:
 
 ```golang
     func Find(colName string, query QueryData, res interface{}) error 
@@ -131,6 +131,9 @@ In those cases you can use the following functions:
     // QueryData is the following type:
     type QueryData map[string]interface{} 
 ```
+
+This functions will store on query data on a MongoDB database, so the data inserted should have a BSON compatible structure.
+Each runtime has its respective database whose name is `<runtime-id>-data`.
 
 ### Logger
 
@@ -155,3 +158,11 @@ These are the available levels and their variants for multiple parameters:
 ### Measurements
 
 ### Predictions
+
+To help to analyze and visualize the reliability of a model, prediction's data could de stored through the `save` function
+of the Prediction attribute of the context. This function receives a timestamp, the predicted value as string, and the
+real value as string. This data is stored in a MongoDB database named `<runtime-id>-data`.
+
+```go
+    ctx.Prediction.Save(time.Now(), "test-predicted-value", "test-true-value")
+```
