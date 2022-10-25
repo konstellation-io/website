@@ -11,7 +11,7 @@ description: >
 Runtimes also have a log console embedded within them, you can access the console by clicking the `>_` icon in the top right corner of your desired workflow.
 
 Runners will log some useful information as well as handling and reporting errors.
-Custom logs can be added from the nodes using the `logger` included in the [context]({{< relref "docs/KRE/user/50_kais_runner_sdk/#context" >}}) object.
+Custom logs can be added from the nodes using the `logger` included in the [context]({{< relref "docs/KRE/user/60_kais_runner_sdk/#context" >}}) object.
 
 Here goes a quick example written in GoLang, this is the way we could log every time our handler is invoked.
 
@@ -32,8 +32,7 @@ If you are not familiar with *InfluxDB* and *Flux* queries, we recommend that yo
 ### InfluxDB
 
 KAI Server containerizes and deploys an InfluxDB image responsible for the handling and usage of metrics. Each runtime
-has its own database, which can be updated with new metrics by the nodes through the 
-[context]({{< relref "docs/KRE/user/50_kais_runner_sdk/#context" >}}) object.
+has its own influx bucket, to which the nodes can save metrics through the [context]({{< relref "docs/KRE/user/60_kais_runner_sdk/#context" >}}) object.
 
 ### Chronograf
 
