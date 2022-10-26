@@ -120,7 +120,7 @@ func main() {
 
 ### For runners V3
 
-Users for this runner version can decide which function implemented by the node will act as the `handler` depending on the source of the incoming payload.
+In this runner version you can decide which function implemented by the node will act as the `handler` depending on the source of the incoming payload.
 
 #### Python V3
 
@@ -128,7 +128,7 @@ The function named _default_handler_ will act as the default handler. Custom han
 
 #### Golang V3
 
-To load default and custom handlers, the have to used in the function `Start` from the runner's library as their arguments. The first argument will be the _init_ function, the second the _default handler_ and the third a map of key the source node's name and value the function to execute.
+To load default and custom handlers, they have to be used in the function `Start` from the runner's library as their arguments. The first argument will be the _init_ function, the second the _default handler_ and the third a map of key the source node's name and value the function to execute.
 
 ```go
 func main() {
@@ -200,6 +200,39 @@ These are the available levels and their variants for multiple parameters:
 ```
 
 ### Measurements
+
+Metrics can be stored in the runtime's influx bucket anytime.  
+In order to do so you can use the function `save` from the `Measurement`. To use this function you will have to declare previously tags and fields for your desired point, as if you were creating an influx point.  
+The `save` function will take as parameters first the collection name you desire to write to, then a dictionary of fields and a dictionary of tags.
+
+By default, this function will attach to the saved tags to every metric the following tags:
+
+- "version": the version name to which this node belongs
+- "workflow": the workflow name to which this node belongs
+- "node": the node's name
+
+It is advised to document yourself about influxDB metrics before using this function.
+
+Here is an example in Go:
+
+```go
+func saveMetrics(ctx *kre.HandlerContext, component string) {
+  tags := map[string]string{}
+
+  fields := map[string]interface{}{
+    "requested_component": component,
+  }
+
+  // influx is accessible via the ctx.Measurement variable
+  ctx.Measurement.Save("requests", fields, tags)
+
+  fields = map[string]interface{}{
+    "called_node": "etl",
+  }
+
+  ctx.Measurement.Save("number_of_calls", fields, tags)
+}
+```
 
 ### Predictions
 
