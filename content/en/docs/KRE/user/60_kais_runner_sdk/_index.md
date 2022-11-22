@@ -126,6 +126,27 @@ In this runner version you can decide which function implemented by the node wil
 
 The function named _default_handler_ will act as the default handler. Custom handlers will be declared inside a dictionary named _custom_handlers_, the dictionary will have as key the source node name and as value the function to execute.
 
+```python
+import pandas as pd
+
+async def default_handler(ctx, data):
+    ctx.logger.info("message received from non recognized node, executing default handler")
+    ...
+
+async def repairs_handler(ctx, data):
+    ctx.logger.info("message received from node repairs, executing repairs handler")
+    ...
+
+async def spam_handler(ctx, data):
+    ctx.logger.info("message received from node spam, executing spam handler")
+    ...
+
+custom_handlers = {
+    "repairs": repairs_handler,
+    "spam": spam_handler,
+}
+```
+
 #### Golang V3
 
 To load default and custom handlers, they have to be used in the function `Start` from the runner's library as their arguments. The first argument will be the _init_ function, the second the _default handler_ and the third a map of key the source node's name and value the function to execute.

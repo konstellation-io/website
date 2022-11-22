@@ -7,7 +7,55 @@ weight: 20
 
 A KRT yaml file is a declarative file describing the content of the KRT.
 It has general description of the Version, a GRPC entrypoint for the Runtime Version and
-nodes that are connected between each other to form workflows that will be access through GRPC services defined on the entrypoint.  
+nodes that are connected between each other to form workflows that will be access through GRPC services defined on the entrypoint.
+
+Example below is directly taken from our krt v2 demo repo:
+
+```yaml
+version: classificator-v1
+krtVersion: v2 # new tagged krt version
+description: Demo email classificator for branching features.
+entrypoint:
+  proto: public_input.proto
+  image: konstellation/kre-entrypoint:latest
+config:
+  variables:
+workflows:
+  - name: classificator
+    entrypoint: Classificator
+    exitpoint: exitpoint # name must match node's
+    nodes:
+      - name: etl
+        image: konstellation/kre-py:latest
+        src: src/etl/main.py
+        subscriptions:
+          - "entrypoint"
+
+      - name: email-classificator
+        image: konstellation/kre-py:latest
+        src: src/email_classificator/main.py
+        subscriptions:
+          - "etl"
+
+      - name: repairs-handler
+        image: konstellation/kre-go:latest
+        src: bin/repairs_handler
+        subscriptions:
+          - "email-classificator.repairs" #consume from a subtopic
+
+      - name: stats-storer
+        image: konstellation/kre-go:latest
+        src: bin/stats_storer
+        subscriptions:
+          - "email-classificator"
+
+      - name: exitpoint
+        image: konstellation/kre-go:latest
+        src: bin/exitpoint
+        subscriptions:
+          - "etl"
+          - "stats-storer"
+```
 
 ## Fields Specs
 
@@ -17,7 +65,7 @@ Here is a description of each field divided in five main concepts that make a KR
 
 Descriptive information of the Runtime Version.
 
-- **version**: the unique ID of this version.
+- **version**: the unique ID of this version. Must be in lowercase and can only contain letters, numbers and "-".
 - **krtVersion**: indicates the krt version this file is using. Only values allowed are "v1" and "v2".
 - **description**: brief text describing the content or functionality of this version.
 
@@ -30,7 +78,7 @@ be included on the KRT file, for example passwords.
 All configuration defined here is mandatory, the Runtime Version won't run if any of them is undefined.
 
 - **config**:
-  - **variables**: list of variable names that are going to be defined in KAI Server as environment variables.
+  - **variables**: list of variable names that are going to be defined in KAI Server as environment variables. Must be in uppercase and can only contain letters, numbers and "_".
   - **files**: list of file names.
 
 ### Entrypoint
@@ -39,7 +87,7 @@ This section describes how to access the Runtime Version.
 
 - **entrypoint**:
   - **proto**: protobuffer file describing messages and services contained in this Runtime Version.
-  - **image**: base image and tag used to run the entrypoint service. It's provided by Konstellation registry.
+  - **image**: base image and tag used to run the entrypoint service. It's provided by [Konstellation registry](https://hub.docker.com/u/konstellation).
 
 ### Workflows
 
