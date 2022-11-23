@@ -37,14 +37,14 @@ async def init(ctx):
 package main
 
 import (
- "github.com/konstellation-io/kre/runners/kre-go"
+  "github.com/konstellation-io/kre/runners/kre-go"
 )
 
 func handlerInit(ctx *kre.HandlerContext) {
- ctx.Logger.Info("init handler")
+  ctx.Logger.Info("init handler")
     
-    // Saves a value in the context internal registry
- ctx.Set("greeting", "Hello")   
+  // Saves a value in the context internal registry
+  ctx.Set("greeting", "Hello")   
 }
 ```
 
@@ -54,7 +54,7 @@ This function receives a context, the same as the `init` function does, and the 
 
 `Handler` functions are used to process data, users can implement their service logic here.
 
-### Python handler example for runner V2
+### Python handler example for runner compatible with KRT V1
 
 ```python
 import pandas as pd
@@ -76,7 +76,7 @@ async def handler(ctx, data):
     return {'price_category': prediction.item()}
 ```
 
-### Golang handler example for runner V2
+### Golang handler example for runner compatible with KRT V1
 
 ```golang
 func handler(ctx *kre.HandlerContext, data *any.Any) (proto.Message, error) {
@@ -102,13 +102,13 @@ func handler(ctx *kre.HandlerContext, data *any.Any) (proto.Message, error) {
 
 Once the `init` and `handler` functions have been declared and implemented, they have to be served in a certain way, so runners recognize them.
 
-### For runners V2
+### For runners compatible with KRT V1
 
-#### Python V2
+#### Python (images v1 and v2)
 
 Just by having two functions named __init__ and __handler__. Python runners interpret what source code is given.
 
-#### Golang V2
+#### Golang (images v1 and v2)
 
 Golang nodes use the Golang runners as a library. To load them up, inside the `main` function in the `main.go` file the runner must be run passing down the functions that serve as `init` and `handler`.
 
@@ -118,11 +118,11 @@ func main() {
 }
 ```
 
-### For runners V3
+### For runners compatible with KRT V2
 
 In this runner version you can decide which function implemented by the node will act as the `handler` depending on the source of the incoming payload.
 
-#### Python V3
+#### Python (image v3)
 
 The function named _default_handler_ will act as the default handler. Custom handlers will be declared inside a dictionary named _custom_handlers_, the dictionary will have as key the source node name and as value the function to execute.
 
@@ -147,7 +147,7 @@ custom_handlers = {
 }
 ```
 
-#### Golang V3
+#### Golang (image v4)
 
 To load default and custom handlers, they have to be used in the function `Start` from the runner's library as their arguments. The first argument will be the _init_ function, the second the _default handler_ and the third a map of key the source node's name and value the function to execute.
 

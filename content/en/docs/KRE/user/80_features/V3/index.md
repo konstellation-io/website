@@ -1,7 +1,7 @@
 ---
-title: "Version 3 runner features"
+title: "KRT V2 compatible runners"
 description: >
-  Features available to V3 runners 
+  Features available to runners compatible with KRT V2
 weight: 20
 ---
 
