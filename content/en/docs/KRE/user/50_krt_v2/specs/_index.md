@@ -7,7 +7,8 @@ weight: 20
 
 A KRT yaml file is a declarative file describing the content of the KRT.
 It has general description of the Version, a GRPC entrypoint for the Runtime Version and
-nodes that are connected between each other to form workflows that will be access through GRPC services defined on the entrypoint.
+nodes that are connected between each other to form workflows that will be access through GRPC
+services defined on the entrypoint.
 
 Example below is directly taken from our krt v2 demo repo:
 
@@ -20,10 +21,12 @@ entrypoint:
   image: konstellation/kre-entrypoint:latest
 config:
   variables:
+    - EARLY_REPLY_ENABLED
+    - WEBHOOK_URL
 workflows:
   - name: classificator
     entrypoint: Classificator
-    exitpoint: exitpoint # name must match node's
+    exitpoint: exitpoint-node # name must match node's
     nodes:
       - name: etl
         image: konstellation/kre-py:latest
@@ -49,7 +52,7 @@ workflows:
         subscriptions:
           - "email-classificator"
 
-      - name: exitpoint
+      - name: exitpoint-node
         image: konstellation/kre-go:latest
         src: bin/exitpoint
         subscriptions:
@@ -78,7 +81,8 @@ be included on the KRT file, for example passwords.
 All configuration defined here is mandatory, the Runtime Version won't run if any of them is undefined.
 
 - **config**:
-  - **variables**: list of variable names that are going to be defined in KAI Server as environment variables. Must be in uppercase and can only contain letters, numbers and "_".
+  - **variables**: list of variable names that are going to be defined in KAI Server as environment variables.
+    Must be in uppercase and can only contain letters, numbers and "_".
   - **files**: list of file names.
 
 ### Entrypoint
@@ -87,28 +91,34 @@ This section describes how to access the Runtime Version.
 
 - **entrypoint**:
   - **proto**: protobuffer file describing messages and services contained in this Runtime Version.
-  - **image**: base image and tag used to run the entrypoint service. It's provided by [Konstellation registry](https://hub.docker.com/u/konstellation).
+  - **image**: base image and tag used to run the entrypoint service. It's provided by
+    [Konstellation registry](https://hub.docker.com/u/konstellation).
 
 ### Workflows
 
-This section includes the list of workflows contained in the KRT file. Each workflow has one or more nodes defined inside, of which one of them must be assigned to be the exitpoint.
+This section includes the list of workflows contained in the KRT file. Each workflow has one or more
+nodes defined inside, of which one of them must be assigned to be the exitpoint.
 
 - **workflows** (a list of):
   - **name**: an identifier text, must be unique in the workflow list.
-  - **entrypoint**: the name of a serviced defined in the proto buffer file of the entrypoint. See `entrypoint.proto` above.
+  - **entrypoint**: the name of a serviced defined in the proto buffer file of the entrypoint.
+    See `entrypoint.proto` above.
   - **exitpoint**: the name of the node assigned to be the exitpoint.
   - **nodes** (a list of): a list of node specifications that form the workflow.
 
 #### Nodes
 
-To define each node inside the workflows, you need to specify a name, a base image, its main source file and its subscriptions.
+To define each node inside the workflows, you need to specify a name, a base image, its main source
+file and its subscriptions.
 
-- **nodes** (this is the workflow's list):
+- **nodes**:
   - **name**: an identifier text, must be unique in the node list.
   - **image**: a base image provided by Konstellation used to run this node.
-  - **src**: a path relative to the root of the KRT file pointing to the source file used to run this component, for the case of a python node. For a golang node this field will point towards the generated bin file.
+  - **src**: a path relative to the root of the KRT file pointing to the source file used to run
+    this component, for the case of a python node. For a Golang node this field will point towards the generated bin file.
   - **gpu**(optional): defaults to false, if true the node will use gpu, only available for Nvidia GPU.
-  - **subscriptions** (a list of): a list of other node names to which this node will subscribe to. It is also possible to filter down other node's outputs by adding a dot followed by a subtopic to a node's name. Example:
+  - **subscriptions** (a list of): a list of other node names to which this node will subscribe to.
+    It is also possible to filter down other node's outputs by adding a dot followed by a subtopic to a node's name. Example:
 
   ```yaml
   nodes:

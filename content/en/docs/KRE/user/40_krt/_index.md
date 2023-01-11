@@ -7,7 +7,7 @@ description: >
 ---
 
 - [What is a KRT?](#what-is-a-krt)
-- [Diagram of an architecture defined by a KRT](#diagram-of-an-architecture-defined-by-a-krt)
+- [Architecture diagram defined by a KRT](#architecture-diagram-defined-by-a-krt)
 - [Entities](#entities)
 - [KRT YAML File](#krt-yaml-file)
 - [Entrypoint](#entrypoint)
@@ -18,9 +18,11 @@ description: >
 
 ## What is a KRT?
 
-It stands for **Konstellation Runtime Transport**. Is the file format used in Konstellation as an easy way to move between Development (KAI Lab) to Production (KAI Server) environments.
+It stands for **Konstellation Runtime Transport**. Is the file format used in Konstellation as an
+easy way to move between Development (KAI Lab) to Production (KAI Server) environments.
 
-A KRT file is a **single and self-contained file** with everything needed for a version to be deployed on the server. It is compressed in `.tar.gz` format and renamed to `.krt` extension.  
+A KRT file is a **single and self-contained file** with everything needed for a version to be
+deployed on the server. It is compressed in `.tar.gz` format and renamed to `.krt` extension.  
 
 A KRT file defines and pack a complete Version, including:
 
@@ -28,7 +30,7 @@ A KRT file defines and pack a complete Version, including:
 - Source code of all components.
 - Assets needed by each component.
 
-## Diagram of an architecture defined by a KRT
+## Architecture diagram defined by a KRT
 
 Here is an example of an architecture defined by a KRT file, this example is taken from our training repo:
 
@@ -46,9 +48,12 @@ These entities are used to in a KRT file to define how Version's components inte
 
 ## KRT YAML file
 
-It is a declarative file describing the content of the KRT. It has general description of the Runtime Version, a gRPC entrypoint for the Version and a list of nodes that are connected between each other in different workflows.
+It is a declarative file describing the content of the KRT. It has general description of the
+Runtime Version, a gRPC entrypoint for the Version and a list of nodes that are connected between
+each other in different workflows.
 
-The YAML file connects all these entities together, Entrypoint, Workflow, Nodes and Runners in order to define a Version and the way it works.
+The YAML file connects all these entities together, Entrypoint, Workflow, Nodes and Runners in
+order to define a Version and the way it works.
 
 Learn about the fields in the [KRT YAML specs]({{< relref "docs/KRE/user/40_krt/specs" >}}).
 
@@ -102,7 +107,8 @@ entrypoint:
 A Version defines its communication with the outside world through its entrypoint. This is a gRPC server
 defined in proto buffer format containing messages and services to interact with workflows inside the Version.
 
-The entrypoint is defined via `proto` file. This file defines the data contract for request and responses and the services that are going to be deployed within the entrypoint.
+The entrypoint is defined via `proto` file. This file defines the data contract for request and
+responses and the services that are going to be deployed within the entrypoint.
 
 ```proto
 syntax = "proto3";
@@ -142,24 +148,32 @@ nodes:
     src: src/save-prediction-metric/main.py
 ```
 
-A Node is a task inside a workflow. It has two main parts, a runner image, and the source code files specific to perform its task.
+A Node is a task inside a workflow. It has two main parts, a runner image, and the source code
+files specific to perform its task.
 
-Nodes have a single responsibility consisting on receive an input message, perform a task and return an output message.
+Nodes have a single responsibility consisting on receive an input message, perform a task and
+return an output message.
 This is achieved with handler functions defined in source code files specified in the KRT file.
 
-Once the node is running it will look for two handler functions, one at starting time for initialization, and a second one to process incoming messages, these functions are called init handler and message handler respectively. Init handler is optional and will be executed only once upon node starting to run. Message handler is mandatory and will be executed each time the node receives a message.
+Once the node is running it will look for two handler functions, one at starting time for
+initialization, and a second one to process incoming messages, these functions are called init
+handler and message handler respectively. Init handler is optional and will be executed only once
+upon node starting to run. Message handler is mandatory and will be executed each time the node
+receives a message.
 
 - `handlerInit(ctx *kre.HandlerContext)`
 - `handler(ctx *kre.HandlerContext, data *any.Any) (proto.Message, error)`
 
 ### Version 3
 
-From version 3.x.x onwards nodes are capable of sending zero to several messages to the next node. They are no longer required to return their result on handler execution, thus the handler contract changes:
+From version 3.x.x onwards nodes are capable of sending zero to several messages to the next node.
+They are no longer required to return their result on handler execution, thus the handler contract changes:
 
 - `handlerInit(ctx *kre.HandlerContext)`
 - `handler(ctx *kre.HandlerContext, data *any.Any) error`
 
-In order to send messages to the next node the functions provided by the _context_ must be used. An example for the publishing of a message in Golang will be:
+In order to send messages to the next node the functions provided by the _context_ must be used.
+An example for the publishing of a message in Golang will be:
 
 ```go
  res := &proto.ExampleOutput{}
@@ -170,22 +184,24 @@ In order to send messages to the next node the functions provided by the _contex
 
 ## Workflows
 
-A Workflow is a sequence of tasks used to process incoming messages from the outside world and returns a response.
-Each task is a node of a graph that takes an input message and generates an output for the next node.
-The last node's output is used as response to the incoming message.
+A Workflow is a sequence of tasks used to process incoming messages from the outside world and
+returns a response. Each task is a node of a graph that takes an input message and generates an
+output for the next node. The last node's output is used as response to the incoming message.
 
 Each workflow can have one or more nodes, depending on how many steps are needed to process a given input message.
 
 A workflow is connected to the outside world through a service defined in KRT entrypoint.
 This entrypoint is a gRPC server that handle incoming calls from third parties gRPC clients and deliver
-them as input messages to the first node in the workflow and wait for the last node output to send a response to it corresponding gRPC client call.
+them as input messages to the first node in the workflow and wait for the last node output to send
+a response to it corresponding gRPC client call.
 
 Once a Version is started, all nodes from all workflows are created as a POD in kubernetes.
 
 ## Runners
 
-Runners are base docker images, provided by Konstellation, that are used for nodes to run code on different
-programming languages. Each image includes a specific framework that provides utilities to the users and is responsible for all the piping that occurs inside a node.
+Runners are base docker images, provided by Konstellation, that are used for nodes to run code
+on different programming languages. Each image includes a specific framework that provides
+utilities to the users and is responsible for all the piping that occurs inside a node.
 
 ## Structure of a KRT
 
