@@ -1,0 +1,444 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Konstellation – User</title><link>https://www.konstellation.io/docs/kre/30_user/</link><description>Recent content in User on Konstellation</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><atom:link href="https://www.konstellation.io/docs/kre/30_user/index.xml" rel="self" type="application/rss+xml"/><item><title>Docs: Intro</title><link>https://www.konstellation.io/docs/kre/30_user/10_intro/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://www.konstellation.io/docs/kre/30_user/10_intro/</guid><description>
+&lt;p>When dealing with solutions at a user&amp;rsquo;s level our scope changes and narrows down to another set of issues.&lt;br>
+Our solutions will be coded into nodes, these nodes alongside an entrypoint will form a workflow,
+one or more workflows will form a version of a project.
+Projects can be versioned and several can be uploaded at the same time to your KAI Server.&lt;/p>
+&lt;p>Projects will then be run by a runner inside KAI Server, it looks something like this:&lt;/p>
+&lt;h2 id="versions-architecture">Versions architecture&lt;/h2>
+&lt;div class="card rounded p-2 td-post-card mb-4 mt-4" style="max-width: 1010px">
+&lt;img class="card-img-top" src="https://www.konstellation.io/docs/kre/30_user/10_intro/versions_architecture_huea24e33026c95b9abf998275d7a011c7_46492_1000x0_resize_catmullrom_2.png" width="1000" height="544">
+&lt;/div>
+&lt;p>NATS acts as an event broker, when building our projects we must provide the order and ID of the nodes
+compromising our workflow, so remember, nodes will be executed in a specific order.&lt;br>
+Also, an entrypoint must be declared, so we can call our project. So, for the moment being we can
+make some calls to a started version from within the cluster.&lt;br>
+But what happens when we want to call a version from outside the cluster? We must then publish a version.&lt;/p>
+&lt;div class="card rounded p-2 td-post-card mb-4 mt-4" style="max-width: 1010px">
+&lt;img class="card-img-top" src="https://www.konstellation.io/docs/kre/30_user/10_intro/versions_architecture_published_huf8336978e47763c5c094bbd922ac5d50_70267_1000x0_resize_catmullrom_2.png" width="1000" height="684">
+&lt;/div>
+&lt;p>A published version will expose an entrypoint through GRPC and an ingress, it will be hosted in an
+IP address. So external users can make use of this endpoint to send requests.&lt;br>
+Only one version can be published at a time in a KAI Server cluster.&lt;/p></description></item><item><title>Docs: Runtimes</title><link>https://www.konstellation.io/docs/kre/30_user/20_runtimes/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://www.konstellation.io/docs/kre/30_user/20_runtimes/</guid><description>
+&lt;h2 id="creating-a-new-runtime">Creating A New Runtime&lt;/h2>
+&lt;p>Runtimes can be created in the KAI Server&amp;rsquo;s main page. An ID, name, and a description must be provided. The ID and name
+must be unique.&lt;/p>
+&lt;div class="card rounded p-2 td-post-card mb-4 mt-4" style="max-width: 810px">
+&lt;img class="card-img-top" src="https://www.konstellation.io/docs/kre/30_user/20_runtimes/runtimes_huee80c1370186584ed17c629bc76ca877_28490_800x0_resize_catmullrom_2.png" width="800" height="526">
+&lt;div class="card-body px-0 pt-2 pb-0">
+&lt;p class="card-text">
+Runtimes list with the "add runtime" option.
+&lt;/p>
+&lt;/div>
+&lt;/div></description></item><item><title>Docs: Versions</title><link>https://www.konstellation.io/docs/kre/30_user/30_versions/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://www.konstellation.io/docs/kre/30_user/30_versions/</guid><description>
+&lt;ul>
+&lt;li>&lt;a href="#version-lifecycle">Version Lifecycle&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#version-management">Version management&lt;/a>
+&lt;ul>
+&lt;li>&lt;a href="#creating-new-versions">Creating new versions&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#starting-a-version">Starting a version&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#stopping-a-version">Stopping a version&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#publishing-a-version">Publishing a version&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;h2 id="version-lifecycle">Version Lifecycle&lt;/h2>
+&lt;p>In the following graph you can see all possible statuses and actions for a runtime version.
+The blue boxes are actions, and the green ones are statuses:&lt;/p>
+&lt;div class="card rounded p-2 td-post-card mb-4 mt-4" style="max-width: 1010px">
+&lt;img class="card-img-top" src="https://www.konstellation.io/docs/kre/30_user/30_versions/version_lifecycle_hu3d0103200f92e22fba46921b44813a51_104333_1000x0_resize_q75_catmullrom.jpg" width="1000" height="349">
+&lt;div class="card-body px-0 pt-2 pb-0">
+&lt;p class="card-text">
+&lt;/p>
+&lt;/div>
+&lt;/div>
+&lt;h2 id="version-management">Version management&lt;/h2>
+&lt;p>In the version details screen we can manage the project&amp;rsquo;s version.
+There are four actions that we can perform using the left-bottom buttons: start, stop, publish and un-publish.
+When we perform any of these actions the version status changes. The following table shows all possible version status:&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Status&lt;/th>
+&lt;th>Description&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>&lt;code>stopping&lt;/code>&lt;/td>
+&lt;td>Indicates the version is deleting their associated k8s resources.&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>stopped&lt;/code>&lt;/td>
+&lt;td>The version is created in KAI Server, but it is not consuming any resource because all components are not created at k8s.&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>starting&lt;/code>&lt;/td>
+&lt;td>The version is creating their associated k8s resources.&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>started&lt;/code>&lt;/td>
+&lt;td>The version entrypoint and nodes are running and ready in k8s. The entrypoint service is not associated with the ingress, so you cannot call it from outside.&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>published&lt;/code>&lt;/td>
+&lt;td>The entrypoint is accessible from outside and the incoming requests are routed to it.&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h3 id="creating-new-versions">Creating new versions&lt;/h3>
+&lt;p>To create new versions for the project you need to prepare and upload a &lt;code>KRT&lt;/code> file, the version name
+should be unique in the runtime. This can be done by selecting the button &lt;em>&amp;ldquo;Add version&amp;rdquo;&lt;/em>
+displayed in the runtime&amp;rsquo;s page.&lt;/p>
+&lt;div class="card rounded p-2 td-post-card mb-4 mt-4" style="max-width: 1010px">
+&lt;img class="card-img-top" src="https://www.konstellation.io/docs/kre/30_user/30_versions/create_version_hu3b0e9fda55854c0df421d4842391b8c0_45711_1000x0_resize_catmullrom_2.png" width="1000" height="309">
+&lt;div class="card-body px-0 pt-2 pb-0">
+&lt;p class="card-text">
+Page of a runtime called "Demo" that already contains a runtime previously uploaded called "classificator-v1"
+&lt;/p>
+&lt;/div>
+&lt;/div>
+&lt;p>As &lt;em>krt&lt;/em> files depict versions, these will have different components in
+&lt;a href="../40_krt/">KRT v1&lt;/a> and &lt;a href="../50_krt/">KRT v2&lt;/a>. For more information about how to define your own
+&lt;em>krt&lt;/em> file for version uploading please refer to these mentioned pages.&lt;/p>
+&lt;h3 id="starting-a-version">Starting a version&lt;/h3>
+&lt;p>Starting new versions is the action to start all the components for that version (defined in the &lt;code>krt.yml&lt;/code> manifest) in the underlying kubernetes cluster. A started version is accessible from within the cluster but not from the outside.&lt;/p>
+&lt;div class="card rounded p-2 td-post-card mb-4 mt-4" style="max-width: 410px">
+&lt;img class="card-img-top" src="https://www.konstellation.io/docs/kre/30_user/30_versions/version_started_diagram_hub10785a402142efed97933bcd3b6270d_74533_400x0_resize_q75_catmullrom.jpg" width="400" height="161">
+&lt;/div>
+&lt;h3 id="stopping-a-version">Stopping a version&lt;/h3>
+&lt;p>Stopping a version will remove all resources associated to that version from the cluster (defined in the &lt;code>krt.yml&lt;/code> manifest).&lt;/p>
+&lt;h3 id="publishing-a-version">Publishing a version&lt;/h3>
+&lt;p>Publishing a version will change the &lt;code>Service&lt;/code> name attached to the version&amp;rsquo;s entrypoint. The &lt;code>Service&lt;/code> will be renamed to &lt;code>active-entrypoint&lt;/code> so that the cluster ingress is linked to it. This means that the published version will have its entrypoint linked to a cluster ingress making it reachable from the outside.&lt;/p>
+&lt;p>Only one version can be public at a time, and if you try to publish a version while another version is published it will result in a change in the published versions.&lt;/p></description></item><item><title>Docs: KRT</title><link>https://www.konstellation.io/docs/kre/30_user/40_krt/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://www.konstellation.io/docs/kre/30_user/40_krt/</guid><description>
+&lt;ul>
+&lt;li>&lt;a href="#what-is-a-krt">What is a KRT?&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#architecture-diagram-defined-by-a-krt">Architecture diagram defined by a KRT&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#entities">Entities&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#krt-yaml-file">KRT YAML File&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#entrypoint">Entrypoint&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#nodes">Nodes&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#workflows">Workflows&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#runners">Runners&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#structure-of-a-krt">Structure of a KRT&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h2 id="what-is-a-krt">What is a KRT?&lt;/h2>
+&lt;p>It stands for &lt;strong>Konstellation Runtime Transport&lt;/strong>. Is the file format used in Konstellation as an
+easy way to move between Development (KAI Lab) to Production (KAI Server) environments.&lt;/p>
+&lt;p>A KRT file is a &lt;strong>single and self-contained file&lt;/strong> with everything needed for a version to be
+deployed on the server. It is compressed in &lt;code>.tar.gz&lt;/code> format and renamed to &lt;code>.krt&lt;/code> extension.&lt;/p>
+&lt;p>A KRT file defines and pack a complete Version, including:&lt;/p>
+&lt;ul>
+&lt;li>A definition YAML file named &lt;code>krt.yml&lt;/code>.&lt;/li>
+&lt;li>Source code of all components.&lt;/li>
+&lt;li>Assets needed by each component.&lt;/li>
+&lt;/ul>
+&lt;h2 id="architecture-diagram-defined-by-a-krt">Architecture diagram defined by a KRT&lt;/h2>
+&lt;p>Here is an example of an architecture defined by a KRT file, this example is taken from our training repo:&lt;/p>
+&lt;div class="card rounded p-2 td-post-card mb-4 mt-4" style="max-width: 1010px">
+&lt;img class="card-img-top" src="https://www.konstellation.io/docs/kre/30_user/40_krt/diagram_krt_hub4cadc5ac6c66050c37197e8772d4591_21490_1000x0_resize_catmullrom_2.png" width="1000" height="310">
+&lt;/div>
+&lt;h2 id="entities">Entities&lt;/h2>
+&lt;p>These entities are used to in a KRT file to define how Version&amp;rsquo;s components interoperate:&lt;/p>
+&lt;ul>
+&lt;li>&lt;a href="#krt-yaml-file">KRT YAML file&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#entrypoint">Entrypoint&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#workflows">Workflows&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#nodes">Nodes&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#runners">Runners&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h2 id="krt-yaml-file">KRT YAML file&lt;/h2>
+&lt;p>It is a declarative file describing the content of the KRT. It has general description of the
+Runtime Version, a gRPC entrypoint for the Version and a list of nodes that are connected between
+each other in different workflows.&lt;/p>
+&lt;p>The YAML file connects all these entities together, Entrypoint, Workflow, Nodes and Runners in
+order to define a Version and the way it works.&lt;/p>
+&lt;p>Learn about the fields in the &lt;a href="https://www.konstellation.io/docs/kre/30_user/40_krt/specs/">KRT YAML specs&lt;/a>.&lt;/p>
+&lt;h2 id="entrypoint">Entrypoint&lt;/h2>
+&lt;div class="highlight">&lt;pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#204a87;font-weight:bold">entrypoint&lt;/span>&lt;span style="color:#000;font-weight:bold">:&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline">
+&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>&lt;span style="color:#204a87;font-weight:bold">proto&lt;/span>&lt;span style="color:#000;font-weight:bold">:&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>public_input.proto&lt;span style="color:#f8f8f8;text-decoration:underline">
+&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>&lt;span style="color:#204a87;font-weight:bold">image&lt;/span>&lt;span style="color:#000;font-weight:bold">:&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>konstellation/kre-entrypoint&lt;span style="color:#000;font-weight:bold">:&lt;/span>&lt;span style="color:#0000cf;font-weight:bold">1.6.0&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline">
+&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>A Version defines its communication with the outside world through its entrypoint. This is a gRPC server
+defined in proto buffer format containing messages and services to interact with workflows inside the Version.&lt;/p>
+&lt;p>The entrypoint is defined via &lt;code>proto&lt;/code> file. This file defines the data contract for request and
+responses and the services that are going to be deployed within the entrypoint.&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-proto" data-lang="proto">&lt;span style="color:#000">syntax&lt;/span> &lt;span style="color:#ce5c00;font-weight:bold">=&lt;/span> &lt;span style="color:#4e9a06">&amp;#34;proto3&amp;#34;&lt;/span>&lt;span style="color:#000;font-weight:bold">;&lt;/span>&lt;span style="color:#a40000">
+&lt;/span>&lt;span style="color:#a40000">
+&lt;/span>&lt;span style="color:#a40000">&lt;/span>&lt;span style="color:#204a87;font-weight:bold">package&lt;/span> &lt;span style="color:#000">entrypoint&lt;/span>&lt;span style="color:#000;font-weight:bold">;&lt;/span>&lt;span style="color:#a40000">
+&lt;/span>&lt;span style="color:#a40000">&lt;/span>&lt;span style="color:#204a87;font-weight:bold">option&lt;/span> &lt;span style="color:#000">go_package&lt;/span> &lt;span style="color:#ce5c00;font-weight:bold">=&lt;/span> &lt;span style="color:#4e9a06">&amp;#34;main&amp;#34;&lt;/span>&lt;span style="color:#000;font-weight:bold">;&lt;/span>&lt;span style="color:#a40000">
+&lt;/span>&lt;span style="color:#a40000">
+&lt;/span>&lt;span style="color:#a40000">&lt;/span>&lt;span style="color:#204a87;font-weight:bold">message&lt;/span> &lt;span style="color:#000">Request&lt;/span> &lt;span style="color:#000;font-weight:bold">{&lt;/span> &lt;span style="color:#ce5c00;font-weight:bold">...&lt;/span> &lt;span style="color:#000;font-weight:bold">}&lt;/span>&lt;span style="color:#a40000">
+&lt;/span>&lt;span style="color:#a40000">
+&lt;/span>&lt;span style="color:#a40000">&lt;/span>&lt;span style="color:#204a87;font-weight:bold">message&lt;/span> &lt;span style="color:#000">Response&lt;/span> &lt;span style="color:#000;font-weight:bold">{&lt;/span> &lt;span style="color:#ce5c00;font-weight:bold">...&lt;/span> &lt;span style="color:#000;font-weight:bold">}&lt;/span>&lt;span style="color:#a40000">
+&lt;/span>&lt;span style="color:#a40000">
+&lt;/span>&lt;span style="color:#a40000">&lt;/span>&lt;span style="color:#204a87;font-weight:bold">message&lt;/span> &lt;span style="color:#000">SaveMetricRequest&lt;/span> &lt;span style="color:#000;font-weight:bold">{&lt;/span> &lt;span style="color:#ce5c00;font-weight:bold">...&lt;/span> &lt;span style="color:#000;font-weight:bold">}&lt;/span>&lt;span style="color:#a40000">
+&lt;/span>&lt;span style="color:#a40000">
+&lt;/span>&lt;span style="color:#a40000">&lt;/span>&lt;span style="color:#204a87;font-weight:bold">message&lt;/span> &lt;span style="color:#000">SaveMetricResponse&lt;/span> &lt;span style="color:#000;font-weight:bold">{&lt;/span> &lt;span style="color:#ce5c00;font-weight:bold">...&lt;/span> &lt;span style="color:#000;font-weight:bold">}&lt;/span>&lt;span style="color:#a40000">
+&lt;/span>&lt;span style="color:#a40000">
+&lt;/span>&lt;span style="color:#a40000">&lt;/span>&lt;span style="color:#204a87;font-weight:bold">service&lt;/span> &lt;span style="color:#000">Entrypoint&lt;/span> &lt;span style="color:#000;font-weight:bold">{&lt;/span>&lt;span style="color:#a40000">
+&lt;/span>&lt;span style="color:#a40000">&lt;/span> &lt;span style="color:#204a87;font-weight:bold">rpc&lt;/span> &lt;span style="color:#000">MakePrediction&lt;/span>&lt;span style="color:#000;font-weight:bold">(&lt;/span>&lt;span style="color:#000">Request&lt;/span>&lt;span style="color:#000;font-weight:bold">)&lt;/span> &lt;span style="color:#204a87;font-weight:bold">returns&lt;/span> &lt;span style="color:#000;font-weight:bold">(&lt;/span>&lt;span style="color:#000">Response&lt;/span>&lt;span style="color:#000;font-weight:bold">)&lt;/span> &lt;span style="color:#000;font-weight:bold">{};&lt;/span>&lt;span style="color:#a40000">
+&lt;/span>&lt;span style="color:#a40000">&lt;/span> &lt;span style="color:#204a87;font-weight:bold">rpc&lt;/span> &lt;span style="color:#000">SavePredictionMetric&lt;/span>&lt;span style="color:#000;font-weight:bold">(&lt;/span>&lt;span style="color:#000">SaveMetricRequest&lt;/span>&lt;span style="color:#000;font-weight:bold">)&lt;/span> &lt;span style="color:#204a87;font-weight:bold">returns&lt;/span> &lt;span style="color:#000;font-weight:bold">(&lt;/span>&lt;span style="color:#000">SaveMetricResponse&lt;/span>&lt;span style="color:#000;font-weight:bold">)&lt;/span> &lt;span style="color:#000;font-weight:bold">{};&lt;/span>&lt;span style="color:#a40000">
+&lt;/span>&lt;span style="color:#a40000">&lt;/span>&lt;span style="color:#000;font-weight:bold">};&lt;/span>&lt;span style="color:#a40000">
+&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="nodes">Nodes&lt;/h2>
+&lt;div class="highlight">&lt;pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#204a87;font-weight:bold">nodes&lt;/span>&lt;span style="color:#000;font-weight:bold">:&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline">
+&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>- &lt;span style="color:#204a87;font-weight:bold">name&lt;/span>&lt;span style="color:#000;font-weight:bold">:&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>etl&lt;span style="color:#f8f8f8;text-decoration:underline">
+&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>&lt;span style="color:#204a87;font-weight:bold">image&lt;/span>&lt;span style="color:#000;font-weight:bold">:&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>konstellation/kre-py&lt;span style="color:#000;font-weight:bold">:&lt;/span>&lt;span style="color:#0000cf;font-weight:bold">1.23.1&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline">
+&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>&lt;span style="color:#204a87;font-weight:bold">src&lt;/span>&lt;span style="color:#000;font-weight:bold">:&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>src/etl/main.py&lt;span style="color:#f8f8f8;text-decoration:underline">
+&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>- &lt;span style="color:#204a87;font-weight:bold">name&lt;/span>&lt;span style="color:#000;font-weight:bold">:&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>model&lt;span style="color:#f8f8f8;text-decoration:underline">
+&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>&lt;span style="color:#204a87;font-weight:bold">image&lt;/span>&lt;span style="color:#000;font-weight:bold">:&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>konstellation/kre-py&lt;span style="color:#000;font-weight:bold">:&lt;/span>&lt;span style="color:#0000cf;font-weight:bold">1.23.1&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline">
+&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>&lt;span style="color:#204a87;font-weight:bold">src&lt;/span>&lt;span style="color:#000;font-weight:bold">:&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>src/model/main.py&lt;span style="color:#f8f8f8;text-decoration:underline">
+&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>- &lt;span style="color:#204a87;font-weight:bold">name&lt;/span>&lt;span style="color:#000;font-weight:bold">:&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>output&lt;span style="color:#f8f8f8;text-decoration:underline">
+&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>&lt;span style="color:#204a87;font-weight:bold">image&lt;/span>&lt;span style="color:#000;font-weight:bold">:&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>konstellation/kre-py&lt;span style="color:#000;font-weight:bold">:&lt;/span>&lt;span style="color:#0000cf;font-weight:bold">1.23.1&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline">
+&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>&lt;span style="color:#204a87;font-weight:bold">src&lt;/span>&lt;span style="color:#000;font-weight:bold">:&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>src/output/main.py&lt;span style="color:#f8f8f8;text-decoration:underline">
+&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>- &lt;span style="color:#204a87;font-weight:bold">name&lt;/span>&lt;span style="color:#000;font-weight:bold">:&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>save-metric&lt;span style="color:#f8f8f8;text-decoration:underline">
+&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>&lt;span style="color:#204a87;font-weight:bold">image&lt;/span>&lt;span style="color:#000;font-weight:bold">:&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>konstellation/kre-py&lt;span style="color:#000;font-weight:bold">:&lt;/span>&lt;span style="color:#0000cf;font-weight:bold">1.23.1&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline">
+&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>&lt;span style="color:#204a87;font-weight:bold">src&lt;/span>&lt;span style="color:#000;font-weight:bold">:&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>src/save-prediction-metric/main.py&lt;span style="color:#f8f8f8;text-decoration:underline">
+&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>A Node is a task inside a workflow. It has two main parts, a runner image, and the source code
+files specific to perform its task.&lt;/p>
+&lt;p>Nodes have a single responsibility consisting on receive an input message, perform a task and
+return an output message.
+This is achieved with handler functions defined in source code files specified in the KRT file.&lt;/p>
+&lt;p>Once the node is running it will look for two handler functions, one at starting time for
+initialization, and a second one to process incoming messages, these functions are called init
+handler and message handler respectively. Init handler is optional and will be executed only once
+upon node starting to run. Message handler is mandatory and will be executed each time the node
+receives a message.&lt;/p>
+&lt;ul>
+&lt;li>&lt;code>handlerInit(ctx *kre.HandlerContext)&lt;/code>&lt;/li>
+&lt;li>&lt;code>handler(ctx *kre.HandlerContext, data *any.Any) (proto.Message, error)&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;h2 id="workflows">Workflows&lt;/h2>
+&lt;p>A Workflow is a sequence of tasks used to process incoming messages from the outside world and
+returns a response. Each task is a node of a graph that takes an input message and generates an
+output for the next node. The last node&amp;rsquo;s output is used as response to the incoming message.&lt;/p>
+&lt;p>Each workflow can have one or more nodes, depending on how many steps are needed to process a given input message.&lt;/p>
+&lt;p>A workflow is connected to the outside world through a service defined in KRT entrypoint.
+This entrypoint is a gRPC server that handle incoming calls from third parties gRPC clients and deliver
+them as input messages to the first node in the workflow and wait for the last node output to send
+a response to it corresponding gRPC client call.&lt;/p>
+&lt;p>Once a Version is started, all nodes from all workflows are created as a POD in kubernetes.&lt;/p>
+&lt;h2 id="runners">Runners&lt;/h2>
+&lt;p>Runners are base docker images, provided by Konstellation, that are used for nodes to run code
+on different programming languages. Each image includes a specific framework that provides
+utilities to the users and is responsible for all the piping that occurs inside a node.&lt;/p>
+&lt;h2 id="structure-of-a-krt">Structure of a KRT&lt;/h2>
+&lt;div class="highlight">&lt;pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">project
+└───docs
+&lt;span style="color:#000;font-weight:bold">|&lt;/span> README.md &lt;span style="color:#8f5902;font-style:italic"># Documentation shown inside KAI Server&lt;/span>
+│
+└───models &lt;span style="color:#8f5902;font-style:italic"># If the process needs a model to do the inference&lt;/span>
+│ │ model.joblib
+│ │ encoder.joblib
+│
+└───src &lt;span style="color:#8f5902;font-style:italic"># Source code of each node&lt;/span>
+│ └───etl
+│ │ main.py
+│ └───model
+│ │ main.py
+│ └───output
+│ │ main.py
+&lt;span style="color:#000;font-weight:bold">|&lt;/span>
+&lt;span style="color:#000;font-weight:bold">|&lt;/span> krt.yml &lt;span style="color:#8f5902;font-style:italic"># krt manifest&lt;/span>
+&lt;span style="color:#000;font-weight:bold">|&lt;/span> public_input.proto &lt;span style="color:#8f5902;font-style:italic"># proto defining entrypoint Services and Messages.&lt;/span>
+&lt;span style="color:#000;font-weight:bold">|&lt;/span> internal_nodes.proto &lt;span style="color:#8f5902;font-style:italic"># proto defining Messages that interconnect nodes.&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>Docs: KRT V2</title><link>https://www.konstellation.io/docs/kre/30_user/50_krt_v2/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://www.konstellation.io/docs/kre/30_user/50_krt_v2/</guid><description>
+&lt;ul>
+&lt;li>&lt;a href="#branched-workflows">Branched workflows&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#reactive-approach">Reactive approach&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#exitpoint">Exitpoint&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#krt-yaml-file">KRT YAML File&lt;/a>&lt;/li>
+&lt;li>&lt;a href="#architecture-diagram-defined-by-a-krt-v2">Architecture diagram defined by a KRT V2&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h2 id="branched-workflows">Branched workflows&lt;/h2>
+&lt;p>The main purpose of KRT V2 is to bring branched workflows on board. This means nodes are now capable
+of subscribing to several other nodes at the same time, thus workflows are now capable of branching out.&lt;/p>
+&lt;p>It is advised to previously read and fully understand &lt;a href="../40_krt">KRT&lt;/a> before moving on to V2, as this
+page focuses on explaining V2 related changes and new concepts.&lt;/p>
+&lt;h2 id="architecture-diagram-defined-by-a-krt-v2">Architecture diagram defined by a KRT V2&lt;/h2>
+&lt;p>Here is an example of an architecture defined by a KRT V2 file, this example is taken from our KRT V2 demo repo:&lt;/p>
+&lt;div class="card rounded p-2 td-post-card mb-4 mt-4" style="max-width: 1210px">
+&lt;img class="card-img-top" src="https://www.konstellation.io/docs/kre/30_user/50_krt_v2/diagram_krt_v2_hu236d25e355e33a17d7bfd58081f1bff7_100144_1200x0_resize_catmullrom_2.png" width="1200" height="522">
+&lt;/div>
+&lt;h2 id="reactive-approach">Reactive approach&lt;/h2>
+&lt;p>Nodes will publish their results onto their own subject, is up to other nodes whether to subscribe
+and process its messages or not. This allows for organic growth as nodes can be developed then hooked
+up to other nodes freely.&lt;/p>
+&lt;h3 id="multiple-responses">Multiple responses&lt;/h3>
+&lt;p>Nodes now don&amp;rsquo;t necessarily have to return a response, they can publish several to none messages to their topics.
+Thus, instead of returning the message to be published, messages will be published using the function
+&lt;em>SendOutput&lt;/em> provided by the context.&lt;/p>
+&lt;h3 id="filter-messages">Filter messages&lt;/h3>
+&lt;p>Nodes can choose which subtopic from their own subject they publish to. At the same time, they can
+choose to take messages from any subtopic of another node. This allows users to filter out messages
+and reduce stress on nodes.&lt;/p>
+&lt;p>Nodes can subscribe to one or more subtopics from another node and to various nodes at the same time.
+To help with filtering, users can set up which &lt;em>handlers&lt;/em> are to be executed depending on the request&amp;rsquo;s origin.
+Take into consideration nodes can only discern the node from which the request proceeds,
+not the subtopic or topic. For setup guidance consult
+&lt;a href="https://www.konstellation.io/docs/kre/30_user/60_kais_runner_sdk/">Runner SDK&lt;/a>.&lt;/p>
+&lt;h2 id="exitpoint">Exitpoint&lt;/h2>
+&lt;p>The exitpoint is a user defined node and can take up any name, however it has to be later assigned
+in the krt.yaml file to the exitpoint attribute. Users can only define one exitpoint as this is the
+final node to which the entrypoint will subscribe.&lt;/p>
+&lt;p>An exitpoint is required in all workflows. As the exitpoint is the only node that will communicate
+back to the entrypoint, it is recommended to handle merge strategies in it.&lt;/p>
+&lt;p>Also, if users wish to implement &amp;ldquo;early exit&amp;rdquo; and &amp;ldquo;early reply&amp;rdquo; strategies, they should subscribe
+the exitpoint to nodes emitting these types of messages.&lt;/p>
+&lt;h2 id="krt-yaml-file">KRT YAML file&lt;/h2>
+&lt;p>The KRT YAML file serves the same purpose as its predecessor. However, now nodes are declared and
+defined inside the workflows, an exitpoint must be described per workflow and a &lt;em>v2&lt;/em> tag must be
+added to the &lt;em>krtVersion&lt;/em> field.&lt;/p>
+&lt;p>Users must define subscriptions in the node&amp;rsquo;s definition. The names s in the subscriptions list must
+match the declared node&amp;rsquo;s names. &lt;em>&amp;lsquo;entrypoint&amp;rsquo;&lt;/em> is the reserved name for the entrypoint KRE provides.
+In order for a node to subscribe to the entrypoint just type the reserved name in its subscriptions.&lt;/p>
+&lt;p>Learn about the fields in the &lt;a href="https://www.konstellation.io/docs/kre/30_user/50_krt_v2/specs/">KRT YAML specs&lt;/a>.&lt;/p></description></item><item><title>Docs: KAI Server Runner SDK</title><link>https://www.konstellation.io/docs/kre/30_user/60_kais_runner_sdk/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://www.konstellation.io/docs/kre/30_user/60_kais_runner_sdk/</guid><description>
+&lt;h2 id="the-runner-sdk">The Runner SDK&lt;/h2>
+&lt;p>KAI Server provides an SDK that allows users to receive, process and send messages between nodes.
+As well as store metrics, predictions or other kinds of data desired by the user.&lt;/p>
+&lt;p>Currently, KAI Server only supports &lt;em>Python&lt;/em> and &lt;em>Golang&lt;/em> code.&lt;/p>
+&lt;p>Thanks to the SDK, users can implement &lt;code>handler&lt;/code> and &lt;code>init&lt;/code> functions, needed for the correct
+functionality of nodes. These functions are implemented in different manners depending on the
+&lt;em>KRT version&lt;/em> being used. Refer to &lt;a href="../40_krt">KRT v1&lt;/a> and &lt;a href="../50_krt_v2">KRT v2&lt;/a> for more information.&lt;/p>
+&lt;p>&lt;em>KAI Server version&lt;/em>, &lt;em>KRT version&lt;/em> and &lt;em>runner version&lt;/em> are dependent of each other but only
+compatible in certain manners.&lt;br>
+Runner features and implementation differ between the KRT version you are aiming for.&lt;br>
+Please refer to &lt;a href="./sdk_krt_v1">SDK KRT v1&lt;/a> and &lt;a href="./sdk_krt_v2">SDK KRT v2&lt;/a> for more information.&lt;/p>
+&lt;p>However, the &lt;em>context&lt;/em> object is common to all versions and will be explained here.&lt;/p>
+&lt;p>Here is a table depicting compatibility between versions:&lt;/p>
+&lt;h2 id="compatibility-table">Compatibility table&lt;/h2>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>KRT Version&lt;/th>
+&lt;th>KRE version&lt;/th>
+&lt;th>Entrypoint version&lt;/th>
+&lt;th>Golang runner version&lt;/th>
+&lt;th>Python runner version&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>V1&lt;/td>
+&lt;td>v1 to v7&lt;/td>
+&lt;td>1.x.x and 2.x.x&lt;/td>
+&lt;td>1.x.x and 2.x.x&lt;/td>
+&lt;td>1.x.x and 2.x.x&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>V2&lt;/td>
+&lt;td>v8&lt;/td>
+&lt;td>3.x.x&lt;/td>
+&lt;td>3.x.x and 4.x.x&lt;/td>
+&lt;td>3.x.x&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;p>It is recommended to use the latest available version when developing your codebase.
+You can find published versions at the &lt;a href="https://hub.docker.com/u/konstellation">Konstellation registry&lt;/a>.&lt;/p>
+&lt;h2 id="context">Context&lt;/h2>
+&lt;p>The context object provides a set of utilities that can be used for different purposes on &lt;code>init&lt;/code> and &lt;code>handler&lt;/code> functions:&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>&lt;strong>In-Memory Storage&lt;/strong>: A volatile variable storage that will be available from start until the
+version is stopped or restarted. You can set a value with a key name and retrieve it later by that key.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Logging&lt;/strong>: Functions to register any message or error with different log levels: &lt;code>debug, info, warning, error&lt;/code>.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Data Persistence&lt;/strong>: A way to persist and/or retrieve data from a DB.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Measurements&lt;/strong>: An easy way to save any amount of arbitrary measurements you need to use later on an Influx graph.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Metrics&lt;/strong>: Allows you to save predicted and real data in order to feed the pre-generated charts on the &amp;ldquo;Metrics&amp;rdquo; menu for each version.&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;h3 id="database">Database&lt;/h3>
+&lt;p>During any part of your workflows you may need to persist data or recover previously saved data from a database.
+In those cases you can use the following functions of the context&amp;rsquo;s DB attribute:&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-golang" data-lang="golang"> &lt;span style="color:#204a87;font-weight:bold">func&lt;/span> &lt;span style="color:#000">Find&lt;/span>&lt;span style="color:#000;font-weight:bold">(&lt;/span>&lt;span style="color:#000">colName&lt;/span> &lt;span style="color:#204a87;font-weight:bold">string&lt;/span>&lt;span style="color:#000;font-weight:bold">,&lt;/span> &lt;span style="color:#000">query&lt;/span> &lt;span style="color:#000">QueryData&lt;/span>&lt;span style="color:#000;font-weight:bold">,&lt;/span> &lt;span style="color:#000">res&lt;/span> &lt;span style="color:#204a87;font-weight:bold">interface&lt;/span>&lt;span style="color:#000;font-weight:bold">{})&lt;/span> &lt;span style="color:#204a87;font-weight:bold">error&lt;/span>
+&lt;span style="color:#204a87;font-weight:bold">func&lt;/span> &lt;span style="color:#000">Save&lt;/span>&lt;span style="color:#000;font-weight:bold">(&lt;/span>&lt;span style="color:#000">colName&lt;/span> &lt;span style="color:#204a87;font-weight:bold">string&lt;/span>&lt;span style="color:#000;font-weight:bold">,&lt;/span> &lt;span style="color:#000">data&lt;/span> &lt;span style="color:#204a87;font-weight:bold">interface&lt;/span>&lt;span style="color:#000;font-weight:bold">{})&lt;/span> &lt;span style="color:#204a87;font-weight:bold">error&lt;/span>
+&lt;span style="color:#8f5902;font-style:italic">// QueryData is the following type:
+&lt;/span>&lt;span style="color:#8f5902;font-style:italic">&lt;/span> &lt;span style="color:#204a87;font-weight:bold">type&lt;/span> &lt;span style="color:#000">QueryData&lt;/span> &lt;span style="color:#204a87;font-weight:bold">map&lt;/span>&lt;span style="color:#000;font-weight:bold">[&lt;/span>&lt;span style="color:#204a87;font-weight:bold">string&lt;/span>&lt;span style="color:#000;font-weight:bold">]&lt;/span>&lt;span style="color:#204a87;font-weight:bold">interface&lt;/span>&lt;span style="color:#000;font-weight:bold">{}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>This functions will store on query data on a MongoDB database, so the data inserted should have a
+BSON compatible structure.
+Each runtime has its respective database whose name is &lt;code>&amp;lt;runtime-id&amp;gt;-data&lt;/code>.&lt;/p>
+&lt;h3 id="logger">Logger&lt;/h3>
+&lt;p>You can use four log levels that will be shown on the Admin UI page for the Version it belongs.
+The SDK will take care of saving the timestamp and tag each log with metadata to help locate the
+source of the error.&lt;/p>
+&lt;p>These are the available levels and their variants for multiple parameters:&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-go" data-lang="go"> &lt;span style="color:#000">ctx&lt;/span>&lt;span style="color:#000;font-weight:bold">.&lt;/span>&lt;span style="color:#000">Logger&lt;/span>&lt;span style="color:#000;font-weight:bold">.&lt;/span>
+&lt;span style="color:#204a87;font-weight:bold">func&lt;/span> &lt;span style="color:#000">Debug&lt;/span>&lt;span style="color:#000;font-weight:bold">(&lt;/span>&lt;span style="color:#000">msg&lt;/span> &lt;span style="color:#204a87;font-weight:bold">string&lt;/span>&lt;span style="color:#000;font-weight:bold">)&lt;/span>
+&lt;span style="color:#204a87;font-weight:bold">func&lt;/span> &lt;span style="color:#000">Info&lt;/span>&lt;span style="color:#000;font-weight:bold">(&lt;/span>&lt;span style="color:#000">msg&lt;/span> &lt;span style="color:#204a87;font-weight:bold">string&lt;/span>&lt;span style="color:#000;font-weight:bold">)&lt;/span>
+&lt;span style="color:#204a87;font-weight:bold">func&lt;/span> &lt;span style="color:#000">Warn&lt;/span>&lt;span style="color:#000;font-weight:bold">(&lt;/span>&lt;span style="color:#000">msg&lt;/span> &lt;span style="color:#204a87;font-weight:bold">string&lt;/span>&lt;span style="color:#000;font-weight:bold">)&lt;/span>
+&lt;span style="color:#204a87;font-weight:bold">func&lt;/span> &lt;span style="color:#000">Error&lt;/span>&lt;span style="color:#000;font-weight:bold">(&lt;/span>&lt;span style="color:#000">msg&lt;/span> &lt;span style="color:#204a87;font-weight:bold">string&lt;/span>&lt;span style="color:#000;font-weight:bold">)&lt;/span>
+&lt;span style="color:#204a87;font-weight:bold">func&lt;/span> &lt;span style="color:#000">Debugf&lt;/span>&lt;span style="color:#000;font-weight:bold">(&lt;/span>&lt;span style="color:#000">format&lt;/span> &lt;span style="color:#204a87;font-weight:bold">string&lt;/span>&lt;span style="color:#000;font-weight:bold">,&lt;/span> &lt;span style="color:#000">a&lt;/span> &lt;span style="color:#ce5c00;font-weight:bold">...&lt;/span>&lt;span style="color:#204a87;font-weight:bold">interface&lt;/span>&lt;span style="color:#000;font-weight:bold">{})&lt;/span>
+&lt;span style="color:#204a87;font-weight:bold">func&lt;/span> &lt;span style="color:#000">Infof&lt;/span>&lt;span style="color:#000;font-weight:bold">(&lt;/span>&lt;span style="color:#000">format&lt;/span> &lt;span style="color:#204a87;font-weight:bold">string&lt;/span>&lt;span style="color:#000;font-weight:bold">,&lt;/span> &lt;span style="color:#000">a&lt;/span> &lt;span style="color:#ce5c00;font-weight:bold">...&lt;/span>&lt;span style="color:#204a87;font-weight:bold">interface&lt;/span>&lt;span style="color:#000;font-weight:bold">{})&lt;/span>
+&lt;span style="color:#204a87;font-weight:bold">func&lt;/span> &lt;span style="color:#000">Warnf&lt;/span>&lt;span style="color:#000;font-weight:bold">(&lt;/span>&lt;span style="color:#000">format&lt;/span> &lt;span style="color:#204a87;font-weight:bold">string&lt;/span>&lt;span style="color:#000;font-weight:bold">,&lt;/span> &lt;span style="color:#000">a&lt;/span> &lt;span style="color:#ce5c00;font-weight:bold">...&lt;/span>&lt;span style="color:#204a87;font-weight:bold">interface&lt;/span>&lt;span style="color:#000;font-weight:bold">{})&lt;/span>
+&lt;span style="color:#204a87;font-weight:bold">func&lt;/span> &lt;span style="color:#000">Errorf&lt;/span>&lt;span style="color:#000;font-weight:bold">(&lt;/span>&lt;span style="color:#000">format&lt;/span> &lt;span style="color:#204a87;font-weight:bold">string&lt;/span>&lt;span style="color:#000;font-weight:bold">,&lt;/span> &lt;span style="color:#000">a&lt;/span> &lt;span style="color:#ce5c00;font-weight:bold">...&lt;/span>&lt;span style="color:#204a87;font-weight:bold">interface&lt;/span>&lt;span style="color:#000;font-weight:bold">{})&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="measurements">Measurements&lt;/h3>
+&lt;p>Metrics can be stored in the runtime&amp;rsquo;s influx bucket anytime.&lt;br>
+In order to do so you can use the function &lt;code>save&lt;/code> from the &lt;code>Measurement&lt;/code>. To use this function you
+will have to declare previously tags and fields for your desired point, as if you were creating an influx point.&lt;br>
+The &lt;code>save&lt;/code> function will take as parameters first the collection name you desire to write to,
+then a dictionary of fields and a dictionary of tags.&lt;/p>
+&lt;p>By default, this function will attach to the saved tags to every metric the following tags:&lt;/p>
+&lt;ul>
+&lt;li>&amp;ldquo;version&amp;rdquo;: the version name to which this node belongs&lt;/li>
+&lt;li>&amp;ldquo;workflow&amp;rdquo;: the workflow name to which this node belongs&lt;/li>
+&lt;li>&amp;ldquo;node&amp;rdquo;: the node&amp;rsquo;s name&lt;/li>
+&lt;/ul>
+&lt;p>It is advised to document yourself about influxDB metrics before using this function.&lt;/p>
+&lt;p>Here is an example in Go:&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-go" data-lang="go">&lt;span style="color:#204a87;font-weight:bold">func&lt;/span> &lt;span style="color:#000">saveMetrics&lt;/span>&lt;span style="color:#000;font-weight:bold">(&lt;/span>&lt;span style="color:#000">ctx&lt;/span> &lt;span style="color:#ce5c00;font-weight:bold">*&lt;/span>&lt;span style="color:#000">kre&lt;/span>&lt;span style="color:#000;font-weight:bold">.&lt;/span>&lt;span style="color:#000">HandlerContext&lt;/span>&lt;span style="color:#000;font-weight:bold">,&lt;/span> &lt;span style="color:#000">component&lt;/span> &lt;span style="color:#204a87;font-weight:bold">string&lt;/span>&lt;span style="color:#000;font-weight:bold">)&lt;/span> &lt;span style="color:#000;font-weight:bold">{&lt;/span>
+&lt;span style="color:#000">tags&lt;/span> &lt;span style="color:#ce5c00;font-weight:bold">:=&lt;/span> &lt;span style="color:#204a87;font-weight:bold">map&lt;/span>&lt;span style="color:#000;font-weight:bold">[&lt;/span>&lt;span style="color:#204a87;font-weight:bold">string&lt;/span>&lt;span style="color:#000;font-weight:bold">]&lt;/span>&lt;span style="color:#204a87;font-weight:bold">string&lt;/span>&lt;span style="color:#000;font-weight:bold">{}&lt;/span>
+&lt;span style="color:#000">fields&lt;/span> &lt;span style="color:#ce5c00;font-weight:bold">:=&lt;/span> &lt;span style="color:#204a87;font-weight:bold">map&lt;/span>&lt;span style="color:#000;font-weight:bold">[&lt;/span>&lt;span style="color:#204a87;font-weight:bold">string&lt;/span>&lt;span style="color:#000;font-weight:bold">]&lt;/span>&lt;span style="color:#204a87;font-weight:bold">interface&lt;/span>&lt;span style="color:#000;font-weight:bold">{}{&lt;/span>
+&lt;span style="color:#4e9a06">&amp;#34;requested_component&amp;#34;&lt;/span>&lt;span style="color:#000;font-weight:bold">:&lt;/span> &lt;span style="color:#000">component&lt;/span>&lt;span style="color:#000;font-weight:bold">,&lt;/span>
+&lt;span style="color:#000;font-weight:bold">}&lt;/span>
+&lt;span style="color:#8f5902;font-style:italic">// influx is accessible via the ctx.Measurement variable
+&lt;/span>&lt;span style="color:#8f5902;font-style:italic">&lt;/span> &lt;span style="color:#000">ctx&lt;/span>&lt;span style="color:#000;font-weight:bold">.&lt;/span>&lt;span style="color:#000">Measurement&lt;/span>&lt;span style="color:#000;font-weight:bold">.&lt;/span>&lt;span style="color:#000">Save&lt;/span>&lt;span style="color:#000;font-weight:bold">(&lt;/span>&lt;span style="color:#4e9a06">&amp;#34;requests&amp;#34;&lt;/span>&lt;span style="color:#000;font-weight:bold">,&lt;/span> &lt;span style="color:#000">fields&lt;/span>&lt;span style="color:#000;font-weight:bold">,&lt;/span> &lt;span style="color:#000">tags&lt;/span>&lt;span style="color:#000;font-weight:bold">)&lt;/span>
+&lt;span style="color:#000">fields&lt;/span> &lt;span style="color:#000;font-weight:bold">=&lt;/span> &lt;span style="color:#204a87;font-weight:bold">map&lt;/span>&lt;span style="color:#000;font-weight:bold">[&lt;/span>&lt;span style="color:#204a87;font-weight:bold">string&lt;/span>&lt;span style="color:#000;font-weight:bold">]&lt;/span>&lt;span style="color:#204a87;font-weight:bold">interface&lt;/span>&lt;span style="color:#000;font-weight:bold">{}{&lt;/span>
+&lt;span style="color:#4e9a06">&amp;#34;called_node&amp;#34;&lt;/span>&lt;span style="color:#000;font-weight:bold">:&lt;/span> &lt;span style="color:#4e9a06">&amp;#34;etl&amp;#34;&lt;/span>&lt;span style="color:#000;font-weight:bold">,&lt;/span>
+&lt;span style="color:#000;font-weight:bold">}&lt;/span>
+&lt;span style="color:#000">ctx&lt;/span>&lt;span style="color:#000;font-weight:bold">.&lt;/span>&lt;span style="color:#000">Measurement&lt;/span>&lt;span style="color:#000;font-weight:bold">.&lt;/span>&lt;span style="color:#000">Save&lt;/span>&lt;span style="color:#000;font-weight:bold">(&lt;/span>&lt;span style="color:#4e9a06">&amp;#34;number_of_calls&amp;#34;&lt;/span>&lt;span style="color:#000;font-weight:bold">,&lt;/span> &lt;span style="color:#000">fields&lt;/span>&lt;span style="color:#000;font-weight:bold">,&lt;/span> &lt;span style="color:#000">tags&lt;/span>&lt;span style="color:#000;font-weight:bold">)&lt;/span>
+&lt;span style="color:#000;font-weight:bold">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="predictions">Predictions&lt;/h3>
+&lt;p>To help to analyze and visualize the reliability of a model, prediction&amp;rsquo;s data can be stored through
+the &lt;code>save&lt;/code> function given by the &lt;em>prediction&lt;/em> attribute of the context. This function receives a
+timestamp, the predicted value as string, and the real value as string. This data is stored in a
+MongoDB database named &lt;code>&amp;lt;runtime-id&amp;gt;-data&lt;/code>.&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-go" data-lang="go"> &lt;span style="color:#000">ctx&lt;/span>&lt;span style="color:#000;font-weight:bold">.&lt;/span>&lt;span style="color:#000">Prediction&lt;/span>&lt;span style="color:#000;font-weight:bold">.&lt;/span>&lt;span style="color:#000">Save&lt;/span>&lt;span style="color:#000;font-weight:bold">(&lt;/span>&lt;span style="color:#000">time&lt;/span>&lt;span style="color:#000;font-weight:bold">.&lt;/span>&lt;span style="color:#000">Now&lt;/span>&lt;span style="color:#000;font-weight:bold">(),&lt;/span> &lt;span style="color:#4e9a06">&amp;#34;test-predicted-value&amp;#34;&lt;/span>&lt;span style="color:#000;font-weight:bold">,&lt;/span> &lt;span style="color:#4e9a06">&amp;#34;test-true-value&amp;#34;&lt;/span>&lt;span style="color:#000;font-weight:bold">)&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>Docs: Observability</title><link>https://www.konstellation.io/docs/kre/30_user/70_observavility/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://www.konstellation.io/docs/kre/30_user/70_observavility/</guid><description>
+&lt;h2 id="logs">Logs&lt;/h2>
+&lt;p>Runtimes also have a log console embedded within them, you can access the console by clicking the &lt;code>&amp;gt;_&lt;/code> icon in the top right corner of your desired workflow.&lt;/p>
+&lt;p>Runners will log some useful information as well as handling and reporting errors.
+Custom logs can be added from the nodes using the &lt;code>logger&lt;/code> included in the &lt;a href="https://www.konstellation.io/docs/kre/30_user/60_kais_runner_sdk/#context">context&lt;/a> object.&lt;/p>
+&lt;p>Here goes a quick example written in GoLang, this is the way we could log every time our handler is invoked.&lt;/p>
+&lt;p>&lt;code>ctx.Logger.Info(&amp;quot;[handler invoked]&amp;quot;)&lt;/code>&lt;/p>
+&lt;p>Info given to the logger in the form of a string will later on be added some metadata, such as the workflow and node from where it comes and the time the log was created.&lt;/p>
+&lt;p>This is how the log console looks like:&lt;/p>
+&lt;div class="card rounded p-2 td-post-card mb-4 mt-4" style="max-width: 1210px">
+&lt;img class="card-img-top" src="https://www.konstellation.io/docs/kre/30_user/70_observavility/log_example_hu426d7684722e20ababe33b6919daa78c_212849_1200x0_resize_catmullrom_2.png" width="1200" height="524">
+&lt;/div>
+&lt;h2 id="functional-metrics">Functional Metrics&lt;/h2>
+&lt;p>Metrics generated by nodes are saved through an &lt;em>InfluxDB&lt;/em> client then displayed by a &lt;em>Chronograf&lt;/em> instance.&lt;/p>
+&lt;p>If you are not familiar with &lt;em>InfluxDB&lt;/em> and &lt;em>Flux&lt;/em> queries, we recommend that you refer to our training documentation uploaded in our Google Drive regarding the usage and good practices of &lt;em>InfluxDB&lt;/em>.&lt;/p>
+&lt;h3 id="influxdb">InfluxDB&lt;/h3>
+&lt;p>KAI Server containerizes and deploys an InfluxDB image responsible for the handling and usage of metrics. Each runtime
+has its own influx bucket, to which the nodes can save metrics through the &lt;a href="https://www.konstellation.io/docs/kre/30_user/60_kais_runner_sdk/#context">context&lt;/a> object.&lt;/p>
+&lt;h3 id="chronograf">Chronograf&lt;/h3>
+&lt;p>A Chronograf image will also be containerized and deployed by KAI Server. Chronograf will consume data from the InfluxDB
+through &lt;em>Flux&lt;/em> queries and then display it in dashboards. To create this queries, it&amp;rsquo;s important to remember that each runtime
+has its own databases whose name is the runtime ID.&lt;/p>
+&lt;p>Several dashboards can be contained within Chronograf, one for each project for example.&lt;/p>
+&lt;h4 id="dashboards">Dashboards&lt;/h4>
+&lt;p>Metrics need context and form, otherwise they would just be rows of data with no meaning.
+Dashboards contain several cells, each will display filtered data by a given visualization format, giving data context and form. A dashboard can contain several cells of different size, thematic and purpose.&lt;/p>
+&lt;p>Cells are calculated in two steps. The first one being a &lt;em>Flux&lt;/em> query that retrieves, filters and processes data, then this data will be given a display format, whether it be a table, a line graph or a counter.&lt;br>
+It is important to choose for the cell a proper and fitting visual format, so data can have a proper meaning. Data can also be grouped by tags, so several contexts can be displayed in the same cell.&lt;/p>
+&lt;p>Here is an example of a complete dashboard from our training repo.&lt;/p>
+&lt;div class="card rounded p-2 td-post-card mb-4 mt-4" style="max-width: 1210px">
+&lt;img class="card-img-top" src="https://www.konstellation.io/docs/kre/30_user/70_observavility/chronograf_dashboard_example_hu50d52fab257badc7e52070538e1cfee4_170372_1200x0_resize_catmullrom_2.png" width="1200" height="613">
+&lt;/div></description></item></channel></rss>
