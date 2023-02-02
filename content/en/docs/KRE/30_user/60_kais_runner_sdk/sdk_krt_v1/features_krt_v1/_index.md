@@ -1,9 +1,8 @@
 ---
-title: "Features"
-linkTitle: "Features"
-weight: 70
+title: "Runner features"
 description: >
-  Current features available to users
+  Features available to runners compatible with KRT V1
+weight: 10
 ---
 
 ## Early Reply
@@ -21,10 +20,9 @@ Remember that the entrypoint can only be answered once. So if this function is c
 subsequent replies will be discarded by the runner as a fail-safe procedure.
 
 Here is an example in Go:  
-(This example displays usage within the multi-response feature approach)
 
 ```go
-func handler(ctx *kre.HandlerContext, data *any.Any) error {
+func handler(ctx *kre.HandlerContext, data *any.Any) (proto.Message, error) {
   ctx.Logger.Info("[handler invoked]")
 
   req := &Request{}
@@ -36,7 +34,7 @@ func handler(ctx *kre.HandlerContext, data *any.Any) error {
 
   ...
 
-  return ctx.SendOutput(res)
+  return res, nil
 }
 ```
 
@@ -57,10 +55,9 @@ Remember that the entrypoint can only be answered once. So if this several repli
 subsequent replies will be discarded by the runner as a fail-safe procedure.
 
 Here is an example in Go:  
-(This example displays usage within the multi-response feature approach)
 
 ```go
-func handler(ctx *kre.HandlerContext, data *any.Any) error {
+func handler(ctx *kre.HandlerContext, data *any.Any) (proto.Message, error) {
   ctx.Logger.Info("[handler invoked]")
 
   req := &Request{}
@@ -71,13 +68,13 @@ func handler(ctx *kre.HandlerContext, data *any.Any) error {
   if conditionExample {
    ctx.SetEarlyExit()
    finalRes := &proto.Response{
-    Msg: "Request couldn't be processed"
+    Msg: "This request will not be processed"
    }
-   return ctx.SendOutput(finalRes)
+   return finalRes, nil
   }
 
   ...
 
-  return ctx.SendOutput(res)
+  return res, nil
 }
 ```

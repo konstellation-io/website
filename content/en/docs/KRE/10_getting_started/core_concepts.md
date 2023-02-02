@@ -41,4 +41,4 @@ A workflow is composed by an entrypoint and as many nodes as you need to fulfill
 
 ### Nodes
 
-A node is an isolated process inside a workflow. They can be coded in `Python` or in `GoLang` and are designed to be scalable and asynchronous. Each node is deployed in a separated pod inside the cluster and they are connected to other nodes through an event broker.
+A node is an isolated process inside a workflow. They can be coded in `Python` or in `GoLang` and are designed to be scalable and asynchronous. Each node is deployed in a separated pod inside the cluster, nodes are connected to other nodes through an event broker.

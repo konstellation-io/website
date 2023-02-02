@@ -7,7 +7,49 @@ weight: 20
 
 A KRT yaml file is a declarative file describing the content of the KRT.
 It has general description of the Version, a GRPC entrypoint for the Runtime Version and
-nodes that are connected between each other to form workflows that will be access through GRPC services defined on the entrypoint.  
+nodes that are connected between each other to form workflows that will be accessed through GRPC
+services defined on the entrypoint.
+
+Here is an example:
+
+```yaml
+version: price-estimator-v3
+description: New Room Price predictions.
+
+entrypoint:
+  proto: public_input.proto
+  image: konstellation/kre-entrypoint:1.6.0
+
+config:
+  variables:
+    - OUTPUT_PRICE_CURRENCY
+
+nodes:
+  - name: etl
+    image: konstellation/kre-py:1.23.1
+    src: src/etl/main.py
+  - name: model
+    image: konstellation/kre-py:1.23.1
+    src: src/model/main.py
+  - name: output
+    image: konstellation/kre-py:1.23.1
+    src: src/output/main.py
+  - name: save-metric
+    image: konstellation/kre-py:1.23.1
+    src: src/save-prediction-metric/main.py
+
+workflows:
+  - name: ny-room-price
+    entrypoint: MakePrediction
+    sequential:
+      - etl
+      - model
+      - output
+  - name: save-metric
+    entrypoint: SavePredictionMetric
+    sequential:
+      - save-metric
+```
 
 ## Fields Specs
 
@@ -58,6 +100,6 @@ each other and with a service defined in the entrypoint proto file.
 
 - **workflows** (a list of):
   - **name**: an identifier text, must be unique in the workflow list.
-  - **entrypoint**: the name of a serviced defined in the proto buffer file of the entrypoint. See `entrypoint.proto` above.
+  - **entrypoint**: the name of a service defined in the proto buffer file of the entrypoint. See [Entrypoint](../../40_krt/#entrypoint).
   - **sequential**: a list of node names that are connected sequentially as part of this workflow. All names should
    exist on the node list defined above.
