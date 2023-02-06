@@ -18,21 +18,56 @@ enableMissingTranslationPlaceholders = true
 
 # Multi version config
 # (this is a hack for the multi-language feature)
-
 [languages]
+
 [languages.v1]
 title = "Konstellation"
 description = "Konstellation website"
 languageName ="V1"
 contentDir = "content/v1"
-
-# Weight used for sorting.
 weight = 1
+  [[languages.v1.menu.main]]
+    weight = 1
+    identifier = "installation"
+    name = "Installation"
+    url = "/installation/"
+  [[languages.v1.menu.main]]
+    weight = 2
+    identifier = "docs"
+    name = "Documentation"
+    url = "/docs/"
+  [[languages.v1.menu.main]]
+    weight = 3
+    identifier = "template"
+    name = "Template"
+    url = "/template/"
+
 [languages.v2]
 title = "Konstellation"
 description = "Konstellation website"
 languageName ="V2"
 contentDir = "content/v2"
+weight = 2
+  [[languages.v2.menu.main]]
+    weight = 1
+    identifier = "installation"
+    name = "Installation"
+    url = "/installation/"
+  [[languages.v2.menu.main]]
+    weight = 2
+    identifier = "docs"
+    name = "Documentation"
+    url = "/docs/"
+  [[languages.v2.menu.main]]
+    weight = 3
+    identifier = "template"
+    name = "Template"
+    url = "/template/"
+  [[languages.v2.menu.main]]
+    weight = 4
+    identifier = "demo"
+    name = "Demo"
+    url = "/demo/"
 
 disableKinds = ["taxonomy", "taxonomyTerm"]
 

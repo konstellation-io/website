@@ -158,8 +158,8 @@ that make coding a node focused solely on worrying about business logic.
 {{< imgproc version_architecture Resize "800x" />}}
 
 In KRT V2 handler functions can have any name, you can get more detailed info in
-[KRT V2 guide]({{< relref "docs/30_user/50_krt_v2" >}})
-and in the [KAI Server Runner SDK for KRT V2 Guide]({{< relref "docs/30_user/60_kais_runner_sdk/sdk_krt_v2" >}})
+[KRT V2 guide]({{< relref "docs/30_user/40_krt_v2" >}})
+and in the [KAI Server Runner SDK for KRT V2 Guide]({{< relref "docs/30_user/50_kais_runner_sdk/10_sdk" >}})
 
 {{< imgproc version_screenshot Resize "1200x" >}}
 Published version with 1 branched workflow (classificator) and a total of 6 nodes

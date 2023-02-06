@@ -97,7 +97,7 @@ that make coding a node focused solely on worrying about business logic.
 {{< imgproc version_architecture Resize "800x" />}}
 
 You can get more detailed info about nodes in [KRT V1 guide]({{< relref "docs/30_user/40_krt" >}})
-and in the [KAI Server Runner SDK for KRT V1 Guide]({{< relref "docs/30_user/60_kais_runner_sdk/sdk_krt_v1" >}})
+and in the [KAI Server Runner SDK for KRT V1 Guide]({{< relref "docs/30_user/50_kais_runner_sdk/10_sdk" >}})
 
 ### Workflow
 
