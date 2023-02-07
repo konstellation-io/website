@@ -36,11 +36,6 @@ weight = 1
     identifier = "docs"
     name = "Documentation"
     url = "/docs/"
-  [[languages.v1.menu.main]]
-    weight = 3
-    identifier = "template"
-    name = "Template"
-    url = "/template/"
 
 [languages.v2]
 title = "Konstellation"
