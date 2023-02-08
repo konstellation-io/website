@@ -43,7 +43,7 @@ Start by creating an empty project with the following folders and files:
 
 ### 2. Fill the `krt.yml`
 
-You can find more information regarding krt specifications [here]({{< relref "docs/30_user/40_krt_v2" >}}).
+You can find more information regarding krt specifications [here]({{< relref "docs/50_krt_v2" >}}).
 
 ```yaml
 version: greeter-v1
@@ -147,7 +147,7 @@ Start by initializing the Golang exitpoint node. Type when placed inside the _ex
 go mod init exitpoint
 ```
 
-Then define `init` and `handler` functions explained [here]({{< relref "docs/30_user/50_kais_runner_sdk/10_sdk" >}})
+Then define `init` and `handler` functions explained [here]({{< relref "docs/60_kais_runner_sdk/10_sdk" >}})
 
 Here is an example on how to code your files:
 
