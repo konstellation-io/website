@@ -1,0 +1,50 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Konstellation – Installation</title><link>https://www.konstellation.io/v2/installation/</link><description>Recent content in Installation on Konstellation</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><atom:link href="https://www.konstellation.io/v2/installation/index.xml" rel="self" type="application/rss+xml"/><item><title>Installation: Run KAI Server</title><link>https://www.konstellation.io/v2/installation/20_run_local/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://www.konstellation.io/v2/installation/20_run_local/</guid><description>
+&lt;h2 id="requirements">Requirements&lt;/h2>
+&lt;p>In order to start development on this project you will need these tools:&lt;/p>
+&lt;ul>
+&lt;li>&lt;strong>gettext&lt;/strong>: OS package to fill templates during deployment&lt;/li>
+&lt;li>&lt;strong>minikube&lt;/strong>: the local version of Kubernetes to deploy KAI Server&lt;/li>
+&lt;li>&lt;strong>helm&lt;/strong>: K8s package manager. Make sure you have v3+&lt;/li>
+&lt;li>&lt;strong>yq&lt;/strong>: YAML processor. Make sure you have v4+&lt;/li>
+&lt;li>&lt;strong>hostctl&lt;/strong>: Cli tool to manage entries in &lt;code>/etc/hosts&lt;/code> file&lt;/li>
+&lt;/ul>
+&lt;h2 id="local-environment">Local Environment&lt;/h2>
+&lt;p>KAI Server has a tool called &lt;code>krectl&lt;/code> to handle common actions you will need during development.&lt;/p>
+&lt;p>All the configuration needed to run KAI Server locally can be found in the &lt;code>.krectl.conf&lt;/code> file. Usually, you&amp;rsquo;ll be ok with the default values. Check Minikube&amp;rsquo;s parameters if you need to tweak the resources assigned to it.&lt;/p>
+&lt;p>Run &lt;code>help&lt;/code> to get info for each command:&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-sh" data-lang="sh">$&amp;gt; krectl.sh &lt;span style="color:#ce5c00;font-weight:bold">[&lt;/span>command&lt;span style="color:#ce5c00;font-weight:bold">]&lt;/span> --help
+// Outputs:
+krectl.sh -- a tool to manage KAI Server environment during development.
+syntax: krectl.sh &amp;lt;command&amp;gt; &lt;span style="color:#ce5c00;font-weight:bold">[&lt;/span>options&lt;span style="color:#ce5c00;font-weight:bold">]&lt;/span>
+commands:
+dev creates a &lt;span style="color:#204a87">complete&lt;/span> &lt;span style="color:#204a87">local&lt;/span> environment and auto-login to frontend.
+start starts minikube kre profile.
+stop stops minikube kre profile.
+login creates a login URL and open your browser automatically on the admin page.
+build calls docker to build all images inside minikube.
+deploy calls helm to create install/upgrade a kre release on minikube.
+delete calls kubectl to remove runtimes or versions.
+global options:
+h prints this help.
+v verbose mode.
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="install-local-environment">Install local environment&lt;/h3>
+&lt;p>To install KAI Server in your local environment:&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-sh" data-lang="sh">$&amp;gt; ./krectl.sh dev &lt;span style="color:#ce5c00;font-weight:bold">[&lt;/span>--hard&lt;span style="color:#ce5c00;font-weight:bold">]&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>This will install everything you need into the namespace specified in your development &lt;code>.krectl.conf&lt;/code> file.&lt;br>
+The &lt;code>Hard&lt;/code> flag will force starting from 0 all installation processes.&lt;/p>
+&lt;h3 id="login-to-local-environment">Login to local environment&lt;/h3>
+&lt;p>First, remember to edit your &lt;code>/etc/hosts&lt;/code>, see &lt;code>./krectl.sh dev&lt;/code> output for more details.&lt;/p>
+&lt;p>&lt;strong>NOTE&lt;/strong>: If you have the &lt;a href="https://github.com/guumaster/hostctl">hostctl&lt;/a> tool installed, updating &lt;code>/etc/hosts&lt;/code> will be done automatically too.&lt;/p>
+&lt;p>Now you can access the admin UI visiting the login URL that will be opened automatically by executing the following script:&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-sh" data-lang="sh">$&amp;gt; ./krectl.sh login &lt;span style="color:#ce5c00;font-weight:bold">[&lt;/span>--new&lt;span style="color:#ce5c00;font-weight:bold">]&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>You will see an output like this:&lt;/p>
+&lt;div class="highlight">&lt;pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-sh" data-lang="sh">⏳ Calling Admin API...
+Login &lt;span style="color:#204a87;font-weight:bold">done&lt;/span>. Open your browser at:
+🌎 http://admin.kre.local/signin/c7d024eb-ce35-4328-961a-7d2b79ee8988
+✔️ Done.
+&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>Installation: Customization</title><link>https://www.konstellation.io/v2/installation/30_customization/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://www.konstellation.io/v2/installation/30_customization/</guid><description>
+&lt;h2 id="about-customization">About customization&lt;/h2>
+&lt;p>Helm chart parameters are configured via a &lt;code>values.yaml&lt;/code> file or the &lt;code>--set&lt;/code> option.&lt;/p>
+&lt;p>It is possible to configure a lot of aspects of a KAI Server deployment, as depending on your environment and your use case the default values could not be enough. If that is the case, one or more custom &lt;code>values.yaml&lt;/code> files in conjunction with the &lt;code>--set&lt;/code> option can be used with these parameters to be applied when running Helm.&lt;/p>
+&lt;h2 id="chart-values">Chart Values&lt;/h2>
+&lt;p>Check &lt;a href="https://github.com/konstellation-io/kre/blob/main/helm/kre/CHART.md">here&lt;/a> for a complete list of chart values.&lt;/p></description></item></channel></rss>

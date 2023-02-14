@@ -1,0 +1,41 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Konstellation – Architectures</title><link>https://www.konstellation.io/docs/20_architecture/</link><description>Recent content in Architectures on Konstellation</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><atom:link href="https://www.konstellation.io/docs/20_architecture/index.xml" rel="self" type="application/rss+xml"/><item><title>Docs: KAI Server Architecture</title><link>https://www.konstellation.io/docs/20_architecture/10_kre_architecture/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://www.konstellation.io/docs/20_architecture/10_kre_architecture/</guid><description>
+&lt;p>KAI Server runs inside a kubernetes cluster in a single namespace. All components for the KAI Server are deployed in the same namespace (&lt;code>kre&lt;/code> by default).&lt;/p>
+&lt;h2 id="components">Components&lt;/h2>
+&lt;div class="card rounded p-2 td-post-card mb-4 mt-4" style="max-width: 1210px">
+&lt;img class="card-img-top" src="https://www.konstellation.io/docs/20_architecture/10_kre_architecture/kais_architecture_img_hud18d6d58d2dfc8c5233d1977631c0df3_88874_1200x0_resize_q75_catmullrom.jpg" width="1200" height="833">
+&lt;/div>
+&lt;p>The schema above shows the architecture inside KAI Server. It is a scalable and asynchronous architecture designed to seamless deploy process automation projects into production.&lt;/p>
+&lt;h3 id="admin-api">Admin API&lt;/h3>
+&lt;p>The Admin API is the central component of KAI Server. It is responsible for orchestrating all other components and executing user actions in the cluster.&lt;/p>
+&lt;h3 id="admin-ui">Admin UI&lt;/h3>
+&lt;p>This is the component that renders all the UI, where the users can interact with the Runtimes.&lt;/p>
+&lt;h3 id="k8-manager">K8 Manager&lt;/h3>
+&lt;p>This service exposes a gRPC service to encapsulate all Kubernetes related features and Prometheus queries to get metrics and alerts. The only service that is going to call this gRPC is the Admin API service when it&amp;rsquo;s needed to create new Kubernetes resources.&lt;/p>
+&lt;h3 id="mongodb">MongoDB&lt;/h3>
+&lt;p>This is the database where the Admin API stores all the objects needed to manage the server. Users, runtimes, versions, workflows and so on.&lt;/p>
+&lt;h3 id="nats">NATs&lt;/h3>
+&lt;p>NATs is the event broker that serves as the backbone of communications inside the Server. Nodes in Workflows make use of NATs to communicate with each other.&lt;/p>
+&lt;h4 id="influxdb">InfluxDB&lt;/h4>
+&lt;p>KAI Server also stores metrics, for this it is used an InfluxDB instance. All nodes can write any kind of metric anytime desired. By giving a measurement name, tags, fields and data as usage of Influx requires.&lt;/p>
+&lt;h4 id="chronograf">Chronograf&lt;/h4>
+&lt;p>Chronograf will display stored metrics in any form desired. For this &lt;em>Flux&lt;/em> queries are used within a given display format. These will display cells inside dashboards giving metrics meaning and context, valuable for analytics and supervision of projects.&lt;/p></description></item><item><title>Docs: Version Archiceture</title><link>https://www.konstellation.io/docs/20_architecture/20_runner_architecture/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://www.konstellation.io/docs/20_architecture/20_runner_architecture/</guid><description>
+&lt;p>When dealing with solutions at a user&amp;rsquo;s level our scope changes and narrows down to another set of issues.&lt;br>
+Our solutions will be coded into nodes, these nodes alongside an entrypoint will form a workflow,
+one or more workflows will form a version of a project.
+Projects can be versioned and several can be uploaded at the same time to your KAI Server.&lt;/p>
+&lt;p>Projects will then be run by a runner inside KAI Server, it looks something like this:&lt;/p>
+&lt;h2 id="version-architecture">Version architecture&lt;/h2>
+&lt;div class="card rounded p-2 td-post-card mb-4 mt-4" style="max-width: 1010px">
+&lt;img class="card-img-top" src="https://www.konstellation.io/docs/20_architecture/20_runner_architecture/versions_architecture_huea24e33026c95b9abf998275d7a011c7_46492_1000x0_resize_catmullrom_2.png" width="1000" height="544">
+&lt;/div>
+&lt;p>NATS acts as an event broker, when building our projects we must provide the order and ID of the nodes
+compromising our workflow, so remember, nodes will be executed in a specific order.&lt;br>
+Also, an entrypoint must be declared, so we can call our project. So, for the moment being we can
+make some calls to a started version from within the cluster.&lt;br>
+But what happens when we want to call a version from outside the cluster? We must then publish a version.&lt;/p>
+&lt;div class="card rounded p-2 td-post-card mb-4 mt-4" style="max-width: 1010px">
+&lt;img class="card-img-top" src="https://www.konstellation.io/docs/20_architecture/20_runner_architecture/versions_architecture_published_huf8336978e47763c5c094bbd922ac5d50_70267_1000x0_resize_catmullrom_2.png" width="1000" height="684">
+&lt;/div>
+&lt;p>A published version will expose an entrypoint through GRPC and an ingress, it will be hosted in an
+IP address. So external users can make use of this endpoint to send requests.&lt;br>
+Only one version can be published at a time in a KAI Server cluster.&lt;/p></description></item></channel></rss>
