@@ -1,7 +1,6 @@
 baseURL = "https://www.konstellation.io"
 languageCode = "en-us"
 title = "Konstellation"
-staticDir = ["assets"]
 
 theme = "docsy"
 
@@ -11,11 +10,59 @@ enableRobotsTXT = true
 enableGitInfo = true
 
 # Language settings
-contentDir = "content/en"
-defaultContentLanguage = "en"
+contentDir = "content/v1"
+defaultContentLanguage = "v1"
 defaultContentLanguageInSubdir = false
 # Useful when translating.
 enableMissingTranslationPlaceholders = true
+
+# Multi version config
+# (this is a hack for the multi-language feature)
+[languages]
+
+[languages.v1]
+title = "Konstellation"
+description = "Konstellation website"
+languageName ="V1"
+contentDir = "content/v1"
+weight = 1
+  [[languages.v1.menu.main]]
+    weight = 1
+    identifier = "installation"
+    name = "Installation"
+    url = "/installation/"
+  [[languages.v1.menu.main]]
+    weight = 2
+    identifier = "docs"
+    name = "Documentation"
+    url = "/docs/"
+
+[languages.v2]
+title = "Konstellation"
+description = "Konstellation website"
+languageName ="V2"
+contentDir = "content/v2"
+weight = 2
+  [[languages.v2.menu.main]]
+    weight = 1
+    identifier = "installation"
+    name = "Installation"
+    url = "/installation/"
+  [[languages.v2.menu.main]]
+    weight = 2
+    identifier = "docs"
+    name = "Documentation"
+    url = "/docs/"
+  [[languages.v2.menu.main]]
+    weight = 3
+    identifier = "template"
+    name = "Template"
+    url = "/template/"
+  [[languages.v2.menu.main]]
+    weight = 4
+    identifier = "demo"
+    name = "Demo"
+    url = "/demo/"
 
 disableKinds = ["taxonomy", "taxonomyTerm"]
 
@@ -49,23 +96,6 @@ anchor = "smart"
 #[services.googleAnalytics]
 # Comment out the next line to disable GA tracking. Also disables the feature described in [params.ui.feedback].
 # id = "UA-00000000-0"
-
-# Language configuration
-
-[languages]
-[languages.en]
-title = "Konstellation"
-description = "Konstellation website"
-languageName ="English"
-# Weight used for sorting.
-weight = 1
-#[languages.no]
-#title = "Goldydocs"
-#description = "Docsy er operativsystem for skyen"
-#languageName ="Norsk"
-#contentDir = "content/no"
-#time_format_default = "02.01.2006"
-#time_format_blog = "02.01.2006"
 
 [markup]
   [markup.goldmark]
@@ -107,7 +137,7 @@ url_latest_version = "https://example.com"
 # Repository configuration (URLs for in-page links to opening issues and suggesting changes)
 github_repo = "https://github.com/konstellation-io/website"
 # An optional link to a related project repo. For example, the sibling repository where your product code lives.
-# github_project_repo = "https://github.com/konstellation-io/kre"
+github_project_repo = "https://github.com/konstellation-io/kre"
 
 # Specify a value here if your content directory is not in your repo's root directory
 # github_subdir = ""
@@ -139,7 +169,7 @@ footer_about_disable = false
 # If you want this feature, but occasionally need to remove the "Feedback" section from a single page,
 # add "hide_feedback: true" to the page's front matter.
 [params.ui.feedback]
-enable = true
+enable = false
 # The responses that the user sees after clicking "yes" (the page was helpful) or "no" (the page was not helpful).
 yes = 'Glad to hear it! Please <a href="https://github.com/konstellation-io/website/issues/new">tell us how we can improve</a>.'
 no = 'Sorry to hear that. Please <a href="https://github.com/konstellation-io/website/issues/new">tell us how we can improve</a>.'
