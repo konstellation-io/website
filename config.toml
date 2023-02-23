@@ -1,6 +1,7 @@
 baseURL = "https://www.konstellation.io"
 languageCode = "en-us"
 title = "Konstellation"
+staticDir = ["assets"]
 
 theme = "docsy"
 
