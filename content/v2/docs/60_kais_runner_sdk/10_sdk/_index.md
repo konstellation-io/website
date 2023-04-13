@@ -20,7 +20,8 @@ import joblib
 
 async def init(ctx):
   ctx.logger.info("[worker init]")
-  ctx.set('model', joblib.load(ctx.path('models/model.joblib')))
+  
+  ctx.configuration.set('model', joblib.load(ctx.path('models/model.joblib')))
 ```
 
 ### Golang init example
@@ -33,10 +34,10 @@ import (
 )
 
 func handlerInit(ctx *kre.HandlerContext) {
-  ctx.Logger.Info("init handler")
-    
-  // Saves a value in the context internal registry
-  ctx.Set("greeting", "Hello")   
+  ctx.Logger.Info("worker init")
+
+  address := fakeModelLoader(ctx.Path("models/model.joblib"))
+  ctx.Configuration.Set("model", address)   
 }
 ```
 
