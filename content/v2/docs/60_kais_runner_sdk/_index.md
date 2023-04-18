@@ -146,12 +146,12 @@ MongoDB database named `<runtime-id>-data`.
 
 The object store allows users to upload large files, and it can be defined with
 project or workflow scope. __Project scope__ makes the object store accessible from
-all workflows, while __workflow scope__ makes it accessible only from the workflow 
+all workflows, while __workflow scope__ makes it accessible only from the workflow
 nodes.
 
-The creation of object stores is managed from the _krt.yaml_ file. Through the 
+The creation of object stores is managed from the _krt.yaml_ file. Through the
 context, users will be able to save, get and delete objects. The object store is
-ephemeral and, therefore, the persistence of the objects is ensured only during 
+ephemeral and, therefore, the persistence of the objects is ensured only during
 the execution in which they were created.
 
 Through the context, users will be able to save, get and delete objects.
@@ -170,31 +170,32 @@ await ctx.object_store.delete(key)
 ### Configuration
 
 Through configuration, users can store parameters in a key-value format for use
-elsewhere in the code. There are three configuration scopes, the __project scope__, 
-which is shared by all workflows in the project; the __workflow scope__, which is 
-shared by all workflow nodes; and the __node scope__, which is only accessible 
+elsewhere in the code. There are three configuration scopes, the __project scope__,
+which is shared by all workflows in the project; the __workflow scope__, which is
+shared by all workflow nodes; and the __node scope__, which is only accessible
 from the node itself.
 
 Through the context, users will be able to set, get and delete configuration.
 
 ```python
-# Set configuration
+# Set configuration without a scope, by default the scope will be set to "node"
 await ctx.configuration.save(key, value)
 
 # Set configuration from scope (scope should be "project", "workflow" or "node")
 await ctx.configuration.save(key, value, scope)
 
-# Get configuration
-object = await ctx.configuration.get(key)
+# Get configuration without scope. 
+# By default, it reads from the most specific scope to the least specific:
+# "node" scope, then "workflow" scope, and finally "project" scope.
+# If the configuration exists in multiple scopes, it will be overwritten
+# in the order mentioned above.configuration.get(key)
 
 # Get configuration from scope (scope should be "project", "workflow" or "node")
 object = await ctx.configuration.get(key, scope)
 
-# Delete
+# Delete configuration without scope, by default the scope will be set to "node"
 await ctx.configuration.delete(key)
 
 # Get configuration from scope (scope should be "project", "workflow" or "node")
 await ctx.configuration.delete(key, scope)
 ```
-
-
