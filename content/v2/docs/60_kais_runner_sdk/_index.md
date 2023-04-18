@@ -188,7 +188,8 @@ await ctx.configuration.save(key, value, scope)
 # By default, it reads from the most specific scope to the least specific:
 # "node" scope, then "workflow" scope, and finally "project" scope.
 # If the configuration exists in multiple scopes, it will be overwritten
-# in the order mentioned above.configuration.get(key)
+# in the order mentioned above.
+object = await ctx.configuration.get(key)
 
 # Get configuration from scope (scope should be "project", "workflow" or "node")
 object = await ctx.configuration.get(key, scope)
