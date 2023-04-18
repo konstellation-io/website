@@ -35,6 +35,9 @@ workflows:
         replicas: 1
         subscriptions:
           - "entrypoint"
+        objectStore:
+          name: emails
+          scope: workflow
 
       - name: email-classificator
         image: konstellation/kre-py:latest
@@ -43,6 +46,9 @@ workflows:
         replicas: 1
         subscriptions:
           - "etl"
+        objectStore:
+          name: emails
+          scope: workflow
 
       - name: repairs-handler
         image: konstellation/kre-go:latest
@@ -128,6 +134,7 @@ file and its subscriptions.
     this component, for the case of a python node. For a Golang node this field will point towards the generated bin file.
   - **gpu**(optional): defaults to false, if true the node will use gpu, only available for Nvidia GPU.
   - **replicas**(optional): defaults to 1, is the number of times this node will be replicated in the cluster.
+  - **objectStore**(optional): defines the name and the scope of the node's object store.
   - **subscriptions** (a list of): a list of other node names to which this node will subscribe to.
     It is also possible to filter down other node's outputs by adding a dot followed by a subtopic to a node's name. Example:
 
