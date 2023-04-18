@@ -18,8 +18,8 @@ functionality of nodes. These functions are implemented in different manners dep
 _KRT version_ being used. Refer to [KRT v1](../40_krt) and [KRT v2](../40_krt_v2) for more information.
 
 _KAI Server version_, _KRT version_ and _runner version_ are dependent of each other but only
-compatible in certain manners.  
-Runner features and implementation differ between the KRT version you are aiming for.  
+compatible in certain manners.
+Runner features and implementation differ between the KRT version you are aiming for.
 Please refer to [SDK KRT v1](./sdk_krt_v1) and [SDK KRT v2](./sdk_krt_v2) for more information.
 
 However, the _context_ object is common to all versions and will be explained here.
@@ -61,11 +61,11 @@ During any part of your workflows you may need to persist data or recover previo
 In those cases you can use the following functions of the context's DB attribute:
 
 ```golang
-    func Find(colName string, query QueryData, res interface{}) error 
+    func Find(colName string, query QueryData, res interface{}) error
     func Save(colName string, data interface{}) error
-    
+
     // QueryData is the following type:
-    type QueryData map[string]interface{} 
+    type QueryData map[string]interface{}
 ```
 
 This functions will store on query data on a MongoDB database, so the data inserted should have a
@@ -76,29 +76,29 @@ Each runtime has its respective database whose name is `<runtime-id>-data`.
 
 You can use four log levels that will be shown on the Admin UI page for the Version it belongs.
 The SDK will take care of saving the timestamp and tag each log with metadata to help locate the
-source of the error.  
+source of the error.
 
 These are the available levels and their variants for multiple parameters:
 
 ```go
     ctx.Logger.
-    
+
         func Debug(msg string)
         func Info(msg string)
         func Warn(msg string)
         func Error(msg string)
-    
+
         func Debugf(format string, a ...interface{})
-        func Infof(format string, a ...interface{}) 
-        func Warnf(format string, a ...interface{}) 
-        func Errorf(format string, a ...interface{}) 
+        func Infof(format string, a ...interface{})
+        func Warnf(format string, a ...interface{})
+        func Errorf(format string, a ...interface{})
 ```
 
 ### Measurements
 
-Metrics can be stored in the runtime's influx bucket anytime.  
+Metrics can be stored in the runtime's influx bucket anytime.
 In order to do so you can use the function `save` from the `Measurement`. To use this function you
-will have to declare previously tags and fields for your desired point, as if you were creating an influx point.  
+will have to declare previously tags and fields for your desired point, as if you were creating an influx point.
 The `save` function will take as parameters first the collection name you desire to write to,
 then a dictionary of fields and a dictionary of tags.
 
@@ -179,12 +179,12 @@ Through the context, users will be able to set, get and delete configuration.
 
 ```python
 # Set configuration without a scope, by default the scope will be set to "node"
-await ctx.configuration.save(key, value)
+await ctx.configuration.set(key, value)
 
 # Set configuration from scope (scope should be "project", "workflow" or "node")
-await ctx.configuration.save(key, value, scope)
+await ctx.configuration.set(key, value, scope)
 
-# Get configuration without scope. 
+# Get configuration without scope.
 # By default, it reads from the most specific scope to the least specific:
 # "node" scope, then "workflow" scope, and finally "project" scope.
 # If the configuration exists in multiple scopes, it will be overwritten
