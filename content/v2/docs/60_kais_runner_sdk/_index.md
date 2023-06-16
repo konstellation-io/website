@@ -154,17 +154,29 @@ context, users will be able to save, get and delete objects. The object store is
 ephemeral and, therefore, the persistence of the objects is ensured only during
 the execution in which they were created.
 
-Through the context, users will be able to save, get and delete objects.
+Through the context, users will be able to save, get, delete list and purge objects.
 
-```python
-# Save object
-await ctx.object_store.save(key, bytes(large_file, "utf-8"))
+```go
+// Save object
+err := ctx.ObjectStore.Save(key, []byte(value))
 
-# Get object
-object = await ctx.object_store.get(key)
+// Get object
+value, err := ctx.ObjectStore.Get(key)
 
-# Delete object
-await ctx.object_store.delete(key)
+// Delete object
+err := ctx.ObjectStore.Delete(key)
+
+// List objects on the object store
+objects, err := ctx.ObjectStore.List()
+
+// List ojbects on the object store with a filter
+objects, err := ctx.ObjectStore.List(regexp)
+
+// Purge objects from the object store
+err := ctx.ObjectStore.Purge()
+
+// Purge objects from the object store with a filter
+err := ctx.ObjectStore.Purge(regexp)
 ```
 
 ### Configuration
